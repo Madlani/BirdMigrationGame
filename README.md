@@ -8,4 +8,4 @@ Team 10-5 Members:
 
 Project Description:
 -repo url: https://github.com/cisc275/project-assignment-10-5.git
-Educational side scroller game about migratory and non-migratory birds. Intended auidence for 3rd grade students. Contains mini games that depict migration and the gathering of food and materials to build a nest. 
+Educational side scroller game about migratory and non-migratory birds. Intended audience for 3rd grade students. Contains mini games that depict migration and the gathering of food and materials to build a nest. 
