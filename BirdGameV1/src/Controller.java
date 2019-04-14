@@ -58,9 +58,6 @@ public class Controller implements ActionListener, KeyListener {
 			gameView.setMovement("_down_");
 		}
 		
-		
-		
-		
 	}
 
 	/** keyReleased()
