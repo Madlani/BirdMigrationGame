@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,15 +42,17 @@ public class Controller implements ActionListener, KeyListener {
 		frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(gameView.getFrameWidth(), gameView.getFrameHeight());
+		frame.setPreferredSize(new Dimension(gameModel.getFrameWidth(), gameModel.getFrameHeight()));
 
 
 		frame.add(ssv);
-		frame.pack();
+		frame.add(gameView.pauseButton);
+		//frame.pack();
 		
 		System.out.println("YEET");
 
 		frame.setVisible(true);
-		//button.setVisible(true);
+		gameView.pauseButton.setVisible(true);
 	}
 	
 	//starts our game, initializes the beginning View.

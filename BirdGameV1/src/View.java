@@ -33,10 +33,9 @@ public class View extends JPanel {
 	
 	public View() {
 		
-		
-		
 		// Creates a pause button
 		pauseButton = new JButton("Pause");
+		pauseButton.setBounds(80, 80, frameHeight, frameWidth);
 		this.add(pauseButton);
 		pauseButton.setActionCommand("Paused"); // action command used to track if button was pressed
 		
