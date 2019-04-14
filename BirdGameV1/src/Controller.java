@@ -31,7 +31,7 @@ public class Controller implements ActionListener, KeyListener {
 	public Controller() {
 		gameView = new View();
 		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
-		gameView.updateButton(this);
+		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
 		osprey = new Osprey();
 		
@@ -46,13 +46,13 @@ public class Controller implements ActionListener, KeyListener {
 
 
 		frame.add(ssv);
-		frame.add(gameView.pauseButton);
+		//frame.add(gameView.pauseButton);
 		//frame.pack();
 		
 		System.out.println("YEET");
 
 		frame.setVisible(true);
-		gameView.pauseButton.setVisible(true);
+		//gameView.pauseButton.setVisible(true);
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -91,24 +91,39 @@ public class Controller implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameView.setMovement("_right_");
 			osprey.moveRight();
+			System.out.println("right key pressed");
+			System.out.println(osprey.getXPosition());
+			System.out.println(osprey.getYPosition());
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameView.setMovement("_left_");
 			osprey.moveLeft();
+			System.out.println("left key pressed");
+			System.out.println(osprey.getXPosition());
+			System.out.println(osprey.getYPosition());
+
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameView.setMovement("_up_");
 			osprey.moveUp();
+			System.out.println("up key pressed");
+			System.out.println(osprey.getXPosition());
+			System.out.println(osprey.getYPosition());
+
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameView.setMovement("_down_");
 			osprey.moveDown();
+			System.out.println("down key pressed");
+			System.out.println(osprey.getXPosition());
+			System.out.println(osprey.getYPosition());
+
 		}
 		
 	}

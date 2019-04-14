@@ -34,10 +34,10 @@ public class View extends JPanel {
 	public View() {
 		
 		// Creates a pause button
-		pauseButton = new JButton("Pause");
-		pauseButton.setBounds(80, 80, frameHeight, frameWidth);
-		this.add(pauseButton);
-		pauseButton.setActionCommand("Paused"); // action command used to track if button was pressed
+		//pauseButton = new JButton("Pause");
+		//pauseButton.setBounds(80, 80, frameHeight, frameWidth);
+		//this.add(pauseButton);
+		//pauseButton.setActionCommand("Paused"); // action command used to track if button was pressed
 		
 		// Creates the array to store the bird images
 		birdAnimationArray = new BufferedImage[1][1];
@@ -151,9 +151,9 @@ public class View extends JPanel {
 		this.imgHeight = imgHeight;
 	}
 
-	public void updateButton(Controller controller) {
-		pauseButton.addActionListener(controller);
-	}
+	//public void updateButton(Controller controller) {
+	//	pauseButton.addActionListener(controller);
+	//}
 	
 }
 

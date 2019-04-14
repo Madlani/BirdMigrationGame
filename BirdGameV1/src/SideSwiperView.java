@@ -30,6 +30,7 @@ public class SideSwiperView extends View {
 	@Override
 	public void drawBackground() {
 		
+		
 	}
 	
 	private void loadImage() {
