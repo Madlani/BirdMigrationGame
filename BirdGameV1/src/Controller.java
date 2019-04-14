@@ -23,12 +23,14 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
 	final int DRAW_DELAY = 30;
+	Bird osprey;
 	
 	public Controller() {
 		gameView = new View();
 		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
 		gameView.updateButton(this);
 		gameView.addKeyListener(this);
+		osprey = new Osprey();
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -66,21 +68,25 @@ public class Controller implements ActionListener, KeyListener {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameView.setMovement("_right_");
+			osprey.moveRight();
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameView.setMovement("_left_");
+			osprey.moveLeft();
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameView.setMovement("_up_");
+			osprey.moveUp();
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameView.setMovement("_down_");
+			osprey.moveDown();
 		}
 		
 	}

@@ -34,11 +34,11 @@ public class Bird {
 		yPosition++;
 	}
 	
-	public int getxPosition() {
+	public int getXPosition() {
 		return xPosition;
 	}
 
-	public void setxPosition(int xPosition) {
+	public void setXPosition(int xPosition) {
 		this.xPosition = xPosition;
 	}
 
@@ -76,29 +76,29 @@ class BirdTest {
 	
 	@Test
 	public void testMoveLeft() {
-		testBird.setxPosition(5);
+		testBird.setXPosition(5);
 		testBird.moveLeft();
-		assertEquals(4, testBird.getxPosition());
+		assertEquals(4, testBird.getXPosition());
 	}
 	
 	@Test
 	public void testMoveRight() {
-		testBird.setxPosition(8);
+		testBird.setXPosition(8);
 		testBird.moveRight();
-		assertEquals(9, testBird.getxPosition());
+		assertEquals(9, testBird.getXPosition());
 	}
 	
 	@Test
 	public void testMoveUp() {
 		testBird.setYPosition(5);
 		testBird.moveUp();
-		assertEquals(4, testBird.getxPosition());
+		assertEquals(4, testBird.getYPosition());
 	}
 	
 	@Test
 	public void testMoveDown() {
 		testBird.setYPosition(5);
 		testBird.moveDown();
-		assertEquals(6, testBird.getxPosition());
+		assertEquals(6, testBird.getYPosition());
 	}
 }
