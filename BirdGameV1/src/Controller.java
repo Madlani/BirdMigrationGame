@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Timer;
+import javax.swing.Timer;
 
 import javax.swing.Action;
 import javax.swing.AbstractAction;
@@ -21,12 +21,14 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean controllerStart = false;
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
-	private boolean pauseButtonFlag = true;
+	private boolean pauseButtonFlag = false;
 	final int DRAW_DELAY = 30;
 	
 	public Controller() {
 		gameView = new View();
 		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
+		//gameView.updateButton(this);
+		//gameView.addKeyListener(this);
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -35,8 +37,8 @@ public class Controller implements ActionListener, KeyListener {
 		gameAction = new AbstractAction() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (pauseButtonFlag) {
-					// code to pause the game
+				if (!pauseButtonFlag) {
+					gameModel.updateLocationAndDirection();
 				}
 
 			}

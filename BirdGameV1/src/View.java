@@ -108,6 +108,10 @@ public class View extends JPanel {
 	public void setImgHeight(int imgHeight) {
 		this.imgHeight = imgHeight;
 	}
+
+	public void updateButton(Controller controller) {
+		pauseButton.addActionListener(controller);
+	}
 	
 }
 
