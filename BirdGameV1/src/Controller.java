@@ -32,13 +32,36 @@ public class Controller implements ActionListener, KeyListener {
 	// necessary methods to be implemented from super class
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
+		
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+		//Right arrow key 
+		if (e.getKeyCode() == 39) {
+			
+		}
+		
+		//Left arrow key 
+		if (e.getKeyCode() == 37) {
+			
+		}
+		
+		//Up arrow key 
+		if (e.getKeyCode() == 38) {
+			
+		}
+		
+		//Down arrow key 
+		if (e.getKeyCode() == 40) {
+			
+		}
+		
+		
 		
 	}
 
