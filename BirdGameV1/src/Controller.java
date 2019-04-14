@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.awt.event.KeyListener;
 import javax.swing.Timer;
 
 import javax.swing.Action;
+import javax.swing.JFrame;
 import javax.swing.AbstractAction;
 
 import org.junit.jupiter.api.Test;
@@ -31,6 +33,23 @@ public class Controller implements ActionListener, KeyListener {
 		gameView.updateButton(this);
 		gameView.addKeyListener(this);
 		osprey = new Osprey();
+		
+		SideSwiperView ssv = new SideSwiperView();
+		// Creates the frame and selects settings
+		JFrame frame = new JFrame();
+		frame.getContentPane().add(gameView);
+		frame.setBackground(Color.gray);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(gameView.getFrameWidth(), gameView.getFrameHeight());
+
+
+		frame.add(ssv);
+		frame.pack();
+		
+		System.out.println("YEET");
+
+		frame.setVisible(true);
+		//button.setVisible(true);
 	}
 	
 	//starts our game, initializes the beginning View.

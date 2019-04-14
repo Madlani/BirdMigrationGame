@@ -1,8 +1,13 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +15,7 @@ import org.junit.jupiter.api.Test;
 public class View extends JPanel {
 	
 	private Color background;
+	//BufferedImage backgroundImage = createImage("src/bird_images/background.png");
 	private BufferedImage[][] birdAnimationArray;
 	private BufferedImage[][] obstacleAnimationArray;
 	private String movement; 
@@ -26,18 +32,37 @@ public class View extends JPanel {
 	private int dir;
 	
 	public View() {
+		
+		
+		
+		// Creates a pause button
 		pauseButton = new JButton("Pause");
 		this.add(pauseButton);
 		pauseButton.setActionCommand("Paused"); // action command used to track if button was pressed
-
+		
+		// Creates the array to store the bird images
+		birdAnimationArray = new BufferedImage[1][1];
+		birdAnimationArray[0][0] = createImage("src/bird_images/osprey.png");
+		
+		//Allows key presses to work with JPanel
+		this.setFocusable(true);
+		this.setVisible(true);
 	}
 	
 	public void drawBackground() {
 		
 	}
 	
-	public void createImage() {
-		
+	private BufferedImage createImage(String name) {
+
+		BufferedImage bufferedImage;
+		try {
+			bufferedImage = ImageIO.read(new File(name));
+			return bufferedImage;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void paintComponent() {
