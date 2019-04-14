@@ -16,22 +16,22 @@ public class Bird {
 	
 	//Decrements the xPosition of the bird (in order for it to move left)
 	public void moveLeft() {
-		xPosition--;
+		xPosition-= 5;
 	}
 	
 	//Increments the xPosition of the bird (in order for it to move right)
 	public void moveRight() {
-		xPosition++;
+		xPosition+= 5;
 	}
 	
 	//Decrements the yPosition of the bird (in order for it to move up)
 	public void moveUp() {
-		yPosition--;
+		yPosition-= 5;
 	}
 	
 	//Increments the yPosition of the bird (in order for it to move down)
 	public void moveDown() {
-		yPosition++;
+		yPosition+= 5;
 	}
 	
 	public int getXPosition() {

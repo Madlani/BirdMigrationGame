@@ -10,13 +10,13 @@ import org.junit.Test;
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
 	
-	private Image backgroundImage;
+	private Image backgroundImage, birdImg;
+	public int imgVelX = -2;
 	
 	public SideSwiperView() {
 		super();
 		
 		// Creates a JPanel for the background
-		//loadImage();
 		this.setPreferredSize(new Dimension(736, 581));
 		//this.setLayout(null);
 		this.loadImage();
@@ -36,14 +36,18 @@ public class SideSwiperView extends View {
 	
 	private void loadImage() {
 		ImageIcon icon = new ImageIcon("src/bird_images/background.png");
+		ImageIcon icon2 = new ImageIcon("src/bird_images/osprey.png");
 		backgroundImage = icon.getImage();
+		birdImg = icon2.getImage();
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		System.out.println("testing paintComponent");
-		g.drawImage(backgroundImage, 0, 0, null); // draws image in the window
-		System.out.println("testing component after");
+		g.drawImage(backgroundImage, imgVelX-=imgVelX, 0, null); // draws image in the window
+		g.drawImage(birdImg, Controller.getBird().getXPosition(), Controller.getBird().getYPosition(), null);
+		this.update(Controller.getBird().getXPosition(), Controller.getBird().getYPosition(), imgVelX);
+		System.out.println(Controller.getBird().getXPosition() + ", " +Controller.getBird().getYPosition());
 	}
 	
 	
