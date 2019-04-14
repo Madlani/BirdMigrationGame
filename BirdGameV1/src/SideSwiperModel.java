@@ -12,6 +12,32 @@ public class SideSwiperModel extends Model {
 	//updateLocationAndDirection() will contain the logic that allows the bird to move in the x or y direction based on user input
 	@Override
 	public void updateLocationAndDirection() {
+    	yloc+=(yIncr*yVector); // updates the y-direction
+    	
+    	// Updates the x vectors when the orc moves off the screen
+    	if (xloc + imgWidth >= frameWidth) {
+			xVector = -1; // orc is moving off the screen in the right direction; start moving left
+		} else if (xloc <= 0) {
+			xVector = 1; // orc is moving off the screen in the left direction; start moving right
+		}
+    	
+    	// Updates the x vectors when the orc moves off the screen
+    	if (yloc + imgHeight >= frameHeight) {
+			yVector = -1; // orc is moving off screen in the up direction; start moving down
+		} else if (yloc + (frameHeight / 10) <= 0) {
+			yVector = 1; // orc is moving off screen in the down direction; start moving up
+		}
+    	
+    	// Determines the direction the orc is moving based using the x and y vectors
+    	if (xVector == 1 && yVector == 1) {
+    		direction = SE;
+    	} else if (xVector == -1 && yVector == -1) {
+    		direction = NW;
+    	} else if (xVector == 1 && yVector == -1) {
+    		direction = NE;
+    	} else if (xVector == -1 && yVector == 1) {
+    		direction = SW;
+    	}
 		
 	}
 	

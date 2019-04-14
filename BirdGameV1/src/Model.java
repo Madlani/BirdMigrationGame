@@ -9,8 +9,9 @@ public class Model {
 	private int frameWidth;
 	private int imgHeight;
 	private int imgWidth;
-	private int xloc, yloc;
-	private int xVector, yVector;
+	protected int xloc, yloc;
+	protected int xVector, yVector;
+	protected int xIncr, yIncr;
 	private int direction;
 	private int health;
 	
