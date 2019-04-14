@@ -39,7 +39,7 @@ public class Controller implements ActionListener, KeyListener {
 		// Creates the frame and selects settings
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(gameView);
-		frame.setBackground(Color.gray);
+		//frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(gameView.getFrameWidth(), gameView.getFrameHeight());
 		frame.setPreferredSize(new Dimension(gameModel.getFrameWidth(), gameModel.getFrameHeight()));

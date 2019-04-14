@@ -16,9 +16,10 @@ public class SideSwiperView extends View {
 		super();
 		
 		// Creates a JPanel for the background
-		loadImage();
+		//loadImage();
 		this.setPreferredSize(new Dimension(736, 581));
-		this.setLayout(null);
+		//this.setLayout(null);
+		this.loadImage();
 	}
 	
 	//Draws the blocks which must be collided with to answer questions
@@ -34,14 +35,17 @@ public class SideSwiperView extends View {
 	}
 	
 	private void loadImage() {
-		ImageIcon icon = new ImageIcon("src/bird_images/osprey.png");
+		ImageIcon icon = new ImageIcon("src/bird_images/background.png");
 		backgroundImage = icon.getImage();
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		System.out.println("testing paintComponent");
 		g.drawImage(backgroundImage, 0, 0, null); // draws image in the window
+		System.out.println("testing component after");
 	}
+	
 	
 }
 
