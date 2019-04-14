@@ -1,10 +1,14 @@
 import static org.junit.Assert.assertEquals;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
+
 import javax.swing.Action;
+import javax.swing.AbstractAction;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +22,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = true;
+	final int DRAW_DELAY = 30;
 	
 	public Controller() {
 		gameView = new View();
@@ -25,8 +30,25 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	//starts our game, initializes the beginning View.
+	@SuppressWarnings("serial")
 	public void start() {
+		gameAction = new AbstractAction() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (pauseButtonFlag) {
+					// code to pause the game
+				}
+
+			}
+		};
 		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				Timer t = new Timer(DRAW_DELAY, gameAction);
+				t.start();
+			}
+		});
+
 	}
 
 	
