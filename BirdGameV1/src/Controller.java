@@ -19,7 +19,8 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean actionPerformed = false;
 	
 	public Controller() {
-		// TODO Auto-generated constructor stub
+		gameView = new View();
+		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
 	}
 	
 	//starts our game, initializes the beginning View.

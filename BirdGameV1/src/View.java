@@ -9,7 +9,13 @@ public class View extends JPanel {
 	
 	private Color background;
 	private BufferedImage[][] birdAnimationArray;
-	private BufferedImage[][] obstacleAnimationArray; 
+	private BufferedImage[][] obstacleAnimationArray;
+	private String movement; 
+	
+	private int frameWidth = 800;
+	private int frameHeight = 800;
+	private int imgWidth = 165;
+	private int imgHeight = 165;
 	
 	public void drawBackground() {
 		
@@ -52,6 +58,46 @@ public class View extends JPanel {
 	public void setObstacleAnimationArray(BufferedImage[][] obstacleAnimationArray) {
 		this.obstacleAnimationArray = obstacleAnimationArray;
 	}
+	
+	public String getMovement() {
+		return this.movement;
+	}
+	public void setMovement(String movement) {
+		this.movement = movement;
+	}
+
+	public int getFrameWidth() {
+		return frameWidth;
+	}
+
+	public void setFrameWidth(int frameWidth) {
+		this.frameWidth = frameWidth;
+	}
+
+	public int getFrameHeight() {
+		return frameHeight;
+	}
+
+	public void setFrameHeight(int frameHeight) {
+		this.frameHeight = frameHeight;
+	}
+
+	public int getImgWidth() {
+		return imgWidth;
+	}
+
+	public void setImgWidth(int imgWidth) {
+		this.imgWidth = imgWidth;
+	}
+
+	public int getImgHeight() {
+		return imgHeight;
+	}
+
+	public void setImgHeight(int imgHeight) {
+		this.imgHeight = imgHeight;
+	}
+	
 }
 
 //-----------------------------------------------------------------------------------------------------

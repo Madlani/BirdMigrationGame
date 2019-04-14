@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class WhackAMoleModel extends Model {
 	private int resourceCount;
 	
+	public WhackAMoleModel(int w, int h, int iW, int iH) {
+		super(w, h, iW, iH);
+	}
+	
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
 	@Override
 	public boolean detectCollisions() {
@@ -35,7 +39,7 @@ class WhackAMoleModelTest {
 
 	@Test
 	public void testDetectCollisions() {
-		WhackAMoleModel test = new WhackAMoleModel();
+		WhackAMoleModel test = new WhackAMoleModel(5, 5, 10, 10);
 		assertEquals(false, test.detectCollisions());
 		assertFalse(test.detectCollisions());
 	}

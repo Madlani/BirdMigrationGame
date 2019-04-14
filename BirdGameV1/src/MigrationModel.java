@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class MigrationModel extends Model {
 	
+	public MigrationModel(int w, int h, int iW, int iH) {
+		super(w, h, iW, iH);
+	}
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
 	@Override
 	public boolean detectCollisions() {
@@ -31,14 +34,14 @@ class MigrationModelTest {
 
 	@Test
 	public void testDetectCollisions() {
-		MigrationModel test = new MigrationModel();
+		MigrationModel test = new MigrationModel(5, 5, 10, 10);
 		assertEquals(false, test.detectCollisions());
 		assertFalse(test.detectCollisions());
 	}
 	
 	@Test
 	public void testUpdateLocationAndDirection() {
-		MigrationModel test = new MigrationModel();
+		MigrationModel test = new MigrationModel(5, 5, 10, 10);
 		test.setXloc(0);
 		test.setxVector(1);
 		test.updateLocationAndDirection();

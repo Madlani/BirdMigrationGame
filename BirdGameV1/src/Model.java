@@ -14,6 +14,14 @@ public class Model {
 	private int direction;
 	private int health;
 	
+
+    public Model(int w, int h, int iw, int ih) {
+    	this.frameWidth = w;
+    	this.frameHeight = h;
+    	this.imgWidth = iw;
+    	this.imgHeight = ih;
+    }
+	
 	//updateLocationAndDirection() will contain the logic that allows the bird to move in the x or y direction based on user input
 	public void updateLocationAndDirection() {
 		
@@ -112,7 +120,7 @@ class ModelTest {
 
 	@Test
 	public void testUpdateLocationAndDirection() {
-		Model test = new Model();
+		Model test = new Model(5, 5, 10, 10);
 		test.setXloc(0);
 		test.setxVector(1);
 		test.updateLocationAndDirection();
@@ -122,7 +130,7 @@ class ModelTest {
 	
 	@Test
 	public void testDetectCollisions() {
-		Model test = new Model();
+		Model test = new Model(5, 5, 10, 10);
 		assertEquals(false, test.detectCollisions());
 		assertFalse(test.detectCollisions());
 	}

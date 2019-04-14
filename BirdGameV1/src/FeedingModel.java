@@ -6,6 +6,9 @@ import org.junit.Test;
 
 public class FeedingModel extends Model {
 	
+	public FeedingModel(int w, int h, int iW, int iH) {
+		super(w, h, iW, iH);
+	}
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
 	@Override
 	public boolean detectCollisions() {
@@ -34,14 +37,14 @@ public class FeedingModel extends Model {
 class FeedingModelTest {
 	@Test
 	public void testDetectCollisions() {
-		FeedingModel test = new FeedingModel();
+		FeedingModel test = new FeedingModel(5, 5, 10, 10);
 		assertEquals(false, test.detectCollisions());
 		assertFalse(test.detectCollisions());
 	}
 	
 	@Test
 	public void testUpdateLocationAndDirection() {
-		FeedingModel test = new FeedingModel();
+		FeedingModel test = new FeedingModel(5, 5, 10, 10);
 		test.setXloc(0);
 		test.setxVector(1);
 		test.updateLocationAndDirection();
@@ -56,7 +59,7 @@ class FeedingModelTest {
 	
 	@Test
 	public void testIsHoldingFish() {
-		FeedingModel test = new FeedingModel();
+		FeedingModel test = new FeedingModel(5, 5, 10, 10);
 		assertEquals(false, test.isHoldingFish());
 		assertFalse(test.isHoldingFish());
 	}

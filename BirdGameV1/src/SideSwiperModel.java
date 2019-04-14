@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class SideSwiperModel extends Model {
 	
+	public SideSwiperModel(int w, int h, int iW, int iH) {
+		super(w, h, iW, iH);
+	}
+	
 	//updateLocationAndDirection() will contain the logic that allows the bird to move in the x or y direction based on user input
 	@Override
 	public void updateLocationAndDirection() {
@@ -50,7 +54,7 @@ class SideSwiperModelTest {
 	
 	@Test
 	public void testUpdateLocationAndDirection() {
-		SideSwiperModel test = new SideSwiperModel();
+		SideSwiperModel test = new SideSwiperModel(5, 5, 10, 10);
 		test.setXloc(0);
 		test.setxVector(1);
 		test.updateLocationAndDirection();
@@ -60,7 +64,7 @@ class SideSwiperModelTest {
 	
 	@Test
 	public void testUpdateBirdLocation() {
-		SideSwiperModel test = new SideSwiperModel();
+		SideSwiperModel test = new SideSwiperModel(5, 5, 10, 10);
 		test.setXloc(0);
 		test.setYloc(1);
 		test.updateLocationAndDirection();
@@ -70,7 +74,7 @@ class SideSwiperModelTest {
 	
 	@Test
 	public void testUpdateObstacleLocation() {
-		SideSwiperModel test = new SideSwiperModel();
+		SideSwiperModel test = new SideSwiperModel(5, 5, 10, 10);
 		test.setXloc(0);
 		test.setYloc(1);
 		test.updateLocationAndDirection();
@@ -80,7 +84,7 @@ class SideSwiperModelTest {
 	
 	@Test
 	public void testDetectCollisions() {
-		SideSwiperModel test = new SideSwiperModel();
+		SideSwiperModel test = new SideSwiperModel(5, 5, 10, 10);
 		assertEquals(false, test.detectCollisions());
 		assertFalse(test.detectCollisions());
 	}
@@ -97,7 +101,7 @@ class SideSwiperModelTest {
 	
 	@Test
 	public void testMoveObstacles() {
-		Model test = new SideSwiperModel();
+		Model test = new SideSwiperModel(5, 5, 10, 10);
 		test.setXloc(0);
 		test.setYloc(0);
 		int xloc1 = test.getXloc();
