@@ -42,10 +42,14 @@ public class Controller implements ActionListener, KeyListener {
 		
 	}
 
+	/** keyReleased()
+	 * returns the bird to the default movement, which is forward
+	 * sets the count to be the frame count
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		gameView.setMovement("_forward_");
+		gameView.setCount(gameView.getFRAME_COUNT());
 	}
 
 	@Override
