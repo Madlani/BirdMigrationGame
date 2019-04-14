@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,15 @@ public class View extends JPanel {
 	private int frameHeight = 800;
 	private int imgWidth = 165;
 	private int imgHeight = 165;
+	public JButton pauseButton;
+	public boolean pauseButtonFlag = false;
+	
+	public View() {
+		pauseButton = new JButton("Pause");
+		this.add(pauseButton);
+		pauseButton.setActionCommand("Paused"); // action command used to track if button was pressed
+
+	}
 	
 	public void drawBackground() {
 		

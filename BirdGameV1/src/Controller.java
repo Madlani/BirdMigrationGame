@@ -17,6 +17,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean controllerStart = false;
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
+	private boolean pauseButtonFlag = true;
 	
 	public Controller() {
 		gameView = new View();
@@ -71,7 +72,10 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if ("Paused".contentEquals(e.getActionCommand())) {
+			gameView.pauseButton.setFocusable(false);
+			pauseButtonFlag = !pauseButtonFlag;
+		}
 		
 	}
 	
