@@ -32,34 +32,32 @@ public class Controller implements ActionListener, KeyListener {
 	// necessary methods to be implemented from super class
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub		
-		
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 		//Right arrow key 
-		if (e.getKeyCode() == 39) {
-			
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			gameView.setMovement("_right_");
 		}
 		
 		//Left arrow key 
-		if (e.getKeyCode() == 37) {
-			
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			gameView.setMovement("_left_");
 		}
 		
 		//Up arrow key 
-		if (e.getKeyCode() == 38) {
-			
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			gameView.setMovement("_up_");
 		}
 		
 		//Down arrow key 
-		if (e.getKeyCode() == 40) {
-			
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			gameView.setMovement("_down_");
 		}
+		
 		
 		
 		
@@ -72,9 +70,8 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		gameView.setMovement("_forward_");
-		gameView.setCount(gameView.getFRAME_COUNT());
+		//gameView.setCount(gameView.getFRAME_COUNT());
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
