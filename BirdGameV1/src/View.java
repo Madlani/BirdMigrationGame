@@ -21,6 +21,10 @@ public class View extends JPanel {
 	public JButton pauseButton;
 	public boolean pauseButtonFlag = false;
 	
+	private int x;
+	private int y;
+	private int dir;
+	
 	public View() {
 		pauseButton = new JButton("Pause");
 		this.add(pauseButton);
@@ -45,6 +49,20 @@ public class View extends JPanel {
 		return new Dimension();
 	}
 
+	public void update(int x, int y, int d) {
+
+		this.x = x;
+		this.y = y;
+		this.dir = d;
+
+		try {
+			this.setBackground(Color.gray);
+			this.repaint();
+			Thread.sleep(100);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public Color getBackground() {
 		return background;

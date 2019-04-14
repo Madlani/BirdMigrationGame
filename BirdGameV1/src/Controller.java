@@ -27,8 +27,8 @@ public class Controller implements ActionListener, KeyListener {
 	public Controller() {
 		gameView = new View();
 		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
-		//gameView.updateButton(this);
-		//gameView.addKeyListener(this);
+		gameView.updateButton(this);
+		gameView.addKeyListener(this);
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -40,7 +40,7 @@ public class Controller implements ActionListener, KeyListener {
 				if (!pauseButtonFlag) {
 					gameModel.updateLocationAndDirection();
 				}
-
+				gameView.update(gameModel.getXloc(), gameModel.getYloc(), gameModel.getDirection());
 			}
 		};
 		
