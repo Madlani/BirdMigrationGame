@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class Bird {
 	private int xPosition;
-	private int YPosition;
+	private int yPosition;
 	private int health;
 	//file location of the bird's image
 	private String sprite;
@@ -16,22 +16,22 @@ public class Bird {
 	
 	//Decrements the xPosition of the bird (in order for it to move left)
 	public void moveLeft() {
-	
+		xPosition--;
 	}
 	
 	//Increments the xPosition of the bird (in order for it to move right)
 	public void moveRight() {
-		
+		xPosition++;
 	}
 	
 	//Decrements the yPosition of the bird (in order for it to move up)
 	public void moveUp() {
-		
+		yPosition--;
 	}
 	
 	//Increments the yPosition of the bird (in order for it to move down)
 	public void moveDown() {
-		
+		yPosition++;
 	}
 	
 	public int getxPosition() {
@@ -43,11 +43,11 @@ public class Bird {
 	}
 
 	public int getYPosition() {
-		return YPosition;
+		return yPosition;
 	}
 
 	public void setYPosition(int yPosition) {
-		YPosition = yPosition;
+		this.yPosition = yPosition;
 	}
 
 	public int getHealth() {
