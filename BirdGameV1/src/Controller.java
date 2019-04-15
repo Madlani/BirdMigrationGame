@@ -25,7 +25,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
-	final int DRAW_DELAY = 30;
+	final int DRAW_DELAY = 1;
 	static Bird osprey;
 	
 	public Controller() {
@@ -177,31 +177,7 @@ public class Controller implements ActionListener, KeyListener {
 }
 
 //-----------------------------------------------------------------------------------------------------
-//JUnit Tests
 
 
-class ControllerTest {
-	Controller testController = new Controller();
-	
-	@Test
-	public void testStart() {
-		assertEquals(true, testController.getControllerStart());
-	}
-	
-	@Test
-	public void testKeyTyped() {
-		assertEquals(true, testController.getKeyPressed());
-	}
-	
-	@Test
-	public void testKeyReleased() {
-		assertEquals(true, testController.getKeyReleased());
-	}
-	
-	@Test
-	public void testActionPerformed() {
-		assertEquals(true, testController.getActionPerformed());
-	}
-	
-}
+
 
