@@ -94,4 +94,41 @@ class ModelTest {
 		test.setxVector(8);
 		assertEquals(true, test.getxVector() == 8);
 	}
+	
+	@Test public void testGetYVector() {
+		Model testModel = new Model(5, 4, 3, 2);
+		testModel.setyVector(9);
+		assertEquals(true, testModel.getyVector() == 9);
+	}
+	
+	@Test public void testSetYVector() {
+		Model testModel = new Model(5, 4, 3, 2);
+		testModel.setyVector(9);
+		assertEquals(true, testModel.getyVector() == 9);
+	}
+	
+	
+	@Test public void testGetDirection() {
+		Model testModel = new Model(5, 4, 3, 2);
+		testModel.setDirection(9);
+		assertEquals(true, testModel.getDirection() == 9);
+	}
+	
+	@Test public void testSetDirection() {
+		Model testModel = new Model(5, 4, 3, 2);
+		testModel.setDirection(9);
+		assertEquals(true, testModel.getDirection() == 9);
+	}
+	
+	@Test public void testGetHealth() {
+		Model testModel = new Model(5, 4, 3, 2);
+		testModel.setHealth(9);
+		assertEquals(true, testModel.getHealth() == 9);
+	}
+	
+	@Test public void testSetHealth() {
+		Model testModel = new Model(5, 4, 3, 2);
+		testModel.setHealth(9);
+		assertEquals(true, testModel.getHealth() == 9);
+	}
 }
