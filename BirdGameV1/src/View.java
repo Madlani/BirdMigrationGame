@@ -20,8 +20,8 @@ public class View extends JPanel {
 	private BufferedImage[][] obstacleAnimationArray;
 	private String movement; 
 	
-	private int frameWidth = 800;
-	private int frameHeight = 800;
+	private int frameWidth = 736;
+	private int frameHeight = 581;
 	private int imgWidth = 165;
 	private int imgHeight = 165;
 	public JButton pauseButton;

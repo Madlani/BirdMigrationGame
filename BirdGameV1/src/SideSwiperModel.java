@@ -17,7 +17,6 @@ public class SideSwiperModel extends Model {
     	this.setYloc(bird.getYPosition());
     	System.out.println(this.xloc);
     	System.out.println(this.yloc);
-		
 	}
 	
 	//updateBirdLocation() will update the position of the bird to update the minimap

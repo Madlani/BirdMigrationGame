@@ -44,7 +44,6 @@ public class Controller implements ActionListener, KeyListener {
 		frame.setSize(gameView.getFrameWidth(), gameView.getFrameHeight());
 		frame.setPreferredSize(new Dimension(gameModel.getFrameWidth(), gameModel.getFrameHeight()));
 
-
 		frame.add(ssv);
 		//frame.add(gameView.pauseButton);
 		//frame.pack();
