@@ -21,6 +21,13 @@ class ModelTest {
 	}
 	
 	@Test
+	public void testGetXLoc() {
+		Model test = new Model (5, 4, 3, 2);
+		test.setXloc(20);
+		assertEquals(true,  test.getXloc() == 20);
+	}
+	
+	@Test
 	public void testDetectCollisions() {
 		Model test = new Model(5, 5, 10, 10);
 		assertEquals(false, test.detectCollisions());
