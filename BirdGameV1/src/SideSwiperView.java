@@ -46,6 +46,7 @@ public class SideSwiperView extends View {
 		System.out.println("testing paintComponent");
 		
 		g.drawImage(backgroundImage, (imgVelX-=10)%736, 0, null); // draws image in the window
+		g.drawImage(backgroundImage, (((imgVelX-=10)%736)+736), 0, null); // draws image in the window
 		g.drawImage(birdImg, Controller.getBird().getXPosition(), Controller.getBird().getYPosition(), null);
 		this.update(Controller.getBird().getXPosition(), Controller.getBird().getYPosition(), imgVelX);
 		System.out.println(Controller.getBird().getXPosition() + ", " +Controller.getBird().getYPosition());
