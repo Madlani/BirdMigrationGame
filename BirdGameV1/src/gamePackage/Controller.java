@@ -1,4 +1,3 @@
-package gamePackage;
 import static org.junit.Assert.assertEquals;
 
 import java.awt.Color;
@@ -26,7 +25,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
-	final int DRAW_DELAY = 1;
+	final int DRAW_DELAY = 30;
 	static Bird osprey;
 	
 	public Controller() {
@@ -42,16 +41,22 @@ public class Controller implements ActionListener, KeyListener {
 		frame.getContentPane().add(gameView);
 		//frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(gameView.getFrameWidth(), gameView.getFrameHeight());
-		frame.setPreferredSize(new Dimension(gameModel.getFrameWidth(), gameModel.getFrameHeight()));
+		//frame.setSize(gameView.getFrameWidth(), gameView.getFrameHeight());
+		//frame.setPreferredSize(new Dimension(gameModel.getFrameWidth(), gameModel.getFrameHeight()));
+		
+		//set screen to full screen
+		frame.setUndecorated(true);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 
 		frame.add(ssv);
 		//frame.add(gameView.pauseButton);
 		//frame.pack();
 		
+		frame.setVisible(true);
+		
 		System.out.println("YEET");
 
-		frame.setVisible(true);
 		//gameView.pauseButton.setVisible(true);
 	}
 	
@@ -178,7 +183,31 @@ public class Controller implements ActionListener, KeyListener {
 }
 
 //-----------------------------------------------------------------------------------------------------
+//JUnit Tests
 
 
-
+class ControllerTest {
+	Controller testController = new Controller();
+	
+	@Test
+	public void testStart() {
+		assertEquals(true, testController.getControllerStart());
+	}
+	
+	@Test
+	public void testKeyTyped() {
+		assertEquals(true, testController.getKeyPressed());
+	}
+	
+	@Test
+	public void testKeyReleased() {
+		assertEquals(true, testController.getKeyReleased());
+	}
+	
+	@Test
+	public void testActionPerformed() {
+		assertEquals(true, testController.getActionPerformed());
+	}
+	
+}
 

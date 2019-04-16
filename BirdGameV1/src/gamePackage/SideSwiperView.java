@@ -1,4 +1,3 @@
-package gamePackage;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -59,6 +58,17 @@ public class SideSwiperView extends View {
 
 
 //-----------------------------------------------------------------------------------------------------
+//JUnit Tests
 
-
-
+class SideSwiperViewTest {
+	
+	@Test
+	public void testDisplayBlocks() {
+		// GUI element - cannot test at this time
+	}
+	
+	@Test
+	public void testDrawBackground() {
+		// GUI element - cannot test at this time
+	}
+}
