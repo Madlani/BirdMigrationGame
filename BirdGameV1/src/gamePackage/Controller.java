@@ -1,9 +1,9 @@
 package gamePackage;
 import static org.junit.Assert.assertEquals;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,6 +28,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean pauseButtonFlag = false;
 	final int DRAW_DELAY = 30;
 	static Bird osprey;
+	//Dimension screenSize;
 	
 	public Controller() {
 		gameView = new View();
@@ -35,6 +36,7 @@ public class Controller implements ActionListener, KeyListener {
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
 		osprey = new Bird();
+//		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		SideSwiperView ssv = new SideSwiperView();
 		// Creates the frame and selects settings
@@ -52,7 +54,7 @@ public class Controller implements ActionListener, KeyListener {
 
 		frame.add(ssv);
 		//frame.add(gameView.pauseButton);
-		//frame.pack();
+		frame.pack();
 		
 		frame.setVisible(true);
 		

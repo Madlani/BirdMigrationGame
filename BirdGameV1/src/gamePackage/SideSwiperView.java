@@ -1,8 +1,9 @@
-
 package gamePackage;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -37,9 +38,12 @@ public class SideSwiperView extends View {
 	}
 	
 	private void loadImage() {
+		int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		ImageIcon icon = new ImageIcon("src/bird_images/grass.png");
 		ImageIcon icon2 = new ImageIcon("src/bird_images/smaller osprey.gif");
-		backgroundImage = icon.getImage();
+		//
+		backgroundImage = icon.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		birdImg = icon2.getImage();
 	}
 	
