@@ -36,8 +36,8 @@ public class SideSwiperView extends View {
 	}
 	
 	private void loadImage() {
-		ImageIcon icon = new ImageIcon("src/bird_images/background.png");
-		ImageIcon icon2 = new ImageIcon("src/bird_images/ospery.gif");
+		ImageIcon icon = new ImageIcon("src/bird_images/grass.png");
+		ImageIcon icon2 = new ImageIcon("src/bird_images/smaller osprey.gif");
 		backgroundImage = icon.getImage();
 		birdImg = icon2.getImage();
 	}
