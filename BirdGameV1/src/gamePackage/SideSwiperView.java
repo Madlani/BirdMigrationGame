@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -49,9 +50,10 @@ public class SideSwiperView extends View {
 		
 		ImageIcon grass_1 = new ImageIcon("src/bird_images/grass_1.png");
 		ImageIcon grass_2 = new ImageIcon("src/bird_images/grass_2.png");
-		g1 = icon.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		g2 = icon.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		//g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		//g2 = grass_2.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		
+		//backgroundImage = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		backgroundImage = icon.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		birdImg = icon2.getImage();
 	}
@@ -60,27 +62,28 @@ public class SideSwiperView extends View {
 	public void paintComponent(Graphics g) {
 		System.out.println("testing paintComponent");
 		
-		Graphics2D twoD = (Graphics2D)g;
-		 
-        if (backgroundImage == null) {
-        	backgroundImage = createImage(getWidth(), getHeight());
-        }
- 
-        // Create a buffer to draw to
-        Graphics buffer = backgroundImage.createGraphics();
- 
-        // Put the two copies of the background image onto the buffer
-        g1.draw(buffer);
-        g2.draw(buffer);
- 
-        // Draw the image onto the window
-        twoD.drawImage(backgroundImage, null, 0, 0);
+//		Graphics2D twoD = (Graphics2D)g;
+//		 
+//        if (backgroundImage == null) {
+//        	backgroundImage = createImage(getWidth(), getHeight());
+//        }
+// 
+//        // Create a buffer to draw to
+//        Graphics buffer = backgroundImage.getGraphics();
+// 
+//        // Put the two copies of the background image onto the buffer
+//        buffer.drawImage(g1, (imgVelX-=10 % scaledImageWidth), 0, null);
+//        buffer.drawImage(g2, (imgVelX-=10 % scaledImageWidth), 0, null);
+// 
+//        // Draw the image onto the window
+//        twoD.drawImage((BufferedImage) backgroundImage, null, 0, 0);
+//      
 		
-		g.drawImage(backgroundImage, (imgVelX-=10 % scaledImageWidth), 0, null); // draws image in the window
-		g.drawImage(backgroundImage, (((imgVelX-=10)%scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window
-		g.drawImage(birdImg, Controller.getBird().getXPosition(), Controller.getBird().getYPosition(), null);
-		this.update(Controller.getBird().getXPosition(), Controller.getBird().getYPosition(), imgVelX);
-		System.out.println(Controller.getBird().getXPosition() + ", " +Controller.getBird().getYPosition());
+		g.drawImage(backgroundImage, (imgVelX-=5 % scaledImageWidth), 0, null); // draws image in the window
+		g.drawImage(backgroundImage, (((imgVelX-=5)%scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window
+		g.drawImage(birdImg, (int) Controller.getBird().getX(), (int) Controller.getBird().getY(), null);
+		this.update(Controller.getBird().getX(), Controller.getBird().getY(), imgVelX);
+		System.out.println(Controller.getBird().getX() + ", " +Controller.getBird().getY());
 	}
 	
 	

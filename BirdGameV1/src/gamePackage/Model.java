@@ -1,18 +1,18 @@
 package gamePackage;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.geom.Point2D;
+
 import org.junit.jupiter.api.Test;
 
-public class Model {
+public class Model extends Point2D{
 
 
 	private int frameHeight;
 	private int frameWidth;
 	private int imgHeight;
 	private int imgWidth;
-	protected int xloc, yloc;
-	protected int xVector, yVector;
-	protected int xIncr, yIncr;
+	protected double xloc, yloc;
 	private int direction;
 	private int health;
 	
@@ -66,38 +66,6 @@ public class Model {
 		this.imgWidth = imgWidth;
 	}
 
-	public int getXloc() {
-		return xloc;
-	}
-
-	public void setXloc(int xloc) {
-		this.xloc = xloc;
-	}
-
-	public int getYloc() {
-		return yloc;
-	}
-
-	public void setYloc(int yloc) {
-		this.yloc = yloc;
-	}
-
-	public int getxVector() {
-		return xVector;
-	}
-
-	public void setxVector(int xVector) {
-		this.xVector = xVector;
-	}
-
-	public int getyVector() {
-		return yVector;
-	}
-
-	public void setyVector(int yVector) {
-		this.yVector = yVector;
-	}
-
 	public int getDirection() {
 		return direction;
 	}
@@ -112,6 +80,24 @@ public class Model {
 
 	public void setHealth(int health) {
 		this.health = health;
+	}
+
+	@Override
+	public double getX() {
+		return this.xloc;
+		
+	}
+
+	@Override
+	public double getY() {
+		return this.yloc;
+	}
+
+	@Override
+	public void setLocation(double x, double y) {
+		this.xloc = x;
+		this.yloc = y;
+		
 	}
 }
 

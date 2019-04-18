@@ -26,7 +26,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
-	final int DRAW_DELAY = 30;
+	final int DRAW_DELAY = 1;
 	static Bird osprey;
 	//Dimension screenSize;
 	
@@ -72,7 +72,7 @@ public class Controller implements ActionListener, KeyListener {
 				if (!pauseButtonFlag) {
 					gameModel.updateLocationAndDirection();
 				}
-				gameView.update(gameModel.getXloc(), gameModel.getYloc(), gameModel.getDirection());
+				gameView.update(gameModel.getX(), gameModel.getY(), gameModel.getDirection());
 			}
 		};
 		
