@@ -14,8 +14,8 @@ public class SideSwiperModel extends Model {
 	//updateLocationAndDirection() will contain the logic that allows the bird to move in the x or y direction based on user input
 	@Override
 	public void updateLocationAndDirection() {
-    	this.setXloc(bird.getXPosition());
-    	this.setYloc(bird.getYPosition());
+    	this.setLocation(bird.getXPosition(), bird.getYPosition());
+   
     	System.out.println(this.xloc);
     	System.out.println(this.yloc);
 	}

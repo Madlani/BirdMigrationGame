@@ -28,8 +28,8 @@ public class View extends JPanel {
 	public JButton pauseButton;
 	public boolean pauseButtonFlag = false;
 	
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	private int dir;
 	
 	public View() {
@@ -74,7 +74,7 @@ public class View extends JPanel {
 		return new Dimension();
 	}
 
-	public void update(int x, int y, int d) {
+	public void update(double x, double y, int d) {
 
 		this.x = x;
 		this.y = y;

@@ -72,7 +72,7 @@ public class Controller implements ActionListener, KeyListener {
 				if (!pauseButtonFlag) {
 					gameModel.updateLocationAndDirection();
 				}
-				gameView.update(gameModel.getXloc(), gameModel.getYloc(), gameModel.getDirection());
+				gameView.update(gameModel.getX(), gameModel.getY(), gameModel.getDirection());
 			}
 		};
 		
