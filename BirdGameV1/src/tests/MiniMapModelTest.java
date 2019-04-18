@@ -13,11 +13,9 @@ class MiniMapModelTest {
 	@Test
 	public void testUpdateLocationAndDirection() {
 		MiniMapModel test = new MiniMapModel(5, 5, 10, 10);
-		test.setXloc(0);
-		test.setxVector(1);
+		test.setLocation(0, 0);
 		test.updateLocationAndDirection();
-		assertNotEquals(0, test.getXloc());
-		assertNotEquals(1, test.getxVector());
+		assertNotEquals(0, test.getX());
 	}
 	
 	@Test

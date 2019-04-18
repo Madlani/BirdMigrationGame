@@ -12,32 +12,36 @@ class BirdTest {
 
 Bird testBird = new Bird();
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveLeft() {
-		testBird.setXPosition(5);
+		testBird.setLocation(5, 5);
 		testBird.moveLeft();
-		assertEquals(4, testBird.getXPosition());
+		assertEquals(4, testBird.getX());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveRight() {
-		testBird.setXPosition(8);
+		testBird.setLocation(8, 8);
 		testBird.moveRight();
-		assertEquals(9, testBird.getXPosition());
+		assertEquals(9, testBird.getX());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveUp() {
-		testBird.setYPosition(5);
+		testBird.setLocation(5, 5);
 		testBird.moveUp();
-		assertEquals(4, testBird.getYPosition());
+		assertEquals(4, testBird.getY());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveDown() {
-		testBird.setYPosition(5);
+		testBird.setLocation(5, 5);
 		testBird.moveDown();
-		assertEquals(6, testBird.getYPosition());
+		assertEquals(6, testBird.getY());
 	}
 
 }

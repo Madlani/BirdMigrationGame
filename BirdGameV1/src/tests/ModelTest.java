@@ -13,18 +13,16 @@ class ModelTest {
 	@Test
 	public void testUpdateLocationAndDirection() {
 		Model test = new Model(5, 5, 10, 10);
-		test.setXloc(0);
-		test.setxVector(1);
+		test.setLocation(0, 0);
 		test.updateLocationAndDirection();
-		assertNotEquals(0, test.getXloc());
-		assertNotEquals(1, test.getxVector());
+		assertNotEquals(0, test.getX());
 	}
 	
 	@Test
 	public void testGetXLoc() {
 		Model test = new Model (5, 4, 3, 2);
-		test.setXloc(20);
-		assertEquals(true,  test.getXloc() == 20);
+		test.setLocation(20, 0);
+		assertEquals(true,  test.getX() == 20);
 	}
 	
 	@Test
@@ -80,31 +78,6 @@ class ModelTest {
 		Model test = new Model(5, 4, 3, 2);
 		test.setImgWidth(20);
 		assertEquals(true, test.getImgWidth() == 20);
-	}
-	
-	@Test
-	public void testGetXVector() {
-		Model test = new Model(5, 4, 3, 2);
-		test.setxVector(8);
-		assertEquals(true, test.getxVector() == 8);
-	}
-	
-	@Test public void testSetXVector() {
-		Model test = new Model(5, 4, 3, 2);
-		test.setxVector(8);
-		assertEquals(true, test.getxVector() == 8);
-	}
-	
-	@Test public void testGetYVector() {
-		Model testModel = new Model(5, 4, 3, 2);
-		testModel.setyVector(9);
-		assertEquals(true, testModel.getyVector() == 9);
-	}
-	
-	@Test public void testSetYVector() {
-		Model testModel = new Model(5, 4, 3, 2);
-		testModel.setyVector(9);
-		assertEquals(true, testModel.getyVector() == 9);
 	}
 	
 	
