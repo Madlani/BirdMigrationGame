@@ -48,9 +48,9 @@ public class SideSwiperView extends View {
 		ImageIcon icon = new ImageIcon("src/bird_images/grass.png");
 		ImageIcon icon2 = new ImageIcon("src/bird_images/smaller osprey.gif");
 		
-		ImageIcon grass_1 = new ImageIcon("src/bird_images/grass_1.png");
-		ImageIcon grass_2 = new ImageIcon("src/bird_images/grass_2.png");
-		//g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		ImageIcon grass_1 = new ImageIcon("src/bird_images/grass3.png");
+		//ImageIcon grass_2 = new ImageIcon("src/bird_images/grass_2.png");
+		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		//g2 = grass_2.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		
 		//backgroundImage = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
@@ -59,34 +59,13 @@ public class SideSwiperView extends View {
 	}
 	
 	@Override
-	public void paintComponent(Graphics g) {
-		System.out.println("testing paintComponent");
-		
-//		Graphics2D twoD = (Graphics2D)g;
-//		 
-//        if (backgroundImage == null) {
-//        	backgroundImage = createImage(getWidth(), getHeight());
-//        }
-// 
-//        // Create a buffer to draw to
-//        Graphics buffer = backgroundImage.getGraphics();
-// 
-//        // Put the two copies of the background image onto the buffer
-//        buffer.drawImage(g1, (imgVelX-=10 % scaledImageWidth), 0, null);
-//        buffer.drawImage(g2, (imgVelX-=10 % scaledImageWidth), 0, null);
-// 
-//        // Draw the image onto the window
-//        twoD.drawImage((BufferedImage) backgroundImage, null, 0, 0);
-//      
-		
-		g.drawImage(backgroundImage, (imgVelX-=5 % scaledImageWidth), 0, null); // draws image in the window
-		g.drawImage(backgroundImage, (((imgVelX-=5)%scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window
+	public void paintComponent(Graphics g) {	
+		imgVelX-=5;
+		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
 		g.drawImage(birdImg, (int) Controller.getBird().getX(), (int) Controller.getBird().getY(), null);
 		this.update(Controller.getBird().getX(), Controller.getBird().getY(), imgVelX);
-		System.out.println(Controller.getBird().getX() + ", " +Controller.getBird().getY());
 	}
-	
-	
 }
 
 
