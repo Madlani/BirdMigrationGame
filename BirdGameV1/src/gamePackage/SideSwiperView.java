@@ -17,8 +17,8 @@ import org.junit.Test;
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
 	
-	private Image backgroundImage, birdImg;
-	private Image g1, g2;
+	private Image birdImg;
+	private Image g1;
 	public int imgVelX = -2;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -28,7 +28,6 @@ public class SideSwiperView extends View {
 		
 		// Creates a JPanel for the background
 		this.setPreferredSize(new Dimension(736, 581));
-		//this.setLayout(null);
 		this.loadImage();
 	}
 	
@@ -45,17 +44,10 @@ public class SideSwiperView extends View {
 	}
 	
 	private void loadImage() {
-		ImageIcon icon = new ImageIcon("src/bird_images/grass.png");
-		ImageIcon icon2 = new ImageIcon("src/bird_images/smaller osprey.gif");
-		
+		ImageIcon birdIcon = new ImageIcon("src/bird_images/smaller osprey.gif");
 		ImageIcon grass_1 = new ImageIcon("src/bird_images/grass3.png");
-		//ImageIcon grass_2 = new ImageIcon("src/bird_images/grass_2.png");
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		//g2 = grass_2.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		
-		//backgroundImage = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		backgroundImage = icon.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		birdImg = icon2.getImage();
+		birdImg = birdIcon.getImage();
 	}
 	
 	@Override

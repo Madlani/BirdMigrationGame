@@ -57,8 +57,7 @@ public class Controller implements ActionListener, KeyListener {
 		frame.pack();
 		
 		frame.setVisible(true);
-		
-		System.out.println("YEET");
+	
 
 		//gameView.pauseButton.setVisible(true);
 	}
@@ -73,6 +72,7 @@ public class Controller implements ActionListener, KeyListener {
 					gameModel.updateLocationAndDirection();
 				}
 				gameView.update(gameModel.getX(), gameModel.getY(), gameModel.getDirection());
+				System.out.println(osprey.getX() + ", " + osprey.getY());
 			}
 		};
 		
