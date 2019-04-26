@@ -8,7 +8,12 @@ public class Obstacle extends Point2D {
 	
 	private String sprite;
 	private final int OBSTACLE_SPEED = 15;
+	protected HitBox obstacleBox;
 	
+	Obstacle(){
+		this.obstacleBox = new HitBox((int)this.xPosition,(int) this.yPosition, 150,150);
+
+	}
 	@Override
 	public double getX() {
 		// TODO Auto-generated method stub

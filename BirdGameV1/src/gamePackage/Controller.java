@@ -32,15 +32,15 @@ public class Controller implements ActionListener, KeyListener {
 	//Dimension screenSize;
 	
 	public Controller() {
+		SideSwiperView ssv = new SideSwiperView();
 		gameView = new View();
-		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
+		gameModel = new SideSwiperModel(ssv.getWidth(), ssv.getHeight(), ssv.getImgWidth(), ssv.getImgHeight());
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
 		osprey = new Bird();
 		airplane = new Obstacle();
 //		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		SideSwiperView ssv = new SideSwiperView();
 		// Creates the frame and selects settings
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(gameView);

@@ -23,7 +23,8 @@ public class Model extends Point2D{
 	
 	//updateLocationAndDirection() will contain the logic that allows the bird to move in the x or y direction based on user input
 	public void updateLocationAndDirection() {
-		
+		System.out.println("entering Model updateLoc&Dir");
+
 	}
 	
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles

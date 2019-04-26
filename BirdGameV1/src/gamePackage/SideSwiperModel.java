@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class SideSwiperModel extends Model {
 	
 	Bird bird = new Bird();
-	protected HitBox birdBox;
+	Obstacle obstacle = new Obstacle();
+	
+	//protected HitBox birdBox;
 	public SideSwiperModel(int w, int h, int iW, int iH) {
 		super(w, h, iW, iH);
 	}
@@ -16,7 +18,13 @@ public class SideSwiperModel extends Model {
 	@Override
 	public void updateLocationAndDirection() {
     	//this.setLocation(bird.getX(), bird.getY());
-    	this.setLocation(Controller.osprey.getX(), Controller.osprey.getY());
+		detectCollisions();
+		System.out.println("entering updateLoc&Dir");
+    	bird.setLocation(Controller.osprey.getX(), Controller.osprey.getY());
+    	System.out.println("osprey x is " + Controller.osprey.getX() + " & osprey y is "  + Controller.osprey.getY());
+    	obstacle.setLocation(Controller.airplane.getX(), Controller.airplane.getY());
+    	System.out.println("airplane x is " + Controller.airplane.getX() + " & airplane y is "  + Controller.airplane.getY());
+
   
 	}
 	
@@ -33,7 +41,8 @@ public class SideSwiperModel extends Model {
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
 	@Override
 	public boolean detectCollisions() {
-		return false;
+		System.out.println("collisioning");
+		return obstacle.obstacleBox.intersects(bird.birdBox);
 	}
 	
 	//randomizeBlocks() will randomize where blocks that contain questions will appear on screen

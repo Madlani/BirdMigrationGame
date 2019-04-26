@@ -10,8 +10,10 @@ public class Bird extends Point2D{
 	private String sprite;
 	private final int BIRD_SPEED = 20;
 	
+	protected HitBox birdBox;
 	public Bird() {
-		// TODO Auto-generated constructor stub
+		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 150,150);
+		
 	}
 	
 	//Decrements the xPosition of the bird (in order for it to move left)
