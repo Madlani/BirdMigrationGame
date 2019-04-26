@@ -3,8 +3,8 @@ import java.awt.geom.Point2D;
 
 
 public class Obstacle extends Point2D {
-	private double xPosition;
-	private double yPosition;
+	private double xPosition = 450;
+	private double yPosition = 450;
 	
 	private String sprite;
 	private final int OBSTACLE_SPEED = 15;

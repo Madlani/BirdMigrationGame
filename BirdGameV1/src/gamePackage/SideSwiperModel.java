@@ -19,12 +19,13 @@ public class SideSwiperModel extends Model {
 	public void updateLocationAndDirection() {
     	//this.setLocation(bird.getX(), bird.getY());
 		detectCollisions();
-		System.out.println("entering updateLoc&Dir");
     	bird.setLocation(Controller.osprey.getX(), Controller.osprey.getY());
-    	System.out.println("osprey x is " + Controller.osprey.getX() + " & osprey y is "  + Controller.osprey.getY());
+    	bird.birdBox.setLocation((int)Controller.osprey.getX(), (int)Controller.osprey.getY());
+    	System.out.println("osprey x is " + Controller.osprey.birdBox.getX() + " & osprey y is "  + Controller.osprey.birdBox.getY());
     	obstacle.setLocation(Controller.airplane.getX(), Controller.airplane.getY());
-    	System.out.println("airplane x is " + Controller.airplane.getX() + " & airplane y is "  + Controller.airplane.getY());
-
+    	obstacle.obstacleBox.setLocation((int)Controller.airplane.getX(), (int)Controller.airplane.getY());
+    	System.out.println("airplane x is " + Controller.airplane.obstacleBox.getX() + " & airplane y is "  + Controller.airplane.obstacleBox.getY());
+    	System.out.println(obstacle.obstacleBox.intersects(bird.birdBox));
   
 	}
 	
@@ -41,7 +42,6 @@ public class SideSwiperModel extends Model {
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
 	@Override
 	public boolean detectCollisions() {
-		System.out.println("collisioning");
 		return obstacle.obstacleBox.intersects(bird.birdBox);
 	}
 	
