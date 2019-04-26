@@ -35,7 +35,8 @@ public class Controller implements ActionListener, KeyListener {
 	public Controller() {
 		
 		gameView = new View(this);
-		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
+		gameModel = new Model();
+		//gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
 		ssv = new SideSwiperView(this);
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
@@ -106,21 +107,17 @@ public class Controller implements ActionListener, KeyListener {
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameModel.getOsprey().moveLeft();
-			
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameModel.getOsprey().moveUp();
-		
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameModel.getOsprey().moveDown();
-
 		}
-		
 	}
 
 	/** keyReleased()
@@ -179,33 +176,3 @@ public class Controller implements ActionListener, KeyListener {
 	}
 
 }
-
-//-----------------------------------------------------------------------------------------------------
-//JUnit Tests
-
-
-class ControllerTest {
-	Controller testController = new Controller();
-	
-	@Test
-	public void testStart() {
-		assertEquals(true, testController.getControllerStart());
-	}
-	
-	@Test
-	public void testKeyTyped() {
-		assertEquals(true, testController.getKeyPressed());
-	}
-	
-	@Test
-	public void testKeyReleased() {
-		assertEquals(true, testController.getKeyReleased());
-	}
-	
-	@Test
-	public void testActionPerformed() {
-		assertEquals(true, testController.getActionPerformed());
-	}
-	
-}
-

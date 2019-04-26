@@ -7,8 +7,8 @@ import org.junit.Test;
 
 public class FeedingModel extends Model {
 	
-	public FeedingModel(int w, int h, int iW, int iH) {
-		super(w, h, iW, iH);
+	public FeedingModel() {
+		super();
 	}
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
 	@Override

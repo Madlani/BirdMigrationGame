@@ -22,8 +22,6 @@ public class View extends JPanel {
 	private BufferedImage[][] obstacleAnimationArray;
 	private String movement; 
 	
-	private int frameWidth = 736;
-	private int frameHeight = 581;
 	private int imgWidth = 165;
 	private int imgHeight = 165;
 	public JButton pauseButton;
@@ -119,22 +117,6 @@ public class View extends JPanel {
 	}
 	public void setMovement(String movement) {
 		this.movement = movement;
-	}
-
-	public int getFrameWidth() {
-		return frameWidth;
-	}
-
-	public void setFrameWidth(int frameWidth) {
-		this.frameWidth = frameWidth;
-	}
-
-	public int getFrameHeight() {
-		return frameHeight;
-	}
-
-	public void setFrameHeight(int frameHeight) {
-		this.frameHeight = frameHeight;
 	}
 
 	public int getImgWidth() {

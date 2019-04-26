@@ -62,21 +62,3 @@ public class SideSwiperView extends View {
 		this.update(birdX, birdY, imgVelX);
 	}
 }
-
-
-
-//-----------------------------------------------------------------------------------------------------
-//JUnit Tests
-
-class SideSwiperViewTest {
-	
-	@Test
-	public void testDisplayBlocks() {
-		// GUI element - cannot test at this time
-	}
-	
-	@Test
-	public void testDrawBackground() {
-		// GUI element - cannot test at this time
-	}
-}

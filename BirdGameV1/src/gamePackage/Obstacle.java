@@ -35,7 +35,8 @@ public class Obstacle extends Point2D {
 		this.xPosition = x;
 		this.yPosition = y;
 	}
-
 	
-
+	public int getObstacleSpeed() {
+		return this.OBSTACLE_SPEED;
+	}
 }

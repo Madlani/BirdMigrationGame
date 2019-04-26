@@ -1,8 +1,8 @@
 package gamePackage;
 public class MigrationModel extends Model {
 	
-	public MigrationModel(int w, int h, int iW, int iH) {
-		super(w, h, iW, iH);
+	public MigrationModel() {
+		super();
 	}
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
 	@Override
