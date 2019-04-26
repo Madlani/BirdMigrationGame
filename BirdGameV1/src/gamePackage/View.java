@@ -84,7 +84,7 @@ public class View extends JPanel {
 		try {
 			this.setBackground(Color.gray);
 			this.repaint();
-			Thread.sleep(15);
+			Thread.sleep(30);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

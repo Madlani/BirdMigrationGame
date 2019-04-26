@@ -39,17 +39,13 @@ public class Controller implements ActionListener, KeyListener {
 		ssv = new SideSwiperView(this);
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
-		//osprey = new Bird();
-		//airplane = new Obstacle();
-//		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
 		
 		// Creates the frame and selects settings
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(gameView);
 		//frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setSize(gameView.getFrameWidth(), gameView.getFrameHeight());
-		//frame.setPreferredSize(new Dimension(gameModel.getFrameWidth(), gameModel.getFrameHeight()));
 		
 		//set screen to full screen
 		frame.setUndecorated(true);
@@ -67,6 +63,7 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	//starts our game, initializes the beginning View.
+	
 	@SuppressWarnings("serial")
 	public void start() {
 		
@@ -85,7 +82,6 @@ public class Controller implements ActionListener, KeyListener {
 			public void run() {
 				Timer t = new Timer(DRAW_DELAY, gameAction);
 				t.start();
-				
 			}
 		});
 		
@@ -104,27 +100,23 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			gameView.setMovement("_right_");
 			gameModel.getOsprey().moveRight();
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			gameView.setMovement("_left_");
 			gameModel.getOsprey().moveLeft();
 			
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			gameView.setMovement("_up_");
 			gameModel.getOsprey().moveUp();
 		
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			gameView.setMovement("_down_");
 			gameModel.getOsprey().moveDown();
 
 		}

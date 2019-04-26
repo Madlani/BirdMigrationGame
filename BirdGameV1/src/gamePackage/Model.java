@@ -32,8 +32,10 @@ public class Model extends Point2D{
 	public void updateLocationAndDirection() {
 		System.out.println("entering Model updateLoc&Dir");
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
+		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
     	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
+    	System.out.println(detectCollisions());
 	}
 	
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles

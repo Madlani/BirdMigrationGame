@@ -27,10 +27,6 @@ public class SideSwiperView extends View {
 	
 	public SideSwiperView(Controller controller) {
 		super(controller);
-		
-		
-		// Creates a JPanel for the background
-		this.setPreferredSize(new Dimension(736, 581));
 		this.loadImage();
 	}
 	
