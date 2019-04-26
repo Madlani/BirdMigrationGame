@@ -1,12 +1,9 @@
 package gamePackage;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.geom.Point2D;
 
-import org.junit.jupiter.api.Test;
 
 public class Model extends Point2D{
-
 
 	private int frameHeight;
 	private int frameWidth;

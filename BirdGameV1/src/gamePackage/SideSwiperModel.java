@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class SideSwiperModel extends Model {
 	
 	Bird bird = new Bird();
+	protected HitBox birdBox;
 	public SideSwiperModel(int w, int h, int iW, int iH) {
 		super(w, h, iW, iH);
 	}
@@ -16,9 +17,7 @@ public class SideSwiperModel extends Model {
 	public void updateLocationAndDirection() {
     	//this.setLocation(bird.getX(), bird.getY());
     	this.setLocation(Controller.osprey.getX(), Controller.osprey.getY());
-   
-    	System.out.println(this.xloc);
-    	System.out.println(this.yloc);
+  
 	}
 	
 	//updateBirdLocation() will update the position of the bird to update the minimap

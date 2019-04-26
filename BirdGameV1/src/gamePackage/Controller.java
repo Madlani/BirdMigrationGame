@@ -26,7 +26,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
-	final int DRAW_DELAY = 1;
+	final int DRAW_DELAY = 100;
 	static Bird osprey;
 	//Dimension screenSize;
 	
@@ -80,8 +80,10 @@ public class Controller implements ActionListener, KeyListener {
 			public void run() {
 				Timer t = new Timer(DRAW_DELAY, gameAction);
 				t.start();
+				
 			}
 		});
+		
 
 	}
 

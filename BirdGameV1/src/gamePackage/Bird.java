@@ -1,10 +1,6 @@
 package gamePackage;
-import static org.junit.Assert.assertEquals;
 
 import java.awt.geom.Point2D;
-
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
 
 public class Bird extends Point2D{
 	private double xPosition;
