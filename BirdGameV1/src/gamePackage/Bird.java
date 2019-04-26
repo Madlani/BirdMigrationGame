@@ -51,6 +51,10 @@ public class Bird extends Point2D{
 	public void setSprite(String sprite) {
 		this.sprite = sprite;
 	}
+	
+	public Bird getBird() {
+		return this;
+	}
 
 	@Override
 	public double getX() {

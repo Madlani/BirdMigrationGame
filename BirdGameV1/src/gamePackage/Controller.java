@@ -20,6 +20,9 @@ public class Controller implements ActionListener, KeyListener {
 
 	private Model gameModel;
 	private View gameView;
+	SideSwiperView ssv;
+	
+	
 	private Action gameAction;
 	private boolean keyPressed = false;
 	private boolean controllerStart = false;
@@ -27,18 +30,16 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
 	final int DRAW_DELAY = 100;
-	static Bird osprey;
-	static Obstacle airplane;
 	//Dimension screenSize;
 	
 	public Controller() {
-		SideSwiperView ssv = new SideSwiperView();
+		ssv = new SideSwiperView();
 		gameView = new View();
 		gameModel = new SideSwiperModel(ssv.getWidth(), ssv.getHeight(), ssv.getImgWidth(), ssv.getImgHeight());
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
-		osprey = new Bird();
-		airplane = new Obstacle();
+		//osprey = new Bird();
+		//airplane = new Obstacle();
 //		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		// Creates the frame and selects settings
@@ -67,14 +68,15 @@ public class Controller implements ActionListener, KeyListener {
 	//starts our game, initializes the beginning View.
 	@SuppressWarnings("serial")
 	public void start() {
+		
 		gameAction = new AbstractAction() {
-
 			public void actionPerformed(ActionEvent e) {
 				if (!pauseButtonFlag) {
 					gameModel.updateLocationAndDirection();
 				}
 				gameView.update(gameModel.getX(), gameModel.getY(), gameModel.getDirection());
-				System.out.println(osprey.getX() + ", " + osprey.getY());
+				System.out.println("OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
+				System.out.println("-----------------------------------");
 			}
 		};
 		
@@ -102,27 +104,27 @@ public class Controller implements ActionListener, KeyListener {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameView.setMovement("_right_");
-			osprey.moveRight();
+			gameModel.osprey.moveRight();
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameView.setMovement("_left_");
-			osprey.moveLeft();
+			gameModel.osprey.moveLeft();
 			
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameView.setMovement("_up_");
-			osprey.moveUp();
+			gameModel.osprey.moveUp();
 		
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameView.setMovement("_down_");
-			osprey.moveDown();
+			gameModel.osprey.moveDown();
 
 		}
 		
@@ -181,14 +183,6 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	public boolean getActionPerformed() {
 		return actionPerformed;
-	}
-	
-	public static Bird getBird()	{
-		return osprey;
-	}
-	
-	public static Obstacle getObstacle() {
-		return airplane;
 	}
 
 }

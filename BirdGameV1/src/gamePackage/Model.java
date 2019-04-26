@@ -13,6 +13,9 @@ public class Model extends Point2D{
 	private int direction;
 	private int health;
 	
+	protected Bird osprey;
+	protected Obstacle airplane;
+	
 
     public Model(int w, int h, int iw, int ih) {
     	this.frameWidth = w;

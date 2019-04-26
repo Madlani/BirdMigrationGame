@@ -27,6 +27,8 @@ public class SideSwiperView extends View {
 	public SideSwiperView() {
 		super();
 		
+		
+		
 		// Creates a JPanel for the background
 		this.setPreferredSize(new Dimension(736, 581));
 		this.loadImage();
@@ -54,7 +56,7 @@ public class SideSwiperView extends View {
 		imgVelX-=5;
 		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
 		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
-		g.drawImage(birdImg, (int) Controller.getBird().getX(), (int) Controller.getBird().getY(), null);
+		g.drawImage(birdImg, (int) osprey.getX(), (int) Controller.getBird().getY(), null);
 		g.drawImage(obstacleImg, (int) Controller.getObstacle().getX(), (int) Controller.getObstacle().getY(), null);
 		this.update(Controller.getBird().getX(), Controller.getBird().getY(), imgVelX);
 	}
