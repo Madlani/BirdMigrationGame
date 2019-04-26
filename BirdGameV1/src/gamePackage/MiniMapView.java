@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("serial")
 public class MiniMapView extends View{
 	
+	
+	public MiniMapView(Controller controller) {
+		super(controller);
+	}
+
 	//draws the minimapview
 	@Override
 	public void drawBackground() {

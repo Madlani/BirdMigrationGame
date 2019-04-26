@@ -1,8 +1,5 @@
 package gamePackage;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 
 public class SideSwiperModel extends Model {
 	
@@ -18,13 +15,17 @@ public class SideSwiperModel extends Model {
 		super(w, h, iW, iH);
 		this.bird = new Bird();
 		this.obstacle = new Obstacle();
+		this.bird.setLocation(15, 15);
+		this.obstacle.setLocation(450, 450);
 	}
 	
 	//updateLocationAndDirection() will contain the logic that allows the bird to move in the x or y direction based on user input
 	@Override
 	public void updateLocationAndDirection() {
-    	
+    	bird.setLocation(this.bird.getX(), this.bird.getY());
+    	obstacle.setLocation(this.obstacle.getX(), this.obstacle.getY());
 		detectCollisions(); // check this after the locations have been updated
+		
 	}
 	
 	//updateBirdLocation() will update the position of the bird to update the minimap
@@ -56,6 +57,10 @@ public class SideSwiperModel extends Model {
 	//moveObstacles() moves the obstacles as the game progresses
 	public void moveObstacles() {
 		
+	}
+	
+	public Bird getBird()	{
+		return bird;
 	}
 	
 }

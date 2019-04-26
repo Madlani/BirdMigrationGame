@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("serial")
 public class FeedingView extends View {
 	
+	public FeedingView(Controller controller) {
+		super(controller);
+	}
+
 	private BufferedImage[][] fishingAnimationArray;
 	
 	//Draws the fish that will be caught as part of the Feeding minigame

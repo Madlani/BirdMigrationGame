@@ -33,8 +33,8 @@ public class Controller implements ActionListener, KeyListener {
 	//Dimension screenSize;
 	
 	public Controller() {
-		ssv = new SideSwiperView();
-		gameView = new View();
+		ssv = new SideSwiperView(this);
+		gameView = new View(this);
 		gameModel = new SideSwiperModel(ssv.getWidth(), ssv.getHeight(), ssv.getImgWidth(), ssv.getImgHeight());
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);

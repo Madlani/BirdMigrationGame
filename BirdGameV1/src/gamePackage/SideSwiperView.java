@@ -23,12 +23,14 @@ public class SideSwiperView extends View {
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Image obstacleImg = Toolkit.getDefaultToolkit().createImage("src/bird_images/tinyplane.png");
+	int birdX, birdY, planeX, planeY;
 	
-	public SideSwiperView() {
-		super();
-		
-		
-		
+	public SideSwiperView(Controller controller) {
+		super(controller);
+		birdX = (int)controller.getGameModel().osprey.getX();
+		birdY = (int)controller.getGameModel().osprey.getY();
+		planeX = (int)controller.getGameModel().airplane.getX();
+		planeY = (int)controller.getGameModel().airplane.getY();
 		// Creates a JPanel for the background
 		this.setPreferredSize(new Dimension(736, 581));
 		this.loadImage();
@@ -56,9 +58,9 @@ public class SideSwiperView extends View {
 		imgVelX-=5;
 		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
 		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
-		g.drawImage(birdImg, (int) osprey.getX(), (int) Controller.getBird().getY(), null);
-		g.drawImage(obstacleImg, (int) Controller.getObstacle().getX(), (int) Controller.getObstacle().getY(), null);
-		this.update(Controller.getBird().getX(), Controller.getBird().getY(), imgVelX);
+		g.drawImage(birdImg, birdX, birdY, null);
+		g.drawImage(obstacleImg, planeX, planeY, null);
+		this.update(birdX, birdY, imgVelX);
 	}
 }
 

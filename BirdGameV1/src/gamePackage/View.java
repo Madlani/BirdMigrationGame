@@ -32,7 +32,7 @@ public class View extends JPanel {
 	private double y;
 	private int dir;
 	
-	public View() {
+	public View(Controller controller) {
 		
 		// Creates a pause button
 		//pauseButton = new JButton("Pause");

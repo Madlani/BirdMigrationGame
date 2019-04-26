@@ -4,7 +4,9 @@ import org.junit.Test;
 @SuppressWarnings("serial")
 public class WhackAMoleView extends View {
 	
-	
+	public WhackAMoleView(Controller controller) {
+		super(controller);
+	}
 	//Draws the background for the WhackAMole minigame
 	@Override
 	public void drawBackground() {

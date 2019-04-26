@@ -5,6 +5,10 @@ import org.junit.Test;
 public class ObstacleView extends View {
 	private String movingDirection;
 	
+	public ObstacleView(Controller controller)	{
+		super(controller);
+	}
+	
 	//Displays the correct Obstacles on the ObstacleView
 	public void displayObstacle()	{
 		

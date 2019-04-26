@@ -4,6 +4,9 @@ import org.junit.Test;
 @SuppressWarnings("serial")
 public class QuestionView extends View {
 	
+	public QuestionView(Controller controller)	{
+		super(controller);
+	}
 	//Displays the question to be answered by the user
 	public void displayQuestion()	{
 		

@@ -10,8 +10,8 @@ public class StartView extends View {
 	private boolean startClicked;
 	
 
-	public StartView() {
-		// TODO Auto-generated constructor stub
+	public StartView(Controller controller) {
+		super(controller);
 	}
 	
 	//Displays the bird image
