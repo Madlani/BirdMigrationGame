@@ -58,7 +58,7 @@ public class SideSwiperView extends View {
 		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
 		g.drawImage(birdImg, (int)birdX, (int)birdY, null);
 		g.drawImage(obstacleImg, (int)planeX, (int)planeY, null);
-		System.out.println("BIRDX, BIRDY: " + birdX + ", " + birdY);
+		System.out.println("Printing from SideSwiperView BIRDX, BIRDY: " + birdX + ", " + birdY);
 		this.update(birdX, birdY, imgVelX);
 	}
 }

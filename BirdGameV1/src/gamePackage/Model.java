@@ -47,6 +47,7 @@ public class Model extends Point2D {
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
+    	this.airplane.obstacleBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
     	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
     	System.out.println(detectCollisions());
     	

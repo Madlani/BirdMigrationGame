@@ -74,7 +74,7 @@ public class Controller implements ActionListener, KeyListener {
 					gameModel.updateLocationAndDirection();
 				}
 				gameView.update(gameModel.getOsprey().getX(), gameModel.getOsprey().getY(), gameModel.getDirection());
-				System.out.println("OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
+				System.out.println("Printing from Controler OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
 				System.out.println("-----------------------------------");
 			}
 		};
