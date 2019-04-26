@@ -33,9 +33,10 @@ public class Controller implements ActionListener, KeyListener {
 	//Dimension screenSize;
 	
 	public Controller() {
-		ssv = new SideSwiperView(this);
+		
 		gameView = new View(this);
-		gameModel = new SideSwiperModel(ssv.getWidth(), ssv.getHeight(), ssv.getImgWidth(), ssv.getImgHeight());
+		gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
+		ssv = new SideSwiperView(this);
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
 		//osprey = new Bird();
@@ -74,7 +75,7 @@ public class Controller implements ActionListener, KeyListener {
 				if (!pauseButtonFlag) {
 					gameModel.updateLocationAndDirection();
 				}
-				gameView.update(gameModel.getX(), gameModel.getY(), gameModel.getDirection());
+				gameView.update(gameModel.getOsprey().getX(), gameModel.getOsprey().getY(), gameModel.getDirection());
 				System.out.println("OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
 				System.out.println("-----------------------------------");
 			}
@@ -104,27 +105,27 @@ public class Controller implements ActionListener, KeyListener {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameView.setMovement("_right_");
-			gameModel.osprey.moveRight();
+			gameModel.getOsprey().moveRight();
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameView.setMovement("_left_");
-			gameModel.osprey.moveLeft();
+			gameModel.getOsprey().moveLeft();
 			
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameView.setMovement("_up_");
-			gameModel.osprey.moveUp();
+			gameModel.getOsprey().moveUp();
 		
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameView.setMovement("_down_");
-			gameModel.osprey.moveDown();
+			gameModel.getOsprey().moveDown();
 
 		}
 		

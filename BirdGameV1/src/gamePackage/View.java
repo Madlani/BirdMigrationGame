@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("serial")
 public class View extends JPanel {
 	
+	protected Controller controller;
 	private Color background;
 	//BufferedImage backgroundImage = createImage("src/bird_images/background.png");
 	private BufferedImage[][] birdAnimationArray;
@@ -33,7 +34,7 @@ public class View extends JPanel {
 	private int dir;
 	
 	public View(Controller controller) {
-		
+		this.controller = controller;
 		// Creates a pause button
 		//pauseButton = new JButton("Pause");
 		//pauseButton.setBounds(80, 80, frameHeight, frameWidth);
