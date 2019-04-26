@@ -22,6 +22,7 @@ public class SideSwiperView extends View {
 	public int imgVelX = -2;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private Image obstacleImg = Toolkit.getDefaultToolkit().createImage("src/bird_images/tinyplane.png");
 	
 	public SideSwiperView() {
 		super();
@@ -54,6 +55,7 @@ public class SideSwiperView extends View {
 		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
 		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
 		g.drawImage(birdImg, (int) Controller.getBird().getX(), (int) Controller.getBird().getY(), null);
+		g.drawImage(obstacleImg, (int) Controller.getObstacle().getX(), (int) Controller.getObstacle().getY(), null);
 		this.update(Controller.getBird().getX(), Controller.getBird().getY(), imgVelX);
 	}
 }

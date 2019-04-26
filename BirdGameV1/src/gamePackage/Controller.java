@@ -28,6 +28,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean pauseButtonFlag = false;
 	final int DRAW_DELAY = 100;
 	static Bird osprey;
+	static Obstacle airplane;
 	//Dimension screenSize;
 	
 	public Controller() {
@@ -36,6 +37,7 @@ public class Controller implements ActionListener, KeyListener {
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
 		osprey = new Bird();
+		airplane = new Obstacle();
 //		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		SideSwiperView ssv = new SideSwiperView();
@@ -183,6 +185,10 @@ public class Controller implements ActionListener, KeyListener {
 	
 	public static Bird getBird()	{
 		return osprey;
+	}
+	
+	public static Obstacle getObstacle() {
+		return airplane;
 	}
 
 }
