@@ -1,10 +1,6 @@
 package gamePackage;
-import static org.junit.Assert.assertEquals;
 
 import java.awt.geom.Point2D;
-
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
 
 public class Bird extends Point2D{
 	private double xPosition;
@@ -14,8 +10,10 @@ public class Bird extends Point2D{
 	private String sprite;
 	private final int BIRD_SPEED = 20;
 	
+	protected HitBox birdBox;
 	public Bird() {
-		// TODO Auto-generated constructor stub
+		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 150,150);
+		
 	}
 	
 	//Decrements the xPosition of the bird (in order for it to move left)
@@ -52,6 +50,10 @@ public class Bird extends Point2D{
 
 	public void setSprite(String sprite) {
 		this.sprite = sprite;
+	}
+	
+	public Bird getBird() {
+		return this;
 	}
 
 	@Override

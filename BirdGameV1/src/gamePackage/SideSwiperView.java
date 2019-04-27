@@ -17,17 +17,17 @@ import org.junit.Test;
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
 	
-	private Image birdImg;
+	private Image birdImg = Toolkit.getDefaultToolkit().createImage("src/images/smaller osprey.gif");
 	private Image g1;
 	public int imgVelX = -2;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private Image obstacleImg = Toolkit.getDefaultToolkit().createImage("src/images/airplane.gif");
+	private Image blockImg = Toolkit.getDefaultToolkit().createImage("src/images/block.png");
+	double birdX, birdY, planeX, planeY, blockX, blockY;
 	
-	public SideSwiperView() {
-		super();
-		
-		// Creates a JPanel for the background
-		this.setPreferredSize(new Dimension(736, 581));
+	public SideSwiperView(Controller controller) {
+		super(controller);
 		this.loadImage();
 	}
 	
@@ -44,36 +44,26 @@ public class SideSwiperView extends View {
 	}
 	
 	private void loadImage() {
-		ImageIcon birdIcon = new ImageIcon("src/bird_images/smaller osprey.gif");
-		ImageIcon grass_1 = new ImageIcon("src/bird_images/grass3.png");
+		ImageIcon grass_1 = new ImageIcon("src/images/grass3.png");
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		birdImg = birdIcon.getImage();
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {	
 		imgVelX-=5;
+		birdX = (int)controller.getGameModel().getOsprey().getX();
+		birdY = (int)controller.getGameModel().getOsprey().getY();
+		planeX = (int)controller.getGameModel().getAirplane().getX();
+		planeY = (int)controller.getGameModel().getAirplane().getY();
+		blockX = (int)controller.getGameModel().getBlock().getX();
+		blockY = (int)controller.getGameModel().getBlock().getY();
 		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
 		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
-		g.drawImage(birdImg, (int) Controller.getBird().getX(), (int) Controller.getBird().getY(), null);
-		this.update(Controller.getBird().getX(), Controller.getBird().getY(), imgVelX);
-	}
-}
+		g.drawImage(birdImg, (int)birdX, (int)birdY, null);
+		g.drawImage(blockImg, (int)blockX, (int)blockY, null);
 
-
-
-//-----------------------------------------------------------------------------------------------------
-//JUnit Tests
-
-class SideSwiperViewTest {
-	
-	@Test
-	public void testDisplayBlocks() {
-		// GUI element - cannot test at this time
-	}
-	
-	@Test
-	public void testDrawBackground() {
-		// GUI element - cannot test at this time
+		g.drawImage(obstacleImg, (int)planeX, (int)planeY, null);
+		System.out.println("Printing from SideSwiperView BIRDX, BIRDY: " + birdX + ", " + birdY);
+		this.update(birdX, birdY, imgVelX);
 	}
 }
