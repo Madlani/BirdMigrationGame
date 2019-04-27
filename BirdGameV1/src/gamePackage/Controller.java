@@ -21,6 +21,7 @@ public class Controller implements ActionListener, KeyListener {
 	private Model gameModel;
 	private View gameView;
 	SideSwiperView ssv;
+	WhackAMoleView wmv;
 	
 	
 	private Action gameAction;
@@ -36,8 +37,9 @@ public class Controller implements ActionListener, KeyListener {
 		
 		gameView = new View(this);
 		gameModel = new Model();
+		wmv = new WhackAMoleView(this);
 		//gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
-		ssv = new SideSwiperView(this);
+		//ssv = new SideSwiperView(this);
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
 	
@@ -47,13 +49,15 @@ public class Controller implements ActionListener, KeyListener {
 		frame.getContentPane().add(gameView);
 		//frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
 		
 		//set screen to full screen
 		frame.setUndecorated(true);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-
-		frame.add(ssv);
+		frame.add(wmv);
+		//wmv.setVisible(true);
+		//frame.add(ssv);
 		//frame.add(gameView.pauseButton);
 		frame.pack();
 		
