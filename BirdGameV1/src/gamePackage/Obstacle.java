@@ -1,9 +1,13 @@
 package gamePackage;
+<<<<<<< HEAD
 import java.awt.Toolkit;
+=======
+>>>>>>> 1974baf4edad70ef94db8ecb63e1560156bbdc23
 import java.awt.geom.Point2D;
 
 
 public class Obstacle extends Point2D {
+<<<<<<< HEAD
 	private String sprite;
 	private final int OBSTACLE_SPEED = 15;
 	protected HitBox obstacleBox;
@@ -33,6 +37,19 @@ public class Obstacle extends Point2D {
 	}
 	
 
+=======
+	private double xPosition = 450;
+	private double yPosition = 450;
+	
+	private String sprite;
+	private final int OBSTACLE_SPEED = 15;
+	protected HitBox obstacleBox;
+	
+	Obstacle(){
+		this.obstacleBox = new HitBox((int)this.xPosition,(int) this.yPosition, 150,150);
+
+	}
+>>>>>>> 1974baf4edad70ef94db8ecb63e1560156bbdc23
 	@Override
 	public double getX() {
 		// TODO Auto-generated method stub

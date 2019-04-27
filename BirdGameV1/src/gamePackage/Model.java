@@ -30,9 +30,15 @@ public class Model extends Point2D {
     	this.imgWidth = iw;
     	this.imgHeight = ih;*/
     	this.osprey = new Bird();
+<<<<<<< HEAD
     	this.airplane = new Obstacle(200);
     	this.block = new Obstacle(450);
     	this.questionBlock = new Obstacle(700);
+=======
+    	this.airplane = new Obstacle();
+    	this.block = new Obstacle();
+    	this.questionBlock = new Obstacle();
+>>>>>>> 1974baf4edad70ef94db8ecb63e1560156bbdc23
     	
     	// Adds all obstacles to one collection
     	this.gameObstacles = new HashSet<>();
@@ -48,6 +54,7 @@ public class Model extends Point2D {
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
     	this.airplane.obstacleBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
+<<<<<<< HEAD
     	this.block.setLocation(this.block.getX(), this.block.getY());
     	this.block.obstacleBox.setLocation((int)this.block.getX(), (int)this.block.getY());    	
     	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
@@ -58,6 +65,12 @@ public class Model extends Point2D {
     	updateObstacleLocationAndDirection(airplane);
     	updateObstacleLocationAndDirection(block);
 
+=======
+    	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
+    	System.out.println(detectCollisions());
+    	
+    	updateObstacleLocationAndDirection(airplane);
+>>>>>>> 1974baf4edad70ef94db8ecb63e1560156bbdc23
 	}
 	
 	public void updateObstacleLocationAndDirection(Obstacle o) {
@@ -84,8 +97,13 @@ public class Model extends Point2D {
 		}
 	
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
+<<<<<<< HEAD
 	public boolean detectCollisions(Obstacle o) {
 		return o.obstacleBox.intersects(osprey.birdBox);
+=======
+	public boolean detectCollisions() {
+		return airplane.obstacleBox.intersects(osprey.birdBox);
+>>>>>>> 1974baf4edad70ef94db8ecb63e1560156bbdc23
 	}
 
 	public int getImgHeight() {
@@ -142,10 +160,13 @@ public class Model extends Point2D {
 
 	public Obstacle getAirplane() {
 		return airplane;
+<<<<<<< HEAD
 	}
 
 	public Obstacle getBlock() {
 		return block;
+=======
+>>>>>>> 1974baf4edad70ef94db8ecb63e1560156bbdc23
 	}
 }
 
