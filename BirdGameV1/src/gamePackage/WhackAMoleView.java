@@ -27,10 +27,10 @@ public class WhackAMoleView extends View {
 
 	public void loadImage() {
 		ImageIcon bg = new ImageIcon("src/bird_images/WhackAMoleBackground.png");
-		Background = bg.getImage();//.getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		Background = bg.getImage();
 		
-		ImageIcon left = new ImageIcon("src/bird_images/WhackAMoleLeft.png");
-		Left = left.getImage();//.getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		ImageIcon left = new ImageIcon("src/bird_images/WhackAMoleArrowLeft.png");
+		Left = left.getImage();
 //
 //		ImageIcon right = new ImageIcon("src/bird_images/WhackAMoleRight.png");
 //		Right = right.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
@@ -46,8 +46,8 @@ public class WhackAMoleView extends View {
 	@Override
 	//paints image
 	public void paintComponent(Graphics g) {
-		g.drawImage(Background, 0, 0, null);
-		g.drawImage(Left, 5, 10, null);
+		g.drawImage(Background, 0, 0, getWidth(), getHeight(), this);
+		//g.drawImage(Left, (scaledImageWidth/2) - 150, (scaledImageHeight/2) - 150, null);
 		
 	}
 	
