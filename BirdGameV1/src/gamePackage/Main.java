@@ -1,11 +1,9 @@
 package gamePackage;
 
-import java.awt.EventQueue;
-
 public class Main {
 	public static void main(String[] args) {
-			Controller c = new Controller();
-			c.start();	
-			
+		Controller c = new Controller();
+		c.start();
 	}	
+	
 }

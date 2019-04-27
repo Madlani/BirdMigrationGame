@@ -30,9 +30,9 @@ public class Model extends Point2D {
     	this.imgWidth = iw;
     	this.imgHeight = ih;*/
     	this.osprey = new Bird();
-    	this.airplane = new Obstacle();
-    	this.block = new Obstacle();
-    	this.questionBlock = new Obstacle();
+    	this.airplane = new Obstacle(200);
+    	this.block = new Obstacle(450);
+    	this.questionBlock = new Obstacle(700);
     	
     	// Adds all obstacles to one collection
     	this.gameObstacles = new HashSet<>();
@@ -48,10 +48,16 @@ public class Model extends Point2D {
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
     	this.airplane.obstacleBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
+    	this.block.setLocation(this.block.getX(), this.block.getY());
+    	this.block.obstacleBox.setLocation((int)this.block.getX(), (int)this.block.getY());    	
     	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
-    	System.out.println(detectCollisions());
+    	System.out.println(detectCollisions(airplane));
+    	System.out.println(detectCollisions(block));
+
     	
     	updateObstacleLocationAndDirection(airplane);
+    	updateObstacleLocationAndDirection(block);
+
 	}
 	
 	public void updateObstacleLocationAndDirection(Obstacle o) {
@@ -78,8 +84,8 @@ public class Model extends Point2D {
 		}
 	
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles
-	public boolean detectCollisions() {
-		return airplane.obstacleBox.intersects(osprey.birdBox);
+	public boolean detectCollisions(Obstacle o) {
+		return o.obstacleBox.intersects(osprey.birdBox);
 	}
 
 	public int getImgHeight() {
@@ -136,6 +142,10 @@ public class Model extends Point2D {
 
 	public Obstacle getAirplane() {
 		return airplane;
+	}
+
+	public Obstacle getBlock() {
+		return block;
 	}
 }
 

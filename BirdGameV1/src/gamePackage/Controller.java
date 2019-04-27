@@ -23,7 +23,6 @@ public class Controller implements ActionListener, KeyListener {
 	SideSwiperView ssv;
 	WhackAMoleView wmv;
 	
-	
 	private Action gameAction;
 	private boolean keyPressed = false;
 	private boolean controllerStart = false;
@@ -39,7 +38,7 @@ public class Controller implements ActionListener, KeyListener {
 		gameModel = new Model();
 		wmv = new WhackAMoleView(this);
 		//gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
-		//ssv = new SideSwiperView(this);
+		ssv = new SideSwiperView(this);
 		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
 	
@@ -49,15 +48,13 @@ public class Controller implements ActionListener, KeyListener {
 		frame.getContentPane().add(gameView);
 		//frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
 		
 		//set screen to full screen
 		frame.setUndecorated(true);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-		frame.add(wmv);
-		//wmv.setVisible(true);
-		//frame.add(ssv);
+		//frame.add(wmv);
+		frame.add(ssv);
 		//frame.add(gameView.pauseButton);
 		frame.pack();
 		
@@ -78,7 +75,7 @@ public class Controller implements ActionListener, KeyListener {
 					gameModel.updateLocationAndDirection();
 				}
 				gameView.update(gameModel.getOsprey().getX(), gameModel.getOsprey().getY(), gameModel.getDirection());
-				System.out.println("Printing from Controler OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
+				System.out.println("Printing from Controller OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
 				System.out.println("-----------------------------------");
 			}
 		};

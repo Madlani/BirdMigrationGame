@@ -18,8 +18,8 @@ public class View extends JPanel {
 	protected Controller controller;
 	private Color background;
 	//BufferedImage backgroundImage = createImage("src/bird_images/background.png");
-	private BufferedImage[][] birdAnimationArray;
-	private BufferedImage[][] obstacleAnimationArray;
+//	private BufferedImage[][] birdAnimationArray;
+//	private BufferedImage[][] obstacleAnimationArray;
 	private String movement; 
 	
 	private int imgWidth = 165;
@@ -40,9 +40,9 @@ public class View extends JPanel {
 		//pauseButton.setActionCommand("Paused"); // action command used to track if button was pressed
 		
 		// Creates the array to store the bird images
-		birdAnimationArray = new BufferedImage[1][1];
-		birdAnimationArray[0][0] = createImage("src/bird_images/osprey.png");
-		
+//		birdAnimationArray = new BufferedImage[1][1];
+//		birdAnimationArray[0][0] = createImage("src/bird_images/osprey.png");
+//		
 		//Allows key presses to work with JPanel
 		this.setFocusable(true);
 		this.setVisible(true);
@@ -96,22 +96,22 @@ public class View extends JPanel {
 		this.background = background;
 	}
 
-	public BufferedImage[][] getBirdAnimationArray() {
-		return birdAnimationArray;
-	}
-
-	public BufferedImage[][] getObstacleAnimationArray() {
-		return obstacleAnimationArray;
-	}
-
-	public void setBirdAnimationArray(BufferedImage[][] birdAnimationArray) {
-		this.birdAnimationArray = birdAnimationArray;
-	}
-
-	public void setObstacleAnimationArray(BufferedImage[][] obstacleAnimationArray) {
-		this.obstacleAnimationArray = obstacleAnimationArray;
-	}
-	
+//	public BufferedImage[][] getBirdAnimationArray() {
+//		return birdAnimationArray;
+//	}
+//
+//	public BufferedImage[][] getObstacleAnimationArray() {
+//		return obstacleAnimationArray;
+//	}
+//
+//	public void setBirdAnimationArray(BufferedImage[][] birdAnimationArray) {
+//		this.birdAnimationArray = birdAnimationArray;
+//	}
+//
+//	public void setObstacleAnimationArray(BufferedImage[][] obstacleAnimationArray) {
+//		this.obstacleAnimationArray = obstacleAnimationArray;
+//	}
+//	
 	public String getMovement() {
 		return this.movement;
 	}

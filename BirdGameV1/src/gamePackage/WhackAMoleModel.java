@@ -10,7 +10,6 @@ public class WhackAMoleModel extends Model {
 		super();
 	}
 	
-	
 	//randomizeObjects() will randomize where objects will appear during the whack a mole mini game
 	public void randomizeObjects() {
 		
@@ -24,10 +23,5 @@ public class WhackAMoleModel extends Model {
 		this.resourceCount = resourceCount;
 	}
 }
-
-
-
-
-//-----------------------------------------------------------------------------------------------------
 
 
