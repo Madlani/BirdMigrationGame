@@ -30,6 +30,13 @@ public class Controller implements ActionListener, KeyListener {
 	final int DRAW_DELAY = 15;
 	//Dimension screenSize;
 	
+	private boolean upPressed = false;
+	private boolean downPressed = false;
+	private boolean leftPressed = false;
+	private boolean rightPressed = false;
+	
+	
+	
 	public Controller() {
 		
 		gameView = new View(this);
@@ -100,21 +107,49 @@ public class Controller implements ActionListener, KeyListener {
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameModel.getOsprey().moveRight();
+			
+			//For repainting purposes with WhackAMole mini-game
+			upPressed = false;
+			downPressed = false;
+			leftPressed = false;
+			rightPressed = true;
+			wmv.repaint();
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameModel.getOsprey().moveLeft();
+			
+			//For repainting purposes with WhackAMole mini-game
+			upPressed = false;
+			downPressed = false;
+			leftPressed = true;
+			rightPressed = false;
+			wmv.repaint();
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameModel.getOsprey().moveUp();
+			
+			//For repainting purposes with WhackAMole mini-game
+			upPressed = true;
+			downPressed = false;
+			leftPressed = false;
+			rightPressed = false;
+			wmv.repaint();
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameModel.getOsprey().moveDown();
+			
+			//For repainting purposes with WhackAMole mini-game
+			upPressed = false;
+			downPressed = true;
+			leftPressed = false;
+			rightPressed = false;
+			wmv.repaint();
 		}
 	}
 
@@ -171,6 +206,30 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	public boolean getActionPerformed() {
 		return actionPerformed;
+	}
+	public boolean getUpPressed() {
+		return upPressed;
+	}
+	public void setUpPressed(boolean upPressed) {
+		this.upPressed = upPressed;
+	}
+	public boolean getDownPressed() {
+		return downPressed;
+	}
+	public void setDownPressed(boolean downPressed) {
+		this.downPressed = downPressed;
+	}
+	public boolean getLeftPressed() {
+		return leftPressed;
+	}
+	public void setLeftPressed(boolean leftPressed) {
+		this.leftPressed = leftPressed;
+	}
+	public boolean getRightPressed() {
+		return rightPressed;
+	}
+	public void setRightPressed(boolean rightPressed) {
+		this.rightPressed = rightPressed;
 	}
 
 }
