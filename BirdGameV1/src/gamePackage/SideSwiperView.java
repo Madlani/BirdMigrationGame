@@ -15,7 +15,7 @@ public class SideSwiperView extends View {
 	public int imgVelX = 0;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	private Image obstacleImg = Toolkit.getDefaultToolkit().createImage("src/images/airplane.png");
+	private Image airplaneImg = Toolkit.getDefaultToolkit().createImage("src/images/airplane.png");
 	private Image blockImg = Toolkit.getDefaultToolkit().createImage("src/images/block.png");
 	double birdX, birdY, planeX, planeY, blockX, blockY;
 	
@@ -78,7 +78,7 @@ public class SideSwiperView extends View {
 		g2.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		g2.drawImage(blockImg, (int)blockX, (int)blockY, null);
 
-		g2.drawImage(obstacleImg, (int)planeX, (int)planeY, null);
+		g2.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
 		this.update(birdX, birdY, imgVelX);
 	}
 }

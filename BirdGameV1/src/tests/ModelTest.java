@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import gamePackage.Model;
-import gamePackage.Obstacle;
+import gamePackage.GameObject;
 
 class ModelTest {
 
@@ -29,7 +29,7 @@ class ModelTest {
 	@Test
 	public void testDetectCollisions() {
 		Model test = new Model();
-		Obstacle obs = new Obstacle(20.0);
+		GameObject obs = new GameObject(20.0);
 		assertEquals(false, test.detectCollisions(obs));
 		assertFalse(test.detectCollisions(obs));
 	}

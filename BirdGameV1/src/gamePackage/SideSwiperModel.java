@@ -21,8 +21,8 @@ public class SideSwiperModel extends Model {
 		
 	}
 	
-	//moveObstacles() moves the obstacles as the game progresses
-	public void moveObstacles() {
+	//moveGameObjects() moves the GameObject as the game progresses
+	public void moveGameObjects() {
 		
 	}
 	

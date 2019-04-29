@@ -45,11 +45,11 @@ public class Controller implements ActionListener, KeyListener {
 		
 		// Code to run SideSwiper Game
 		ssv = new SideSwiperView(this);
-		//frame.add(ssv);
+		frame.add(ssv);
 		
 		// Code to run Whack a Mole Game
 		wmv = new WhackAMoleView(this);
-		frame.add(wmv);
+		//frame.add(wmv);
 
 		frame.pack();
 		frame.setVisible(true);

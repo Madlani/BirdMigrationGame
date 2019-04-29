@@ -7,8 +7,8 @@ public class MigrationView extends View {
 		super(controller);
 	}
 
-	//Shows the obstacles that the bird must avoid
-	public void displayObstacles() 
+	//Shows the GameObjects that the bird must avoid
+	public void displayGameObjects() 
 	{
 		
 	}
