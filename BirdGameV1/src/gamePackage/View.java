@@ -1,6 +1,7 @@
 package gamePackage;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -52,7 +53,7 @@ public class View extends JPanel {
 		
 	}
 	
-	private BufferedImage createImage(String name) {
+	protected BufferedImage createImage(String name) {
 
 		BufferedImage bufferedImage;
 		try {
@@ -64,7 +65,7 @@ public class View extends JPanel {
 		return null;
 	}
 	
-	public void paintComponent() {
+	public void paintComponent(Graphics2D g) {
 		
 	}
 	
@@ -74,15 +75,15 @@ public class View extends JPanel {
 	}
 
 	public void update(double x, double y, int d) {
-
+		
 		this.x = x;
 		this.y = y;
 		this.dir = d;
-
+		
 		try {
 			this.setBackground(Color.gray);
 			this.repaint();
-			Thread.sleep(30);
+			Thread.sleep(15);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

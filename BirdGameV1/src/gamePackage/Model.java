@@ -43,16 +43,16 @@ public class Model extends Point2D {
 	
 	//updateLocationAndDirection() will contain the logic to move obstacles when they start to go off screen
 	public void updateLocationAndDirection() {
-		System.out.println("entering Model updateLoc&Dir");
+		//System.out.println("entering Model updateLoc&Dir");
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
     	this.airplane.obstacleBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
     	this.block.setLocation(this.block.getX(), this.block.getY());
     	this.block.obstacleBox.setLocation((int)this.block.getX(), (int)this.block.getY());    	
-    	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
-    	System.out.println(detectCollisions(airplane));
-    	System.out.println(detectCollisions(block));
+//    	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
+//    	System.out.println(detectCollisions(airplane));
+//    	System.out.println(detectCollisions(block));
 
     	
     	updateObstacleLocationAndDirection(airplane);
@@ -61,7 +61,7 @@ public class Model extends Point2D {
 	}
 	
 	public void updateObstacleLocationAndDirection(Obstacle o) {
-		if(o.getX() <= 0) {
+		if(o.getX() <= -150) {
 			resetObstacleLocation(o);
 		}
 		else {
@@ -80,7 +80,8 @@ public class Model extends Point2D {
 			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
 			
 			// sets x location to be all the way to the right on the screen (with random y height)
-			o.setLocation(width - o.obstacleBox.width, rand);
+			//o.setLocation(width - o.obstacleBox.width, rand);
+			o.setLocation(width, rand);
 		}
 	
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other obstacles

@@ -14,8 +14,6 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.AbstractAction;
 
-import org.junit.jupiter.api.Test;
-
 public class Controller implements ActionListener, KeyListener {
 
 	private Model gameModel;
@@ -29,7 +27,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
-	final int DRAW_DELAY = 100;
+	final int DRAW_DELAY = 15;
 	//Dimension screenSize;
 	
 	public Controller() {
@@ -53,8 +51,8 @@ public class Controller implements ActionListener, KeyListener {
 		frame.setUndecorated(true);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-		//frame.add(wmv);
-		frame.add(ssv);
+		frame.add(wmv);
+		//frame.add(ssv);
 		//frame.add(gameView.pauseButton);
 		frame.pack();
 		
@@ -68,26 +66,24 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@SuppressWarnings("serial")
 	public void start() {
-		
 		gameAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				if (!pauseButtonFlag) {
 					gameModel.updateLocationAndDirection();
 				}
+				
 				gameView.update(gameModel.getOsprey().getX(), gameModel.getOsprey().getY(), gameModel.getDirection());
-				System.out.println("Printing from Controller OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
-				System.out.println("-----------------------------------");
+//				System.out.println("Printing from Controller OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
+//				System.out.println("-----------------------------------");
 			}
 		};
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				Timer t = new Timer(DRAW_DELAY, gameAction);
+				Timer t = new Timer(15, gameAction);
 				t.start();
 			}
 		});
-		
-
 	}
 
 	
@@ -101,6 +97,7 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//Right arrow key 
+		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameModel.getOsprey().moveRight();
 		}
