@@ -1,8 +1,6 @@
 package gamePackage;
 import java.awt.image.BufferedImage;
 
-import org.junit.jupiter.api.Test;
-
 @SuppressWarnings("serial")
 public class FeedingView extends View {
 	
@@ -34,11 +32,7 @@ public class FeedingView extends View {
 	public void setFishingAnimationArray(BufferedImage[][] fishingAnimationArray) {
 		this.fishingAnimationArray = fishingAnimationArray;
 	}
-	
-	
 }
-
-//-----------------------------------------------------------------------------------------------------
 
 
 

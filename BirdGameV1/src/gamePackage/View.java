@@ -18,13 +18,8 @@ public class View extends JPanel {
 	
 	protected Controller controller;
 	private Color background;
-	//BufferedImage backgroundImage = createImage("src/bird_images/background.png");
-//	private BufferedImage[][] birdAnimationArray;
-//	private BufferedImage[][] obstacleAnimationArray;
 	private String movement; 
-	
-	private int imgWidth = 165;
-	private int imgHeight = 165;
+
 	public JButton pauseButton;
 	public boolean pauseButtonFlag = false;
 	
@@ -34,16 +29,7 @@ public class View extends JPanel {
 	
 	public View(Controller controller) {
 		this.controller = controller;
-		// Creates a pause button
-		//pauseButton = new JButton("Pause");
-		//pauseButton.setBounds(80, 80, frameHeight, frameWidth);
-		//this.add(pauseButton);
-		//pauseButton.setActionCommand("Paused"); // action command used to track if button was pressed
 		
-		// Creates the array to store the bird images
-//		birdAnimationArray = new BufferedImage[1][1];
-//		birdAnimationArray[0][0] = createImage("src/bird_images/osprey.png");
-//		
 		//Allows key presses to work with JPanel
 		this.setFocusable(true);
 		this.setVisible(true);
@@ -54,7 +40,7 @@ public class View extends JPanel {
 	}
 	
 	protected BufferedImage createImage(String name) {
-
+		
 		BufferedImage bufferedImage;
 		try {
 			bufferedImage = ImageIO.read(new File(name));
@@ -96,53 +82,13 @@ public class View extends JPanel {
 	public void setBackground(Color background) {
 		this.background = background;
 	}
-
-//	public BufferedImage[][] getBirdAnimationArray() {
-//		return birdAnimationArray;
-//	}
-//
-//	public BufferedImage[][] getObstacleAnimationArray() {
-//		return obstacleAnimationArray;
-//	}
-//
-//	public void setBirdAnimationArray(BufferedImage[][] birdAnimationArray) {
-//		this.birdAnimationArray = birdAnimationArray;
-//	}
-//
-//	public void setObstacleAnimationArray(BufferedImage[][] obstacleAnimationArray) {
-//		this.obstacleAnimationArray = obstacleAnimationArray;
-//	}
-//	
+	
 	public String getMovement() {
 		return this.movement;
 	}
 	public void setMovement(String movement) {
 		this.movement = movement;
 	}
-
-	public int getImgWidth() {
-		return imgWidth;
-	}
-
-	public void setImgWidth(int imgWidth) {
-		this.imgWidth = imgWidth;
-	}
-
-	public int getImgHeight() {
-		return imgHeight;
-	}
-
-	public void setImgHeight(int imgHeight) {
-		this.imgHeight = imgHeight;
-	}
-
-	//public void updateButton(Controller controller) {
-	//	pauseButton.addActionListener(controller);
-	//}
-	
 }
-
-//-----------------------------------------------------------------------------------------------------
-
 
 

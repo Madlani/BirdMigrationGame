@@ -1,5 +1,4 @@
 package gamePackage;
-import org.junit.Test;
 
 @SuppressWarnings("serial")
 public class ObstacleView extends View {
@@ -20,12 +19,8 @@ public class ObstacleView extends View {
 
 	public void setMovingDirection(String movingDirection) {
 		this.movingDirection = movingDirection;
-	}
-	
-	
+	}	
 }
-
-//-----------------------------------------------------------------------------------------------------
 
 
 

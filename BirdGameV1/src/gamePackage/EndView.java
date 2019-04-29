@@ -1,7 +1,9 @@
 package gamePackage;
 @SuppressWarnings("serial")
-public class EndView extends View {
 
+//display the final state of the game
+public class EndView extends View {
+	
 	public EndView(Controller controller) {
 		super(controller);
 	}
@@ -9,10 +11,7 @@ public class EndView extends View {
 	public void replayGame() {
 
 	}
-
 }
-
-//-----------------------------------------------------------------------------------------------------
 
 
 

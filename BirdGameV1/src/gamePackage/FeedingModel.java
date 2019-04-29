@@ -1,9 +1,4 @@
 package gamePackage;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import org.junit.Test;
 
 public class FeedingModel extends Model {
 	
@@ -21,6 +16,4 @@ public class FeedingModel extends Model {
 		return false;
 	}
 }
-
-//-----------------------------------------------------------------------------------------------------
 

@@ -1,7 +1,4 @@
 package gamePackage;
-import static org.junit.Assert.assertEquals;
-
-import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("serial")
 public class StartView extends View {
@@ -35,8 +32,6 @@ public class StartView extends View {
 		return this.startClicked;
 	}
 }
-
-//-----------------------------------------------------------------------------------------------------
 
 
 

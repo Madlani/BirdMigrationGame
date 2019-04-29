@@ -1,9 +1,5 @@
 package gamePackage;
-import static org.junit.Assert.assertEquals;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,38 +24,30 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;
 	final int DRAW_DELAY = 15;
-	//Dimension screenSize;
 	
 	public Controller() {
 		
 		gameView = new View(this);
-		gameModel = new Model();
-		wmv = new WhackAMoleView(this);
-		//gameModel = new Model(gameView.getWidth(), gameView.getHeight(), gameView.getImgWidth(), gameView.getImgHeight());
-		ssv = new SideSwiperView(this);
-		//gameView.updateButton(this);
 		gameView.addKeyListener(this);
-	
+		gameModel = new Model();
 		
 		// Creates the frame and selects settings
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(gameView);
-		//frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//set screen to full screen
 		frame.setUndecorated(true);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-		frame.add(wmv);
-		//frame.add(ssv);
-		//frame.add(gameView.pauseButton);
-		frame.pack();
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // sets screen to full screen
 		
-		frame.setVisible(true);
-	
+		// Code to run SideSwiper Game
+		ssv = new SideSwiperView(this);
+		frame.add(ssv);
+		
+		// Code to run Whack a Mole Game
+		wmv = new WhackAMoleView(this);
+		//frame.add(wmv);
 
-		//gameView.pauseButton.setVisible(true);
+		frame.pack();
+		frame.setVisible(true);
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -71,16 +59,12 @@ public class Controller implements ActionListener, KeyListener {
 				if (!pauseButtonFlag) {
 					gameModel.updateLocationAndDirection();
 				}
-				
-				gameView.update(gameModel.getOsprey().getX(), gameModel.getOsprey().getY(), gameModel.getDirection());
-//				System.out.println("Printing from Controller OSPREY LOCATION: " + gameModel.osprey.getX() + ", " + gameModel.osprey.getY());
-//				System.out.println("-----------------------------------");
 			}
 		};
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				Timer t = new Timer(15, gameAction);
+				Timer t = new Timer(DRAW_DELAY, gameAction);
 				t.start();
 			}
 		});
@@ -90,14 +74,12 @@ public class Controller implements ActionListener, KeyListener {
 	// necessary methods to be implemented from super class
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//Right arrow key 
-		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameModel.getOsprey().moveRight();
 		}
@@ -125,8 +107,8 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		gameView.setMovement("_forward_");
-		//gameView.setCount(gameView.getFRAME_COUNT());
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if ("Paused".contentEquals(e.getActionCommand())) {

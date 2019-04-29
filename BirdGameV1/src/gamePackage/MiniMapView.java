@@ -1,5 +1,4 @@
 package gamePackage;
-import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("serial")
 public class MiniMapView extends View{
@@ -26,9 +25,5 @@ public class MiniMapView extends View{
 	}
 
 }
-
-//-----------------------------------------------------------------------------------------------------
-//JUnit Tests
-
 
 

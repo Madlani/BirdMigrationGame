@@ -7,14 +7,14 @@ import java.util.HashSet;
 
 public class Model extends Point2D {
 
-	private int frameHeight;
-	private int frameWidth;
 	private int imgHeight;
 	private int imgWidth;
 	protected double xloc, yloc;
 	private int direction;
 	private int health;
-	
+	final int airplaneStartX = 200;
+	final int blockStartX = 450;
+	final int questionBlockStartX = 700;
 	HashSet<Obstacle> gameObstacles;
 	
 	// Objects in our game
@@ -24,15 +24,10 @@ public class Model extends Point2D {
 	public Obstacle questionBlock;
 
 	public Model() {
-    //public Model(int w, int h, int iw, int ih) {
-    	/*this.frameWidth = w;
-    	this.frameHeight = h;
-    	this.imgWidth = iw;
-    	this.imgHeight = ih;*/
     	this.osprey = new Bird();
-    	this.airplane = new Obstacle(200);
-    	this.block = new Obstacle(450);
-    	this.questionBlock = new Obstacle(700);
+    	this.airplane = new Obstacle(airplaneStartX);
+    	this.block = new Obstacle(blockStartX);
+    	this.questionBlock = new Obstacle(questionBlockStartX);
     	
     	// Adds all obstacles to one collection
     	this.gameObstacles = new HashSet<>();
@@ -43,17 +38,15 @@ public class Model extends Point2D {
 	
 	//updateLocationAndDirection() will contain the logic to move obstacles when they start to go off screen
 	public void updateLocationAndDirection() {
-		//System.out.println("entering Model updateLoc&Dir");
+
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
+		
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
     	this.airplane.obstacleBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
+    	
     	this.block.setLocation(this.block.getX(), this.block.getY());
     	this.block.obstacleBox.setLocation((int)this.block.getX(), (int)this.block.getY());    	
-//    	System.out.println("Model Osprey " + this.osprey.getX() + ", " + this.osprey.getY());
-//    	System.out.println(detectCollisions(airplane));
-//    	System.out.println(detectCollisions(block));
-
     	
     	updateObstacleLocationAndDirection(airplane);
     	updateObstacleLocationAndDirection(block);
@@ -61,7 +54,7 @@ public class Model extends Point2D {
 	}
 	
 	public void updateObstacleLocationAndDirection(Obstacle o) {
-		if(o.getX() <= -150) {
+		if(o.getX() <= -o.obstacleBox.width) {
 			resetObstacleLocation(o);
 		}
 		else {
@@ -80,7 +73,6 @@ public class Model extends Point2D {
 			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
 			
 			// sets x location to be all the way to the right on the screen (with random y height)
-			//o.setLocation(width - o.obstacleBox.width, rand);
 			o.setLocation(width, rand);
 		}
 	
@@ -149,7 +141,5 @@ public class Model extends Point2D {
 		return block;
 	}
 }
-
-//-----------------------------------------------------------------------------------------------------
 
 

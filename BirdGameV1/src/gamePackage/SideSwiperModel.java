@@ -1,15 +1,6 @@
 package gamePackage;
 
-import java.awt.Toolkit;
-import java.util.Random;
-
 public class SideSwiperModel extends Model {
-	
-
-	//protected HitBox birdBox;
-	public SideSwiperModel(int w, int h, int iW, int iH) {
-		//super(w, h, iW, iH);
-	}
 	
 	public SideSwiperModel() {
 		super();
@@ -36,8 +27,6 @@ public class SideSwiperModel extends Model {
 	}
 	
 	}
-
-//-----------------------------------------------------------------------------------------------------
 
 
 

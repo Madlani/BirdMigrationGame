@@ -1,5 +1,4 @@
 package gamePackage;
-import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("serial")
 public class MigrationView extends View {
@@ -22,8 +21,6 @@ public class MigrationView extends View {
 	}
 	
 }
-
-//-----------------------------------------------------------------------------------------------------
 
 
 

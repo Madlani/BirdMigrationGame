@@ -6,14 +6,11 @@ public class Bird extends Point2D{
 	private double xPosition;
 	private double yPosition;
 	private int health;
-	//file location of the bird's image
-	private String sprite;
 	private final int BIRD_SPEED = 20;
 	
 	protected HitBox birdBox;
 	public Bird() {
 		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 150,150);
-		
 	}
 	
 	//Decrements the xPosition of the bird (in order for it to move left)
@@ -43,14 +40,6 @@ public class Bird extends Point2D{
 	public void setHealth(int health) {
 		this.health = health;
 	}
-
-	public String getSprite() {
-		return sprite;
-	}
-
-	public void setSprite(String sprite) {
-		this.sprite = sprite;
-	}
 	
 	public Bird getBird() {
 		return this;
@@ -58,13 +47,11 @@ public class Bird extends Point2D{
 
 	@Override
 	public double getX() {
-		// TODO Auto-generated method stub
 		return this.xPosition;
 	}
 
 	@Override
 	public double getY() {
-		// TODO Auto-generated method stub
 		return this.yPosition;
 	}
 
@@ -75,6 +62,4 @@ public class Bird extends Point2D{
 	}
 
 }
-
-//-----------------------------------------------------------------------------------------------------
 
