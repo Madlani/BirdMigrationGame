@@ -1,12 +1,15 @@
 package gamePackage;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
@@ -24,6 +27,7 @@ public class SideSwiperView extends View {
 	private int birdFrameCount = 22;
 	private BufferedImage[] bird_imagesBufferedImage;
 	private int picNum = 0;
+	
 	
 	public SideSwiperView(Controller controller) {
 		super(controller);
@@ -52,12 +56,14 @@ public class SideSwiperView extends View {
 			bird_imagesBufferedImage[i] = birdFrames.getSubimage(imgWidth * i, 0, imgWidth, 150);
 		}
 		setDoubleBuffered(true);
+
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g.create();
+		Graphics2D g3 = (Graphics2D) g.create();
 		
 		picNum = (picNum + 1) % birdFrameCount;
 		imgVelX-=5;
@@ -80,5 +86,8 @@ public class SideSwiperView extends View {
 
 		g2.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
 		this.update(birdX, birdY, imgVelX);
+		
+		g3.setColor(Color.RED);
+		g3.fillRect(scaledImageWidth - 300, 20, this.controller.getGameModel().getOsprey().getHealth(), 25);
 	}
 }

@@ -5,12 +5,12 @@ import java.awt.geom.Point2D;
 public class Bird extends Point2D{
 	private double xPosition;
 	private double yPosition;
-	private int health;
+	private int health = 250;
 	private final int BIRD_SPEED = 20;
 	
 	protected HitBox birdBox;
 	public Bird() {
-		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 150,150);
+		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 100,100);
 	}
 	
 	//Decrements the xPosition of the bird (in order for it to move left)

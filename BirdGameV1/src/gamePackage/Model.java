@@ -39,7 +39,8 @@ public class Model extends Point2D {
 	
 	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
 	public void updateLocationAndDirection() {
-
+		detectCollisions(this.airplane);
+		detectCollisions(this.block);
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
 		
@@ -65,7 +66,8 @@ public class Model extends Point2D {
 	
 	//resetGameObjectLocation() will update where the GameObjects are on screen 
 		public void resetGameObjectLocation(GameObject o) {
-			
+			System.out.println(o.GameObjectBox.intersects(osprey.birdBox));
+			System.out.println(this.osprey.getHealth());
 			//bounds to keep the GameObject from going off the screen in the +/- y direction
 			int maxHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - o.GameObjectBox.height;
 			int minHeight = 0;
@@ -79,7 +81,11 @@ public class Model extends Point2D {
 	
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other GameObjects
 	public boolean detectCollisions(GameObject o) {
-		return o.GameObjectBox.intersects(osprey.birdBox);
+		if (o.GameObjectBox.intersects(osprey.birdBox)) 	{
+			this.osprey.setHealth(this.getOsprey().getHealth() - 1);
+			return true;
+		}
+		return false;
 	}
 
 	public int getImgHeight() {
