@@ -15,7 +15,7 @@ public class SideSwiperView extends View {
 	public int imgVelX = 0;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	private Image obstacleImg = Toolkit.getDefaultToolkit().createImage("src/images/airplane.gif");
+	private Image obstacleImg = Toolkit.getDefaultToolkit().createImage("src/images/airplane.png");
 	private Image blockImg = Toolkit.getDefaultToolkit().createImage("src/images/block.png");
 	double birdX, birdY, planeX, planeY, blockX, blockY;
 	
