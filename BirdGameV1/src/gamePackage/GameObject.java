@@ -7,7 +7,7 @@ public class GameObject extends Point2D {
 	protected HitBox GameObjectBox;
 	private double xPosition;
 	private double yPosition;
-	final int imgWidth = 150;
+	final int imgWidth = 100;
 	
 	public GameObject(double startingX){
 		xPosition = startingX;

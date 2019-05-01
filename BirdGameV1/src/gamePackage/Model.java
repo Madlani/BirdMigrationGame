@@ -15,7 +15,7 @@ public class Model extends Point2D {
 	final int airplaneStartX = 200;
 	final int blockStartX = 450;
 	final int questionBlockStartX = 700;
-	final int fishStartX = 700;
+	final int foodStartX = 700;
 	HashSet<GameObject> gameObjects;
 	
 	// Objects in our game
@@ -23,28 +23,27 @@ public class Model extends Point2D {
 	public GameObject airplane;
 	public GameObject block;
 	public GameObject questionBlock;
-	public GameObject fish;
+	public GameObject food;
 
 	public Model() {
     	this.osprey = new Bird();
     	this.airplane = new GameObject(airplaneStartX);
     	this.block = new GameObject(blockStartX);
     	this.questionBlock = new GameObject(questionBlockStartX);
-    	this.fish = new GameObject(fishStartX);
+    	this.food = new GameObject(foodStartX);
     	
     	// Adds all GameObjects to one collection
     	this.gameObjects = new HashSet<>();
     	gameObjects.add(airplane);
     	gameObjects.add(block);
     	gameObjects.add(questionBlock);
-    	gameObjects.add(fish);
+    	gameObjects.add(food);
     }
 	
 	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
 	public void updateLocationAndDirection() {
 		detectCollisions(this.airplane);
 		detectCollisions(this.block);
-		detectCollisions(this.fish);
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
 		
@@ -52,15 +51,15 @@ public class Model extends Point2D {
     	this.airplane.GameObjectBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
     	
     	this.block.setLocation(this.block.getX(), this.block.getY());
-    	this.block.GameObjectBox.setLocation((int)this.block.getX(), (int)this.block.getY());  
+    	this.block.GameObjectBox.setLocation((int)this.block.getX(), (int)this.block.getY());   
     	
-    	this.fish.setLocation(this.fish.getX(), this.fish.getY());
-    	this.fish.GameObjectBox.setLocation((int)this.fish.getX(), (int)this.fish.getY());  
+    	this.food.setLocation(this.food.getX(), this.food.getY());
+    	this.food.GameObjectBox.setLocation((int)this.food.getX(), (int)this.food.getY());
+    	
     	
     	updateGameObjectLocationAndDirection(airplane);
     	updateGameObjectLocationAndDirection(block);
-    	//updateGameObjectLocationAndDirection(questionBlock);
-    	updateGameObjectLocationAndDirection(fish);
+    	updateGameObjectLocationAndDirection(food);
 
 	}
 	
@@ -86,21 +85,20 @@ public class Model extends Point2D {
 			
 			// sets x location to be all the way to the right on the screen (with random y height)
 			o.setLocation(width, rand);
-		}
-	
-	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other GameObjects
+	}
+
+	// detectCollisions() will contain the logic that determines if the bird model
+	// has collided with objects such as the ground and other GameObjects
 	public boolean detectCollisions(GameObject o) {
 		if (o.GameObjectBox.intersects(osprey.birdBox)) {
-			if ((o.GameObjectBox.getX() == this.fish.GameObjectBox.getX()) && (o.GameObjectBox.getY() == this.fish.GameObjectBox.getY())&&(this.osprey.getHealth()<250)) {
-				//increments health if the passed in GameObject's hitBox X & Y are the same as the fish's hitBox X & Y
-				this.osprey.setHealth(this.getOsprey().getHealth() + 1);  
-			}
-			else {
-				//decrements if it's any GameObject other than a fish
-				this.osprey.setHealth(this.getOsprey().getHealth() - 1);
-			}
+			this.osprey.setHealth(this.getOsprey().getHealth() - 1);
 			return true;
 		}
+		if (this.osprey.birdBox.intersects(this.food.GameObjectBox) && this.osprey.getHealth() < 250) {
+			this.osprey.setHealth(this.getOsprey().getHealth() + 1);
+			return true;
+		}
+
 		return false;
 	}
 
@@ -164,8 +162,8 @@ public class Model extends Point2D {
 		return block;
 	}
 	
-	public GameObject getFish() {
-		return fish;
+	public GameObject getFood() {
+		return food;
 	}
 }
 
