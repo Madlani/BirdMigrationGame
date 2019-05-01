@@ -91,16 +91,15 @@ public class Model extends Point2D {
 	//detectCollisions() will contain the logic that determines if the bird model has collided with objects such as the ground and other GameObjects
 	public boolean detectCollisions(GameObject o) {
 		if (o.GameObjectBox.intersects(osprey.birdBox)) {
-			if ((o.GameObjectBox.getX() == this.fish.GameObjectBox.getX()) && (o.GameObjectBox.getY() == this.fish.GameObjectBox.getY())) {
-				System.out.println("incrementing by 1");
-				this.osprey.setHealth(this.getOsprey().getHealth() + 1);
+			if ((o.GameObjectBox.getX() == this.fish.GameObjectBox.getX()) && (o.GameObjectBox.getY() == this.fish.GameObjectBox.getY())&&(this.osprey.getHealth()<250)) {
+				//increments health if the passed in GameObject's hitBox X & Y are the same as the fish's hitBox X & Y
+				this.osprey.setHealth(this.getOsprey().getHealth() + 1);  
 			}
 			else {
+				//decrements if it's any GameObject other than a fish
 				this.osprey.setHealth(this.getOsprey().getHealth() - 1);
-				System.out.println("decrementing by 1");
 			}
-
-				return true;
+			return true;
 		}
 		return false;
 	}
