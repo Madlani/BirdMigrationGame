@@ -20,7 +20,8 @@ public class SideSwiperView extends View {
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	private Image airplaneImg = Toolkit.getDefaultToolkit().createImage("src/images/airplane.png");
 	private Image blockImg = Toolkit.getDefaultToolkit().createImage("src/images/block.png");
-	double birdX, birdY, planeX, planeY, blockX, blockY;
+	private Image fishImg = Toolkit.getDefaultToolkit().createImage("src/images/fish.png");
+	double birdX, birdY, planeX, planeY, blockX, blockY, fishX, fishY;
 	
 	private int imgWidth = 150;
 	private String birdImagePath = "src/images/osprey_frames.png";
@@ -73,6 +74,10 @@ public class SideSwiperView extends View {
 		planeY = (int)controller.getGameModel().getAirplane().getY();
 		blockX = (int)controller.getGameModel().getBlock().getX();
 		blockY = (int)controller.getGameModel().getBlock().getY();
+		fishX = (int)controller.getGameModel().getFish().getX();
+		fishY = (int)controller.getGameModel().getFish().getY();
+
+
 		
 		if (imgVelX % scaledImageWidth == 0) {
 			imgVelX = 0;
@@ -86,6 +91,9 @@ public class SideSwiperView extends View {
 
 		g2.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
 		this.update(birdX, birdY, imgVelX);
+		
+		g2.drawImage(fishImg, (int)fishX, (int)fishY, null);
+		this.update(fishX, fishY, imgVelX);
 		
 		g3.setColor(Color.RED);
 		g3.fillRect(scaledImageWidth - 300, 20, this.controller.getGameModel().getOsprey().getHealth(), 25);
