@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
 import javax.swing.Timer;
 
 import javax.swing.Action;
@@ -33,23 +35,24 @@ public class Controller implements ActionListener, KeyListener {
 	
 	public Controller() {
 		
-		gameView = new View(this);
-		gameView.addKeyListener(this);
+//		gameView = new SideSwiperView(this);
+//		gameView.addKeyListener(this);
 		gameModel = new Model();
 		
 		// Creates the frame and selects settings
 		JFrame frame = new JFrame();
-		frame.getContentPane().add(gameView);
+		//frame.getContentPane().add(gameView);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // sets screen to full screen
 		
 		// Code to run SideSwiper Game
-		ssv = new SideSwiperView(this);
+		ssv = new SideSwiperView();
+		ssv.addKeyListener(this);
 		frame.add(ssv);
 		
 		// Code to run Whack a Mole Game
-		wmv = new WhackAMoleView(this);
+		wmv = new WhackAMoleView();
 		//frame.add(wmv);
 
 		frame.pack();
@@ -58,16 +61,20 @@ public class Controller implements ActionListener, KeyListener {
 	
 	//starts our game, initializes the beginning View.
 
-	@SuppressWarnings("serial")
 	public void start() {
 		while (repeat()) {
-
 			try {
 				Thread.sleep(15);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void updateModel() {
+		gameModel.updateLocationAndDirection();
+		ArrayList<GameObject> list = gameModel.getUpdatableGameObjects();
+		ssv.update(list);
 	}
 
 	public boolean repeat()	{
@@ -77,9 +84,8 @@ public class Controller implements ActionListener, KeyListener {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				gameModel.updateLocationAndDirection();
+				updateModel();
 			}
-			
 		}));
 		t.start();
 		return true;

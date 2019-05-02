@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -14,9 +15,7 @@ import javax.swing.JPanel;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("serial")
-public class View extends JPanel {
-	
-	protected Controller controller;
+public abstract class View extends JPanel {
 	private Color background;
 	private String movement; 
 
@@ -27,8 +26,7 @@ public class View extends JPanel {
 	private double y;
 	private int dir;
 	
-	public View(Controller controller) {
-		this.controller = controller;
+	public View() {
 		
 		//Allows key presses to work with JPanel
 		this.setFocusable(true);
@@ -60,9 +58,7 @@ public class View extends JPanel {
 		return new Dimension();
 	}
 
-	public void update(double x, double y, int d) {
-		//TODO
-	}
+	public abstract void update(ArrayList<GameObject> list);
 	
 	public Color getBackground() {
 		return background;

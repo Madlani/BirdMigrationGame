@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -20,8 +21,8 @@ public class WhackAMoleView extends View {
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-	public WhackAMoleView(Controller controller) {
-		super(controller);
+	public WhackAMoleView() {
+		super();
 		this.loadImage();
 	}
 	
@@ -85,6 +86,13 @@ public class WhackAMoleView extends View {
 	
 	//Draws the objects that will be used in the WhackAMole game, including sticks, health, etc.
 	public void displayObjects() {
+		
+	}
+
+
+	@Override
+	public void update(ArrayList<GameObject> list) {
+		// TODO Auto-generated method stub
 		
 	}
 	

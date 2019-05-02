@@ -33,8 +33,6 @@ public class Model extends Point2D {
 	public GameObject block;
 	public GameObject questionBlock;
 	public GameObject food;
-	
-	String[] options = {"abc", "def", "ghi", "jkl"};
 
 
 	public Model() {
@@ -46,10 +44,12 @@ public class Model extends Point2D {
     	
     	// Adds all GameObjects to one collection
     	this.gameObjects = new ArrayList<>();
+    	gameObjects.add(osprey);
     	gameObjects.add(airplane);
     	gameObjects.add(block);
     	gameObjects.add(questionBlock);
     	gameObjects.add(food);
+    	
     }
 	
 	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
@@ -76,7 +76,8 @@ public class Model extends Point2D {
 //		detectCollisions(this.airplane);
 //		detectCollisions(this.block);
 		
-		detectCollisions(gameObjects);
+		boolean collide = detectCollisions(gameObjects);
+		System.out.println(collide);
 		
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
@@ -124,25 +125,32 @@ public class Model extends Point2D {
 	// detectCollisions() will contain the logic that determines if the bird model
 	// has collided with objects such as the ground and other GameObjects
 	public boolean detectCollisions(ArrayList<GameObject> objectList) {
+		int i = 0;
 
 		for (GameObject o : objectList) {
-			if (o.GameObjectBox.intersects(osprey.birdBox)) {
-				if (o.getType() == ObjectType.PLANE) {
-					this.osprey.setHealth(this.getOsprey().getHealth() - 1);
+			if (i == 0) {
+				i++;
+			} else {
+
+				if (o.GameObjectBox.intersects(osprey.birdBox)) {
+					if (o.getType() == ObjectType.PLANE) {
+						this.osprey.setHealth(this.getOsprey().getHealth() - 1);
+					}
+
+					if (o.getType() == ObjectType.FOOD && this.osprey.getHealth() < 250) {
+						this.osprey.setHealth(this.getOsprey().getHealth() + 1);
+					}
+
+					if (o.getType() == ObjectType.BLOCK || o.getType() == ObjectType.QUESTION_BOX) {
+
+					}
+
+					return true;
 				}
-				
-				if (o.getType() == ObjectType.FOOD && this.osprey.getHealth() < 250) {
-					this.osprey.setHealth(this.getOsprey().getHealth() + 1);
-				}
-				
-				if (o.getType() == ObjectType.BLOCK || o.getType() == ObjectType.QUESTION_BOX) {
-					
-				}
-				
-				return true;
+				i++;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -208,6 +216,10 @@ public class Model extends Point2D {
 	
 	public GameObject getFood() {
 		return food;
+	}
+
+	public ArrayList<GameObject> getUpdatableGameObjects() {
+		return this.gameObjects;
 	}
 }
 

@@ -26,7 +26,7 @@ public class SideSwiperModel extends Model {
 		
 	}
 	
-	}
+}
 
 
 

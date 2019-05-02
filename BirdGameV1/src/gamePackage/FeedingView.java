@@ -1,11 +1,12 @@
 package gamePackage;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class FeedingView extends View {
 	
-	public FeedingView(Controller controller) {
-		super(controller);
+	public FeedingView() {
+		super();
 	}
 
 	private BufferedImage[][] fishingAnimationArray;
@@ -31,6 +32,12 @@ public class FeedingView extends View {
 	//Sets the array that holds images which show the bird diving down and catching the fish
 	public void setFishingAnimationArray(BufferedImage[][] fishingAnimationArray) {
 		this.fishingAnimationArray = fishingAnimationArray;
+	}
+
+	@Override
+	public void update(ArrayList<GameObject> list) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

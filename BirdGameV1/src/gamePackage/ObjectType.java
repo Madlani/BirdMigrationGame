@@ -4,7 +4,8 @@ public enum ObjectType {
 	PLANE("plane"),
 	QUESTION_BOX("questionBox"),
 	FOOD("food"),
-	BLOCK("block");
+	BLOCK("block"),
+	BIRD("bird");
 	
 
 	private String name = null;

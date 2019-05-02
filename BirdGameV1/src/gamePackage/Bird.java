@@ -2,7 +2,7 @@ package gamePackage;
 
 import java.awt.geom.Point2D;
 
-public class Bird extends Point2D{
+public class Bird extends GameObject {
 	private double xPosition;
 	private double yPosition;
 	private int health = 250;
@@ -13,6 +13,7 @@ public class Bird extends Point2D{
 	protected HitBox birdBox;
 	
 	public Bird() {
+		super(0, ObjectType.BIRD);
 		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 100,100);
 	}
 	

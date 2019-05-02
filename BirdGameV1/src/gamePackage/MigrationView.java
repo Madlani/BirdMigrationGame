@@ -1,10 +1,12 @@
 package gamePackage;
 
+import java.util.ArrayList;
+
 @SuppressWarnings("serial")
 public class MigrationView extends View {
 	
-	public MigrationView(Controller controller) {
-		super(controller);
+	public MigrationView() {
+		super();
 	}
 
 	//Shows the GameObjects that the bird must avoid
@@ -17,6 +19,12 @@ public class MigrationView extends View {
 	@Override
 	public void drawBackground() 
 	{
+		
+	}
+
+	@Override
+	public void update(ArrayList<GameObject> list) {
+		// TODO Auto-generated method stub
 		
 	}
 	

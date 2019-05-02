@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ public class SideSwiperView extends View {
 	private Image blockImg = Toolkit.getDefaultToolkit().createImage("src/images/block.png");
 	private Image fishImg = Toolkit.getDefaultToolkit().createImage("src/images/fish.png");
 	private Image healthImg = Toolkit.getDefaultToolkit().createImage("src/images/health.png");
+	
 	double birdX, birdY, planeX, planeY, blockX, blockY, fishX, fishY;
 	
 	private int imgWidth = 150;
@@ -30,9 +32,10 @@ public class SideSwiperView extends View {
 	private BufferedImage[] bird_imagesBufferedImage;
 	private int picNum = 0;
 	
+	private int health;
 	
-	public SideSwiperView(Controller controller) {
-		super(controller);
+	public SideSwiperView() {
+		super();
 		this.loadImage();
 	}
 	
@@ -68,14 +71,6 @@ public class SideSwiperView extends View {
 		
 		picNum = (picNum + 1) % birdFrameCount;
 		imgVelX-=1;
-		birdX = (int)controller.getGameModel().getOsprey().getX();
-		birdY = (int)controller.getGameModel().getOsprey().getY();
-		planeX = (int)controller.getGameModel().getAirplane().getX();
-		planeY = (int)controller.getGameModel().getAirplane().getY();
-		blockX = (int)controller.getGameModel().getBlock().getX();
-		blockY = (int)controller.getGameModel().getBlock().getY();
-		fishX = (int)controller.getGameModel().getFood().getX();
-		fishY = (int)controller.getGameModel().getFood().getY();
 		
 		
 		if (imgVelX % scaledImageWidth == 0) {
@@ -92,7 +87,29 @@ public class SideSwiperView extends View {
 		g2.drawImage(fishImg, (int)fishX, (int)fishY, null);
 		
 		g3.setColor(Color.RED);
-		g3.fillRect(scaledImageWidth - 300, 20, this.controller.getGameModel().getOsprey().getHealth(), 25);
+		g3.fillRect(scaledImageWidth - 300, 20, health, 25);
 		g3.drawImage(healthImg, scaledImageWidth - 350, 20, null);
+	}
+
+	@Override
+	public void update(ArrayList<GameObject> list) {
+		
+		Bird b = (Bird) list.get(0);
+		GameObject plane = list.get(1);
+		GameObject block = list.get(2);
+		GameObject questionBlock = list.get(3);
+		GameObject food = list.get(4);
+		
+		birdX = b.getX();
+		birdY = b.getY();
+		planeX = plane.getX();
+		planeY = plane.getY();
+		blockX = block.getX();
+		blockY = block.getY();
+		fishX = food.getX();
+		fishY = food.getY();
+		health = b.getHealth();
+		System.out.println(b.getHealth());
+		
 	}
 }

@@ -1,5 +1,7 @@
 package gamePackage;
 
+import java.util.ArrayList;
+
 @SuppressWarnings("serial")
 public class StartView extends View {
 
@@ -7,8 +9,8 @@ public class StartView extends View {
 	private boolean startClicked;
 	
 
-	public StartView(Controller controller) {
-		super(controller);
+	public StartView() {
+		super();
 	}
 	
 	//Displays the bird image
@@ -30,6 +32,12 @@ public class StartView extends View {
 	//Returns a boolean that detects if the start game button was clicked
 	public boolean getStartClicked() {
 		return this.startClicked;
+	}
+
+	@Override
+	public void update(ArrayList<GameObject> list) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
