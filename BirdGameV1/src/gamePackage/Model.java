@@ -1,8 +1,17 @@
 package gamePackage;
 
+import java.awt.AWTKeyStroke;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 
 public class Model extends Point2D {
@@ -16,7 +25,7 @@ public class Model extends Point2D {
 	final int blockStartX = 450;
 	final int questionBlockStartX = 700;
 	final int foodStartX = 700;
-	HashSet<GameObject> gameObjects;
+	ArrayList<GameObject> gameObjects;
 	
 	// Objects in our game
 	public Bird osprey;
@@ -24,16 +33,19 @@ public class Model extends Point2D {
 	public GameObject block;
 	public GameObject questionBlock;
 	public GameObject food;
+	
+	String[] options = {"abc", "def", "ghi", "jkl"};
+
 
 	public Model() {
     	this.osprey = new Bird();
-    	this.airplane = new GameObject(airplaneStartX);
-    	this.block = new GameObject(blockStartX);
-    	this.questionBlock = new GameObject(questionBlockStartX);
-    	this.food = new GameObject(foodStartX);
+    	this.airplane = new GameObject(airplaneStartX, ObjectType.PLANE);
+    	this.block = new GameObject(blockStartX, ObjectType.QUESTION_BOX);
+    	this.questionBlock = new GameObject(questionBlockStartX, ObjectType.QUESTION_BOX);
+    	this.food = new GameObject(foodStartX, ObjectType.FOOD);
     	
     	// Adds all GameObjects to one collection
-    	this.gameObjects = new HashSet<>();
+    	this.gameObjects = new ArrayList<>();
     	gameObjects.add(airplane);
     	gameObjects.add(block);
     	gameObjects.add(questionBlock);
@@ -42,8 +54,12 @@ public class Model extends Point2D {
 	
 	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
 	public void updateLocationAndDirection() {
-		detectCollisions(this.airplane);
-		detectCollisions(this.block);
+		
+//		detectCollisions(this.airplane);
+//		detectCollisions(this.block);
+		
+		detectCollisions(gameObjects);
+		
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
 		
@@ -74,8 +90,8 @@ public class Model extends Point2D {
 	
 	//resetGameObjectLocation() will update where the GameObjects are on screen 
 		public void resetGameObjectLocation(GameObject o) {
-			System.out.println(o.GameObjectBox.intersects(osprey.birdBox));
-			System.out.println(this.osprey.getHealth());
+//			System.out.println(o.GameObjectBox.intersects(osprey.birdBox));
+//			System.out.println(this.osprey.getHealth());
 			//bounds to keep the GameObject from going off the screen in the +/- y direction
 			int maxHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - o.GameObjectBox.height;
 			int minHeight = 0;
@@ -89,16 +105,26 @@ public class Model extends Point2D {
 
 	// detectCollisions() will contain the logic that determines if the bird model
 	// has collided with objects such as the ground and other GameObjects
-	public boolean detectCollisions(GameObject o) {
-		if (o.GameObjectBox.intersects(osprey.birdBox)) {
-			this.osprey.setHealth(this.getOsprey().getHealth() - 1);
-			return true;
-		}
-		if (this.osprey.birdBox.intersects(this.food.GameObjectBox) && this.osprey.getHealth() < 250) {
-			this.osprey.setHealth(this.getOsprey().getHealth() + 1);
-			return true;
-		}
+	public boolean detectCollisions(ArrayList<GameObject> objectList) {
 
+		for (GameObject o : objectList) {
+			if (o.GameObjectBox.intersects(osprey.birdBox)) {
+				if (o.getType() == ObjectType.PLANE) {
+					this.osprey.setHealth(this.getOsprey().getHealth() - 1);
+				}
+				
+				if (o.getType() == ObjectType.FOOD && this.osprey.getHealth() < 250) {
+					this.osprey.setHealth(this.getOsprey().getHealth() + 1);
+				}
+				
+				if (o.getType() == ObjectType.BLOCK || o.getType() == ObjectType.QUESTION_BOX) {
+					
+				}
+				
+				return true;
+			}
+		}
+		
 		return false;
 	}
 

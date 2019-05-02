@@ -9,8 +9,12 @@ public class GameObject extends Point2D {
 	private double yPosition;
 	final int imgWidth = 100;
 	
-	public GameObject(double startingX){
+	private ObjectType type;
+	
+	public GameObject(double startingX, ObjectType t){
 		xPosition = startingX;
+		this.type = t;
+		
 		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), (int)this.xPosition, imgWidth);
 		
 		int maxWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()- this.GameObjectBox.width;
@@ -48,5 +52,10 @@ public class GameObject extends Point2D {
 	
 	public int getGameObjectSpeed() {
 		return this.SPEED;
+	}
+
+
+	public ObjectType getType() {
+		return type;
 	}
 }

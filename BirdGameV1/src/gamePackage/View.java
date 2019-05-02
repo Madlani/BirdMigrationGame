@@ -67,12 +67,12 @@ public class View extends JPanel {
 		this.dir = d;
 		
 		try {
-			this.setBackground(Color.gray);
 			this.repaint();
 			Thread.sleep(15);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public Color getBackground() {

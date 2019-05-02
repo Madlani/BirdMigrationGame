@@ -9,6 +9,7 @@ public class Bird extends Point2D{
 	private final int BIRD_SPEED = 20;
 	
 	protected HitBox birdBox;
+	
 	public Bird() {
 		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 100,100);
 	}

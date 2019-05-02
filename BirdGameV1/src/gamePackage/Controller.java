@@ -17,6 +17,8 @@ public class Controller implements ActionListener, KeyListener {
 	SideSwiperView ssv;
 	WhackAMoleView wmv;
 	
+	boolean move = false;
+	
 	private Action gameAction;
 	private boolean keyPressed = false;
 	private boolean controllerStart = false;
@@ -84,8 +86,12 @@ public class Controller implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		move = !move;
+		if (move) {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			
+			
 			gameModel.getOsprey().moveRight();
 
 			//For repainting purposes with WhackAMole mini-game
@@ -131,6 +137,7 @@ public class Controller implements ActionListener, KeyListener {
 			rightPressed = false;
 			wmv.repaint();
 		}
+		}
 	}
 
 	/** keyReleased()
@@ -139,6 +146,7 @@ public class Controller implements ActionListener, KeyListener {
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
+		move = !move;
 		gameView.setMovement("_forward_");
 	}
 	

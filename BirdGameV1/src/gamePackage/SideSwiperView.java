@@ -68,7 +68,7 @@ public class SideSwiperView extends View {
 		Graphics2D g3 = (Graphics2D) g.create();
 		
 		picNum = (picNum + 1) % birdFrameCount;
-		imgVelX-=5;
+		imgVelX-=1;
 		birdX = (int)controller.getGameModel().getOsprey().getX();
 		birdY = (int)controller.getGameModel().getOsprey().getY();
 		planeX = (int)controller.getGameModel().getAirplane().getX();
