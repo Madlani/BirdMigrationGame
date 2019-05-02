@@ -8,6 +8,7 @@ import javax.swing.Timer;
 
 import javax.swing.Action;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.AbstractAction;
 
 public class Controller implements ActionListener, KeyListener {
@@ -24,9 +25,7 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean controllerStart = false;
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
-	private boolean pauseButtonFlag = false;
-	final int DRAW_DELAY = 15;
-	
+	private boolean pauseButtonFlag = false;	
 	private boolean upPressed = false;
 	private boolean downPressed = false;
 	private boolean leftPressed = false;
@@ -58,25 +57,34 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	//starts our game, initializes the beginning View.
-	
+
 	@SuppressWarnings("serial")
 	public void start() {
-		gameAction = new AbstractAction() {
-			public void actionPerformed(ActionEvent e) {
-				if (!pauseButtonFlag) {
-					gameModel.updateLocationAndDirection();
-				}
+		while (repeat()) {
+
+			try {
+				Thread.sleep(15);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		};
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				Timer t = new Timer(DRAW_DELAY, gameAction);
-				t.start();
-			}
-		});
+		}
 	}
 
+	public boolean repeat()	{
+		SwingUtilities.invokeLater(() ->  this.ssv.repaint());
+		// update the model
+		Thread t = new Thread((new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				gameModel.updateLocationAndDirection();
+			}
+			
+		}));
+		t.start();
+		return true;
+		
+	}
 	
 	// necessary methods to be implemented from super class
 	@Override
@@ -86,13 +94,11 @@ public class Controller implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		move = !move;
-		if (move) {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			
 			
-			gameModel.getOsprey().moveRight();
+			gameModel.getOsprey().setLeftRightFlyState(1);
 
 			//For repainting purposes with WhackAMole mini-game
 			upPressed = false;
@@ -104,7 +110,7 @@ public class Controller implements ActionListener, KeyListener {
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			gameModel.getOsprey().moveLeft();
+			gameModel.getOsprey().setLeftRightFlyState(-1);
 			
 			//For repainting purposes with WhackAMole mini-game
 			upPressed = false;
@@ -116,7 +122,7 @@ public class Controller implements ActionListener, KeyListener {
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			gameModel.getOsprey().moveUp();
+			gameModel.getOsprey().setFlyState(1);
 			
 			//For repainting purposes with WhackAMole mini-game
 			upPressed = true;
@@ -128,7 +134,7 @@ public class Controller implements ActionListener, KeyListener {
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			gameModel.getOsprey().moveDown();
+			gameModel.getOsprey().setFlyState(-1);
 			
 			//For repainting purposes with WhackAMole mini-game
 			upPressed = false;
@@ -137,7 +143,7 @@ public class Controller implements ActionListener, KeyListener {
 			rightPressed = false;
 			wmv.repaint();
 		}
-		}
+	
 	}
 
 	/** keyReleased()
@@ -146,8 +152,22 @@ public class Controller implements ActionListener, KeyListener {
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		move = !move;
-		gameView.setMovement("_forward_");
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			gameModel.getOsprey().setFlyState(0);
+		}
+		
+		//Down arrow key 
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			gameModel.getOsprey().setFlyState(0);
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			gameModel.getOsprey().setLeftRightFlyState(0);
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			gameModel.getOsprey().setLeftRightFlyState(0);
+		}
 	}
 	
 	@Override

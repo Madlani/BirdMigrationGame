@@ -63,7 +63,6 @@ public class SideSwiperView extends View {
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g.create();
 		Graphics2D g3 = (Graphics2D) g.create();
 		
@@ -91,7 +90,6 @@ public class SideSwiperView extends View {
 
 		g2.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
 		g2.drawImage(fishImg, (int)fishX, (int)fishY, null);
-		this.update(birdX, birdY, imgVelX);
 		
 		g3.setColor(Color.RED);
 		g3.fillRect(scaledImageWidth - 300, 20, this.controller.getGameModel().getOsprey().getHealth(), 25);

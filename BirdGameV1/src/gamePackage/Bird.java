@@ -6,7 +6,9 @@ public class Bird extends Point2D{
 	private double xPosition;
 	private double yPosition;
 	private int health = 250;
-	private final int BIRD_SPEED = 20;
+	private final int BIRD_SPEED = 10;
+	private int flyState = 0;
+	private int leftRightFlyState = 0;
 	
 	protected HitBox birdBox;
 	
@@ -60,6 +62,22 @@ public class Bird extends Point2D{
 	public void setLocation(double x, double y) {
 		this.xPosition = x;
 		this.yPosition = y;
+	}
+
+	public int getFlyState() {
+		return flyState;
+	}
+
+	public void setFlyState(int flyState) {
+		this.flyState = flyState;
+	}
+
+	public int getLeftRightFlyState() {
+		return leftRightFlyState;
+	}
+
+	public void setLeftRightFlyState(int leftRightFlyState) {
+		this.leftRightFlyState = leftRightFlyState;
 	}
 
 }

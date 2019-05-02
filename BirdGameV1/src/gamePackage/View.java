@@ -61,18 +61,7 @@ public class View extends JPanel {
 	}
 
 	public void update(double x, double y, int d) {
-		
-		this.x = x;
-		this.y = y;
-		this.dir = d;
-		
-		try {
-			this.repaint();
-			Thread.sleep(15);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		//TODO
 	}
 	
 	public Color getBackground() {

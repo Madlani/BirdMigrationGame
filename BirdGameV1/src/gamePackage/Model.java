@@ -55,6 +55,24 @@ public class Model extends Point2D {
 	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
 	public void updateLocationAndDirection() {
 		
+		switch(osprey.getFlyState()){
+		case 1 : 
+			osprey.moveUp();
+			break;
+		case -1: 
+			osprey.moveDown();
+			break;
+		}
+		
+		switch(osprey.getLeftRightFlyState()){
+		case 1 : 
+			osprey.moveRight();
+			break;
+		case -1: 
+			osprey.moveLeft();
+			break;
+		}
+		
 //		detectCollisions(this.airplane);
 //		detectCollisions(this.block);
 		
