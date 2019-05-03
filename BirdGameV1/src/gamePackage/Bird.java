@@ -8,6 +8,9 @@ public class Bird extends GameObject {
 	private int health = 250;
 	private int healthCount = 10;
 	
+	private final double STARTING_XPOS = 380.0;
+	private final double STARTING_YPOS = 240.0;
+	
 	private final int BIRD_SPEED = 10;
 	private int flyState = 0;
 	private int leftRightFlyState = 0;
@@ -16,6 +19,8 @@ public class Bird extends GameObject {
 	
 	public Bird() {
 		super(0, ObjectType.BIRD);
+		this.xPosition = STARTING_XPOS;
+		this.yPosition = STARTING_YPOS;
 		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 100,100);
 	}
 	

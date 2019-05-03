@@ -75,14 +75,12 @@ public class Model extends Point2D {
 			break;
 		}
 		
-//		detectCollisions(this.airplane);
-//		detectCollisions(this.block);
-		
 		boolean collide = detectCollisions(gameObjects);
 		System.out.println(collide);
 		
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
+		System.out.println("X: " + this.osprey.getX() + ", Y: " + this.osprey.getY());
 		
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
     	this.airplane.GameObjectBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());

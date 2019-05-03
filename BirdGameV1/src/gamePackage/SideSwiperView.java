@@ -25,6 +25,7 @@ public class SideSwiperView extends View {
 	private BufferedImage fishImg = super.createImage("src/images/fish.png");
 	private BufferedImage healthImg = super.createImage("src/images/health.png");
 	private BufferedImage healthIcon = super.createImage("src/images/birdHealth.png");
+	private BufferedImage miniMap = super.createImage("src/images/minimap.png");
 			
 	double birdX, birdY, planeX, planeY, blockX, blockY, fishX, fishY;
 	
@@ -94,6 +95,7 @@ public class SideSwiperView extends View {
 //		g3.setColor(Color.RED);
 //		g3.fillRect(scaledImageWidth - 300, 20, health, 25);
 		g3.drawImage(healthImg, scaledImageWidth - 390, 20, null);
+		g3.drawImage(miniMap, 0, 0, null);
 		
 		for (int i = 0; i < healthCount; i++) {
 			g2.drawImage(healthIcon, (scaledImageWidth - 350) + (30 * i), 20, null);
