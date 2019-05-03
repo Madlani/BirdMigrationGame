@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class MigrationView extends View {
-	private Image g1;
+	private Image g1, map;
 	public int imgVelY = 0;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -21,7 +21,6 @@ public class MigrationView extends View {
 	private BufferedImage fishImg = super.createImage("src/images/fish.png");
 	private BufferedImage healthImg = super.createImage("src/images/health.png");
 	private BufferedImage healthIcon = super.createImage("src/images/birdHealth.png");
-	private BufferedImage miniMap = super.createImage("src/images/minimap.png");
 			
 	double birdX, birdY, planeX, planeY, blockX, blockY, fishX, fishY;
 	
@@ -55,7 +54,9 @@ public class MigrationView extends View {
 	
 	private void loadImage() {
 		ImageIcon grass_1 = new ImageIcon("src/images/beach.png");
+		ImageIcon miniMap = new ImageIcon("src/images/minimap.png");
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		map = miniMap.getImage().getScaledInstance(scaledImageWidth/4, scaledImageHeight, Image.SCALE_DEFAULT);
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		
@@ -69,7 +70,6 @@ public class MigrationView extends View {
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
-		Graphics2D g3 = (Graphics2D) g.create();
 		
 		picNum = (picNum + 1) % birdFrameCount;
 		imgVelY-=1;
@@ -87,11 +87,9 @@ public class MigrationView extends View {
 
 		g2.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
 		g2.drawImage(fishImg, (int)fishX, (int)fishY, null);
-		
-//		g3.setColor(Color.RED);
-//		g3.fillRect(scaledImageWidth - 300, 20, health, 25);
-		g3.drawImage(healthImg, scaledImageWidth - 390, 20, null);
-		g3.drawImage(miniMap, 0, 0, null);
+
+		g2.drawImage(healthImg, scaledImageWidth - 390, 20, null);
+		g2.drawImage(map, 0, 0, null);
 		
 		for (int i = 0; i < healthCount; i++) {
 			g2.drawImage(healthIcon, (scaledImageWidth - 350) + (30 * i), 20, null);

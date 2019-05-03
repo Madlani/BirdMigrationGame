@@ -1,5 +1,6 @@
 package gamePackage;
 
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 
 public class Bird extends GameObject {
@@ -7,8 +8,8 @@ public class Bird extends GameObject {
 	private double yPosition;
 	private int health = 250;
 	private int healthCount = 10;
-	
-	private final double STARTING_XPOS = 380.0;
+	private final double screenSizeWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private final double STARTING_XPOS = screenSizeWidth/3;
 	private final double STARTING_YPOS = 240.0;
 	
 	private final int BIRD_SPEED = 10;
