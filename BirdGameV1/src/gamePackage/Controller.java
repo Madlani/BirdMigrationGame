@@ -111,6 +111,7 @@ public class Controller implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameModel.getOsprey().setLeftRightFlyState(1);
 			wmv.setLeftRightKeyState(1);
+			wmv.setUpDownKeyState(0);
 	
 			wmv.repaint();
 			
@@ -120,6 +121,7 @@ public class Controller implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameModel.getOsprey().setLeftRightFlyState(-1);
 			wmv.setLeftRightKeyState(-1);
+			wmv.setUpDownKeyState(0);
 			
 			wmv.repaint();
 		}
@@ -128,6 +130,8 @@ public class Controller implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameModel.getOsprey().setFlyState(1);
 			wmv.setUpDownKeyState(1);
+			wmv.setLeftRightKeyState(0);
+		
 
 			wmv.repaint();
 		}
@@ -136,6 +140,7 @@ public class Controller implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameModel.getOsprey().setFlyState(-1);
 			wmv.setUpDownKeyState(-1);
+			wmv.setLeftRightKeyState(0);
 
 			wmv.repaint();
 		}
