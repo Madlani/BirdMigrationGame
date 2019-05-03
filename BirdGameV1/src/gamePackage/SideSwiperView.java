@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 public class SideSwiperView extends View {
 	
 	private Image g1;
+	private Image map;
+	
 	public int imgVelX = 0;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -25,7 +27,8 @@ public class SideSwiperView extends View {
 	private BufferedImage fishImg = super.createImage("src/images/fish.png");
 	private BufferedImage healthImg = super.createImage("src/images/health.png");
 	private BufferedImage healthIcon = super.createImage("src/images/birdHealth.png");
-	private BufferedImage miniMap = super.createImage("src/images/minimap.png");
+	
+	//private BufferedImage miniMap = super.createImage("src/images/minimap.png");
 			
 	double birdX, birdY, planeX, planeY, blockX, blockY, fishX, fishY;
 	
@@ -57,7 +60,11 @@ public class SideSwiperView extends View {
 	
 	private void loadImage() {
 		ImageIcon grass_1 = new ImageIcon("src/images/grass3.png");
+		ImageIcon miniMap = new ImageIcon("src/images/minimap.png");
+		
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		map = miniMap.getImage().getScaledInstance(scaledImageWidth - 950, scaledImageHeight, Image.SCALE_DEFAULT);
+		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		
@@ -95,7 +102,8 @@ public class SideSwiperView extends View {
 //		g3.setColor(Color.RED);
 //		g3.fillRect(scaledImageWidth - 300, 20, health, 25);
 		g3.drawImage(healthImg, scaledImageWidth - 390, 20, null);
-		g3.drawImage(miniMap, 0, 0, null);
+		g3.drawImage(map, 0, 0, null);
+		
 		
 		for (int i = 0; i < healthCount; i++) {
 			g2.drawImage(healthIcon, (scaledImageWidth - 350) + (30 * i), 20, null);
