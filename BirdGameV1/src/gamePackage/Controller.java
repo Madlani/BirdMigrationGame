@@ -19,8 +19,6 @@ public class Controller implements ActionListener, KeyListener {
 	private View gameView;
 	SideSwiperView ssv;
 	WhackAMoleView wmv;
-	MigrationView mmv;
-
 	
 	boolean move = false;
 	
@@ -51,16 +49,11 @@ public class Controller implements ActionListener, KeyListener {
 		// Code to run SideSwiper Game
 		ssv = new SideSwiperView();
 		ssv.addKeyListener(this);
-		//frame.add(ssv);
+		frame.add(ssv);
 		
 		// Code to run Whack a Mole Game
 		wmv = new WhackAMoleView();
 		//frame.add(wmv);
-		
-		// Code to run Migration Game
-		mmv = new MigrationView();
-		mmv.addKeyListener(this);
-		frame.add(mmv);
 
 		frame.pack();
 		frame.setVisible(true);
@@ -82,13 +75,10 @@ public class Controller implements ActionListener, KeyListener {
 		gameModel.updateLocationAndDirection();
 		ArrayList<GameObject> list = gameModel.getUpdatableGameObjects();
 		ssv.update(list);
-		mmv.update(list);
 	}
 
 	public boolean repeat()	{
 		SwingUtilities.invokeLater(() ->  this.ssv.repaint());
-		SwingUtilities.invokeLater(() ->  this.mmv.repaint());
-
 		// update the model
 		Thread t = new Thread((new Runnable() {
 			@Override

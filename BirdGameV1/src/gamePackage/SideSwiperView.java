@@ -63,7 +63,7 @@ public class SideSwiperView extends View {
 		ImageIcon miniMap = new ImageIcon("src/images/minimap.png");
 		
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		map = miniMap.getImage().getScaledInstance(scaledImageWidth - 950, scaledImageHeight, Image.SCALE_DEFAULT);
+		map = miniMap.getImage().getScaledInstance(scaledImageWidth / 4, scaledImageHeight, Image.SCALE_DEFAULT);
 		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
