@@ -17,7 +17,9 @@ public class WhackAMoleView extends View {
 	private Image right;
 	private Image up;
 	private Image down;
-	
+	private int upDownKeyState = 0;
+	private int leftRightKeyState = 0;
+
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
@@ -66,21 +68,26 @@ public class WhackAMoleView extends View {
 		g.drawImage(food, 0, (scaledImageHeight/2) - 112, null);
 		
 		
-		//Draws correct bird image based on key presses
-		if (this.controller.getUpPressed()) {
-			g.drawImage(up, (scaledImageWidth/2) - 150, (scaledImageHeight/2) - 150, null);
-			
+		// Draws correct bird image based on key presses
+		switch (upDownKeyState) {
+		case 1:
+			g.drawImage(up, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+			break;
+
+		case -1:
+			g.drawImage(down, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+			break;
 		}
-		if (this.controller.getDownPressed()) {
-			g.drawImage(down, (scaledImageWidth/2) - 150, (scaledImageHeight/2) - 150, null);
+
+		switch (leftRightKeyState) {
+		case 1:
+			g.drawImage(right, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+			break;
+		case -1:
+			g.drawImage(left, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+			break;
 		}
-		if (this.controller.getRightPressed()) {
-			g.drawImage(right, (scaledImageWidth/2) - 150, (scaledImageHeight/2) - 150, null);
-		}
-		if (this.controller.getLeftPressed()) {
-			g.drawImage(left, (scaledImageWidth/2) - 150, (scaledImageHeight/2) - 150, null);
-		}
-		
+
 	}
 	
 	
@@ -88,6 +95,26 @@ public class WhackAMoleView extends View {
 	public void displayObjects() {
 		
 	}
+	
+	public int getUpDownKeyState() {
+		return upDownKeyState;
+	}
+
+
+	public void setUpDownKeyState(int upDownKeyState) {
+		this.upDownKeyState = upDownKeyState;
+	}
+
+
+	public int getLeftRightKeyState() {
+		return leftRightKeyState;
+	}
+
+
+	public void setLeftRightKeyState(int leftRightKeyState) {
+		this.leftRightKeyState = leftRightKeyState;
+	}
+
 
 
 	@Override

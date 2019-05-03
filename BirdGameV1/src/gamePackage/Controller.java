@@ -30,10 +30,6 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
 	private boolean pauseButtonFlag = false;	
-	private boolean upPressed = false;
-	private boolean downPressed = false;
-	private boolean leftPressed = false;
-	private boolean rightPressed = false;
 	
 	public Controller() {
 		
@@ -51,11 +47,11 @@ public class Controller implements ActionListener, KeyListener {
 		// Code to run SideSwiper Game
 		ssv = new SideSwiperView();
 		ssv.addKeyListener(this);
-		frame.add(ssv);
+		//frame.add(ssv);
 		
 		// Code to run Whack a Mole Game
 		wmv = new WhackAMoleView();
-		//frame.add(wmv);
+		frame.add(wmv);
 		
 		// Code to run Migration Game
 		mmv = new MigrationView();
@@ -112,51 +108,33 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			
-			
 			gameModel.getOsprey().setLeftRightFlyState(1);
-
-			//For repainting purposes with WhackAMole mini-game
-			upPressed = false;
-			downPressed = false;
-			leftPressed = false;
-			rightPressed = true;
+			wmv.setLeftRightKeyState(1);
+	
 			wmv.repaint();
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameModel.getOsprey().setLeftRightFlyState(-1);
+			wmv.setLeftRightKeyState(-1);
 			
-			//For repainting purposes with WhackAMole mini-game
-			upPressed = false;
-			downPressed = false;
-			leftPressed = true;
-			rightPressed = false;
 			wmv.repaint();
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameModel.getOsprey().setFlyState(1);
-			
-			//For repainting purposes with WhackAMole mini-game
-			upPressed = true;
-			downPressed = false;
-			leftPressed = false;
-			rightPressed = false;
+			wmv.setUpDownKeyState(1);
+
 			wmv.repaint();
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameModel.getOsprey().setFlyState(-1);
-			
-			//For repainting purposes with WhackAMole mini-game
-			upPressed = false;
-			downPressed = true;
-			leftPressed = false;
-			rightPressed = false;
+			wmv.setUpDownKeyState(-1);
+
 			wmv.repaint();
 		}
 	
@@ -170,19 +148,23 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameModel.getOsprey().setFlyState(0);
+			wmv.setUpDownKeyState(0);
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameModel.getOsprey().setFlyState(0);
+			wmv.setUpDownKeyState(0);
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameModel.getOsprey().setLeftRightFlyState(0);
+			wmv.setLeftRightKeyState(0);
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameModel.getOsprey().setLeftRightFlyState(0);
+			wmv.setLeftRightKeyState(0);
 		}
 	}
 	
@@ -231,29 +213,4 @@ public class Controller implements ActionListener, KeyListener {
 	public boolean getActionPerformed() {
 		return actionPerformed;
 	}
-	public boolean getUpPressed() {
-		return upPressed;
-	}
-	public void setUpPressed(boolean upPressed) {
-		this.upPressed = upPressed;
-	}
-	public boolean getDownPressed() {
-		return downPressed;
-	}
-	public void setDownPressed(boolean downPressed) {
-		this.downPressed = downPressed;
-	}
-	public boolean getLeftPressed() {
-		return leftPressed;
-	}
-	public void setLeftPressed(boolean leftPressed) {
-		this.leftPressed = leftPressed;
-	}
-	public boolean getRightPressed() {
-		return rightPressed;
-	}
-	public void setRightPressed(boolean rightPressed) {
-		this.rightPressed = rightPressed;
-	}
-
 }
