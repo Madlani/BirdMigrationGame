@@ -51,6 +51,7 @@ public class Controller implements ActionListener, KeyListener {
 		
 		// Code to run Whack a Mole Game
 		wmv = new WhackAMoleView();
+		wmv.addKeyListener(this);
 		frame.add(wmv);
 		
 		// Code to run Migration Game
@@ -112,6 +113,7 @@ public class Controller implements ActionListener, KeyListener {
 			wmv.setLeftRightKeyState(1);
 	
 			wmv.repaint();
+			
 		}
 		
 		//Left arrow key 
