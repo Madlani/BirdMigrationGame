@@ -1,4 +1,5 @@
 package gamePackage;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -7,6 +8,10 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+//1 - up
+////2 - down
+////3 - left
+////4 - right
 
 
 @SuppressWarnings("serial")
@@ -20,9 +25,16 @@ public class WhackAMoleView extends View {
 	private int upDownKeyState = 0;
 	private int leftRightKeyState = 0;
 
+	//scaled image size
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
+	
+	//Transparent colors
+	Color OPAQUE_GREEN = new Color(.75f, 1f, 0f, .75f);	//75% opaque
+	Color OPAQUE_RED = new Color(.75f, 0f, 0f, .75f);	//75% opaque
+	
+	
 	public WhackAMoleView() {
 		super();
 		this.loadImage();
@@ -57,37 +69,80 @@ public class WhackAMoleView extends View {
 	@Override
 	//paints image
 	public void paintComponent(Graphics g) {
+		//initial components
+			//background
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-		//up
-		g.drawImage(food, (scaledImageWidth/2) - 150, 0, null);
-		//down
-		g.drawImage(food, (scaledImageWidth/2) - 150, scaledImageHeight - 224, null);
-		//right
+			//up
+		g.drawImage(food, (scaledImageWidth/2) - 175, 0, null);
+			//down
+		g.drawImage(food, (scaledImageWidth/2) - 175, scaledImageHeight - 224, null);
+			//right
 		g.drawImage(food, scaledImageWidth - 350, (scaledImageHeight/2) - 112, null);
-		//left
+			//left
 		g.drawImage(food, 0, (scaledImageHeight/2) - 112, null);
 		
 		
-		// Draws correct bird image based on key presses
+		//Draws the bird image looking in the correct direction based on key presses
 		switch (upDownKeyState) {
-		case 1:
-			g.drawImage(up, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
-			break;
-
-		case -1:
-			g.drawImage(down, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
-			break;
+			case 1:
+				g.drawImage(up, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
+				
+				//Overlays a transparent green rectangle over the food image when Up is pressed
+				g.setColor(OPAQUE_GREEN);
+				g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
+				break;
+	
+			case -1:
+				g.drawImage(down, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
+				
+				//Overlays a transparent green rectangle over the food image when Down is pressed
+				g.setColor(OPAQUE_GREEN);
+				g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
+				break;
 		}
 
 		switch (leftRightKeyState) {
-		case 1:
-			g.drawImage(right, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
-			break;
-		case -1:
-			g.drawImage(left, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
-			break;
-		}
-
+			case 1:
+				g.drawImage(right, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+				
+				//Overlays a transparent green rectangle over the food image when Right is pressed
+				g.setColor(OPAQUE_GREEN);
+				g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
+				break;
+			case -1:
+				g.drawImage(left, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+				
+				//Overlays a transparent green rectangle over the food image when Left is pressed
+				g.setColor(OPAQUE_GREEN);
+				g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
+				break;
+			}
+		
+		//viewGamePattern
+//		for (int i = 0; i < gamePattern.size(); i++) {
+//			//up
+//			if (gamePattern.get(i) == 1) {
+//				g.setColor(OPAQUE_RED);
+//				g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
+//			}
+//			//down
+//			if (gamePattern.get(i) == 2) {
+//				g.setColor(OPAQUE_RED);
+//				g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
+//			}
+//			//right
+//			if (gamePattern.get(i) == 3) {
+//				g.setColor(OPAQUE_RED);
+//				g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
+//			}
+//			//left
+//			if (gamePattern.get(i) == 4) {
+//				g.setColor(OPAQUE_RED);
+//				g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
+//			}
+//			
+//		}
+		
 	}
 	
 	
