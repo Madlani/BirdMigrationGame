@@ -6,6 +6,8 @@ public class Bird extends GameObject {
 	private double xPosition;
 	private double yPosition;
 	private int health = 250;
+	private int healthCount = 10;
+	
 	private final int BIRD_SPEED = 10;
 	private int flyState = 0;
 	private int leftRightFlyState = 0;
@@ -45,6 +47,24 @@ public class Bird extends GameObject {
 		this.health = health;
 	}
 	
+	public int getHealthCount() {
+		return this.healthCount;
+	}
+	
+	public void setHealthCount(int h) {
+		this.healthCount = h;
+	}
+	
+	public void decreaseHealthCount() {
+		if (this.healthCount > 0) 
+		this.healthCount = this.healthCount - 1;
+	}
+	
+	public void increaseHealthCount() {
+		if (this.healthCount < 9)
+		this.healthCount = this.healthCount + 1;
+	}
+  	
 	public Bird getBird() {
 		return this;
 	}

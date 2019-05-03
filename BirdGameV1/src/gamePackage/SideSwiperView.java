@@ -19,11 +19,13 @@ public class SideSwiperView extends View {
 	public int imgVelX = 0;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	private Image airplaneImg = Toolkit.getDefaultToolkit().createImage("src/images/airplane.png");
-	private Image blockImg = Toolkit.getDefaultToolkit().createImage("src/images/block.png");
-	private Image fishImg = Toolkit.getDefaultToolkit().createImage("src/images/fish.png");
-	private Image healthImg = Toolkit.getDefaultToolkit().createImage("src/images/health.png");
 	
+	private BufferedImage airplaneImg = super.createImage("src/images/airplane.png");
+	private BufferedImage blockImg = super.createImage("src/images/block.png");
+	private BufferedImage fishImg = super.createImage("src/images/fish.png");
+	private BufferedImage healthImg = super.createImage("src/images/health.png");
+	private BufferedImage healthIcon = super.createImage("src/images/birdHealth.png");
+			
 	double birdX, birdY, planeX, planeY, blockX, blockY, fishX, fishY;
 	
 	private int imgWidth = 150;
@@ -33,6 +35,7 @@ public class SideSwiperView extends View {
 	private int picNum = 0;
 	
 	private int health;
+	private int healthCount;
 	
 	public SideSwiperView() {
 		super();
@@ -60,6 +63,8 @@ public class SideSwiperView extends View {
 		for (int i = 0; i < birdFrameCount; i++) {
 			bird_imagesBufferedImage[i] = birdFrames.getSubimage(imgWidth * i, 0, imgWidth, 150);
 		}
+		
+		
 		setDoubleBuffered(true);
 
 	}
@@ -86,9 +91,15 @@ public class SideSwiperView extends View {
 		g2.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
 		g2.drawImage(fishImg, (int)fishX, (int)fishY, null);
 		
-		g3.setColor(Color.RED);
-		g3.fillRect(scaledImageWidth - 300, 20, health, 25);
-		g3.drawImage(healthImg, scaledImageWidth - 350, 20, null);
+//		g3.setColor(Color.RED);
+//		g3.fillRect(scaledImageWidth - 300, 20, health, 25);
+		g3.drawImage(healthImg, scaledImageWidth - 390, 20, null);
+		
+		for (int i = 0; i < healthCount; i++) {
+			g2.drawImage(healthIcon, (scaledImageWidth - 350) + (30 * i), 20, null);
+		}
+		
+		
 	}
 
 	@Override
@@ -109,7 +120,8 @@ public class SideSwiperView extends View {
 		fishX = food.getX();
 		fishY = food.getY();
 		health = b.getHealth();
-		System.out.println(b.getHealth());
+		healthCount = b.getHealthCount();
+		System.out.println(b.getHealthCount());
 		
 	}
 }

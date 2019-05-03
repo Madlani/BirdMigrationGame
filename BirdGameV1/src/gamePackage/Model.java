@@ -33,7 +33,9 @@ public class Model extends Point2D {
 	public GameObject block;
 	public GameObject questionBlock;
 	public GameObject food;
-
+	
+	
+	private boolean healthChangable = false;
 
 	public Model() {
     	this.osprey = new Bird();
@@ -133,24 +135,32 @@ public class Model extends Point2D {
 			} else {
 
 				if (o.GameObjectBox.intersects(osprey.birdBox)) {
-					if (o.getType() == ObjectType.PLANE) {
-						this.osprey.setHealth(this.getOsprey().getHealth() - 1);
+					
+					
+					if (o.getType() == ObjectType.PLANE && healthChangable == false) {
+						this.osprey.setHealth(this.getOsprey().getHealth() - 50);
+						this.osprey.decreaseHealthCount();
 					}
 
-					if (o.getType() == ObjectType.FOOD && this.osprey.getHealth() < 250) {
-						this.osprey.setHealth(this.getOsprey().getHealth() + 1);
+					if (o.getType() == ObjectType.FOOD && this.osprey.getHealth() < 250 && healthChangable == false) {
+						this.osprey.setHealth(this.getOsprey().getHealth() + 50);
+						this.osprey.increaseHealthCount();
 					}
 
-					if (o.getType() == ObjectType.BLOCK || o.getType() == ObjectType.QUESTION_BOX) {
-
+					if ((o.getType() == ObjectType.BLOCK || o.getType() == ObjectType.QUESTION_BOX) && healthChangable == false) {
+						this.osprey.setHealth(this.getOsprey().getHealth() - 50);
+						this.osprey.decreaseHealthCount();
 					}
-
+					
+					healthChangable = true;
 					return true;
 				}
 				i++;
+				
+				
 			}
 		}
-
+		healthChangable = false;
 		return false;
 	}
 
