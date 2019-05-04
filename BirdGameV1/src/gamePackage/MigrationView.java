@@ -4,10 +4,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 public class MigrationView extends View {
@@ -36,7 +40,19 @@ public class MigrationView extends View {
 	public MigrationView() {
 		super();
 		this.loadImage();
+	}
+	
+	public MigrationView(ActionListener actionListener) {
+		super();
 
+		JButton buttonNext = new JButton("press the SPACE bar to go to the next game");
+
+		buttonNext.addActionListener(actionListener);
+		buttonNext.setMnemonic(KeyEvent.VK_SPACE);
+
+		this.add(buttonNext);
+
+		this.loadImage();
 	}
 
 	//Shows the GameObjects that the bird must avoid
@@ -117,7 +133,7 @@ public class MigrationView extends View {
 		fishY = food.getY();
 		health = b.getHealth();
 		healthCount = b.getHealthCount();
-		System.out.println(b.getHealthCount());
+		//System.out.println(b.getHealthCount() + "(MigrationView.java)");
 		
 	}
 }

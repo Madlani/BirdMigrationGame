@@ -1,4 +1,6 @@
 package gamePackage;
+import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +12,13 @@ import javax.swing.Timer;
 
 import javax.swing.Action;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.AbstractAction;
 
 public class Controller implements ActionListener, KeyListener {
-
+	
 	private Model gameModel;
 	private View gameView;
 	SideSwiperView ssv;
@@ -29,10 +33,12 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean controllerStart = false;
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
-	private boolean pauseButtonFlag = false;	
+	private boolean pauseButtonFlag = false;
 	
 	public Controller() {
 		
+		//----------------------------------------------------------------
+		/*
 //		gameView = new SideSwiperView(this);
 //		gameView.addKeyListener(this);
 		gameModel = new Model();
@@ -60,7 +66,24 @@ public class Controller implements ActionListener, KeyListener {
 		//frame.add(mmv);
 
 		frame.pack();
-		frame.setVisible(true);
+		*/
+		//frame.setVisible(true);
+		//----------------------------------------------------------------
+		
+		
+		
+		gameModel = new Model();
+		ActionListener actionListener = e -> gameModel.getOsprey().setFlyState(-1);
+		gameView = new SideSwiperView(actionListener);
+		gameView.createButtons();
+		
+		
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setUndecorated(true);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // sets screen to full screen
+
+	    frame.setVisible(true);
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -78,6 +101,7 @@ public class Controller implements ActionListener, KeyListener {
 	public void updateModel() {
 		gameModel.updateLocationAndDirection();
 		ArrayList<GameObject> list = gameModel.getUpdatableGameObjects();
+		
 		ssv.update(list);
 		mmv.update(list);
 	}
@@ -107,8 +131,10 @@ public class Controller implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			
 			gameModel.getOsprey().setLeftRightFlyState(1);
 			wmv.setLeftRightKeyState(1);
 			wmv.setUpDownKeyState(0);
@@ -144,7 +170,15 @@ public class Controller implements ActionListener, KeyListener {
 
 			wmv.repaint();
 		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			
+		}
 	
+	}
+	
+	public void setUpGameButtons() {
+		
 	}
 
 	/** keyReleased()

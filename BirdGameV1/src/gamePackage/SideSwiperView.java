@@ -6,11 +6,19 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
@@ -40,6 +48,18 @@ public class SideSwiperView extends View {
 	
 	private int health;
 	private int healthCount;
+	
+	public SideSwiperView(ActionListener actionListener) {
+		super();
+		super.createButtons();
+		
+//		JButton buttonNext = new JButton("press the SPACE bar to go to the next game");
+//        buttonNext.addActionListener(actionListener);
+//        buttonNext.setMnemonic(KeyEvent.VK_SPACE);
+//        this.add(buttonNext);
+        
+        this.loadImage();
+	}
 	
 	public SideSwiperView() {
 		super();
@@ -131,7 +151,7 @@ public class SideSwiperView extends View {
 		fishY = food.getY();
 		health = b.getHealth();
 		healthCount = b.getHealthCount();
-		System.out.println(b.getHealthCount());
+		//System.out.println(b.getHealthCount() + "(SideSwiperView.java)");
 		
 	}
 }
