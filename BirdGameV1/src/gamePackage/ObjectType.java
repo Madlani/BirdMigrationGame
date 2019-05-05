@@ -5,8 +5,9 @@ public enum ObjectType {
 	QUESTION_BOX("questionBox"),
 	FOOD("food"),
 	BLOCK("block"),
-	BIRD("bird");
-	
+	BIRD("bird"),
+	CLOUD_QUESTION_BOX("cloudQuestionBox"),
+	THUNDER_CLOUD("thunderCloud");
 
 	private String name = null;
 	
