@@ -22,6 +22,7 @@ public class StartView extends View {
 
 	public StartView() {
 		super();
+		this.loadImage();
 	}
 	
 	//Displays the bird image
@@ -52,7 +53,7 @@ public class StartView extends View {
 	}
 	
 	private void loadImage() {
-		ImageIcon startScreen = new ImageIcon("src/images/startScreen.png");
+		ImageIcon startScreen = new ImageIcon("src/images/startView.png");
 		g1 = startScreen.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 
 	}

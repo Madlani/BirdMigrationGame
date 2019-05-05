@@ -36,6 +36,8 @@ public class Controller {
 	
 	JFrame frame;
 	JPanel masterPanel;
+	JPanel secondaryPanel;
+
 	private final int FPS = 15;
 	public Controller() {
 		
@@ -65,6 +67,10 @@ public class Controller {
 		endView = new EndView();
 		
 		CardLayout cardLayout = new CardLayout();
+		
+		
+	
+		//-----------------------------------------------------------------------------
 		masterPanel = new JPanel(cardLayout);
 		frame.add(masterPanel);
 		
@@ -75,11 +81,29 @@ public class Controller {
 		masterPanel.add(endView);
 		
 		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
+		addKeyBinding(masterPanel, KeyEvent.VK_1, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", e -> cardLayout.next(masterPanel), false);
+		//-----------------------------------------------------------------------------
+
+//		secondaryPanel = new JPanel(cardLayout);
+//		frame.add(secondaryPanel);
+//		
+//		secondaryPanel.add(startView);
+//		secondaryPanel.add(sideSwipeView);
+//		secondaryPanel.add(whackView);
+//		secondaryPanel.add(endView);
+//		
+//		addKeyBinding(secondaryPanel, KeyEvent.VK_1, "next panel from secondaryPanel", (evt) -> cardLayout.next(secondaryPanel), false);
+//		addKeyBinding(sideSwipeView, KeyEvent.VK_1, "next panel from ssv", e -> cardLayout.next(masterPanel), false);
+//		addKeyBinding(whackView, KeyEvent.VK_1, "next panel from wmv", e -> cardLayout.next(masterPanel), false);
+//		addKeyBinding(migrationView, KeyEvent.VK_1, "next panel from mmv", e -> cardLayout.next(masterPanel), false);
+//		addKeyBinding(startView, KeyEvent.VK_1, "next panel from start", e -> cardLayout.next(masterPanel), false);
+//		addKeyBinding(endView, KeyEvent.VK_1, "next panel from end", e -> cardLayout.next(masterPanel), false);
+
 
 		
 		setBindingsToSideSwiper();
@@ -116,6 +140,9 @@ public class Controller {
 	public boolean repeat()	{
 		SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
 		SwingUtilities.invokeLater(() ->  this.migrationView.repaint());
+		SwingUtilities.invokeLater(() ->  this.startView.repaint());
+		SwingUtilities.invokeLater(() ->  this.endView.repaint());
+
 
 		// update the model
 		Thread t = new Thread((new Runnable() {
