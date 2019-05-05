@@ -26,6 +26,7 @@ public class Controller {
 	SideSwiperView sideSwipeView;
 	WhackAMoleView whackView;
 	WhackAMoleModel whackModel;
+	private MigrationModel migrationModel;
 	MigrationView migrationView;
 
 	
@@ -46,6 +47,8 @@ public class Controller {
 //		gameView = new SideSwiperView(this);
 //		gameView.addKeyListener(this);
 		gameModel = new Model();
+		migrationModel = new MigrationModel();
+
 		
 		// Creates the frame and selects settings
 		frame = new JFrame();
@@ -118,25 +121,27 @@ public class Controller {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
 			gameModel.getOsprey().setFlyState(0);
 		}, true);
-		
+		//-------------------------------------------------------------------------------------
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
-			gameModel.getOsprey().setLeftRightFlyState(1);
+			System.out.println("right pressed");
+			migrationModel.getOsprey().setLeftRightFlyState(1);
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
-			gameModel.getOsprey().setLeftRightFlyState(0);
+			System.out.println("right released");
+			migrationModel.getOsprey().setLeftRightFlyState(0);
 		}, true);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_LEFT, "go left", (evt) -> {
-			gameModel.getOsprey().setLeftRightFlyState(-1);
+			migrationModel.getOsprey().setLeftRightFlyState(-1);
 			
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_LEFT, "go left release", (evt) -> {
-			gameModel.getOsprey().setLeftRightFlyState(0);
+			migrationModel.getOsprey().setLeftRightFlyState(0);
 			
 		}, true);
-		
+		//-------------------------------------------------------------------------------------
 		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			whackView.setLeftRightKeyState(1);
 		}, false);
@@ -191,9 +196,11 @@ public class Controller {
 	
 	public void updateModel() {
 		gameModel.updateLocationAndDirection();
+		migrationModel.updateLocationAndDirection();
 		ArrayList<GameObject> list = gameModel.getUpdatableGameObjects();
+		ArrayList<GameObject> list2 = migrationModel.getUpdatableGameObjects();
 		sideSwipeView.update(list);
-		migrationView.update(list);
+		migrationView.update(list2);
 		
 		
 	}
