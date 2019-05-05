@@ -9,7 +9,7 @@ public class WhackAMoleModel extends Model {
 	private int resourceCount;
 	private String patternOne;
 	
-	ArrayList<Integer> gamePattern;
+	ArrayList<Integer> gamePattern = new ArrayList<Integer>();
 	
 
 	private boolean isPlaying = true;
@@ -25,19 +25,19 @@ public class WhackAMoleModel extends Model {
 	
 	public WhackAMoleModel() {
 		super();
-		this.randomizeGamePattern(4);
+		//this.randomizeGamePattern(4);
 		//this.win();
 	}
 	
-	public void randomizeGamePattern(int length) {
-		gamePattern = new ArrayList<Integer>();
-		
-		for (int i = 0; i < length; i++) {
-			gamePattern.add((int)(Math.random()*(4) + 1));
-		}
-
-		System.out.println(gamePattern);
-	}
+//	public void randomizeGamePattern(int length) {
+//		gamePattern = new ArrayList<Integer>();
+//		
+//		for (int i = 0; i < length; i++) {
+//			gamePattern.add((int)(Math.random()*(4) + 1));
+//		}
+//
+//		System.out.println(gamePattern);
+//	}
 	
 //	public void win() {
 //		while(isPlaying) {

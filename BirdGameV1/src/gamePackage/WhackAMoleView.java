@@ -1,12 +1,14 @@
 package gamePackage;
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
+import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
 //1 - up
@@ -25,12 +27,16 @@ public class WhackAMoleView extends View {
 	private Image down;
 	private int upDownKeyState = 0;
 	private int leftRightKeyState = 0;
-	private boolean drawUp;
-	private boolean drawDown;
-	private boolean drawLeft;
-	private boolean drawRight;
-	Timer myTimer = new Timer();
-	private long timerDelay = 1;
+	private boolean drawUp = false;
+	private boolean drawDown = false;
+	private boolean drawLeft = false;
+	private boolean drawRight = false;
+	
+	private BufferedImage buffer;
+	Timer myTimer;
+	private int timerDelay = 1000;
+	ActionListener listener;
+	
 	
 	
 	//MUST FIX
@@ -49,6 +55,21 @@ public class WhackAMoleView extends View {
 	public WhackAMoleView() {
 		super();
 		this.loadImage();
+		setDoubleBuffered(false);
+		buffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
+		
+		listener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (whackModel.gamePattern.size() < 4) {
+					redRectangles(buffer.getGraphics());
+					repaint();
+					System.out.println(whackModel.gamePattern);
+				}
+			}
+		 };
+		myTimer = new Timer(timerDelay, listener);
+		myTimer.start();
 	}
 	
 
@@ -76,6 +97,157 @@ public class WhackAMoleView extends View {
 		food = f.getImage();
 
 	}
+	
+	public void redRectangles(Graphics g) {
+		int randomNum = (int)(Math.random()*(4) + 1);
+		g.setColor(OPAQUE_RED);
+				
+		switch (randomNum) {
+			case 1:
+				//up
+				whackModel.gamePattern.add(randomNum);
+				System.out.println("debug up");
+				g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
+				break;
+			case 2:
+				//down
+				whackModel.gamePattern.add(randomNum);
+				System.out.println("debug down");
+				g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
+				break;
+			case 3:
+				//left
+				whackModel.gamePattern.add(randomNum);
+				System.out.println("debug left");
+				g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
+				break;
+			case 4:
+				//right
+				whackModel.gamePattern.add(randomNum);
+				System.out.println("debug right");
+				g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
+				break;
+		}
+		
+		//initializes boolean values for drawing game pattern
+//		for (Integer num : whackModel.gamePattern) {
+//			//up
+//			if (num == 1) {
+//				System.out.println("up true");
+//				drawUp = true;
+//				drawDown = false;
+//				drawLeft = false;
+//				drawRight = false;
+//				repaint();
+//				
+//	
+//			}
+//			//down
+//			else if (num == 2) {
+//				System.out.println("down true");
+//				drawUp = false;
+//				drawDown = true;
+//				drawLeft = false;
+//				drawRight = false;
+//				repaint();
+//
+//			}
+//			//left
+//			else if (num == 3) {
+//				System.out.println("left true");
+//				drawUp = false;
+//				drawDown = false;
+//				drawLeft = true;
+//				drawRight = false;
+//				repaint();
+//
+//			}
+//			//right
+//			else if (num == 4) {
+//				System.out.println("right true");
+//				drawUp = false;
+//				drawDown = false;
+//				drawLeft = false;
+//				drawRight = true;
+//				repaint();
+//
+//			}			
+//		}	
+		
+		//draw game pattern based on boolean values
+//		g.setColor(OPAQUE_RED);
+//		//up
+//		if (drawUp && !drawDown && !drawLeft && !drawRight) {
+//			System.out.println("debug up");
+//			g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
+//		}
+//		//down
+//		else if (!drawUp && drawDown && !drawLeft && !drawRight) {
+//			System.out.println("debug down");
+//			g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
+//		}
+//		//left
+//		else if (!drawUp && !drawDown && drawLeft && !drawRight) {
+//			System.out.println("debug left");
+//			g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
+//		}
+//		//right
+//		else if (!drawUp && !drawDown && !drawLeft && drawRight) {
+//			System.out.println("debug right");
+//			g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
+//		}
+//		
+
+		
+		
+		
+//		int i = 0;
+//		
+//		if (i < whackModel.getGamePattern().size()) {
+//			switch (whackModel.getGamePattern().get(i)) {
+//				case 1:
+//					System.out.println("up true");
+//					drawUp = true;
+//					drawDown = false;
+//					drawLeft = false;
+//					drawRight = false;
+//					repaint();
+//					i++;
+//					break;
+//				case 2:
+//					System.out.println("down true");
+//					drawUp = false;
+//					drawDown = true;
+//					drawLeft = false;
+//					drawRight = false;
+//					repaint();
+//					i++;
+//					break;
+//				case 3:
+//					System.out.println("left true");
+//					drawUp = false;
+//					drawDown = false;
+//					drawLeft = true;
+//					drawRight = false;
+//					repaint();
+//					i++;
+//					break;
+//				case 4:
+//					System.out.println("right true");
+//					drawUp = false;
+//					drawDown = false;
+//					drawLeft = false;
+//					drawRight = true;
+//					repaint();
+//					i++;
+//					break;
+//			}
+//		}
+	
+	}
+	
+	
+	
 	
 	@Override
 	//paints image
@@ -126,115 +298,8 @@ public class WhackAMoleView extends View {
 				break;
 			}
 		
-		
-		
-		//draw game pattern based on boolean values
-		g.setColor(OPAQUE_RED);
-		//up
-		if (drawUp && !drawDown && !drawLeft && !drawRight) {
-			g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
-		}
-		//down
-		else if (!drawUp && drawDown && !drawLeft && !drawRight) {
-			g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
-		}
-		//left
-		else if (!drawUp && !drawDown && drawLeft && !drawRight) {
-			g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
-		}
-		//right
-		else if (!drawUp && !drawDown && !drawLeft && drawRight) {
-			g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
-		}
-			
-		//initializes boolean values for drawing game pattern
-		for (int i = 0; i < whackModel.getGamePattern().size(); i++) {
-			//up
-			if (whackModel.getGamePattern().get(i) == 1) {
-				drawUp = true;
-				drawDown = false;
-				drawLeft = false;
-				drawRight = false;
-				repaint();
-			}
-			else if (whackModel.getGamePattern().get(i) == 2) {
-				drawUp = false;
-				drawDown = true;
-				drawLeft = false;
-				drawRight = false;
-				repaint();
-			}
-			else if (whackModel.getGamePattern().get(i) == 3) {
-				drawUp = false;
-				drawDown = false;
-				drawLeft = true;
-				drawRight = false;
-				repaint();
-			}
-			else if (whackModel.getGamePattern().get(i) == 4) {
-				drawUp = false;
-				drawDown = false;
-				drawLeft = false;
-				drawRight = true;
-				repaint();
-			}
-			
-		}
-		
-		
-			
-			
-			
-//			//up
-//			if (whackModel.getGamePattern().get(i) == 1) {
-//				//myTimer.schedule(new TimerTask() {
-////					@Override
-////					public void run() {
-//						repaint();
-//		            	g.setColor(OPAQUE_RED);
-//						g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
-//					
-//					//}
-//				//}, timerDelay);
-//			}
-//			//down
-//			if (whackModel.getGamePattern().get(i) == 2) {
-////				myTimer.schedule(new TimerTask() {
-////		            @Override
-////		            public void run() {
-//						repaint();
-//		            	g.setColor(OPAQUE_RED);
-//						g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
-//					
-////		            }
-////		        }, 0, timerDelay);	
-//			}
-//			//right
-//			if (whackModel.getGamePattern().get(i) == 3) {
-////				myTimer.schedule(new TimerTask() {
-////		            @Override
-////		            public void run() {
-//						repaint();
-//		            	g.setColor(OPAQUE_RED);
-//						g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
-//						
-////		            }
-////		        }, 0, timerDelay);	
-//			}
-//			//left
-//			if (whackModel.getGamePattern().get(i) == 4) {
-////				myTimer.schedule(new TimerTask() {
-////		            @Override
-////		            public void run() {
-//						repaint();
-//		            	g.setColor(OPAQUE_RED);
-//						g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
-//					
-////		            }
-////		        }, 0, timerDelay);	
-//			}
-//		}
-		
+		//view game pattern
+		g.drawImage(buffer, 0, 0, this);
 	}
 	
 	

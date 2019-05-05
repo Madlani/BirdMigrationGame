@@ -217,4 +217,5 @@ public class Controller implements ActionListener, KeyListener {
 	public boolean getActionPerformed() {
 		return actionPerformed;
 	}
+	
 }
