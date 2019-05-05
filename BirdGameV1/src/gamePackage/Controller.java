@@ -17,9 +17,10 @@ public class Controller implements ActionListener, KeyListener {
 
 	private Model gameModel;
 	private View gameView;
-	SideSwiperView ssv;
-	WhackAMoleView wmv;
-	MigrationView mmv;
+	SideSwiperView sideSwipeView;
+	WhackAMoleView whackView;
+	WhackAMoleModel whackModel;
+	MigrationView migrationView;
 
 	
 	boolean move = false;
@@ -45,18 +46,19 @@ public class Controller implements ActionListener, KeyListener {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // sets screen to full screen
 		
 		// Code to run SideSwiper Game
-		ssv = new SideSwiperView();
-		ssv.addKeyListener(this);
+		sideSwipeView = new SideSwiperView();
+		sideSwipeView.addKeyListener(this);
 		//frame.add(ssv);
 		
 		// Code to run Whack a Mole Game
-		wmv = new WhackAMoleView();
-		wmv.addKeyListener(this);
-		frame.add(wmv);
+		whackView = new WhackAMoleView();
+		//whackModel = new WhackAMoleModel();
+		whackView.addKeyListener(this);
+		frame.add(whackView);
 		
 		// Code to run Migration Game
-		mmv = new MigrationView();
-		mmv.addKeyListener(this);
+		migrationView = new MigrationView();
+		migrationView.addKeyListener(this);
 		//frame.add(mmv);
 
 		frame.pack();
@@ -78,13 +80,13 @@ public class Controller implements ActionListener, KeyListener {
 	public void updateModel() {
 		gameModel.updateLocationAndDirection();
 		ArrayList<GameObject> list = gameModel.getUpdatableGameObjects();
-		ssv.update(list);
-		mmv.update(list);
+		sideSwipeView.update(list);
+		migrationView.update(list);
 	}
 
 	public boolean repeat()	{
-		SwingUtilities.invokeLater(() ->  this.ssv.repaint());
-		SwingUtilities.invokeLater(() ->  this.mmv.repaint());
+		SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
+		SwingUtilities.invokeLater(() ->  this.migrationView.repaint());
 
 		// update the model
 		Thread t = new Thread((new Runnable() {
@@ -110,39 +112,38 @@ public class Controller implements ActionListener, KeyListener {
 		//Right arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameModel.getOsprey().setLeftRightFlyState(1);
-			wmv.setLeftRightKeyState(1);
-			wmv.setUpDownKeyState(0);
+			whackView.setLeftRightKeyState(1);
+			whackView.setUpDownKeyState(0);
 	
-			wmv.repaint();
-			
+			whackView.repaint();
 		}
 		
 		//Left arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameModel.getOsprey().setLeftRightFlyState(-1);
-			wmv.setLeftRightKeyState(-1);
-			wmv.setUpDownKeyState(0);
+			whackView.setLeftRightKeyState(-1);
+			whackView.setUpDownKeyState(0);
 			
-			wmv.repaint();
+			whackView.repaint();
 		}
 		
 		//Up arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameModel.getOsprey().setFlyState(1);
-			wmv.setUpDownKeyState(1);
-			wmv.setLeftRightKeyState(0);
+			whackView.setUpDownKeyState(1);
+			whackView.setLeftRightKeyState(0);
 		
 
-			wmv.repaint();
+			whackView.repaint();
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameModel.getOsprey().setFlyState(-1);
-			wmv.setUpDownKeyState(-1);
-			wmv.setLeftRightKeyState(0);
+			whackView.setUpDownKeyState(-1);
+			whackView.setLeftRightKeyState(0);
 
-			wmv.repaint();
+			whackView.repaint();
 		}
 	
 	}
@@ -155,23 +156,19 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			gameModel.getOsprey().setFlyState(0);
-			wmv.setUpDownKeyState(0);
 		}
 		
 		//Down arrow key 
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			gameModel.getOsprey().setFlyState(0);
-			wmv.setUpDownKeyState(0);
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			gameModel.getOsprey().setLeftRightFlyState(0);
-			wmv.setLeftRightKeyState(0);
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameModel.getOsprey().setLeftRightFlyState(0);
-			wmv.setLeftRightKeyState(0);
 		}
 	}
 	
