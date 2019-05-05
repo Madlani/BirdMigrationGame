@@ -14,7 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
-public class Model extends Point2D {
+public abstract class Model extends Point2D {
 
 	private int imgHeight;
 	private int imgWidth;
