@@ -117,7 +117,7 @@ public class MigrationView extends View {
 		fishY = food.getY();
 		health = b.getHealth();
 		healthCount = b.getHealthCount();
-		System.out.println(b.getHealthCount());
+		//System.out.println(b.getHealthCount());
 		
 	}
 }

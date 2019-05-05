@@ -1,6 +1,5 @@
 package gamePackage;
 
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 
@@ -20,7 +19,7 @@ public class Bird extends GameObject {
 	protected HitBox birdBox;
 	
 	public Bird() {
-		super(0, ObjectType.BIRD, 150, 150);
+		super(0, ObjectType.BIRD);
 		this.xPosition = STARTING_XPOS;
 		this.yPosition = STARTING_YPOS;
 		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 100,100);
@@ -106,11 +105,6 @@ public class Bird extends GameObject {
 
 	public void setLeftRightFlyState(int leftRightFlyState) {
 		this.leftRightFlyState = leftRightFlyState;
-	}
-
-	public Rectangle getBirdBox() {
-		// TODO Auto-generated method stub
-		return birdBox;
 	}
 
 }

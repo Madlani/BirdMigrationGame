@@ -1,7 +1,4 @@
 package gamePackage;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 
@@ -10,6 +7,8 @@ public class WhackAMoleModel extends Model {
 	private String patternOne;
 	
 	ArrayList<Integer> gamePattern;
+	
+
 	private boolean isPlaying = true;
 	private boolean isWinning = false;
 	
@@ -23,19 +22,19 @@ public class WhackAMoleModel extends Model {
 	
 	public WhackAMoleModel() {
 		super();
-		//this.randomizeGamePattern(4);
+		this.randomizeGamePattern(4);
 		//this.win();
 	}
 	
-//	public void randomizeGamePattern(int length) {
-//		gamePattern = new ArrayList<Integer>();
-//		
-//		for (int i = 0; i < length; i++) {
-//			gamePattern.add((int)(Math.random()*(4) + 1));
-//		}
-//
-//		System.out.println(gamePattern);
-//	}
+	public void randomizeGamePattern(int length) {
+		gamePattern = new ArrayList<Integer>();
+		
+		for (int i = 0; i < length; i++) {
+			gamePattern.add((int)(Math.random()*(4) + 1));
+		}
+
+		System.out.println(gamePattern);
+	}
 	
 //	public void win() {
 //		while(isPlaying) {
@@ -82,6 +81,14 @@ public class WhackAMoleModel extends Model {
 
 	public void setResourceCount(int resourceCount) {
 		this.resourceCount = resourceCount;
+	}
+	
+	public ArrayList<Integer> getGamePattern() {
+		return gamePattern;
+	}
+
+	public void setGamePattern(ArrayList<Integer> gamePattern) {
+		this.gamePattern = gamePattern;
 	}
 }
 

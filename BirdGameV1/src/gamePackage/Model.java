@@ -12,7 +12,6 @@ import java.util.Set;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 
 public class Model extends Point2D {
@@ -29,33 +28,34 @@ public class Model extends Point2D {
 	ArrayList<GameObject> gameObjects;
 	
 	// Objects in our game
-	private Bird osprey;
-	private GameObject airplane;
-	private GameObject food;
-	private GameObject cloudQuestionBlock;
-	private GameObject thunderCloud;
-	short a = 0;
+	public Bird osprey;
+	public GameObject airplane;
+	public GameObject block;
+	public GameObject questionBlock;
+	public GameObject food;
+	
+	
 	private boolean healthChangable = false;
 
 	public Model() {
     	this.osprey = new Bird();
-    	this.airplane = new GameObject(airplaneStartX, ObjectType.PLANE, 150, 150);
-    	this.food = new GameObject(foodStartX, ObjectType.FOOD, 100, 65);
-    	this.thunderCloud = new GameObject(blockStartX, ObjectType.THUNDER_CLOUD, 200, 200);
-    	this.cloudQuestionBlock = new GameObject(questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, 300, 178);
+    	this.airplane = new GameObject(airplaneStartX, ObjectType.PLANE);
+    	this.block = new GameObject(blockStartX, ObjectType.QUESTION_BOX);
+    	this.questionBlock = new GameObject(questionBlockStartX, ObjectType.QUESTION_BOX);
+    	this.food = new GameObject(foodStartX, ObjectType.FOOD);
     	
     	// Adds all GameObjects to one collection
     	this.gameObjects = new ArrayList<>();
     	gameObjects.add(osprey);
     	gameObjects.add(airplane);
-    	gameObjects.add(thunderCloud);
-    	gameObjects.add(cloudQuestionBlock);
+    	gameObjects.add(block);
+    	gameObjects.add(questionBlock);
     	gameObjects.add(food);
     	
     }
 	
 	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
-	public boolean updateLocationAndDirection() {
+	public void updateLocationAndDirection() {
 		
 		switch(osprey.getFlyState()){
 		case 1 : 
@@ -75,27 +75,26 @@ public class Model extends Point2D {
 			break;
 		}
 		
+		boolean collide = detectCollisions(gameObjects);
+		//System.out.println(collide);
+		
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
+		//System.out.println("X: " + this.osprey.getX() + ", Y: " + this.osprey.getY());
 		
     	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
     	this.airplane.GameObjectBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
     	
-    	this.thunderCloud.setLocation(this.thunderCloud.getX(), this.thunderCloud.getY());
-    	this.thunderCloud.GameObjectBox.setLocation((int)this.thunderCloud.getX(), (int)this.thunderCloud.getY());
-    	
-    	this.cloudQuestionBlock.setLocation(this.cloudQuestionBlock.getX(), this.cloudQuestionBlock.getY());
-    	this.cloudQuestionBlock.GameObjectBox.setLocation((int)this.cloudQuestionBlock.getX(), (int)this.cloudQuestionBlock.getY());
+    	this.block.setLocation(this.block.getX(), this.block.getY());
+    	this.block.GameObjectBox.setLocation((int)this.block.getX(), (int)this.block.getY());   
     	
     	this.food.setLocation(this.food.getX(), this.food.getY());
     	this.food.GameObjectBox.setLocation((int)this.food.getX(), (int)this.food.getY());
     	
-    	updateGameObjectLocationAndDirection(airplane);
-    	updateGameObjectLocationAndDirection(food);
-    	updateGameObjectLocationAndDirection(thunderCloud);
-    	updateGameObjectLocationAndDirection(cloudQuestionBlock);
     	
-    	return detectCollisions(gameObjects);
+    	updateGameObjectLocationAndDirection(airplane);
+    	updateGameObjectLocationAndDirection(block);
+    	updateGameObjectLocationAndDirection(food);
 
 	}
 	
@@ -126,7 +125,6 @@ public class Model extends Point2D {
 	// detectCollisions() will contain the logic that determines if the bird model
 	// has collided with objects such as the ground and other GameObjects
 	public boolean detectCollisions(ArrayList<GameObject> objectList) {
-		
 		int i = 0;
 
 		for (GameObject o : objectList) {
@@ -136,31 +134,28 @@ public class Model extends Point2D {
 
 				if (o.GameObjectBox.intersects(osprey.birdBox)) {
 					
-					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD) && healthChangable == false) {
+					
+					if (o.getType() == ObjectType.PLANE && healthChangable == false) {
+						this.osprey.setHealth(this.getOsprey().getHealth() - 50);
 						this.osprey.decreaseHealthCount();
-						
 					}
 
-					if (o.getType() == ObjectType.FOOD && this.osprey.getHealthCount() < 10 && healthChangable == false) {
+					if (o.getType() == ObjectType.FOOD && this.osprey.getHealth() < 250 && healthChangable == false) {
+						this.osprey.setHealth(this.getOsprey().getHealth() + 50);
 						this.osprey.increaseHealthCount();
-						
 					}
 
-					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX) && healthChangable == false) {
-						return true;
-						
-//						this.osprey.decreaseHealthCount();
-						
-						
-						/*
-						 * Some how pause the game, then add another jpanel for the question box
-						 */
+					if ((o.getType() == ObjectType.BLOCK || o.getType() == ObjectType.QUESTION_BOX) && healthChangable == false) {
+						this.osprey.setHealth(this.getOsprey().getHealth() - 50);
+						this.osprey.decreaseHealthCount();
 					}
 					
 					healthChangable = true;
-					return false;
+					return true;
 				}
 				i++;
+				
+				
 			}
 		}
 		healthChangable = false;
@@ -221,6 +216,10 @@ public class Model extends Point2D {
 
 	public GameObject getAirplane() {
 		return airplane;
+	}
+
+	public GameObject getBlock() {
+		return block;
 	}
 	
 	public GameObject getFood() {
