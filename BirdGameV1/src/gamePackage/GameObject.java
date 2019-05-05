@@ -11,11 +11,11 @@ public class GameObject extends Point2D {
 	
 	private ObjectType type;
 	
-	public GameObject(double startingX, ObjectType t){
+	public GameObject(double startingX, ObjectType t, int imgWidth, int imgHeight){
 		xPosition = startingX;
 		this.type = t;
 		
-		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), (int)this.xPosition, imgWidth);
+		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), imgWidth, imgHeight);
 		
 		int maxWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()- this.GameObjectBox.width;
 		int minWidth = 0;
@@ -24,7 +24,7 @@ public class GameObject extends Point2D {
 		
 		this.yPosition = randY;
 		
-		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), (int)this.xPosition, imgWidth);
+		
 	}
 	
 

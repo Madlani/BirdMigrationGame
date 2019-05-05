@@ -1,19 +1,16 @@
 package gamePackage;
+import java.awt.CardLayout;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import javax.swing.Timer;
+import javax.swing.*;
 
-import javax.swing.Action;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.AbstractAction;
-
-public class Controller implements ActionListener, KeyListener {
+public class Controller {
 
 	private Model gameModel;
 	private View gameView;
@@ -29,7 +26,9 @@ public class Controller implements ActionListener, KeyListener {
 	private boolean controllerStart = false;
 	private boolean keyReleased = false;
 	private boolean actionPerformed = false;
-	private boolean pauseButtonFlag = false;	
+	private boolean pauseButtonFlag = false;
+	JFrame frame;
+	private boolean paused;
 	
 	public Controller() {
 		
@@ -38,7 +37,7 @@ public class Controller implements ActionListener, KeyListener {
 		gameModel = new Model();
 		
 		// Creates the frame and selects settings
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		//frame.getContentPane().add(gameView);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
@@ -46,21 +45,68 @@ public class Controller implements ActionListener, KeyListener {
 		
 		// Code to run SideSwiper Game
 		ssv = new SideSwiperView();
-		ssv.addKeyListener(this);
+		//ssv.addKeyListener(this);
 		//frame.add(ssv);
 		
 		// Code to run Whack a Mole Game
 		wmv = new WhackAMoleView();
-		wmv.addKeyListener(this);
-		frame.add(wmv);
+		//wmv.addKeyListener(this);
+		//frame.add(wmv);
 		
 		// Code to run Migration Game
 		mmv = new MigrationView();
-		mmv.addKeyListener(this);
+		//mmv.addKeyListener(this);
 		//frame.add(mmv);
-
+		
 		frame.pack();
 		frame.setVisible(true);
+
+		CardLayout cardLayout = new CardLayout();
+		JPanel masterPanel = new JPanel(cardLayout);
+		frame.add(masterPanel);
+		masterPanel.add(ssv);
+		masterPanel.add(wmv);
+		masterPanel.add(mmv);
+		
+		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
+		addKeyBinding(ssv, KeyEvent.VK_SPACE, "next panel from ssv", e -> cardLayout.next(masterPanel), false);
+		addKeyBinding(wmv, KeyEvent.VK_SPACE, "next panel from wmv", e -> cardLayout.next(masterPanel), false);
+		addKeyBinding(mmv, KeyEvent.VK_SPACE, "next panel from mmv", e -> cardLayout.next(masterPanel), false);
+		
+		
+		addKeyBinding(ssv, KeyEvent.VK_RIGHT, "go right", (evt) -> {
+			gameModel.getOsprey().setLeftRightFlyState(1);
+		}, false);
+		
+		addKeyBinding(ssv, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
+			gameModel.getOsprey().setLeftRightFlyState(0);
+		}, true);
+		
+		addKeyBinding(ssv, KeyEvent.VK_LEFT, "go left", (evt) -> {
+			gameModel.getOsprey().setLeftRightFlyState(-1);
+			
+		}, false);
+		
+		addKeyBinding(ssv, KeyEvent.VK_LEFT, "go left release", (evt) -> {
+			gameModel.getOsprey().setLeftRightFlyState(0);
+			
+		}, true);
+		
+		addKeyBinding(ssv, KeyEvent.VK_UP, "go up", (evt) -> {
+			gameModel.getOsprey().setFlyState(1);
+		}, false);
+		
+		addKeyBinding(ssv, KeyEvent.VK_UP, "go up release", (evt) -> {
+			gameModel.getOsprey().setFlyState(0);
+		}, true);
+		
+		addKeyBinding(ssv, KeyEvent.VK_DOWN, "go down", (evt) -> {
+			gameModel.getOsprey().setFlyState(-1);
+		}, false);
+		
+		addKeyBinding(ssv, KeyEvent.VK_DOWN, "go down release", (evt) -> {
+			gameModel.getOsprey().setFlyState(0);
+		}, true);
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -76,112 +122,42 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	public void updateModel() {
-		gameModel.updateLocationAndDirection();
+		paused = gameModel.updateLocationAndDirection();
 		ArrayList<GameObject> list = gameModel.getUpdatableGameObjects();
 		ssv.update(list);
-		mmv.update(list);
 	}
 
 	public boolean repeat()	{
-		SwingUtilities.invokeLater(() ->  this.ssv.repaint());
-		SwingUtilities.invokeLater(() ->  this.mmv.repaint());
-
 		// update the model
 		Thread t = new Thread((new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				updateModel();
+				if (!paused) {
+					updateModel();
+					
+				} else {
+				}
 			}
 		}));
 		t.start();
+		SwingUtilities.invokeLater(() -> ssv.repaint());
+		
 		return true;
+	}
+	
+	public static void addKeyBinding(JComponent comp, int keyCode, String id, ActionListener actionListener, boolean isReleased) {
+		InputMap inputMap = comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap actionMap = comp.getActionMap();
 		
-	}
-	
-	// necessary methods to be implemented from super class
-	@Override
-	public void keyTyped(KeyEvent e) {
-	
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		//Right arrow key 
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			gameModel.getOsprey().setLeftRightFlyState(1);
-			wmv.setLeftRightKeyState(1);
-			wmv.setUpDownKeyState(0);
-	
-			wmv.repaint();
+		inputMap.put(KeyStroke.getKeyStroke(keyCode, 0, isReleased), id);
+		actionMap.put(id, new AbstractAction() {
 			
-		}
-		
-		//Left arrow key 
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			gameModel.getOsprey().setLeftRightFlyState(-1);
-			wmv.setLeftRightKeyState(-1);
-			wmv.setUpDownKeyState(0);
-			
-			wmv.repaint();
-		}
-		
-		//Up arrow key 
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			gameModel.getOsprey().setFlyState(1);
-			wmv.setUpDownKeyState(1);
-			wmv.setLeftRightKeyState(0);
-		
-
-			wmv.repaint();
-		}
-		
-		//Down arrow key 
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			gameModel.getOsprey().setFlyState(-1);
-			wmv.setUpDownKeyState(-1);
-			wmv.setLeftRightKeyState(0);
-
-			wmv.repaint();
-		}
-	
-	}
-
-	/** keyReleased()
-	 * returns the bird to the default movement, which is forward
-	 * sets the count to be the frame count
-	 */
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			gameModel.getOsprey().setFlyState(0);
-			wmv.setUpDownKeyState(0);
-		}
-		
-		//Down arrow key 
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			gameModel.getOsprey().setFlyState(0);
-			wmv.setUpDownKeyState(0);
-		}
-		
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			gameModel.getOsprey().setLeftRightFlyState(0);
-			wmv.setLeftRightKeyState(0);
-		}
-		
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			gameModel.getOsprey().setLeftRightFlyState(0);
-			wmv.setLeftRightKeyState(0);
-		}
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if ("Paused".contentEquals(e.getActionCommand())) {
-			gameView.pauseButton.setFocusable(false);
-			pauseButtonFlag = !pauseButtonFlag;
-		}
-		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				actionListener.actionPerformed(e);
+				
+			}
+		});
 	}
 	
 	public Model getGameModel() {

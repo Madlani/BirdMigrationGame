@@ -26,6 +26,13 @@ class ModelTest {
 		assertEquals(true,  test.getX() == 20);
 	}
 	
+	@Test
+	public void testDetectCollisions() {
+		Model test = new Model();
+		GameObject obs = new GameObject(20.0);
+		assertEquals(false, test.detectCollisions(obs));
+		assertFalse(test.detectCollisions(obs));
+	}
 	
 	@Test
 	public void testSetImgHeight() {

@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("serial")
 public abstract class View extends JPanel {
