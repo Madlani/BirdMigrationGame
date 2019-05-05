@@ -99,27 +99,27 @@ public class Model extends Point2D {
 	}
 	
 	public void updateGameObjectLocationAndDirection(GameObject o) {
-		if(o.getX() <= -o.GameObjectBox.width) {
-			resetGameObjectLocation(o);
-		}
-		else {
-			o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
-		}
+//		if(o.getX() <= -o.GameObjectBox.width) {
+//			resetGameObjectLocation(o);
+//		}
+//		else {
+//			o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
+//		}
 	}
 	
 	//resetGameObjectLocation() will update where the GameObjects are on screen 
 		public void resetGameObjectLocation(GameObject o) {
-//			System.out.println(o.GameObjectBox.intersects(osprey.birdBox));
-//			System.out.println(this.osprey.getHealth());
-			//bounds to keep the GameObject from going off the screen in the +/- y direction
-			int maxHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - o.GameObjectBox.height;
-			int minHeight = 0;
-			
-			int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
-			
-			// sets x location to be all the way to the right on the screen (with random y height)
-			o.setLocation(width, rand);
+////			System.out.println(o.GameObjectBox.intersects(osprey.birdBox));
+////			System.out.println(this.osprey.getHealth());
+//			//bounds to keep the GameObject from going off the screen in the +/- y direction
+//			int maxHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - o.GameObjectBox.height;
+//			int minHeight = 0;
+//			
+//			int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+//			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
+//			
+//			// sets x location to be all the way to the right on the screen (with random y height)
+//			o.setLocation(width, rand);
 	}
 
 	// detectCollisions() will contain the logic that determines if the bird model

@@ -23,9 +23,13 @@ public class Controller {
 
 	private Model gameModel;
 	private View gameView;
+	
+	SideSwiperModel sideSwiperModel;
 	SideSwiperView sideSwipeView;
+	
 	WhackAMoleView whackView;
 	WhackAMoleModel whackModel;
+	
 	private MigrationModel migrationModel;
 	MigrationView migrationView;
 
@@ -47,6 +51,7 @@ public class Controller {
 //		gameView = new SideSwiperView(this);
 //		gameView.addKeyListener(this);
 		gameModel = new Model();
+		sideSwiperModel = new SideSwiperModel();
 		migrationModel = new MigrationModel();
 
 		
@@ -107,19 +112,19 @@ public class Controller {
 		*/
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_UP, "go up", (evt) -> {
-			gameModel.getOsprey().setFlyState(1);
+			sideSwiperModel.getOsprey().setFlyState(1);
 		}, false);
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_UP, "go up release", (evt) -> {
-			gameModel.getOsprey().setFlyState(0);
+			sideSwiperModel.getOsprey().setFlyState(0);
 		}, true);
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down", (evt) -> {
-			gameModel.getOsprey().setFlyState(-1);
+			sideSwiperModel.getOsprey().setFlyState(-1);
 		}, false);
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
-			gameModel.getOsprey().setFlyState(0);
+			sideSwiperModel.getOsprey().setFlyState(0);
 		}, true);
 		//-------------------------------------------------------------------------------------
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
@@ -196,11 +201,14 @@ public class Controller {
 	
 	public void updateModel() {
 		gameModel.updateLocationAndDirection();
+		sideSwiperModel.updateLocationAndDirection();
 		migrationModel.updateLocationAndDirection();
 		ArrayList<GameObject> list = gameModel.getUpdatableGameObjects();
-		ArrayList<GameObject> list2 = migrationModel.getUpdatableGameObjects();
-		sideSwipeView.update(list);
-		migrationView.update(list2);
+		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjects();
+		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
+
+		sideSwipeView.update(list2);
+		migrationView.update(list3);
 		
 		
 	}
