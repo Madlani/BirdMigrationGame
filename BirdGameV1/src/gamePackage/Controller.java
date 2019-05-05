@@ -30,6 +30,10 @@ public class Controller {
 	private MigrationModel migrationModel;
 	MigrationView migrationView;
 	
+	StartView startView;
+	
+	EndView endView;
+	
 	JFrame frame;
 	JPanel masterPanel;
 	private final int FPS = 15;
@@ -54,17 +58,29 @@ public class Controller {
 		// Code to run Migration Game
 		migrationView = new MigrationView();
 		
+		//Code to display Start screen
+		startView = new StartView();
+		
+		//Code to display End screen
+		endView = new EndView();
+		
 		CardLayout cardLayout = new CardLayout();
 		masterPanel = new JPanel(cardLayout);
 		frame.add(masterPanel);
+		
+		masterPanel.add(startView);
 		masterPanel.add(sideSwipeView);
 		masterPanel.add(whackView);
 		masterPanel.add(migrationView);
+		masterPanel.add(endView);
 		
 		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", e -> cardLayout.next(masterPanel), false);
+		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", e -> cardLayout.next(masterPanel), false);
+		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", e -> cardLayout.next(masterPanel), false);
+
 		
 		setBindingsToSideSwiper();
 		setBindingsToMigration();
