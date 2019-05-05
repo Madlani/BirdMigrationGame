@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
@@ -21,9 +22,18 @@ public class Controller implements ActionListener, KeyListener {
 	
 	private Model gameModel;
 	private View gameView;
+	
+	protected JPanel mainPanel;
+	protected CardLayout cardLayout;
+	
 	SideSwiperView ssv;
 	WhackAMoleView wmv;
 	MigrationView mmv;
+	
+	protected JButton leftArrowKey;
+	protected JButton rightArrowKey;
+	protected JButton upArrowKey;
+	protected JButton downArrowKey;
 
 	
 	boolean move = false;
@@ -38,7 +48,7 @@ public class Controller implements ActionListener, KeyListener {
 	public Controller() {
 		
 		//----------------------------------------------------------------
-		/*
+/*
 //		gameView = new SideSwiperView(this);
 //		gameView.addKeyListener(this);
 		gameModel = new Model();
@@ -66,24 +76,51 @@ public class Controller implements ActionListener, KeyListener {
 		//frame.add(mmv);
 
 		frame.pack();
-		*/
-		//frame.setVisible(true);
+		frame.setVisible(true);*/
 		//----------------------------------------------------------------
-		
-		
-		
-		gameModel = new Model();
-		ActionListener actionListener = e -> gameModel.getOsprey().setFlyState(-1);
-		gameView = new SideSwiperView(actionListener);
-		gameView.createButtons();
-		
 		
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // sets screen to full screen
-
-	    frame.setVisible(true);
+		
+		gameModel = new Model();
+		
+		CardLayout cardLayout = new CardLayout();
+		JPanel mainPanel = new JPanel(cardLayout);
+		frame.add(mainPanel);
+		
+		ActionListener al1 = e -> cardLayout.next(mainPanel);
+		ssv = new SideSwiperView(al1);
+		mmv = new MigrationView(al1);
+		
+        mainPanel.add(ssv);
+        mainPanel.add(mmv);
+        
+        mainPanel.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "space");
+        mainPanel.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "right");
+        
+        @SuppressWarnings("serial")
+        Action spaceBarPressed = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("space bar pressed");
+                cardLayout.next(mainPanel);
+            }
+        };
+        
+        
+        @SuppressWarnings("serial")
+        Action rightArrowKeyPressed = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("right arrow pressed");
+				gameModel.getOsprey().setLeftRightFlyState(1);
+            }
+        };
+        
+        mainPanel.getActionMap().put("space", spaceBarPressed);
+        mainPanel.getActionMap().put("right", rightArrowKeyPressed);
+        
+        frame.setVisible(true);
 	}
 	
 	//starts our game, initializes the beginning View.
@@ -140,7 +177,6 @@ public class Controller implements ActionListener, KeyListener {
 			wmv.setUpDownKeyState(0);
 	
 			wmv.repaint();
-			
 		}
 		
 		//Left arrow key 
@@ -174,6 +210,7 @@ public class Controller implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			
 		}
+		
 	
 	}
 	
