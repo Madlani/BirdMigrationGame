@@ -1,6 +1,5 @@
 package gamePackage;
 import java.awt.Color;
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -29,8 +28,7 @@ public class WhackAMoleView extends View {
 	private Image pressedStick;
 	
 	
-	private int upDownKeyState = 0;
-	private int leftRightKeyState = 0;
+	private int keyState = 0;
 	private boolean drawUp = false;
 	private boolean drawDown = false;
 	private boolean drawLeft = false;
@@ -49,8 +47,10 @@ public class WhackAMoleView extends View {
 	private int normalStickTimerDelay = 1100;
 	private ActionListener normalStickListener;
 	
-	
-	
+	private boolean isView;
+
+
+
 	//MUST FIX
 	WhackAMoleModel whackModel = new WhackAMoleModel();
 
@@ -69,35 +69,42 @@ public class WhackAMoleView extends View {
 		this.loadImage();
 		//setDoubleBuffered(false);
 		
-		//highlight stick
-		highlightStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
-		highlightStickListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (whackModel.gamePattern.size() < 4) {
-					highlightStickMethod(highlightStickBuffer.getGraphics());
-					repaint();
-				}
-			}
-		 };
-		 highlightStickTimer = new Timer(highlightTimerDelay, highlightStickListener);
-		 highlightStickTimer.start();
-		
-		
-		//repaint normal stick
-		normalStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
-		normalStickListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-					normalStickMethod(normalStickBuffer.getGraphics());
-					repaint();
-			}
-		 };
-		normalTimer = new Timer(normalStickTimerDelay, normalStickListener);
-		normalTimer.start();
 	}
 	
 
+	public void initTimers() {
+		if (isView) {
+		
+		//highlight stick
+				highlightStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
+				highlightStickListener = new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (whackModel.gamePattern.size() < 4) {
+							highlightStickMethod(highlightStickBuffer.getGraphics());
+							repaint();
+						}
+					}
+				 };
+				 highlightStickTimer = new Timer(highlightTimerDelay, highlightStickListener);
+				 highlightStickTimer.start();
+				
+				
+				//repaint normal stick
+				normalStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
+				normalStickListener = new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+							normalStickMethod(normalStickBuffer.getGraphics());
+							repaint();
+					}
+				 };
+				normalTimer = new Timer(normalStickTimerDelay, normalStickListener);
+				normalTimer.start();
+				
+		}
+	}
+	
 	public void loadImage() {
 		
 		//background
@@ -354,55 +361,56 @@ public class WhackAMoleView extends View {
 	@Override
 	//paints image
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.setColor(OPAQUE_GREEN);
+		if (isView) {
 		
-		//initial components
-			//background
-		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-			//up
-		g.drawImage(stick, (scaledImageWidth/2) - 196, 0, null);
-			//down
-		g.drawImage(stick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
-			//left
-		g.drawImage(stick, 0, (scaledImageHeight/2) - 180, null);
-			//right
-		g.drawImage(stick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
+			super.paintComponent(g);
+			g.setColor(OPAQUE_GREEN);
+			
+			//initial components
+				//background
+			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+				//up
+			g.drawImage(stick, (scaledImageWidth/2) - 196, 0, null);
+				//down
+			g.drawImage(stick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
+				//left
+			g.drawImage(stick, 0, (scaledImageHeight/2) - 180, null);
+				//right
+			g.drawImage(stick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
+			
+			
+			
+			
+			//Draws the bird image looking in the correct direction based on key presses
+			switch (keyState) {
+				case 1:
+					g.drawImage(up, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
+					//Overlays a transparent green rectangle over the food image when Up is pressed
+					g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
+					break;
 		
+				case 2:
+					g.drawImage(down, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
+					//Overlays a transparent green rectangle over the food image when Down is pressed
+					g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
+					break;
+				case 3:
+					g.drawImage(right, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+					//Overlays a transparent green rectangle over the food image when Right is pressed
+					g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
+					break;
+				case 4:
+					g.drawImage(left, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+					//Overlays a transparent green rectangle over the food image when Left is pressed
+					g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
+					break;
+				}
+			
+			//view game pattern
+			g.drawImage(highlightStickBuffer, 0, 0, this);
+			g.drawImage(normalStickBuffer, 0, 0, this);
 		
-		
-		
-		//Draws the bird image looking in the correct direction based on key presses
-		switch (upDownKeyState) {
-			case 1:
-				g.drawImage(up, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
-				//Overlays a transparent green rectangle over the food image when Up is pressed
-				g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
-				break;
-	
-			case -1:
-				g.drawImage(down, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
-				//Overlays a transparent green rectangle over the food image when Down is pressed
-				g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
-				break;
 		}
-
-		switch (leftRightKeyState) {
-			case 1:
-				g.drawImage(right, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
-				//Overlays a transparent green rectangle over the food image when Right is pressed
-				g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
-				break;
-			case -1:
-				g.drawImage(left, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
-				//Overlays a transparent green rectangle over the food image when Left is pressed
-				g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
-				break;
-			}
-		
-		//view game pattern
-		g.drawImage(highlightStickBuffer, 0, 0, this);
-		g.drawImage(normalStickBuffer, 0, 0, this);
 
 	}
 	
@@ -412,31 +420,31 @@ public class WhackAMoleView extends View {
 		
 	}
 	
-	public int getUpDownKeyState() {
-		return upDownKeyState;
+	public int getKeyState() {
+		return this.keyState;
 	}
 
 
-	public void setUpDownKeyState(int upDownKeyState) {
-		this.upDownKeyState = upDownKeyState;
+	public void setKeyState(int keyState) {
+		this.keyState = keyState;
 	}
 
 
-	public int getLeftRightKeyState() {
-		return leftRightKeyState;
-	}
-
-
-	public void setLeftRightKeyState(int leftRightKeyState) {
-		this.leftRightKeyState = leftRightKeyState;
-	}
-
-
+	
 
 	@Override
 	public void update(ArrayList<GameObject> list) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+//	public boolean getIsView() {
+//		return isView;
+//	}
+
+
+	public void setIsView(boolean isView) {
+		this.isView = isView;
 	}
 	
 }

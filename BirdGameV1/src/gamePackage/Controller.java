@@ -87,6 +87,8 @@ public class Controller {
 			
 			this.state = GameState.WHACKAMOLE;
 			cardLayout.next(masterPanel);
+			whackView.setIsView(true);
+			whackView.initTimers();
 		
 		}, false);
 		
@@ -180,7 +182,6 @@ public class Controller {
 					
 					break;
 				case WHACKAMOLE:
-					
 					break;
 				case START:
 					
@@ -213,40 +214,42 @@ public class Controller {
 	
 	public void setBindingsToWhackAMole() {
 		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
-			whackView.setLeftRightKeyState(1);
+			whackView.setKeyState(3);
+			System.out.println("right pressed whack");
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
-			whackView.setLeftRightKeyState(0);
-		}, true);
+//		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
+//			whackView.setLeftRightKeyState(0);
+//			System.out.println("right released whack");
+//		}, true);
 		
 		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
-			whackView.setLeftRightKeyState(-1);
+			whackView.setKeyState(4);
 			
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left release", (evt) -> {
-			whackView.setLeftRightKeyState(0);
-			
-		}, true);
+//		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left release", (evt) -> {
+//			whackView.setLeftRightKeyState(0);
+//			
+//		}, true);
 		
 		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
-			whackView.setUpDownKeyState(1);
+			whackView.setKeyState(1);
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_UP, "go up release", (evt) -> {
-			whackView.setUpDownKeyState(0);
-		}, true);
+//		addKeyBinding(whackView, KeyEvent.VK_UP, "go up release", (evt) -> {
+//			whackView.setUpDownKeyState(0);
+//		}, true);
 		
 		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
-			whackView.setUpDownKeyState(-1);
+			whackView.setKeyState(2);
 			
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
-			whackView.setUpDownKeyState(0);
-			
-		}, true);
+//		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
+//			whackView.setUpDownKeyState(0);
+//			
+//		}, true);
 	}
 	
 	public void setBindingsToMigration() {
