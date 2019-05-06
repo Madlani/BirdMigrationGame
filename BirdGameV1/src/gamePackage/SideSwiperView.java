@@ -18,6 +18,8 @@ public class SideSwiperView extends View {
 	private Image g1;
 	private Image map;
 	
+	ImageIcon[] migrationMap;
+	
 	public int imgVelX = 0;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -66,7 +68,20 @@ public class SideSwiperView extends View {
 	
 	private void loadImage() {
 		ImageIcon grass_1 = new ImageIcon("src/images/grass3.png");
-        ImageIcon miniMap = new ImageIcon("src/images/minimap.png");
+        //miniMap = new ImageIcon("src/images/minimap.png");
+        
+        ImageIcon[] migrationMap = new ImageIcon[9];
+        migrationMap[0] = new ImageIcon("src/images/migrationMiniMap1.png");
+        migrationMap[1] = new ImageIcon("src/images/migrationMiniMap2.png");
+        migrationMap[2] = new ImageIcon("src/images/migrationMiniMap3.png");
+        migrationMap[3] = new ImageIcon("src/images/migrationMiniMap4.png");
+        migrationMap[4] = new ImageIcon("src/images/migrationMiniMap5.png");
+        migrationMap[5] = new ImageIcon("src/images/migrationMiniMap6.png");
+        migrationMap[6] = new ImageIcon("src/images/migrationMiniMap7.png");
+        migrationMap[7] = new ImageIcon("src/images/migrationMiniMap8.png");
+        migrationMap[8] = new ImageIcon("src/images/migrationMiniMap9.png");
+        
+        
 		airplaneImg = super.createImage("src/images/airplane.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
@@ -74,7 +89,7 @@ public class SideSwiperView extends View {
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		map = miniMap.getImage().getScaledInstance(scaledImageWidth/4, scaledImageHeight, Image.SCALE_DEFAULT);
+		map = migrationMap[0].getImage().getScaledInstance(scaledImageWidth/4, scaledImageHeight, Image.SCALE_DEFAULT);
 		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
@@ -149,4 +164,13 @@ public class SideSwiperView extends View {
 		health = b.getHealth();
 		healthCount = b.getHealthCount();
 	}
+	
+	public ImageIcon[] getMigrationMap() {
+		return migrationMap;
+	}
+
+	public void setMigrationMap(ImageIcon[] migrationMap) {
+		this.migrationMap = migrationMap;
+	}
+
 }

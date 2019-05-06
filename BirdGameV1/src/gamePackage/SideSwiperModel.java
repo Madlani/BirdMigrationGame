@@ -1,11 +1,24 @@
 package gamePackage;
 
+import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import javax.swing.Timer;
 
 public class SideSwiperModel extends Model {
 	
+	private BufferedImage normalMapBuffer;
+	private Timer mapTimer;
+	private ActionListener mapListener;
+	private int mapDelay;
+	
+	private int countOfObjects;
+	
 	public SideSwiperModel() {
 		super();
+		countOfObjects = 0;
 	}
 	
 	//updateBirdLocation() will update the position of the bird to update the minimap
@@ -35,6 +48,7 @@ public class SideSwiperModel extends Model {
 		}
 		else {
 			o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
+			countOfObjects++;
 		}
 	}
 	
@@ -48,6 +62,21 @@ public class SideSwiperModel extends Model {
 			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
 			
 			o.setLocation(width, rand);
+	}
+	
+	public void changeMiniMap() {
+		normalMapBuffer = new BufferedImage(super.scaledImageWidth, super.scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
+		mapListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				drawMap(normalMapBuffer.getGraphics());
+				//repaint();
+			}
+		};
+	}
+	
+	public void drawMap(Graphics g) {
+		
 	}
 	
 }
