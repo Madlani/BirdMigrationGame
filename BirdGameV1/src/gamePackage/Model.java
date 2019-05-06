@@ -31,7 +31,7 @@ public abstract class Model extends Point2D {
 	private final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	public double startingX = screenWidth/3;
-	public double startingY = 300;
+	public double startingY = screenHeight - 200;
 	ArrayList<GameObject> gameObjects;
 	
 	// Objects in our game
