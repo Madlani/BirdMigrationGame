@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
-
+import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -37,8 +37,10 @@ public class Controller {
 	JFrame frame;
 	JPanel masterPanel;
 	JPanel secondaryPanel;
-
-	private final int FPS = 15;
+	boolean ssvPaused = false;
+	boolean mmvPaused = false;
+	
+	private final int FPS = 30;
 	public Controller() {
 		
 		sideSwiperModel = new SideSwiperModel();
@@ -80,31 +82,15 @@ public class Controller {
 		masterPanel.add(migrationView);
 		masterPanel.add(endView);
 		
-		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
-		addKeyBinding(masterPanel, KeyEvent.VK_1, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
+//		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
+//		addKeyBinding(masterPanel, KeyEvent.VK_1, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
+		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", e -> cardLayout.next(masterPanel), false);
 		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", e -> cardLayout.next(masterPanel), false);
 		//-----------------------------------------------------------------------------
-
-//		secondaryPanel = new JPanel(cardLayout);
-//		frame.add(secondaryPanel);
-//		
-//		secondaryPanel.add(startView);
-//		secondaryPanel.add(sideSwipeView);
-//		secondaryPanel.add(whackView);
-//		secondaryPanel.add(endView);
-//		
-//		addKeyBinding(secondaryPanel, KeyEvent.VK_1, "next panel from secondaryPanel", (evt) -> cardLayout.next(secondaryPanel), false);
-//		addKeyBinding(sideSwipeView, KeyEvent.VK_1, "next panel from ssv", e -> cardLayout.next(masterPanel), false);
-//		addKeyBinding(whackView, KeyEvent.VK_1, "next panel from wmv", e -> cardLayout.next(masterPanel), false);
-//		addKeyBinding(migrationView, KeyEvent.VK_1, "next panel from mmv", e -> cardLayout.next(masterPanel), false);
-//		addKeyBinding(startView, KeyEvent.VK_1, "next panel from start", e -> cardLayout.next(masterPanel), false);
-//		addKeyBinding(endView, KeyEvent.VK_1, "next panel from end", e -> cardLayout.next(masterPanel), false);
-
-
 		
 		setBindingsToSideSwiper();
 		setBindingsToMigration();
@@ -127,8 +113,8 @@ public class Controller {
 	}
 	
 	public void updateModel() {
-		sideSwiperModel.updateLocationAndDirection();
-		migrationModel.updateLocationAndDirection();
+		ssvPaused = sideSwiperModel.updateLocationAndDirection();
+		mmvPaused = migrationModel.updateLocationAndDirection();
 		
 		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjects();
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
@@ -148,7 +134,9 @@ public class Controller {
 		Thread t = new Thread((new Runnable() {
 			@Override
 			public void run() {
-				updateModel();
+				if (!ssvPaused) {
+					updateModel();
+				}
 			}
 		}));
 		t.start();

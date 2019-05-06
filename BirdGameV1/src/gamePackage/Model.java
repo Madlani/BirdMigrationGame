@@ -122,6 +122,7 @@ public abstract class Model extends Point2D {
 						this.osprey.increaseHealthCount();
 
 					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX) && healthChangable == false) {
+						System.out.println("hit question cloud");
 						return true;
 					}
 					

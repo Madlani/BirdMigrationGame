@@ -33,7 +33,7 @@ public class WhackAMoleModel extends Model {
 			gamePattern.add((int)(Math.random()*(4) + 1));
 		}
 
-		System.out.println(gamePattern);
+		//System.out.println(gamePattern);
 	}
 	
 //	public void win() {
