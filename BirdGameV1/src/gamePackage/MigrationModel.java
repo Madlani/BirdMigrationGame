@@ -44,7 +44,7 @@ public class MigrationModel extends Model {
 				int minHeight = 0;
 				
 				int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-				int rand = (int)(Math.random()*(maxWidth - minHeight + 1) + minHeight);
+				int rand = (int)(Math.random()*(maxWidth - minHeight + 1) + minHeight) +((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())/4 ;
 				o.setLocation(rand, minHeight);
 		}
 }

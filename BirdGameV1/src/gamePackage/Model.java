@@ -78,7 +78,7 @@ public abstract class Model extends Point2D {
 			}
 			break;
 		case -1: 
-			if (osprey.getX() > screenWidth / 3) {
+			if (osprey.getX() > screenWidth / 4) {
 				osprey.moveLeft();
 			}
 			break;
