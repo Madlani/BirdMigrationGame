@@ -96,7 +96,6 @@ public class Controller {
 		setBindingsToMigration();
 		setBindingsToWhackAMole();
 		
-		frame.pack();
 		frame.setVisible(true);
 	}
 	
