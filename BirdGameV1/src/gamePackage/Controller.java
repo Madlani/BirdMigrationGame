@@ -3,6 +3,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.lang.annotation.Repeatable;
 import java.util.ArrayList;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -159,6 +160,39 @@ public class Controller {
 		migrationView.update(list3);
 	}
 	public boolean repeat()	{
+		repeatModel();
+		repeatView();
+		return true;
+	}
+	
+	public void repeatModel() {
+		SwingWorker<Void, Void> updateModelWorker = new SwingWorker<Void, Void>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+				switch (state) {
+				case SIDESWIPER:
+					if (!ssvPaused)
+						updateSideSwiperModel();
+					break;
+				case MIGRATION:
+					if (!mmvPaused)
+						updateMigrationModel();
+					break;
+				case WHACKAMOLE:
+					break;
+				case START:
+					break;
+				case END:
+					break;
+				}
+				return null;
+			}
+		};
+		
+		updateModelWorker.execute();
+	}
+	
+	public void repeatView() {
 		switch (state) {
 		case SIDESWIPER:
 			SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
@@ -177,37 +211,6 @@ public class Controller {
 			SwingUtilities.invokeLater(() ->  this.endView.repaint());
 			break;
 		}
-		
-		SwingWorker<Void, Void> updateModelWorker = new SwingWorker<Void, Void>() {
-			@Override
-			protected Void doInBackground() throws Exception {
-				switch (state) {
-				case SIDESWIPER:
-					if (!ssvPaused)
-						updateSideSwiperModel();
-					
-					break;
-				case MIGRATION:
-					if (!mmvPaused)
-						updateMigrationModel();
-					
-					break;
-				case WHACKAMOLE:
-					break;
-				case START:
-					
-					break;
-				case END:
-					
-					break;
-				}
-				return null;
-			}
-		};
-		
-		updateModelWorker.execute();
-		
-		return true;
 	}
 	
 	@SuppressWarnings("serial")
