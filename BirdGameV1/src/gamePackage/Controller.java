@@ -1,15 +1,9 @@
 package gamePackage;
 import java.awt.CardLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
-import javax.swing.Timer;
-import javax.swing.text.StyledEditorKit.BoldAction;
-import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -17,9 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+
 import javax.swing.AbstractAction;
 
 public class Controller {
+	
+	private GameState state;
 	
 	SideSwiperModel sideSwiperModel;
 	SideSwiperView sideSwipeView;
@@ -70,7 +67,6 @@ public class Controller {
 		
 		CardLayout cardLayout = new CardLayout();
 		
-		
 	
 		//-----------------------------------------------------------------------------
 		masterPanel = new JPanel(cardLayout);
@@ -85,11 +81,46 @@ public class Controller {
 //		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
 //		addKeyBinding(masterPanel, KeyEvent.VK_1, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
 		
-		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", e -> cardLayout.next(masterPanel), false);
-		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", e -> cardLayout.next(masterPanel), false);
-		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", e -> cardLayout.next(masterPanel), false);
-		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", e -> cardLayout.next(masterPanel), false);
-		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", e -> cardLayout.next(masterPanel), false);
+		this.state = GameState.START;
+		
+		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
+			
+			this.state = GameState.WHACKAMOLE;
+			cardLayout.next(masterPanel);
+		
+		}, false);
+		
+		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
+			
+			this.state = GameState.MIGRATION;
+			cardLayout.next(masterPanel);
+			
+		}, false);
+		
+		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
+			
+			this.state = GameState.END;
+			cardLayout.next(masterPanel);
+		
+		}, false);
+		
+		
+		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
+			
+			this.state = GameState.SIDESWIPER;
+			cardLayout.next(masterPanel);
+			
+		}, false);
+		
+		
+		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
+			
+			this.state = GameState.START;
+			cardLayout.next(masterPanel);
+			
+		}, false);
+		
+		
 		//-----------------------------------------------------------------------------
 		
 		setBindingsToSideSwiper();
@@ -132,16 +163,31 @@ public class Controller {
 		SwingUtilities.invokeLater(() ->  this.startView.repaint());
 		SwingUtilities.invokeLater(() ->  this.endView.repaint());
 
-
 		// update the model
 		Thread t = new Thread((new Runnable() {
 			@Override
 			public void run() {
-				if (!ssvPaused) {
-					updateSideSwiperModel();
-				}
-				if (!mmvPaused) {
-					updateMigrationModel();
+				
+				switch (state) {
+				case SIDESWIPER:
+					if (!ssvPaused)
+						updateSideSwiperModel();
+					
+					break;
+				case MIGRATION:
+					if (!mmvPaused)
+						updateMigrationModel();
+					
+					break;
+				case WHACKAMOLE:
+					
+					break;
+				case START:
+					
+					break;
+				case END:
+					
+					break;
 				}
 			}
 		}));
