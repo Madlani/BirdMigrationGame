@@ -10,8 +10,9 @@ public class Bird extends GameObject {
 	private int health = 250;
 	private int healthCount = 10;
 	private final double screenSizeWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private final double STARTING_XPOS = screenSizeWidth/3;
-	private final double STARTING_YPOS = 240.0;
+	private final double screenSizeHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public double startingX = screenSizeWidth/3;
+	public double startingY = 300;
 	
 	private final int BIRD_SPEED = 10;
 	private int flyState = 0;
@@ -21,8 +22,8 @@ public class Bird extends GameObject {
 	
 	public Bird() {
 		super(0, ObjectType.BIRD, 150, 150);
-		this.xPosition = STARTING_XPOS;
-		this.yPosition = STARTING_YPOS;
+		//this.xPosition = startingX;
+		//this.yPosition = startingY;
 		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, 100,100);
 	}
 	
@@ -111,6 +112,22 @@ public class Bird extends GameObject {
 	public Rectangle getBirdBox() {
 		// TODO Auto-generated method stub
 		return birdBox;
+	}
+	
+	public double getStartingX() {
+		return startingX;
+	}
+
+	public void setStartingX(double startingX) {
+		this.startingX = startingX;
+	}
+
+	public double getStartingY() {
+		return startingY;
+	}
+
+	public void setStartingY(double startingY) {
+		this.startingY = startingY;
 	}
 
 }

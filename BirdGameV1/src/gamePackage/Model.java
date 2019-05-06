@@ -22,11 +22,13 @@ public abstract class Model extends Point2D {
 	private int direction;
 	private int health;
 	final int airplaneStartX = 200;
-	final int blockStartX = 450;
+	final int thunderCloudStartX = 450;
 	final int questionBlockStartX = 700;
 	final int foodStartX = 700;
 	private final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public double startingX = screenWidth/3;
+	public double startingY = 300;
 	ArrayList<GameObject> gameObjects;
 	
 	// Objects in our game
@@ -40,10 +42,12 @@ public abstract class Model extends Point2D {
 
 	public Model() {
 		this.osprey = new Bird();
-    	this.airplane = new GameObject(airplaneStartX, ObjectType.PLANE, 150, 150);
-    	this.food = new GameObject(foodStartX, ObjectType.FOOD, 100, 65);
-    	this.thunderCloud = new GameObject(blockStartX, ObjectType.THUNDER_CLOUD, 200, 200);
-    	this.cloudQuestionBlock = new GameObject(questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, 300, 178);
+    	this.airplane = new GameObject(screenWidth + airplaneStartX, ObjectType.PLANE, 150, 150);
+    	this.food = new GameObject(screenWidth + foodStartX, ObjectType.FOOD, 100, 65);
+    	this.thunderCloud = new GameObject(screenWidth + thunderCloudStartX, ObjectType.THUNDER_CLOUD, 200, 200);
+    	this.cloudQuestionBlock = new GameObject(screenWidth + questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, 300, 178);
+    	
+    	this.osprey.setLocation(startingX, startingY);
     	
     	// Adds all GameObjects to one collection
     	this.gameObjects = new ArrayList<>();
