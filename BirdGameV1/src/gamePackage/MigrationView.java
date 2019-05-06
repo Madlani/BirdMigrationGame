@@ -42,6 +42,8 @@ public class MigrationView extends View {
 	private GameObject cloudQuestionBoxObj;
 	private GameObject food;
 	
+	private BufferedImage[] miniMap;
+	
 	public MigrationView() {
 		super();
 		this.loadImage();
@@ -63,7 +65,7 @@ public class MigrationView extends View {
 	
 	private void loadImage() {
 		ImageIcon grass_1 = new ImageIcon("src/images/beach.png");
-		ImageIcon miniMap = new ImageIcon("src/images/minimap.png");
+		//ImageIcon miniMap = new ImageIcon("src/images/minimap.png");
 		airplaneImg = super.createImage("src/images/airplane.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
@@ -71,7 +73,7 @@ public class MigrationView extends View {
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		map = miniMap.getImage().getScaledInstance(scaledImageWidth/4, scaledImageHeight, Image.SCALE_DEFAULT);
+		//map = miniMap.getImage().getScaledInstance(scaledImageWidth/4, scaledImageHeight, Image.SCALE_DEFAULT);
 		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
@@ -84,8 +86,27 @@ public class MigrationView extends View {
 		for (int i = 0; i < 4; i++) //100 = fish image pixel width
 			fishFrames[i] = fishAnimation.getSubimage(100 * i, 0, 100, 65);
 		
+		this.miniMap = new BufferedImage[13];
+		this.miniMap[0] = super.createImage("src/images/delawareMiniMap1.png");
+		this.miniMap[1] = super.createImage("src/images/delawareMiniMap2.png");
+		this.miniMap[2] = super.createImage("src/images/delawareMiniMap3.png");
+		this.miniMap[3] = super.createImage("src/images/delawareMiniMap4.png");
+		this.miniMap[4] = super.createImage("src/images/delawareMiniMap5.png");
+		this.miniMap[5] = super.createImage("src/images/delawareMiniMap6.png");
+		this.miniMap[6] = super.createImage("src/images/delawareMiniMap7.png");
+		this.miniMap[7] = super.createImage("src/images/delawareMiniMap8.png");
+		this.miniMap[8] = super.createImage("src/images/delawareMiniMap9.png");
+		this.miniMap[9] = super.createImage("src/images/delawareMiniMap10.png");
+		this.miniMap[10] = super.createImage("src/images/delawareMiniMap11.png");
+		this.miniMap[11] = super.createImage("src/images/delawareMiniMap12.png");
+		this.miniMap[12] = super.createImage("src/images/delawareMiniMap13.png");
+		
 		setDoubleBuffered(true);
 	}
+	
+	private int picNumMap = 0;
+	private int tick = 0;
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -111,13 +132,18 @@ public class MigrationView extends View {
 		g2.drawImage(fishFrames[picNumFish], (int)fishX, (int)fishY, null);
 
 		g2.drawImage(healthImg, scaledImageWidth - 390, 20, null);
-		g2.drawImage(map, 0, 0, null);
+		//g2.drawImage(map, 0, 0, null);
 //		g2.drawRect((int)this.b.getBirdBox().getX(), (int)this.b.getBirdBox().getY(), (int)this.b.getBirdBox().getWidth(), (int)this.b.getBirdBox().getHeight());
 //		g2.drawRect((int)this.plane.GameObjectBox.getX(), (int)this.plane.GameObjectBox.getY(), (int)this.plane.GameObjectBox.getWidth(), (int)this.plane.GameObjectBox.getHeight());
 //		g2.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
 //		g2.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
 //		g2.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
-		g2.drawImage(map, 0, 0, null);
+		
+		tick = (tick + 1) % 30;
+		if (tick == 0) {
+			picNumMap = (picNumMap + 1) % 13;
+		}
+		g2.drawImage(this.miniMap[picNumMap], 0, 0, null);
 		
 		for (int i = 0; i < healthCount; i++) {
 			g2.drawImage(healthIcon, (scaledImageWidth - 350) + (30 * i), 20, null);

@@ -17,8 +17,7 @@ public class SideSwiperView extends View {
 	
 	private Image g1;
 	private Image map;
-	
-	ImageIcon[] migrationMap;
+	BufferedImage[] migrationMap;
 	
 	public int imgVelX = 0;
 	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -39,6 +38,7 @@ public class SideSwiperView extends View {
 	private BufferedImage[] fishFrames;
 	private int picNum = 0;
 	private short picNumFish = 0;
+	private int picNumMap = 0;
 	
 	private int health;
 	private int healthCount;
@@ -70,16 +70,16 @@ public class SideSwiperView extends View {
 		ImageIcon grass_1 = new ImageIcon("src/images/grass3.png");
         //miniMap = new ImageIcon("src/images/minimap.png");
         
-        ImageIcon[] migrationMap = new ImageIcon[9];
-        migrationMap[0] = new ImageIcon("src/images/migrationMiniMap1.png");
-        migrationMap[1] = new ImageIcon("src/images/migrationMiniMap2.png");
-        migrationMap[2] = new ImageIcon("src/images/migrationMiniMap3.png");
-        migrationMap[3] = new ImageIcon("src/images/migrationMiniMap4.png");
-        migrationMap[4] = new ImageIcon("src/images/migrationMiniMap5.png");
-        migrationMap[5] = new ImageIcon("src/images/migrationMiniMap6.png");
-        migrationMap[6] = new ImageIcon("src/images/migrationMiniMap7.png");
-        migrationMap[7] = new ImageIcon("src/images/migrationMiniMap8.png");
-        migrationMap[8] = new ImageIcon("src/images/migrationMiniMap9.png");
+        migrationMap = new BufferedImage[9];
+        migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
+        migrationMap[1] =  super.createImage("src/images/migrationMiniMap2.png");
+        migrationMap[2] =  super.createImage("src/images/migrationMiniMap3.png");
+        migrationMap[3] =  super.createImage("src/images/migrationMiniMap4.png");
+        migrationMap[4] =  super.createImage("src/images/migrationMiniMap5.png");
+        migrationMap[5] =  super.createImage("src/images/migrationMiniMap6.png");
+        migrationMap[6] = super.createImage("src/images/migrationMiniMap7.png");
+        migrationMap[7] =  super.createImage("src/images/migrationMiniMap8.png");
+        migrationMap[8] = super.createImage("src/images/migrationMiniMap9.png");
         
         
 		airplaneImg = super.createImage("src/images/airplane.png");
@@ -89,7 +89,7 @@ public class SideSwiperView extends View {
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		
 		g1 = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		map = migrationMap[0].getImage().getScaledInstance(scaledImageWidth/4, scaledImageHeight, Image.SCALE_DEFAULT);
+		//map = migrationMap[0].getImage().getScaledInstance(scaledImageWidth/4, scaledImageHeight, Image.SCALE_DEFAULT);
 		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
@@ -105,7 +105,7 @@ public class SideSwiperView extends View {
 		setDoubleBuffered(true);
 
 	}
-	
+	int tick = 0;
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -118,7 +118,10 @@ public class SideSwiperView extends View {
 		if (imgVelX % scaledImageWidth == 0) {
 			imgVelX = 0;
 		}
-		
+		tick = (tick+1) %30;
+		if (tick == 0) {
+			picNumMap = (picNumMap + 1) % 9;
+		}
 		g2.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
 		g2.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
 	    
@@ -136,7 +139,7 @@ public class SideSwiperView extends View {
 //		g3.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
 //		g3.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
 //		g3.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
-		g3.drawImage(map, 0, 0, null);
+		g3.drawImage(migrationMap[picNumMap], 0, 0, null);
 		for (int i = 0; i < healthCount; i++) {
 			g2.drawImage(healthIcon, (scaledImageWidth - 350) + (30 * i), 20, null);
 		}
@@ -165,12 +168,12 @@ public class SideSwiperView extends View {
 		healthCount = b.getHealthCount();
 	}
 	
-	public ImageIcon[] getMigrationMap() {
-		return migrationMap;
-	}
-
-	public void setMigrationMap(ImageIcon[] migrationMap) {
-		this.migrationMap = migrationMap;
-	}
+//	public ImageIcon[] getMigrationMap() {
+//		return migrationMap;
+//	}
+//
+//	public void setMigrationMap(ImageIcon[] migrationMap) {
+//		this.migrationMap = migrationMap;
+//	}
 
 }
