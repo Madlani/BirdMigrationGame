@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
-
+import javax.swing.SwingWorker;
 import javax.swing.AbstractAction;
 
 public class Controller {
@@ -37,7 +37,7 @@ public class Controller {
 	boolean ssvPaused = false;
 	boolean mmvPaused = false;
 	
-	private final int FPS = 30;
+	private final int FPS = 15;
 	public Controller() {
 		
 		sideSwiperModel = new SideSwiperModel();
@@ -159,16 +159,28 @@ public class Controller {
 		migrationView.update(list3);
 	}
 	public boolean repeat()	{
-		SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
-		SwingUtilities.invokeLater(() ->  this.migrationView.repaint());
-		SwingUtilities.invokeLater(() ->  this.startView.repaint());
-		SwingUtilities.invokeLater(() ->  this.endView.repaint());
-
-		// update the model
-		Thread t = new Thread((new Runnable() {
+		switch (state) {
+		case SIDESWIPER:
+			SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
+			
+			break;
+		case MIGRATION:
+			SwingUtilities.invokeLater(() ->  this.migrationView.repaint());
+			
+			break;
+		case WHACKAMOLE:
+			break;
+		case START:
+			SwingUtilities.invokeLater(() ->  this.startView.repaint());
+			break;
+		case END:
+			SwingUtilities.invokeLater(() ->  this.endView.repaint());
+			break;
+		}
+		
+		SwingWorker<Void, Void> updateModelWorker = new SwingWorker<Void, Void>() {
 			@Override
-			public void run() {
-				
+			protected Void doInBackground() throws Exception {
 				switch (state) {
 				case SIDESWIPER:
 					if (!ssvPaused)
@@ -189,9 +201,12 @@ public class Controller {
 					
 					break;
 				}
+				return null;
 			}
-		}));
-		t.start();
+		};
+		
+		updateModelWorker.execute();
+		
 		return true;
 	}
 	
