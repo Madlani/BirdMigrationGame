@@ -74,8 +74,9 @@ public class Controller {
 		
 		masterPanel.add(startView);
 		masterPanel.add(sideSwipeView);
-		masterPanel.add(whackView);
+		
 		masterPanel.add(migrationView);
+		masterPanel.add(whackView);
 		masterPanel.add(endView);
 		
 //		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
@@ -85,25 +86,23 @@ public class Controller {
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
 			
-			this.state = GameState.WHACKAMOLE;
+			this.state = GameState.MIGRATION;
 			cardLayout.next(masterPanel);
-			whackView.setIsView(true);
-			whackView.initTimers();
-		
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
 			
-			this.state = GameState.MIGRATION;
+			this.state = GameState.END;
 			cardLayout.next(masterPanel);
 			
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
 			
-			this.state = GameState.END;
+			this.state = GameState.WHACKAMOLE;
 			cardLayout.next(masterPanel);
-		
+			whackView.setIsView(true);
+			whackView.initTimers();
 		}, false);
 		
 		
