@@ -22,7 +22,7 @@ public class GameObject extends Point2D {
 		
 		int randY = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
 		
-		this.yPosition = randY;
+		//this.yPosition = randY;
 	}
 	
 
