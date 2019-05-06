@@ -23,7 +23,6 @@ public class SideSwiperView extends View {
 	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	
 	private BufferedImage airplaneImg;
-	private BufferedImage blockImg;
 	private BufferedImage healthImg;
 	private BufferedImage healthIcon;
 	private BufferedImage cloudQuestionBox;
@@ -69,7 +68,6 @@ public class SideSwiperView extends View {
 		ImageIcon grass_1 = new ImageIcon("src/images/grass3.png");
         ImageIcon miniMap = new ImageIcon("src/images/minimap.png");
 		airplaneImg = super.createImage("src/images/airplane.png");
-		blockImg = super.createImage("src/images/block.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");

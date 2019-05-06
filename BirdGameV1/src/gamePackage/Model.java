@@ -25,6 +25,8 @@ public abstract class Model extends Point2D {
 	final int blockStartX = 450;
 	final int questionBlockStartX = 700;
 	final int foodStartX = 700;
+	private final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private final double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	ArrayList<GameObject> gameObjects;
 	
 	// Objects in our game
@@ -57,20 +59,28 @@ public abstract class Model extends Point2D {
 	public boolean updateLocationAndDirection() {
 		
 		switch(osprey.getFlyState()){
-		case 1 : 
-			osprey.moveUp();
+		case 1:
+			if (osprey.getY() > 0) {
+				osprey.moveUp();
+			}
 			break;
 		case -1: 
-			osprey.moveDown();
+			if (osprey.getY() < screenHeight - 150) {
+				osprey.moveDown();
+			}
 			break;
 		}
 		
 		switch(osprey.getLeftRightFlyState()){
 		case 1 : 
-			osprey.moveRight();
+			if (osprey.getX() < screenWidth - 150) {
+				osprey.moveRight();
+			}
 			break;
 		case -1: 
-			osprey.moveLeft();
+			if (osprey.getX() > screenWidth / 3) {
+				osprey.moveLeft();
+			}
 			break;
 		}
 

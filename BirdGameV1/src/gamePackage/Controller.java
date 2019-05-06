@@ -111,17 +111,21 @@ public class Controller {
 		}
 	}
 	
-	public void updateModel() {
+	public void updateSideSwiperModel() {
 		ssvPaused = sideSwiperModel.updateLocationAndDirection();
-		mmvPaused = migrationModel.updateLocationAndDirection();
 		
 		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjects();
-		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
 
 		sideSwipeView.update(list2);
-		migrationView.update(list3);
 	}
 
+	public void updateMigrationModel() {
+		mmvPaused = migrationModel.updateLocationAndDirection();
+		
+		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
+
+		migrationView.update(list3);
+	}
 	public boolean repeat()	{
 		SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
 		SwingUtilities.invokeLater(() ->  this.migrationView.repaint());
@@ -134,7 +138,10 @@ public class Controller {
 			@Override
 			public void run() {
 				if (!ssvPaused) {
-					updateModel();
+					updateSideSwiperModel();
+				}
+				if (!mmvPaused) {
+					updateMigrationModel();
 				}
 			}
 		}));
