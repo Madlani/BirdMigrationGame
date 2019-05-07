@@ -28,7 +28,6 @@ public class GameObject extends Point2D {
 
 	@Override
 	public double getX() {
-		// TODO Auto-generated method stub
 		return this.xPosition;
 	}
 

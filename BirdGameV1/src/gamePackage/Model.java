@@ -16,8 +16,8 @@ import javax.swing.JOptionPane;
 
 public abstract class Model extends Point2D {
 
-	protected int scaledImageWidth = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-	protected int scaledImageHeight = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+	protected static int scaledImageWidth = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+	protected static int scaledImageHeight = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 	
 	private int imgHeight;
 	private int imgWidth;
@@ -64,30 +64,29 @@ public abstract class Model extends Point2D {
 	
 	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
 	public boolean updateLocationAndDirection() {
-		
-		switch(osprey.getFlyState()){
-		case 1:
+
+		switch (osprey.getFlyState()) {
+		case UP:
 			if (osprey.getY() > 0) {
 				osprey.moveUp();
 			}
 			break;
-		case -1: 
+		case DOWN:
 			if (osprey.getY() < screenHeight - 150) {
 				osprey.moveDown();
 			}
 			break;
-		}
-		
-		switch(osprey.getLeftRightFlyState()){
-		case 1 : 
+		case RIGHT:
 			if (osprey.getX() < screenWidth - 150) {
 				osprey.moveRight();
 			}
 			break;
-		case -1: 
+		case LEFT:
 			if (osprey.getX() > screenWidth / 4) {
 				osprey.moveLeft();
 			}
+			break;
+		default:
 			break;
 		}
 
@@ -112,7 +111,6 @@ public abstract class Model extends Point2D {
     	updateGameObjectLocationAndDirection(cloudQuestionBlock);
     	
     	return detectCollisions(gameObjects);
-
 	}
 	
 	public void updateGameObjectLocationAndDirection(GameObject o) {

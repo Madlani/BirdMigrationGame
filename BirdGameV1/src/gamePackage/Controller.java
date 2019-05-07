@@ -272,40 +272,40 @@ public class Controller {
 	public void setBindingsToMigration() {
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			System.out.println("right pressed");
-			migrationModel.getOsprey().setLeftRightFlyState(1);
+			migrationModel.getOsprey().setFlyState(FlyState.RIGHT);
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
 			System.out.println("right released");
-			migrationModel.getOsprey().setLeftRightFlyState(0);
+			migrationModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_LEFT, "go left", (evt) -> {
-			migrationModel.getOsprey().setLeftRightFlyState(-1);
+			migrationModel.getOsprey().setFlyState(FlyState.LEFT);
 			
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_LEFT, "go left release", (evt) -> {
-			migrationModel.getOsprey().setLeftRightFlyState(0);
+			migrationModel.getOsprey().setFlyState(FlyState.STILL);
 			
 		}, true);
 	}
 	
 	public void setBindingsToSideSwiper() {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_UP, "go up", (evt) -> {
-			sideSwiperModel.getOsprey().setFlyState(1);
+			sideSwiperModel.getOsprey().setFlyState(FlyState.UP);
 		}, false);
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_UP, "go up release", (evt) -> {
-			sideSwiperModel.getOsprey().setFlyState(0);
+			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down", (evt) -> {
-			sideSwiperModel.getOsprey().setFlyState(-1);
+			sideSwiperModel.getOsprey().setFlyState(FlyState.DOWN);
 		}, false);
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
-			sideSwiperModel.getOsprey().setFlyState(0);
+			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
 	}
 }
