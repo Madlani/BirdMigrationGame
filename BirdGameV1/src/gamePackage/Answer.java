@@ -35,4 +35,9 @@ public class Answer {
 	public void setKeyValue(int keyValue) {
 		this.keyValue = keyValue;
 	}
+	
+	@Override
+	public String toString() {
+		return "Answer: " + this.getCorrectness();
+	}
 }
