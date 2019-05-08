@@ -2,7 +2,6 @@ package gamePackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -59,10 +57,12 @@ public abstract class View extends JPanel {
 
 	public abstract void update(ArrayList<GameObject> list);
 	
+	@Override
 	public Color getBackground() {
 		return background;
 	}
 
+	@Override
 	public void setBackground(Color background) {
 		this.background = background;
 	}

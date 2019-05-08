@@ -36,6 +36,7 @@ public class HitBox extends Rectangle {
 	 * @param newWidth, the new width for the HitBox
 	 * @param newHeight, the new height for the HitBox
 	 */
+	@Override
 	public void setSize(int newWidth, int newHeight) {
 		this.width = newWidth;
 		this.height = newHeight;

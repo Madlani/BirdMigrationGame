@@ -37,7 +37,7 @@ public class EndView extends View {
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
-		g = (Graphics2D) g.create();
+		g = g.create();
 		g.drawImage(backgroundImage, NO_SPEED, NO_SPEED, null);
 	}
 	

@@ -1,16 +1,13 @@
 package gamePackage;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
@@ -164,7 +161,7 @@ public class SideSwiperView extends View {
 		this.thunderCloudY = thunderCloudObj.getY();
 		fishX = food.getX();
 		fishY = food.getY();
-		health = b.getHealth();
+		//health = b.getHealth();
 		healthCount = b.getHealthCount();
 	}
 	

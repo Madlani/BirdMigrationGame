@@ -1,7 +1,5 @@
 package gamePackage;
 
-import java.awt.Toolkit;
-
 public class MigrationModel extends Model {
 	
 	private Bird osprey;

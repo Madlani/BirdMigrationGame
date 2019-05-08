@@ -1,17 +1,8 @@
 package gamePackage;
 
-import java.awt.AWTKeyStroke;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 
 public abstract class Model extends Point2D {

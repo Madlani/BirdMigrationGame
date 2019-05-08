@@ -1,10 +1,7 @@
 package gamePackage;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 public class Question {
 	private String[] questionArray;
