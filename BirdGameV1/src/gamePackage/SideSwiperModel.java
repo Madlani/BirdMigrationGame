@@ -9,38 +9,19 @@ import javax.swing.Timer;
 
 public class SideSwiperModel extends Model {
 	
-	private BufferedImage normalMapBuffer;
-	private Timer mapTimer;
-	private ActionListener mapListener;
-	private int mapDelay;
-	
-	private int countOfObjects;
+	private int scaledImageWidth = Model.scaledImageWidth;
+	private int scaledImageHeight = Model.scaledImageHeight;
 	
 	public SideSwiperModel() {
 		super();
-		countOfObjects = 0;
 	}
 	
-	//updateBirdLocation() will update the position of the bird to update the minimap
-	public void updateBirdLocation() {
-		
-	}
-	
-	//randomizeBlocks() will randomize where blocks that contain questions will appear on screen
-	public void randomizeBlocks() {
-		
-	}
-	
-	//randomizeQuestion() will pick a random question to appear if the bird hits a question box
-	public void randomizeQuestion() {
-		
-	}
-	
-	//moveGameObjects() moves the GameObject as the game progresses
-	public void moveGameObjects() {
-		
-	}
-	
+	/**
+	 * updateGameObjectLocationAndDirection()
+	 * This method overrides the Model's updateGameObjectLocationAndDirection(). This will position the GameObject
+	 * on the right side of the screen once it moves too far left, otherwise continue to move the GameObject by the 
+	 * speed that was pre-determined.
+	 */
 	@Override
 	public void updateGameObjectLocationAndDirection(GameObject o) {
 		if(o.getX() <= -o.GameObjectBox.width) {
@@ -48,37 +29,25 @@ public class SideSwiperModel extends Model {
 		}
 		else {
 			o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
-			countOfObjects++;
 		}
 	}
 	
+	/**
+	 * resetGameObjectLocation()
+	 * Reset's the GameObject at a random y-height. This method is called from 
+	 * updateGameObjectLocationAndDirection() in this class.
+	 */
 	@Override
 		public void resetGameObjectLocation(GameObject o) {
 
-			int maxHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - o.GameObjectBox.height;
+			int maxHeight = scaledImageHeight - o.GameObjectBox.height;
 			int minHeight = 0;
 			
-			int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+			int width = scaledImageWidth;
 			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
 			
 			o.setLocation(width, rand);
 	}
-	
-	public void changeMiniMap() {
-		normalMapBuffer = new BufferedImage(super.scaledImageWidth, super.scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
-		mapListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				drawMap(normalMapBuffer.getGraphics());
-				//repaint();
-			}
-		};
-	}
-	
-	public void drawMap(Graphics g) {
-		
-	}
-	
 }
 
 
