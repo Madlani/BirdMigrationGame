@@ -171,7 +171,7 @@ public class MigrationView extends View {
 		this.thunderCloudY = thunderCloudObj.getY();
 		fishX = food.getX();
 		fishY = food.getY();
-		health = b.getHealth();
+		//health = b.getHealth();
 		healthCount = b.getHealthCount();
 	}
 }

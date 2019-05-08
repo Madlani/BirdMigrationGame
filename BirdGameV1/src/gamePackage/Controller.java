@@ -32,13 +32,18 @@ public class Controller {
 	
 	EndView endView;
 	
-	JFrame frame;
-	JPanel masterPanel;
+	private JFrame frame;
+	private JPanel masterPanel;
 	JPanel secondaryPanel;
 	boolean ssvPaused = false;
 	boolean mmvPaused = false;
 	
-	private final int FPS = 15;
+	private final int FPS = 30;
+	
+	private CardLayout cardLayout;
+
+	private boolean isGameOver;
+	
 	public Controller() {
 		
 		sideSwiperModel = new SideSwiperModel();
@@ -66,42 +71,39 @@ public class Controller {
 		//Code to display End screen
 		endView = new EndView();
 		
-		CardLayout cardLayout = new CardLayout();
-		
+		this.cardLayout = new CardLayout();
 	
 		//-----------------------------------------------------------------------------
 		masterPanel = new JPanel(cardLayout);
 		frame.add(masterPanel);
-		
-		masterPanel.add(startView);
-		masterPanel.add(sideSwipeView);
-		
-		masterPanel.add(migrationView);
-		masterPanel.add(whackView);
-		masterPanel.add(endView);
-		
-//		addKeyBinding(masterPanel, KeyEvent.VK_SPACE, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
-//		addKeyBinding(masterPanel, KeyEvent.VK_1, "next panel from masterPanel", (evt) -> cardLayout.next(masterPanel), false);
+		masterPanel.add(startView, "start");
+		masterPanel.add(sideSwipeView, "sideSwiper");	
+		masterPanel.add(migrationView, "migration");
+		masterPanel.add(whackView, "whackAMole");
+		masterPanel.add(endView, "end");
 		
 		this.state = GameState.START;
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
 			
 			this.state = GameState.MIGRATION;
-			cardLayout.next(masterPanel);
+//			cardLayout.next(masterPanel);
+			this.cardLayout.show(this.masterPanel, "migration");
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
 			
 			this.state = GameState.END;
-			cardLayout.next(masterPanel);
+//			cardLayout.next(masterPanel);
+			this.cardLayout.show(this.masterPanel, "end");
 			
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
 			
 			this.state = GameState.WHACKAMOLE;
-			cardLayout.next(masterPanel);
+//			cardLayout.next(masterPanel);
+			this.cardLayout.show(this.masterPanel, "whackAMole");
 			whackView.setIsView(true);
 			whackView.initTimers();
 		}, false);
@@ -110,15 +112,15 @@ public class Controller {
 		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
 			
 			this.state = GameState.SIDESWIPER;
-			cardLayout.next(masterPanel);
+			this.cardLayout.show(this.masterPanel, "sideSwiper");
+			//cardLayout.next(masterPanel);
 			
 		}, false);
 		
 		
 		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
-			
 			this.state = GameState.START;
-			cardLayout.next(masterPanel);
+			this.cardLayout.show(this.masterPanel, "start");
 			
 		}, false);
 		
@@ -131,9 +133,10 @@ public class Controller {
 		
 		frame.setVisible(true);
 	}
-	
-	//starts our game, initializes the beginning View.
 
+	/**
+	 * starts our game, initializes the beginning View.
+	 */
 	public void start() {
 		while (repeat()) {
 			try {
@@ -146,26 +149,35 @@ public class Controller {
 	
 	public void updateSideSwiperModel() {
 		ssvPaused = sideSwiperModel.updateLocationAndDirection();
-		
 		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjects();
-
+		
+		if (sideSwiperModel.getOsprey().getHealthCount() <= 0) {
+			isGameOver = true;
+			this.state = GameState.END;
+			gameOver();
+		}
+		
 		sideSwipeView.update(list2);
+	}
+	
+	public void gameOver() {
+		isGameOver = false;
+		sideSwiperModel.getOsprey().setHealthCount(3);
+		this.cardLayout.show(this.masterPanel, "end");
 	}
 
 	public void updateMigrationModel() {
 		mmvPaused = migrationModel.updateLocationAndDirection();
-		
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
-
 		migrationView.update(list3);
 	}
 	public boolean repeat()	{
-		repeatModel();
-		repeatView();
+		updateMode();
+		drawView();
 		return true;
 	}
 	
-	public void repeatModel() {
+	public void updateMode() {
 		SwingWorker<Void, Void> updateModelWorker = new SwingWorker<Void, Void>() {
 			@Override
 			protected Void doInBackground() throws Exception {
@@ -183,6 +195,7 @@ public class Controller {
 				case START:
 					break;
 				case END:
+					
 					break;
 				}
 				return null;
@@ -192,7 +205,7 @@ public class Controller {
 		updateModelWorker.execute();
 	}
 	
-	public void repeatView() {
+	public void drawView() {
 		switch (state) {
 		case SIDESWIPER:
 			SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
@@ -235,38 +248,19 @@ public class Controller {
 			System.out.println("right pressed whack");
 		}, false);
 		
-//		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
-//			whackView.setLeftRightKeyState(0);
-//			System.out.println("right released whack");
-//		}, true);
-		
 		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
 			whackView.setKeyState(4);
 			
 		}, false);
 		
-//		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left release", (evt) -> {
-//			whackView.setLeftRightKeyState(0);
-//			
-//		}, true);
-		
 		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
 			whackView.setKeyState(1);
 		}, false);
-		
-//		addKeyBinding(whackView, KeyEvent.VK_UP, "go up release", (evt) -> {
-//			whackView.setUpDownKeyState(0);
-//		}, true);
 		
 		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
 			whackView.setKeyState(2);
 			
 		}, false);
-		
-//		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
-//			whackView.setUpDownKeyState(0);
-//			
-//		}, true);
 	}
 	
 	public void setBindingsToMigration() {
