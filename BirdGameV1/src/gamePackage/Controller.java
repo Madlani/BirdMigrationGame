@@ -38,11 +38,12 @@ public class Controller {
 	boolean ssvPaused = false;
 	boolean mmvPaused = false;
 	
-	private final int FPS = 30;
+	private final int FPS = 15;
 	
 	private CardLayout cardLayout;
 
-	private boolean isGameOver;
+	private boolean sideSwiperGameOver = false;
+	private boolean migrationGameOver = false;
 	
 	public Controller() {
 		
@@ -152,34 +153,48 @@ public class Controller {
 		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjects();
 		
 		if (sideSwiperModel.getOsprey().getHealthCount() <= 0) {
-			isGameOver = true;
+			sideSwiperGameOver = true;
 			this.state = GameState.END;
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
+			for (int i = 1; i < list2.size(); i++) {
+				sideSwiperModel.resetGameObjectLocation(list2.get(i));
+			}
 			gameOver();
 		}
 		
 		sideSwipeView.update(list2);
 	}
 	
-	public void gameOver() {
-		isGameOver = false;
-		sideSwiperModel.getOsprey().setHealthCount(3);
-		this.cardLayout.show(this.masterPanel, "end");
-	}
-
 	public void updateMigrationModel() {
 		mmvPaused = migrationModel.updateLocationAndDirection();
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
 		
 		if (migrationModel.getOsprey().getHealthCount() <= 0) {
-			isGameOver = true;
+			migrationGameOver = true;
 			this.state = GameState.END;
 			migrationModel.getOsprey().setFlyState(FlyState.STILL);
+			for (int i = 1; i < list3.size(); i++) {
+				migrationModel.resetGameObjectLocation(list3.get(i));
+			}
 			gameOver();
 		}
-		
 		migrationView.update(list3);
 	}
+	
+	public void gameOver() {
+		if (sideSwiperGameOver) {
+			sideSwiperModel.getOsprey().setHealthCount(3);
+			this.cardLayout.show(this.masterPanel, "end");
+			sideSwiperGameOver = false;
+		}
+		if (migrationGameOver) {
+			migrationModel.getOsprey().setHealthCount(3);
+			this.cardLayout.show(this.masterPanel, "end");
+			migrationGameOver = false;
+		}
+
+	}
+
 	public boolean repeat()	{
 		updateMode();
 		drawView();

@@ -3,6 +3,8 @@ package gamePackage;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class Question {
 	private String[] questionArray;
 	private Answer[][] answers;
@@ -68,10 +70,12 @@ public class Question {
 		// to an integer (using KeyEvent or key bindings) and then access that point in the array. The 
 		// first array index in the 2D array is the question that was asked. The value of the first index
 		// is from 0 to the final int declared above: NUMBER_OF_QUESTIONS.
-		Question q = new Question();
-		Scanner s = new Scanner(System.in);
-		int userInput = s.nextInt();
-		System.out.println(q.answers[0][userInput]);
+		
+//		Question q = new Question();
+//		Scanner s = new Scanner(System.in);
+//		int userInput = s.nextInt();
+//		System.out.println(q.answers[0][userInput]);
+		
 	}
 }
 
