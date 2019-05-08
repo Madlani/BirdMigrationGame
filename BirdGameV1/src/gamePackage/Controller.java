@@ -104,7 +104,7 @@ public class Controller {
 			this.state = GameState.WHACKAMOLE;
 //			cardLayout.next(masterPanel);
 			this.cardLayout.show(this.masterPanel, "whackAMole");
-			whackView.setIsView(true);
+			whackView.setIsWackView(true);
 			whackView.initTimers();
 		}, false);
 		

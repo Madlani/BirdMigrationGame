@@ -50,6 +50,7 @@ public class MigrationView extends View {
 	private final int MAP_FRAME_COUNT = 30;
 	private final int HEALTH_BIRD_OFFSET = 30;
 	private final int HEALTH_IMG_X = scaledImageWidth - 350;
+	private final int HEALTH_ICON_X = scaledImageWidth - 300;
 	private final int HEALTH_IMG_Y = 20;
 	
 	public MigrationView() {
@@ -152,7 +153,7 @@ public class MigrationView extends View {
 		g.drawImage(this.miniMap[picNumMap], MAP_X, MAP_Y, null);
 		
 		for (int i = 0; i < healthCount; i++) {
-			g.drawImage(healthIcon, HEALTH_IMG_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
+			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
 		}
 	}
 

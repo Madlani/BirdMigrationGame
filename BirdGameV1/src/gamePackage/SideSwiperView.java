@@ -55,6 +55,7 @@ public class SideSwiperView extends View {
 	private final int MAP_FRAME_COUNT = 30;
 	private final int HEALTH_BIRD_OFFSET = 30;
 	private final int HEALTH_IMG_X = scaledImageWidth - 350;
+	private final int HEALTH_ICON_X = scaledImageWidth - 300;
 	private final int HEALTH_IMG_Y = 20;
 	private final int MAP_X = 0;
 	private final int MAP_Y = 0;
@@ -112,8 +113,8 @@ public class SideSwiperView extends View {
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g.create();
-		Graphics2D g3 = (Graphics2D) g.create();
+		g = (Graphics2D) g.create();
+		
 		
 		picNumFish = (short) ((picNumFish + 1) % NUMBER_FISH_FRAMES);
 		picNum = (picNum + 1) % birdFrameCount;
@@ -128,31 +129,31 @@ public class SideSwiperView extends View {
 		if (tick == 0) {
 			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
 		}
-		g2.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
-		g2.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
 	    
-		g2.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
+		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		
-		g2.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
-		g2.drawImage(this.cloudQuestionBox, (int)cloudQuestionX, (int)cloudQuestionY, null);
+		g.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
+		g.drawImage(this.cloudQuestionBox, (int)cloudQuestionX, (int)cloudQuestionY, null);
 
-		g2.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
-		g2.drawImage(fishFrames[picNumFish], (int)fishX, (int)fishY, null);
+		g.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
+		g.drawImage(fishFrames[picNumFish], (int)fishX, (int)fishY, null);
 		
-		g3.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
+		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
 //		-----------------------------------------------------------------------------------------------------------------------------
 //		SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
-//		g3.drawRect((int)this.b.getBirdBox().getX(), (int)this.b.getBirdBox().getY(), (int)this.b.getBirdBox().getWidth(), (int)this.b.getBirdBox().getHeight());
-//		g3.drawRect((int)this.plane.GameObjectBox.getX(), (int)this.plane.GameObjectBox.getY(), (int)this.plane.GameObjectBox.getWidth(), (int)this.plane.GameObjectBox.getHeight());
-//		g3.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
-//		g3.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
-//		g3.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
+//		g.drawRect((int)this.b.getBirdBox().getX(), (int)this.b.getBirdBox().getY(), (int)this.b.getBirdBox().getWidth(), (int)this.b.getBirdBox().getHeight());
+//		g.drawRect((int)this.plane.GameObjectBox.getX(), (int)this.plane.GameObjectBox.getY(), (int)this.plane.GameObjectBox.getWidth(), (int)this.plane.GameObjectBox.getHeight());
+//		g.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
+//		g.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
+//		g.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
 //		-----------------------------------------------------------------------------------------------------------------------------
 		
-		g3.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
 		for (int i = 0; i < healthCount; i++) {
-			g2.drawImage(healthIcon, HEALTH_IMG_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
+			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
 		}
 	}
 
