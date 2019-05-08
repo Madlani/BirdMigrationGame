@@ -10,75 +10,80 @@ public class MigrationModel extends Model {
 	private GameObject cloudQuestionBlock;
 	private GameObject thunderCloud;
 	
-	private final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private final double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	int maxWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 150;
-	int minWidth = 0;
-	int randX = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
+	private final double screenWidth = Model.scaledImageWidth;
+	private final double screenHeight = Model.scaledImageHeight;
 	
-	final int airplaneStartY = -200;
-	final int thunderCloudStartY = -450;
-	final int questionBlockStartY = -700;
-	final int foodStartY = -700;
+	private int maxWidth = Model.scaledImageHeight - 150;
+	private int minWidth = 0;
+	private int randX = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
+	
+	private final int AIRPLANE_START_Y = -200;
+	private final int THUNDERCLOUD_STARTING_Y = -450;
+	private final int QUESTIONBLOCK_STARTING_Y = -700;
+	private final int FOOD_STARTING_Y = -700;
+	
+	private final int AIRPLANE_WIDTH = 150;
+	private final int AIRPLANE_HEIGHT = 150;
+	
+	private final int FISH_WIDTH = 100;
+	private final int FISH_HEIGHT = 65;
+	
+	private final int THUNDERCLOUD_WIDTH = 200;
+	private final int THUNDERCLOUD_HEIGHT = 200;
+	
+	private final int CLOUD_WIDTH = 300;
+	private final int CLOUD_HEIGHT = 178;
+	
+	private final int BIRD_STARTING_X = (int)screenWidth / 2;
+	private final int BIRD_STARTING_Y = (int)screenHeight - 200;
+	
+	private final int MINI_MAP_WIDTH = (int)screenWidth / 4;
+	
 	
 	public MigrationModel() {
 		super();
 		
+		// Creates the objects for use in the Migration Model
 		this.osprey = new Bird();
-    	this.airplane = new GameObject(randX, ObjectType.PLANE, 150, 150);
-    	this.food = new GameObject(randX, ObjectType.FOOD, 100, 65);
-    	this.thunderCloud = new GameObject(randX, ObjectType.THUNDER_CLOUD, 200, 200);
-    	this.cloudQuestionBlock = new GameObject(randX, ObjectType.CLOUD_QUESTION_BOX, 300, 178);
-    
-    	
-    	this.osprey.setLocation(screenWidth/2, screenHeight - 200);
-    	this.airplane.setLocation(randX, airplaneStartY);
-    	this.food.setLocation(randX, foodStartY);
-    	this.thunderCloud.setLocation(randX, thunderCloudStartY);
-    	this.cloudQuestionBlock.setLocation(randX, questionBlockStartY);
-    	
+    	this.airplane = new GameObject(randX, ObjectType.PLANE, AIRPLANE_WIDTH, AIRPLANE_HEIGHT);
+    	this.food = new GameObject(randX, ObjectType.FOOD, FISH_WIDTH, FISH_HEIGHT);
+    	this.thunderCloud = new GameObject(randX, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT);
+    	this.cloudQuestionBlock = new GameObject(randX, ObjectType.CLOUD_QUESTION_BOX, CLOUD_WIDTH, CLOUD_HEIGHT);
+
+		// Sets the location for the objects in the Migration Model
+		this.osprey.setLocation(BIRD_STARTING_X, BIRD_STARTING_Y);
+		this.airplane.setLocation(randX, AIRPLANE_START_Y);
+		this.food.setLocation(randX, FOOD_STARTING_Y);
+		this.thunderCloud.setLocation(randX, THUNDERCLOUD_STARTING_Y);
+		this.cloudQuestionBlock.setLocation(randX, QUESTIONBLOCK_STARTING_Y);
+
 	}
-	//updateBirdLocation() will update the position of the bird to update the minimap
-		public void updateBirdLocation() {
-			
+
+	/**
+	 * updateGameObjectLocationAndDirection
+	 * Updates the location of the game object and direction. Calls a method to move the object to the right 
+	 * side of the screen when it gets too far left.
+	 */
+	@Override
+	public void updateGameObjectLocationAndDirection(GameObject o) {
+		System.out.println(o.getY());
+		if (o.getY() >= screenHeight) {
+			resetGameObjectLocation(o);
+		} else {
+			o.setLocation(o.getX(), o.getY() + o.getGameObjectSpeed());
 		}
-		
-		//randomizeBlocks() will randomize where blocks that contain questions will appear on screen
-		public void randomizeBlocks() {
-			
-		}
-		
-		//randomizeQuestion() will pick a random question to appear if the bird hits a question box
-		public void randomizeQuestion() {
-			
-		}
-		
-		//moveGameObjects() moves the GameObject as the game progresses
-		public void moveGameObjects() {
-			
-		}
-		
-		@Override
-		public void updateGameObjectLocationAndDirection(GameObject o) {
-			System.out.println(o.getY());
-			if(o.getY() >= (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()){
-				resetGameObjectLocation(o);
-			}
-			else {
-				o.setLocation(o.getX() , o.getY()+ o.getGameObjectSpeed());
-			}
-		}
-		
-		@Override
-			public void resetGameObjectLocation(GameObject o) {
-				int maxWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() - o.GameObjectBox.width;
-				int minHeight = -150;
-				
-				int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-				int rand = (int)(Math.random()*(maxWidth - minHeight + 1) - minHeight) +((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())/4 ;
-				o.setLocation(rand, minHeight);
-		}
+	}
+
+	/**
+	 * resetGameObjectLocation()
+	 * Moves the object to the right side of the screen once it gets too far left.
+	 */
+	@Override
+	public void resetGameObjectLocation(GameObject o) {
+		int maxWidth = (int)screenWidth - o.GameObjectBox.width;
+		int minHeight = -150;
+
+		int rand = (int) (Math.random() * (maxWidth - minHeight + 1) - minHeight) + MINI_MAP_WIDTH;
+		o.setLocation(rand, minHeight);
+	}
 }
-
-
-
