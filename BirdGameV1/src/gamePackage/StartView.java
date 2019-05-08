@@ -13,58 +13,63 @@ public class StartView extends View {
 	private Image g1;
 	
 	public int imgVelX = 0;
-	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private int scaledImageWidth = Model.scaledImageWidth;
+	private int scaledImageHeight = Model.scaledImageHeight;
 
 	private boolean tutorialClicked;
 	private boolean startClicked;
 	
-
+	
 	public StartView() {
 		super();
 		this.loadImage();
 	}
 	
-	//Displays the bird image
-	public void createBirdObject() {
-		
-	}
-	
-	//Draws the background that the game will display at the start
-	@Override
-	public void drawBackground() {
-		
-	}
-	
-	//Returns a boolean that detects if the tutorial button was clicked 
+	/**
+	 * getTutorialClicked()
+	 * @return tutorialClicked, a boolean that detects if the tutorial button was clicked
+	 */
 	public boolean getTutorialClicked() {
 		return this.tutorialClicked;
 	}
 	
-	//Returns a boolean that detects if the start game button was clicked
+	/**
+	 * getStartClicked()
+	 * @return startClicked, a boolean that detects if the start game button was clicked
+	 */
 	public boolean getStartClicked() {
 		return this.startClicked;
 	}
 
+	/**
+	 * update()
+	 * This method is not used in this particular view, but is required to be implemented since we extend the abstract View class.
+	 */
 	@Override
 	public void update(ArrayList<GameObject> list) {
-		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * loadImage()
+	 * Loads in the images for the objects used for the StartView panel 
+	 */
 	private void loadImage() {
 		ImageIcon startScreen = new ImageIcon("src/images/startView.png");
 		g1 = startScreen.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 
 	}
 	
+	/**
+	 * paintComponent()
+	 * This method overrides the View's paintComponent(). It draws all of our images on the screen and sets them
+	 * to be the appropriate starting locations that we have defined using constants.
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
 		g2.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
-
 	}
-
 }
 
 
