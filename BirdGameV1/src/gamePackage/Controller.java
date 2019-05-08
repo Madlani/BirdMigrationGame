@@ -154,6 +154,7 @@ public class Controller {
 		if (sideSwiperModel.getOsprey().getHealthCount() <= 0) {
 			isGameOver = true;
 			this.state = GameState.END;
+			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 			gameOver();
 		}
 		
@@ -169,6 +170,14 @@ public class Controller {
 	public void updateMigrationModel() {
 		mmvPaused = migrationModel.updateLocationAndDirection();
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
+		
+		if (migrationModel.getOsprey().getHealthCount() <= 0) {
+			isGameOver = true;
+			this.state = GameState.END;
+			migrationModel.getOsprey().setFlyState(FlyState.STILL);
+			gameOver();
+		}
+		
 		migrationView.update(list3);
 	}
 	public boolean repeat()	{

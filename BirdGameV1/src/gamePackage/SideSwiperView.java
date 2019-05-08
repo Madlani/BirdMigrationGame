@@ -41,7 +41,7 @@ public class SideSwiperView extends View {
 	private int health;
 	private int healthCount;
 	
-	private Bird b;
+	private Bird bird;
 	private GameObject plane;
 	private GameObject thunderCloudObj;
 	private GameObject cloudQuestionBoxObj;
@@ -165,14 +165,14 @@ public class SideSwiperView extends View {
 	@Override
 	public void update(ArrayList<GameObject> list) {
 		
-		this.b = (Bird) list.get(0);
+		this.bird = (Bird) list.get(0);
 		this.plane = list.get(1);
 		this.thunderCloudObj = list.get(2);
 		this.cloudQuestionBoxObj = list.get(3);
 		this.food = list.get(4);
 		
-		this.birdX = b.getX();
-		this.birdY = b.getY();
+		this.birdX = bird.getX();
+		this.birdY = bird.getY();
 		
 		this.planeX = plane.getX();
 		this.planeY = plane.getY();
@@ -186,6 +186,6 @@ public class SideSwiperView extends View {
 		this.fishX = food.getX();
 		this.fishY = food.getY();
 
-		this.healthCount = b.getHealthCount();
+		this.healthCount = bird.getHealthCount();
 	}
 }

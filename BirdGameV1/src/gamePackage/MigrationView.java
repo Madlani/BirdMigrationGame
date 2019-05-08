@@ -133,6 +133,7 @@ public class MigrationView extends View {
 		g.drawImage(fishFrames[picNumFish], (int)fishX, (int)fishY, null);
 
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
+		
 
 //		-----------------------------------------------------------------------------------------------------------------------------
 //		SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
@@ -185,6 +186,7 @@ public class MigrationView extends View {
 		
 		this.fishX = food.getX();
 		this.fishY = food.getY();
+		this.healthCount = bird.getHealthCount();
 	}
 }
 	
