@@ -10,58 +10,49 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
-//1 - up
-////2 - down
-////3 - left
-////4 - right
-
 
 @SuppressWarnings("serial")
 public class WhackAMoleView extends View {
+	//necessary images needed for WhackAMoleView
 	private Image background;
 	private Image left;
-	private Image food;
 	private Image right;
 	private Image up;
 	private Image down;
 	private Image stick;
-	private Image pressedStick;
+	private Image highlightedStick;
 	
-	
+	//flags for key presses and keyStates
 	private int keyState = 0;
+	private boolean isWhackView;
 	private boolean drawUp = false;
 	private boolean drawDown = false;
 	private boolean drawLeft = false;
 	private boolean drawRight = false;
 	
-	//highlight stick
+	//Timer and action listener to draw highlighted the game pattern stick pattern
 	private BufferedImage highlightStickBuffer;
 	private Timer highlightStickTimer;
 	private int highlightTimerDelay = 1000;
 	private ActionListener highlightStickListener;
 	
-	
-	//normal stick
+	//Timer to draw the normal sticks over the highlighted sticks, essentially makes the game pattern blink 
 	private BufferedImage normalStickBuffer;
 	private Timer normalTimer;
 	private int normalStickTimerDelay = 1100;
 	private ActionListener normalStickListener;
 	
-	private boolean isView;
-
-
-
-	//MUST FIX
-	WhackAMoleModel whackModel = new WhackAMoleModel();
-
 	//scaled image size
-	private int scaledImageWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private int scaledImageHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private int scaledImageWidth = Model.scaledImageWidth;
+	private int scaledImageHeight = Model.scaledImageHeight;
 
 	
-	//Transparent colors
+	//Transparent colors which is used to indicate key presses on screen
 	Color OPAQUE_GREEN = new Color(.75f, 1f, 0f, .75f);	//75% opaque
 	Color OPAQUE_RED = new Color(.75f, 0f, 0f, .75f);	//75% opaque
+	
+	//MUST FIX
+	WhackAMoleModel whackModel = new WhackAMoleModel();
 	
 	
 	public WhackAMoleView() {
@@ -72,46 +63,54 @@ public class WhackAMoleView extends View {
 	}
 	
 
+	/**
+	 * initTimers()
+	 * If the game state is in the Whack A Mole view, then the two action listeners and the two timers are initialized. The two timers are started. Their delays are offset to 
+	 * achieve a blinking effect for the game pattern. Essentially the highlightStickMethod() is called after every delay interval.
+	 */
 	public void initTimers() {
-		if (isView) {
+		if (isWhackView) {
 		
-		//highlight stick
-				highlightStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
-				highlightStickListener = new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if (whackModel.gamePattern.size() < 4) {
-							highlightStickMethod(highlightStickBuffer.getGraphics());
-							repaint();
-						}
+			//timer and action listener for the highlighted stick images
+			highlightStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
+			highlightStickListener = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (whackModel.gamePattern.size() < 4) {
+						highlightStickMethod(highlightStickBuffer.getGraphics());
+						repaint();
 					}
-				 };
-				 highlightStickTimer = new Timer(highlightTimerDelay, highlightStickListener);
-				 highlightStickTimer.start();
-				
-				
-				//repaint normal stick
-				normalStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
-				normalStickListener = new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-							normalStickMethod(normalStickBuffer.getGraphics());
-							repaint();
-					}
-				 };
-				normalTimer = new Timer(normalStickTimerDelay, normalStickListener);
-				normalTimer.start();
+				}
+			};
+			highlightStickTimer = new Timer(highlightTimerDelay, highlightStickListener);
+			highlightStickTimer.start();
+
+			// timer and action listener to draw the original stick images over the highlighted stick images
+			normalStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
+			normalStickListener = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					normalStickMethod(normalStickBuffer.getGraphics());
+					repaint();
+				}
+			};
+			normalTimer = new Timer(normalStickTimerDelay, normalStickListener);
+			normalTimer.start();
 				
 		}
 	}
 	
+	/**
+	 * loadImage()
+	 * Loads all necessary images for the WhackAMoleView. Called in the default constructor.
+	 */
 	public void loadImage() {
 		
-		//background
+		//background image
 		ImageIcon bg = new ImageIcon("src/images/WhackAMoleBackground.png");
 		background = bg.getImage();
 			
-		//correct bird image
+		//All bird images (bird looking up, down, left, and right)
 		ImageIcon l = new ImageIcon("src/images/WhackAMoleArrowLeft.png");
 		left = l.getImage();
 		
@@ -124,44 +123,39 @@ public class WhackAMoleView extends View {
 		ImageIcon d = new ImageIcon("src/images/WhackAMoleArrowDown.png");
 		down = d.getImage();
 		
-		//food
-		ImageIcon f = new ImageIcon("src/images/WhackAMoleFood.png");
-		food = f.getImage();
-		
-		//stick
+		//stick image
 		ImageIcon s = new ImageIcon("src/images/stick.png");
 		stick = s.getImage();
 		
-		//pressedStick
+		//highlighted stick image
 		ImageIcon p = new ImageIcon("src/images/pressedStick.png");
-		pressedStick = p.getImage();
+		highlightedStick = p.getImage();
 
 	}
 	
-//	public void resetImages(Graphics g) {
-//		g.drawImage(stick, (scaledImageWidth/2) - 196, 0, null);
-//		g.drawImage(stick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
-//		g.drawImage(stick, 0, (scaledImageHeight/2) - 180, null);
-//		g.drawImage(stick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
-//	}
-	
-	
+	/**
+	 * highlightStickMethod()
+	 * This method is called after every highlightTimerDelay. It generates a randomNum between 1 - 4, forces no numbers to be repeated, and adds the randomNum to the gamePattern ArrayList. For
+	 * each switch case, the correct boolean flags are set. (Boolean flags are necessary so the normalStickMethod knows which highlightedStick image is drawn so it knows which image to draw over.
+	 * 
+	 * @param g, g is a graphics passed through as an argument for highlightStickMethod(). The highlightStickBuffer will always be passed as the Graphics argument, and for each case the correct
+	 * image is drawn onto the Buffered Image. (The buffered image is drawn onto screen by the paintComponent() method; allows the game user to see the gamePattern visually on screen).
+	 */
 	public void highlightStickMethod(Graphics g) {
-		
 		int randomNum = (int)(Math.random()*(4) + 1);
 		
 		while (whackModel.gamePattern.contains(randomNum)) {
 			randomNum = (int)(Math.random()*(4) + 1);
 		}
-				
+		
+		whackModel.gamePattern.add(randomNum);
+		System.out.println(whackModel.gamePattern);
+		
 		switch (randomNum) {
 			case 1:
 				//up
-				whackModel.gamePattern.add(randomNum);
-				System.out.println(whackModel.gamePattern);
 				System.out.println("highlight up");
-				g.drawImage(pressedStick, (scaledImageWidth/2) - 196, 0, null);
-				//repaint();
+				g.drawImage(highlightedStick, (scaledImageWidth/2) - 196, 0, null);
 				drawUp = true;
 				drawDown = false;
 				drawLeft = false;
@@ -169,10 +163,8 @@ public class WhackAMoleView extends View {
 				break;
 			case 2:
 				//down
-				whackModel.gamePattern.add(randomNum);
-				System.out.println(whackModel.gamePattern);
 				System.out.println("highlight down");
-				g.drawImage(pressedStick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
+				g.drawImage(highlightedStick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
 				//repaint();
 				drawUp = false;
 				drawDown = true;
@@ -181,10 +173,8 @@ public class WhackAMoleView extends View {
 				break;
 			case 3:
 				//left
-				whackModel.gamePattern.add(randomNum);
-				System.out.println(whackModel.gamePattern);
 				System.out.println("highlight left");
-				g.drawImage(pressedStick, 0, (scaledImageHeight/2) - 180, null);
+				g.drawImage(highlightedStick, 0, (scaledImageHeight/2) - 180, null);
 				//repaint();
 				drawUp = false;
 				drawDown = false;
@@ -193,10 +183,8 @@ public class WhackAMoleView extends View {
 				break;
 			case 4:
 				//right
-				whackModel.gamePattern.add(randomNum);
-				System.out.println(whackModel.gamePattern);
 				System.out.println("highlight right");
-				g.drawImage(pressedStick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
+				g.drawImage(highlightedStick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
 				//repaint();
 				drawUp = false;
 				drawDown = false;
@@ -204,133 +192,17 @@ public class WhackAMoleView extends View {
 				drawRight = true;
 				break;
 		}
-		
-//		if (drawUp)
-//			g.drawImage(stick, (scaledImageWidth/2) - 196, 0, null);
-//		else if (drawDown)
-//			g.drawImage(stick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
-//		else if (drawLeft)
-//			g.drawImage(stick, 0, (scaledImageHeight/2) - 180, null);
-//		else if (drawRight)
-//			g.drawImage(stick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
-		
-		//initializes boolean values for drawing game pattern
-//		for (Integer num : whackModel.gamePattern) {
-//			//up
-//			if (num == 1) {
-//				System.out.println("up true");
-//				drawUp = true;
-//				drawDown = false;
-//				drawLeft = false;
-//				drawRight = false;
-//				repaint();
-//				
-//	
-//			}
-//			//down
-//			else if (num == 2) {
-//				System.out.println("down true");
-//				drawUp = false;
-//				drawDown = true;
-//				drawLeft = false;
-//				drawRight = false;
-//				repaint();
-//
-//			}
-//			//left
-//			else if (num == 3) {
-//				System.out.println("left true");
-//				drawUp = false;
-//				drawDown = false;
-//				drawLeft = true;
-//				drawRight = false;
-//				repaint();
-//
-//			}
-//			//right
-//			else if (num == 4) {
-//				System.out.println("right true");
-//				drawUp = false;
-//				drawDown = false;
-//				drawLeft = false;
-//				drawRight = true;
-//				repaint();
-//
-//			}			
-//		}	
-		
-		//draw game pattern based on boolean values
-//		g.setColor(OPAQUE_RED);
-//		//up
-//		if (drawUp && !drawDown && !drawLeft && !drawRight) {
-//			System.out.println("debug up");
-//			g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
-//		}
-//		//down
-//		else if (!drawUp && drawDown && !drawLeft && !drawRight) {
-//			System.out.println("debug down");
-//			g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
-//		}
-//		//left
-//		else if (!drawUp && !drawDown && drawLeft && !drawRight) {
-//			System.out.println("debug left");
-//			g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
-//		}
-//		//right
-//		else if (!drawUp && !drawDown && !drawLeft && drawRight) {
-//			System.out.println("debug right");
-//			g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
-//		}
-//		
 
-		
-		
-		
-//		int i = 0;
-//		
-//		if (i < whackModel.getGamePattern().size()) {
-//			switch (whackModel.getGamePattern().get(i)) {
-//				case 1:
-//					System.out.println("up true");
-//					drawUp = true;
-//					drawDown = false;
-//					drawLeft = false;
-//					drawRight = false;
-//					repaint();
-//					i++;
-//					break;
-//				case 2:
-//					System.out.println("down true");
-//					drawUp = false;
-//					drawDown = true;
-//					drawLeft = false;
-//					drawRight = false;
-//					repaint();
-//					i++;
-//					break;
-//				case 3:
-//					System.out.println("left true");
-//					drawUp = false;
-//					drawDown = false;
-//					drawLeft = true;
-//					drawRight = false;
-//					repaint();
-//					i++;
-//					break;
-//				case 4:
-//					System.out.println("right true");
-//					drawUp = false;
-//					drawDown = false;
-//					drawLeft = false;
-//					drawRight = true;
-//					repaint();
-//					i++;
-//					break;
-//			}
-//		}
-	
 	}
 	
+	/**
+	 * normalStickMethod()
+	 * This method is called after every normalStickTimerDelay. For each switch case, the stick image is added to the normalStickBuffer with correct coordinates based on the boolean flags set
+	 * in higlightStickMethod(). 
+	 * 
+	 * @param g, g is a graphics passed through as an argument for normalStickMethod(). The normalStickBuffer will always be passed as the Graphics argument, and for each switch case the correct
+	 * image is drawn onto the Buffered Image. (The buffered image is drawn onto screen by the paintComponent() method; allows the game user to see the gamePattern blink visually on screen).
+	 */
 	public void normalStickMethod(Graphics g) {
 		//up
 		if (drawUp) {
@@ -355,13 +227,13 @@ public class WhackAMoleView extends View {
 		
 	}
 	
-	
-	
-	
+	/**
+	 * paintComponent(Graphics g)
+	 * Overridden paintComponent method from the View class. Paints all necessary images visually on the screen. This method body is only called if isWhackView is set to true.
+	 */
 	@Override
-	//paints image
 	public void paintComponent(Graphics g) {
-		if (isView) {
+		if (isWhackView) {
 		
 			super.paintComponent(g);
 			g.setColor(OPAQUE_GREEN);
@@ -414,39 +286,36 @@ public class WhackAMoleView extends View {
 
 	}
 	
-	
-	//Draws the objects that will be used in the WhackAMole game, including sticks, health, etc.
-	public void displayObjects() {
-		
-	}
-	
+	/**
+	 * getKeyState()
+	 * @return keyState, the correct keyState based on keyBindings in Controller
+	 */
 	public int getKeyState() {
 		return this.keyState;
 	}
-
-
+	
+	/**
+	 * setKeyState()
+	 * sets the keyState whenever a different keyBinding is called
+	 * @param keyState, the keyState is based on keyBindings in Controller
+	 */
 	public void setKeyState(int keyState) {
 		this.keyState = keyState;
 	}
 
-
+	/**
+	 * Sets the isWhackView boolean flag
+	 * @param isView, necessary to know the gameState of WhackAMoleView because the timers must start immediately when WhackAMoleView is on screen.
+	 */
+	public void setIsWackView(boolean isWhackView) {
+		this.isWhackView = isWhackView;
+	}
 	
-
 	@Override
 	public void update(ArrayList<GameObject> list) {
-		// TODO Auto-generated method stub
 		
 	}
 	
-//	public boolean getIsView() {
-//		return isView;
-//	}
-
-
-	public void setIsView(boolean isView) {
-		this.isView = isView;
-	}
 	
 }
 
-//-----------------------------------------------------------------------------------------------------
