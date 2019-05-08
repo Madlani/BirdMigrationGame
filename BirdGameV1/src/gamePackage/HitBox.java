@@ -1,6 +1,7 @@
 package gamePackage;
 import java.awt.Rectangle;
 
+@SuppressWarnings("serial")
 public class HitBox extends Rectangle {
 
 	HitBox(int x, int y, int width, int height) {
@@ -11,16 +12,32 @@ public class HitBox extends Rectangle {
 		super((int) m.getX(), (int) m.getY(), width, height);
 	}
 
-	public void changeWidth(int new_width) {
-		this.width = new_width;
+	/**
+	 * changeWidth()
+	 * Changes the width of the HitBox.
+	 * @param newWidth
+	 */
+	public void changeWidth(int newWidth) {
+		this.width = newWidth;
 	}
 
-	public void changeHeight(int new_height) {
-		this.height = new_height;
+	/**
+	 * changeHeight()
+	 * Changes the height of the HitBox.
+	 * @param newHeight
+	 */
+	public void changeHeight(int newHeight) {
+		this.height = newHeight;
 	}
 
-	public void setSize(int new_width, int new_height) {
-		this.width = new_width;
-		this.height = new_height;
+	/**
+	 * setSize()
+	 * Sets the size of the HitBox to the specified dimensions
+	 * @param newWidth, the new width for the HitBox
+	 * @param newHeight, the new height for the HitBox
+	 */
+	public void setSize(int newWidth, int newHeight) {
+		this.width = newWidth;
+		this.height = newHeight;
 	}
 }
