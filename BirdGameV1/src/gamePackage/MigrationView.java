@@ -31,7 +31,7 @@ public class MigrationView extends View {
 			
 	private double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
 	
-	private String birdImagePath = "src/images/osprey_frames.png";
+	private String birdImagePath = "src/images/upOspreyFrames.png";
 	
 	private Bird bird;
 	private GameObject plane;
@@ -78,9 +78,9 @@ public class MigrationView extends View {
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		fishFrames = new BufferedImage[NUMBER_FISH_FRAMES];
 		
-		for (int i = 0; i < birdFrameCount; i++) {
-			bird_imagesBufferedImage[i] = birdFrames.getSubimage(BIRD_IMG_SIZE * i, TOP_LEFT_IMG_Y, BIRD_IMG_SIZE, BIRD_IMG_SIZE);
-		}
+//		for (int i = 0; i < birdFrameCount; i++) {
+//			bird_imagesBufferedImage[i] = birdFrames.getSubimage(BIRD_IMG_SIZE * i, TOP_LEFT_IMG_Y, BIRD_IMG_SIZE, BIRD_IMG_SIZE);
+//		}
 		for (int i = 0; i < NUMBER_FISH_FRAMES; i++)
 			fishFrames[i] = fishAnimation.getSubimage(FISH_IMG_WIDTH * i, TOP_LEFT_IMG_Y, FISH_IMG_WIDTH, FISH_IMG_HEIGHT);
 		
@@ -99,6 +99,29 @@ public class MigrationView extends View {
 		this.miniMap[11] = super.createImage("src/images/delawareMiniMap12.png");
 		this.miniMap[12] = super.createImage("src/images/delawareMiniMap13.png");
 		
+		this.bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
+		this.bird_imagesBufferedImage[0] = super.createImage("src/images/0.png");
+		this.bird_imagesBufferedImage[1] = super.createImage("src/images/1.png");
+		this.bird_imagesBufferedImage[2] = super.createImage("src/images/2.png");
+		this.bird_imagesBufferedImage[3] = super.createImage("src/images/3.png");
+		this.bird_imagesBufferedImage[4] = super.createImage("src/images/4.png");
+		this.bird_imagesBufferedImage[5] = super.createImage("src/images/5.png");
+		this.bird_imagesBufferedImage[6] = super.createImage("src/images/6.png");
+		this.bird_imagesBufferedImage[7] = super.createImage("src/images/7.png");
+		this.bird_imagesBufferedImage[8] = super.createImage("src/images/8.png");
+		this.bird_imagesBufferedImage[9] = super.createImage("src/images/9.png");
+		this.bird_imagesBufferedImage[10] = super.createImage("src/images/10.png");
+		this.bird_imagesBufferedImage[11] = super.createImage("src/images/11.png");
+		this.bird_imagesBufferedImage[12] = super.createImage("src/images/12.png");
+		this.bird_imagesBufferedImage[13] = super.createImage("src/images/13.png");
+		this.bird_imagesBufferedImage[14] = super.createImage("src/images/14.png");
+		this.bird_imagesBufferedImage[15] = super.createImage("src/images/15.png");
+		this.bird_imagesBufferedImage[16] = super.createImage("src/images/16.png");
+		this.bird_imagesBufferedImage[17] = super.createImage("src/images/17.png");
+		this.bird_imagesBufferedImage[18] = super.createImage("src/images/18.png");
+		this.bird_imagesBufferedImage[19] = super.createImage("src/images/19.png");
+		this.bird_imagesBufferedImage[20] = super.createImage("src/images/20.png");
+		this.bird_imagesBufferedImage[21] = super.createImage("src/images/21.png");
 		setDoubleBuffered(true); // used to smooth image movement
 	}
 	
