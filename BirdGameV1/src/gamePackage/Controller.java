@@ -9,6 +9,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
@@ -202,7 +203,7 @@ public class Controller {
 			return true;
 		} else {
 			Question q = new Question();
-			q.displayQuestion();
+			setBindingsToQuestions(q);
 			while(sideSwiperModel.getPauseGameFlag() == true) {
 				sideSwiperModel.changePauseGameFlag();
 				start();
@@ -334,6 +335,15 @@ public class Controller {
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
+		}, true);
+	}
+	
+	public void setBindingsToQuestions(Question q) {
+		
+		int response = q.displayQuestion();
+		
+		addKeyBinding(sideSwipeView, KeyEvent.VK_RIGHT, "click the right button", (evt) -> {
+			
 		}, true);
 	}
 

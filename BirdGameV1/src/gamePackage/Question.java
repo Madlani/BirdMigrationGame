@@ -1,8 +1,12 @@
 package gamePackage;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 public class Question {
@@ -69,9 +73,47 @@ public class Question {
 	public int displayQuestion() {
 		int randQuestionNum = (int)(Math.random()*((NUMBER_OF_QUESTIONS - 1) + 1));
 		System.out.println("RandNumber: " + randQuestionNum);
-		int option = JOptionPane.showConfirmDialog(null, questionArray[randQuestionNum], "Question Cloud", JOptionPane.YES_NO_OPTION) ;
+		JButton rightBtn = new JButton("RIGHT");
+		JButton leftBtn = new JButton("LEFT");
+		
+		rightBtn.setMnemonic('R');
+		rightBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane pane = getOptionPane((JComponent)e.getSource());
+                pane.setValue(JOptionPane.YES_OPTION);
+            }
+        });
+        leftBtn.setMnemonic(KeyEvent.VK_LEFT);
+        leftBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane pane = getOptionPane((JComponent)e.getSource());
+                pane.setValue(JOptionPane.NO_OPTION);
+            }
+        });
+		//int option = JOptionPane.showConfirmDialog(null, questionArray[randQuestionNum], "Question Cloud", JOptionPane.YES_NO_OPTION);
+		
+		JButton[] buttonsArray = new JButton[] {rightBtn, leftBtn};
+		int option = JOptionPane.showOptionDialog(
+                null, 
+                questionArray[randQuestionNum], 
+                "Question Cloud", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.WARNING_MESSAGE, 
+                null, buttonsArray, null);
 		return option;
 	}
+	
+	protected static JOptionPane getOptionPane(JComponent parent) {
+        JOptionPane pane = null;
+        if (!(parent instanceof JOptionPane)) {
+            pane = getOptionPane((JComponent)parent.getParent());
+        } else {
+            pane = (JOptionPane) parent;
+        }
+        return pane;
+    }
 	
 	//public static void main(String[] args) {
 		
