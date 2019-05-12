@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class Question {
 	private String[] questionArray;
 	private Answer[][] answers;
-	private final int NUMBER_OF_QUESTIONS = 2;
+	private final int NUMBER_OF_QUESTIONS = 3;
 	
 	private Answer[] question1Answers;
 	private Answer[] question2Answers;
@@ -25,9 +25,12 @@ public class Question {
 	 */
 	public void setQuestions() {
 		setQuestionArray(new String[NUMBER_OF_QUESTIONS]);
+		questionArray[0] = "Does an osprey migrate?";
+		questionArray[1] = "Does the northern harrier migrate?";
+		questionArray[2] = "Question #3";
 		
-		question1Answers = new Answer[] {new Answer(true, "answer 1", KeyEvent.VK_RIGHT),
-										   new Answer(false, "answer 2", KeyEvent.VK_LEFT)};
+		question1Answers = new Answer[] {new Answer(true, "Yes", KeyEvent.VK_RIGHT),
+										   new Answer(false, "No", KeyEvent.VK_LEFT)};
 		
 		question2Answers = new Answer[] {new Answer(false, "answer 1", KeyEvent.VK_RIGHT),
 				 						   new Answer(true, "answer 2", KeyEvent.VK_LEFT)};
@@ -64,11 +67,13 @@ public class Question {
 	}
 	
 	public int displayQuestion() {
-		int option = JOptionPane.showConfirmDialog(null, "question");
+		int randQuestionNum = (int)(Math.random()*((NUMBER_OF_QUESTIONS - 1) + 1));
+		System.out.println("RandNumber: " + randQuestionNum);
+		int option = JOptionPane.showConfirmDialog(null, questionArray[randQuestionNum], "Question Cloud", JOptionPane.YES_NO_OPTION) ;
 		return option;
 	}
 	
-	public static void main(String[] args) {
+	//public static void main(String[] args) {
 		
 		// The following is a proof of concept: we are able to track the user's keyboard input and then 
 		// look up the answer based on what the user clicked. We need to link the user's keyboard clicks
@@ -81,7 +86,7 @@ public class Question {
 //		int userInput = s.nextInt();
 //		System.out.println(q.answers[0][userInput]);
 		
-	}
+//	}
 }
 
 
