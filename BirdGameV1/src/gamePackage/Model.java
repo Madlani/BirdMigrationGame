@@ -124,12 +124,14 @@ public abstract class Model extends Point2D {
 			} else {
 				if (o.GameObjectBox.intersects(osprey.birdBox)) {
 					
-					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD) && healthChangable == false) 
+					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD) && healthChangable == false) {
 						this.osprey.decreaseHealthCount();
-
-					if (o.getType() == ObjectType.FOOD && this.osprey.getHealthCount() < 10 && healthChangable == false)
+						resetGameObjectLocation(o);
+					}
+					if (o.getType() == ObjectType.FOOD && this.osprey.getHealthCount() < 10 && healthChangable == false) {
 						this.osprey.increaseHealthCount();
-
+						resetGameObjectLocation(o);
+					}
 					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX) && healthChangable == false) {
 						System.out.println("hit question cloud");
 
@@ -150,6 +152,7 @@ public abstract class Model extends Point2D {
 						*/
 						
 						//return false; // this was originally true
+						resetGameObjectLocation(o);
 					}
 
 					healthChangable = true;

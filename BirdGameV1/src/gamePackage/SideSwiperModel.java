@@ -11,6 +11,7 @@ public class SideSwiperModel extends Model {
 	
 	private int scaledImageWidth = Model.scaledImageWidth;
 	private int scaledImageHeight = Model.scaledImageHeight;
+	private int offset = 600;
 	
 	public SideSwiperModel() {
 		super();
@@ -46,7 +47,7 @@ public class SideSwiperModel extends Model {
 			int width = scaledImageWidth;
 			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
 			
-			o.setLocation(width, rand);
+			o.setLocation(width + offset, rand);
 	}
 }
 
