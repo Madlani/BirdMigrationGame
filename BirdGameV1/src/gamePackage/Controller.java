@@ -195,10 +195,20 @@ public class Controller {
 
 	}
 
-	public boolean repeat()	{
-		updateMode();
-		drawView();
-		return true;
+	public boolean repeat() {
+		if (sideSwiperModel.getPauseGameFlag()==false) {
+			updateMode();
+			drawView();
+			return true;
+		} else {
+			Question q = new Question();
+			q.displayQuestion();
+			while(sideSwiperModel.getPauseGameFlag() == true) {
+				sideSwiperModel.changePauseGameFlag();
+				start();
+			}
+			return false;
+		}
 	}
 	
 	public void updateMode() {
@@ -326,4 +336,5 @@ public class Controller {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
 	}
+
 }

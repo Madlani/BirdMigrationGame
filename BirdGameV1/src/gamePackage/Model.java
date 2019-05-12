@@ -4,6 +4,8 @@ import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 
 public abstract class Model extends Point2D {
 
@@ -33,6 +35,7 @@ public abstract class Model extends Point2D {
 	private GameObject thunderCloud;
 	short a = 0;
 	private boolean healthChangable = false;
+	private boolean pauseGameFlag = false;
 
 	public Model() {
 		this.osprey = new Bird();
@@ -124,14 +127,31 @@ public abstract class Model extends Point2D {
 					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD) && healthChangable == false) 
 						this.osprey.decreaseHealthCount();
 
-					if (o.getType() == ObjectType.FOOD && this.osprey.getHealthCount() < 10 && healthChangable == false) 
+					if (o.getType() == ObjectType.FOOD && this.osprey.getHealthCount() < 10 && healthChangable == false)
 						this.osprey.increaseHealthCount();
 
 					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX) && healthChangable == false) {
 						System.out.println("hit question cloud");
-						return true;
+
+						System.out.println("Game Flag before question is displayed: " + this.getPauseGameFlag());
+						changePauseGameFlag();
+
+						/*
+						Question q = new Question();
+						int response = q.displayQuestion();
+
+						if (response == JOptionPane.YES_OPTION || response == JOptionPane.NO_OPTION || response == JOptionPane.CANCEL_OPTION) {
+							changePauseGameFlag();
+							System.out.println("Game Flag after OK_option picked: " + this.getPauseGameFlag());
+							System.out.println("Response: " + response);
+							this.updateLocationAndDirection();
+							return true;
+						}
+						*/
+						
+						//return false; // this was originally true
 					}
-					
+
 					healthChangable = true;
 					return false;
 				}
@@ -204,6 +224,14 @@ public abstract class Model extends Point2D {
 
 	public ArrayList<GameObject> getUpdatableGameObjects() {
 		return this.gameObjects;
+	}
+	
+	public void changePauseGameFlag() {
+		this.pauseGameFlag  = !this.pauseGameFlag;
+	}
+	
+	public boolean getPauseGameFlag() {
+		return this.pauseGameFlag;
 	}
 }
 

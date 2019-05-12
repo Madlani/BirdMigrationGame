@@ -63,6 +63,11 @@ public class Question {
 		this.answers = answers;
 	}
 	
+	public int displayQuestion() {
+		int option = JOptionPane.showConfirmDialog(null, "question");
+		return option;
+	}
+	
 	public static void main(String[] args) {
 		
 		// The following is a proof of concept: we are able to track the user's keyboard input and then 
