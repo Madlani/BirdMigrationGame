@@ -1,12 +1,12 @@
 package gamePackage;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.AWTKeyStroke;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
-import java.util.Scanner;
-
-import javax.swing.JButton;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class Question {
@@ -16,6 +16,8 @@ public class Question {
 	
 	private Answer[] question1Answers;
 	private Answer[] question2Answers;
+	
+	private int[] correspondingAnswer;
 	
 	public Question() {
 		setQuestions();
@@ -38,6 +40,11 @@ public class Question {
 		
 		question2Answers = new Answer[] {new Answer(false, "answer 1", KeyEvent.VK_RIGHT),
 				 						   new Answer(true, "answer 2", KeyEvent.VK_LEFT)};
+		
+		correspondingAnswer = new int[NUMBER_OF_QUESTIONS];
+		correspondingAnswer[0] = 1;
+		correspondingAnswer[1] = 0;
+		correspondingAnswer[2] = 1;
 	}
 	
 	public void setAnswers() {
@@ -72,36 +79,53 @@ public class Question {
 	
 	public int displayQuestion() {
 		int randQuestionNum = (int)(Math.random()*((NUMBER_OF_QUESTIONS - 1) + 1));
-		System.out.println("RandNumber: " + randQuestionNum);
-		JButton rightBtn = new JButton("RIGHT");
-		JButton leftBtn = new JButton("LEFT");
-		
-		rightBtn.setMnemonic('R');
-		rightBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane pane = getOptionPane((JComponent)e.getSource());
-                pane.setValue(JOptionPane.YES_OPTION);
-            }
-        });
-        leftBtn.setMnemonic(KeyEvent.VK_LEFT);
-        leftBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane pane = getOptionPane((JComponent)e.getSource());
-                pane.setValue(JOptionPane.NO_OPTION);
-            }
-        });
+//		System.out.println("RandNumber: " + randQuestionNum);
+//		JButton rightBtn = new JButton("RIGHT");
+//		JButton leftBtn = new JButton("LEFT");
+//		
+//		rightBtn.setMnemonic('R');
+//		rightBtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JOptionPane pane = getOptionPane((JComponent)e.getSource());
+//                pane.setValue(JOptionPane.YES_OPTION);
+//            }
+//        });
+//        leftBtn.setMnemonic(KeyEvent.VK_LEFT);
+//        leftBtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JOptionPane pane = getOptionPane((JComponent)e.getSource());
+//                pane.setValue(JOptionPane.NO_OPTION);
+//            }
+//        });
 		//int option = JOptionPane.showConfirmDialog(null, questionArray[randQuestionNum], "Question Cloud", JOptionPane.YES_NO_OPTION);
 		
-		JButton[] buttonsArray = new JButton[] {rightBtn, leftBtn};
-		int option = JOptionPane.showOptionDialog(
-                null, 
-                questionArray[randQuestionNum], 
-                "Question Cloud", 
-                JOptionPane.YES_NO_OPTION, 
-                JOptionPane.WARNING_MESSAGE, 
-                null, buttonsArray, null);
+//		JButton[] buttonsArray = new JButton[] {rightBtn, leftBtn};
+//		int option = JOptionPane.showOptionDialog(
+//                null, 
+//                questionArray[randQuestionNum], 
+//                "Question Cloud", 
+//                JOptionPane.YES_NO_OPTION, 
+//                JOptionPane.WARNING_MESSAGE, 
+//                null, buttonsArray, null);
+		
+		JOptionPane optionPane = new JOptionPane(questionArray[randQuestionNum], JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+	    JDialog dialog = optionPane.createDialog("Confirm Dialog");
+	    Set<AWTKeyStroke> focusTraversalKeys = new HashSet<AWTKeyStroke>(dialog.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+	    focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.VK_UNDEFINED));
+	    focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_LEFT, KeyEvent.VK_UNDEFINED));
+	    dialog.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, focusTraversalKeys);
+	    dialog.setVisible(true);
+	    dialog.dispose();
+	    int option = (Integer) optionPane.getValue();
+	    
+	    if (option != correspondingAnswer[randQuestionNum]) {
+	    	JOptionPane.showMessageDialog(null, "Correct!");
+	    } else {
+	    	JOptionPane.showMessageDialog(null, "Not Correct!");
+	    }
+		
 		return option;
 	}
 	
