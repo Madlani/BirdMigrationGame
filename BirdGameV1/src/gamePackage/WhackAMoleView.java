@@ -157,6 +157,8 @@ public class WhackAMoleView extends View {
 //			randomNum = (int)(Math.random()*(4) + 1);
 //		}
 		
+		if (this.index >= 4)
+			this.index = 0;
 		
 		int randomNum = sequence[this.index];
 		

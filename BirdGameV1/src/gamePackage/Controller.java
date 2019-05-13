@@ -128,8 +128,7 @@ public class Controller {
 	}
 
 	/**
-	 * start()
-	 * This method calls repeat(), which initializes the game views. We refresh the frame rate every 15 milliseconds.
+	 * starts our game, initializes the beginning View.
 	 */
 	public void start() {
 		while (repeat()) {
@@ -141,11 +140,6 @@ public class Controller {
 		}
 	}
 	
-	/**
-	 * updateSideSwiperModel()
-	 * This method continues to update the side swiper game and checks the logic to determine if an end state is reached.
-	 * An end state is reached when the bird runs out of health; when this happens, the end screen is shown.
-	 */
 	public void updateSideSwiperModel() {
 		ssvPaused = sideSwiperModel.updateLocationAndDirection();
 		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjects();
@@ -163,10 +157,6 @@ public class Controller {
 		sideSwipeView.update(list2);
 	}
 	
-	/**
-	 * This method continues to update the migration game and checks the logic to determine if an end state is reached.
-	 * An end state is reached when the bird runs out of health; when this happens, the end screen is shown.
-	 */
 	public void updateMigrationModel() {
 		mmvPaused = migrationModel.updateLocationAndDirection();
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
@@ -183,11 +173,6 @@ public class Controller {
 		migrationView.update(list3);
 	}
 	
-	/**
-	 * gameOver()
-	 * This method resets the game components (including the health) so that if the user wants to play again, they can
-	 * do that by hitting the space bar.
-	 */
 	public void gameOver() {
 		if (sideSwiperGameOver) {
 			sideSwiperModel.getOsprey().setHealthCount(3);
@@ -202,13 +187,6 @@ public class Controller {
 
 	}
 
-	/**
-	 * repeat()
-	 * The pause game flag in this method pauses the game state when the user collides with a question box. 
-	 * The pause game flag is set to true to indicate a game stoppage. After the user answers the question, 
-	 * the flag is reset to false and normal game play resumes.
-	 * @return true, if the user is answering a question, false if playing the normal game.
-	 */
 	public boolean repeat() {
 		if (sideSwiperModel.getPauseGameFlag() == false) {
 			updateMode();
@@ -226,10 +204,6 @@ public class Controller {
 		}
 	}
 	
-	/**
-	 * updateMode()
-	 * Changes the state of the game based on the last state the game was in.
-	 */
 	public void updateMode() {
 		SwingWorker<Void, Void> updateModelWorker = new SwingWorker<Void, Void>() {
 			@Override
@@ -261,12 +235,8 @@ public class Controller {
 		updateModelWorker.execute();
 	}
 	
-	/**
-	 * updateWhackKeyState()
-	 * Sets the key state in the view to match the key state in the model.
-	 * Repaints the view to show the state change.
-	 */
-	public void updateWhackKeyState() {
+	public void updateWhackKeyState()
+	{
 		whackView.setKeyState(whackModel.getKeyState());
 	}
 	
@@ -291,15 +261,6 @@ public class Controller {
 		}
 	}
 	
-	/**
-	 * addKeyBinding()
-	 * Binds a key to an on-screen action, such as a button click.
-	 * @param comp, the JComponent that key bindings will occur in.
-	 * @param keyCode, the numerical representation of the key the user presses to trigger an action.
-	 * @param id, a text version of the id to use as a key in the HashMap.
-	 * @param actionListener, the type of action listener needed for the event.
-	 * @param isReleased, a boolean to represent if the key needs to be released for the action to occur.
-	 */
 	@SuppressWarnings("serial")
 	public static void addKeyBinding(JComponent comp, int keyCode, String id, ActionListener actionListener, boolean isReleased) {
 		InputMap inputMap = comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -316,10 +277,6 @@ public class Controller {
 		});
 	}
 	
-	/**
-	 * setBindingsToWhackAMole()
-	 * Creates all the key bindings needed to use in the whack a mole game.
-	 */
 	public void setBindingsToWhackAMole() {
 		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			whackModel.setKeyState(3);
@@ -341,10 +298,6 @@ public class Controller {
 		}, false);
 	}
 	
-	/**
-	 * setBindingsToMigration()
-	 * Creates all the key bindings needed to use in the migration game.
-	 */
 	public void setBindingsToMigration() {
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			System.out.println("right pressed");
@@ -367,10 +320,6 @@ public class Controller {
 		}, true);
 	}
 	
-	/**
-	 * setBingingsToSideSwiper()
-	 * Creates all the key bindings needed to use in the side swiper game.
-	 */
 	public void setBindingsToSideSwiper() {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_UP, "go up", (evt) -> {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.UP);
