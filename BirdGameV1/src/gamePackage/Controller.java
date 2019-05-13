@@ -18,33 +18,26 @@ import javax.swing.AbstractAction;
 
 public class Controller {
 	
-	private GameState state;
-	
-	SideSwiperModel sideSwiperModel;
-	SideSwiperView sideSwipeView;
-	
-	WhackAMoleView whackView;
-	WhackAMoleModel whackModel;
-	
+	private SideSwiperModel sideSwiperModel;
+	private SideSwiperView sideSwipeView;
+	private WhackAMoleView whackView;
+	private WhackAMoleModel whackModel;
 	private MigrationModel migrationModel;
-	MigrationView migrationView;
+	private MigrationView migrationView;
+	private StartView startView;
+	private EndView endView;
 	
-	StartView startView;
-	
-	EndView endView;
-	
+	private GameState state;
 	private JFrame frame;
 	private JPanel masterPanel;
-	JPanel secondaryPanel;
-	boolean ssvPaused = false;
-	boolean mmvPaused = false;
-	
-	private final int FPS = 15;
-	
 	private CardLayout cardLayout;
-
+	
+	private boolean ssvPaused = false;
+	private boolean mmvPaused = false;
 	private boolean sideSwiperGameOver = false;
 	private boolean migrationGameOver = false;
+	
+	private final int FPS = 15;
 	
 	public Controller() {
 		
@@ -89,14 +82,12 @@ public class Controller {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
 			
 			this.state = GameState.MIGRATION;
-//			cardLayout.next(masterPanel);
 			this.cardLayout.show(this.masterPanel, "migration");
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
 			
 			this.state = GameState.END;
-//			cardLayout.next(masterPanel);
 			this.cardLayout.show(this.masterPanel, "end");
 			
 		}, false);
@@ -104,7 +95,6 @@ public class Controller {
 		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
 			
 			this.state = GameState.WHACKAMOLE;
-//			cardLayout.next(masterPanel);
 			this.cardLayout.show(this.masterPanel, "whackAMole");
 			whackView.setIsWackView(true);
 			whackView.initTimers();
@@ -115,7 +105,6 @@ public class Controller {
 			
 			this.state = GameState.SIDESWIPER;
 			this.cardLayout.show(this.masterPanel, "sideSwiper");
-			//cardLayout.next(masterPanel);
 			
 		}, false);
 		
@@ -197,13 +186,14 @@ public class Controller {
 	}
 
 	public boolean repeat() {
-		if (sideSwiperModel.getPauseGameFlag()==false) {
+		if (sideSwiperModel.getPauseGameFlag() == false) {
 			updateMode();
 			drawView();
 			return true;
 		} else {
 			Question q = new Question();
-			setBindingsToQuestions(q);
+			//setBindingsToQuestions(q);
+			q.displayQuestion();
 			while(sideSwiperModel.getPauseGameFlag() == true) {
 				sideSwiperModel.changePauseGameFlag();
 				start();
@@ -338,13 +328,4 @@ public class Controller {
 		}, true);
 	}
 	
-	public void setBindingsToQuestions(Question q) {
-		
-		int response = q.displayQuestion();
-		
-		addKeyBinding(sideSwipeView, KeyEvent.VK_RIGHT, "click the right button", (evt) -> {
-			
-		}, true);
-	}
-
 }
