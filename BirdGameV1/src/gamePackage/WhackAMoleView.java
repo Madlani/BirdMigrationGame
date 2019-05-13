@@ -2,7 +2,6 @@ package gamePackage;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -12,7 +11,15 @@ import javax.swing.ImageIcon;
 
 
 @SuppressWarnings("serial")
-public class WhackAMoleView extends View {
+public class WhackAMoleView extends View {	
+	//constants
+	private final int EXPECTED_PATTERN_SIZE = 4;
+	private final int ARROW_IMAGES_WIDTH = 300;
+	private final int ARROW_IMAGES_HEIGHT = 300;
+	private final int STICK_IMAGE_WIDTH = 393;
+	private final int STICK_IMAGE_HEIGHT = 360;
+	private final int BORDER = 0;
+	
 	//necessary images needed for WhackAMoleView
 	private Image background;
 	private Image left;
@@ -76,7 +83,7 @@ public class WhackAMoleView extends View {
 			highlightStickListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (whackModel.gamePattern.size() < 4) {
+					if (whackModel.gamePattern.size() < EXPECTED_PATTERN_SIZE) {
 						highlightStickMethod(highlightStickBuffer.getGraphics());
 						repaint();
 					}
@@ -155,7 +162,7 @@ public class WhackAMoleView extends View {
 			case 1:
 				//up
 				System.out.println("highlight up");
-				g.drawImage(highlightedStick, (scaledImageWidth/2) - 196, 0, null);
+				g.drawImage(highlightedStick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), BORDER, null);
 				drawUp = true;
 				drawDown = false;
 				drawLeft = false;
@@ -164,7 +171,7 @@ public class WhackAMoleView extends View {
 			case 2:
 				//down
 				System.out.println("highlight down");
-				g.drawImage(highlightedStick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
+				g.drawImage(highlightedStick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), scaledImageHeight - STICK_IMAGE_HEIGHT, null);
 				//repaint();
 				drawUp = false;
 				drawDown = true;
@@ -174,7 +181,7 @@ public class WhackAMoleView extends View {
 			case 3:
 				//left
 				System.out.println("highlight left");
-				g.drawImage(highlightedStick, 0, (scaledImageHeight/2) - 180, null);
+				g.drawImage(highlightedStick, BORDER, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 				//repaint();
 				drawUp = false;
 				drawDown = false;
@@ -184,7 +191,7 @@ public class WhackAMoleView extends View {
 			case 4:
 				//right
 				System.out.println("highlight right");
-				g.drawImage(highlightedStick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
+				g.drawImage(highlightedStick, scaledImageWidth - STICK_IMAGE_WIDTH, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 				//repaint();
 				drawUp = false;
 				drawDown = false;
@@ -206,22 +213,22 @@ public class WhackAMoleView extends View {
 	public void normalStickMethod(Graphics g) {
 		//up
 		if (drawUp) {
-			g.drawImage(stick, (scaledImageWidth/2) - 196, 0, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), BORDER, null);
 			System.out.println("drew original up");
 		}
 		//down
 		else if (drawDown) {
-			g.drawImage(stick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), scaledImageHeight - STICK_IMAGE_HEIGHT, null);
 			System.out.println("drew original down");
 		}
 		//left
 		else if (drawLeft) {
-			g.drawImage(stick, 0, (scaledImageHeight/2) - 180, null);
+			g.drawImage(stick, BORDER, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 			System.out.println("drew original left");
 		}
 		//right
 		else if (drawRight) {
-			g.drawImage(stick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
+			g.drawImage(stick, scaledImageWidth - STICK_IMAGE_WIDTH, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 			System.out.println("drew original right");
 		}
 		
@@ -240,15 +247,15 @@ public class WhackAMoleView extends View {
 			
 			//initial components
 				//background
-			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+			g.drawImage(background, BORDER, BORDER, getWidth(), getHeight(), this);
 				//up
-			g.drawImage(stick, (scaledImageWidth/2) - 196, 0, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), BORDER, null);
 				//down
-			g.drawImage(stick, (scaledImageWidth/2) - 196, scaledImageHeight - 360, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), scaledImageHeight - STICK_IMAGE_HEIGHT, null);
 				//left
-			g.drawImage(stick, 0, (scaledImageHeight/2) - 180, null);
+			g.drawImage(stick, BORDER, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 				//right
-			g.drawImage(stick, scaledImageWidth - 393, (scaledImageHeight/2) - 180, null);
+			g.drawImage(stick, scaledImageWidth - STICK_IMAGE_WIDTH, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 			
 			
 			
@@ -256,31 +263,31 @@ public class WhackAMoleView extends View {
 			//Draws the bird image looking in the correct direction based on key presses
 			switch (keyState) {
 				case 1:
-					g.drawImage(up, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
+					g.drawImage(up, (scaledImageWidth/2) - (ARROW_IMAGES_WIDTH/2), (scaledImageHeight/2) - (ARROW_IMAGES_HEIGHT/2), null);
 					//Overlays a transparent green rectangle over the food image when Up is pressed
-					g.fillRect((scaledImageWidth/2) - 175, 0, 350, 224);
+					//g.fillRect((scaledImageWidth/2) - 175, BORDER, 350, 224);
 					break;
 		
 				case 2:
-					g.drawImage(down, (scaledImageWidth/2) - 175, (scaledImageHeight/2) - 150, null);
+					g.drawImage(down, (scaledImageWidth/2) - (ARROW_IMAGES_WIDTH/2), (scaledImageHeight/2) - (ARROW_IMAGES_HEIGHT/2), null);
 					//Overlays a transparent green rectangle over the food image when Down is pressed
-					g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
+					//g.fillRect((scaledImageWidth/2) - 175, scaledImageHeight - 224, 350, 224);
 					break;
 				case 3:
-					g.drawImage(right, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+					g.drawImage(right, (scaledImageWidth/2) - (ARROW_IMAGES_WIDTH/2), (scaledImageHeight/2) - (ARROW_IMAGES_HEIGHT/2), null);
 					//Overlays a transparent green rectangle over the food image when Right is pressed
-					g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
+					//g.fillRect(scaledImageWidth - 350, (scaledImageHeight/2) - 112, 350, 224);
 					break;
 				case 4:
-					g.drawImage(left, (scaledImageWidth / 2) - 150, (scaledImageHeight / 2) - 150, null);
+					g.drawImage(left, (scaledImageWidth/2) - (ARROW_IMAGES_WIDTH/2), (scaledImageHeight/2) - (ARROW_IMAGES_HEIGHT/2), null);
 					//Overlays a transparent green rectangle over the food image when Left is pressed
-					g.fillRect( 0, (scaledImageHeight/2) - 112, 350, 224);
+					//g.fillRect(BORDER, (scaledImageHeight/2) - 112, 350, 224);
 					break;
 				}
 			
 			//view game pattern
-			g.drawImage(highlightStickBuffer, 0, 0, this);
-			g.drawImage(normalStickBuffer, 0, 0, this);
+			g.drawImage(highlightStickBuffer, BORDER, BORDER, this);
+			g.drawImage(normalStickBuffer, BORDER, BORDER, this);
 		
 		}
 
