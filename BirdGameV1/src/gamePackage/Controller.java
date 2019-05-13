@@ -216,6 +216,7 @@ public class Controller {
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
+					updateWhackKeyState();
 					break;
 				case START:
 					break;
@@ -228,6 +229,11 @@ public class Controller {
 		};
 		
 		updateModelWorker.execute();
+	}
+	
+	public void updateWhackKeyState()
+	{
+		whackView.setKeyState(whackModel.getKeyState());
 	}
 	
 	public void drawView() {
@@ -269,21 +275,21 @@ public class Controller {
 	
 	public void setBindingsToWhackAMole() {
 		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
-			whackView.setKeyState(3);
+			whackModel.setKeyState(3);
 			System.out.println("right pressed whack");
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
-			whackView.setKeyState(4);
+			whackModel.setKeyState(4);
 			
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
-			whackView.setKeyState(1);
+			whackModel.setKeyState(1);
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
-			whackView.setKeyState(2);
+			whackModel.setKeyState(2);
 			
 		}, false);
 	}

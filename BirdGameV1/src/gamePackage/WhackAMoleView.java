@@ -61,7 +61,6 @@ public class WhackAMoleView extends View {
 	//MUST FIX
 	WhackAMoleModel whackModel = new WhackAMoleModel();
 	
-	
 	public WhackAMoleView() {
 		super();
 		this.loadImage();
@@ -323,6 +322,8 @@ public class WhackAMoleView extends View {
 		
 	}
 	
-	
+	public void updateKeyState(int i) {
+		this.keyState = i;
+	}
 }
 
