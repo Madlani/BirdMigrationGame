@@ -56,7 +56,13 @@ public abstract class Model extends Point2D {
     	
     }
 	
-	//updateLocationAndDirection() will contain the logic to move GameObject when they start to go off screen
+	/**
+	 * updateLocationAndDirection()
+	 * Updates the location of the bird based on the bird's position and FlyState.
+	 * Contains the logic to move the GameObjects when they start to go off screen.
+	 * Updates the location and direction of all of the game objects as well.
+	 * @return a boolean, which is whether or not a collision has occurred with the bird during this update.
+	 */
 	public boolean updateLocationAndDirection() {
 
 		switch (osprey.getFlyState()) {
@@ -107,15 +113,31 @@ public abstract class Model extends Point2D {
     	return detectCollisions(gameObjects);
 	}
 	
+	/**
+	 * updateGameObjectLocationAndDirection
+	 * Updates the location and direction of the game object passed in.
+	 * @param o, the game object that needs to be updated.
+	 */
 	public void updateGameObjectLocationAndDirection(GameObject o) {
-	}
-	
-	//resetGameObjectLocation() will update where the GameObjects are on screen 
-		public void resetGameObjectLocation(GameObject o) {
+
 	}
 
-	// detectCollisions() will contain the logic that determines if the bird model
-	// has collided with objects such as the ground and other GameObjects
+	/**
+	 * resetGameObjectLocation() Resets the location and direction of the game
+	 * object passed in.
+	 * 
+	 * @param o, the game object that needs to be reset.
+	 */
+	public void resetGameObjectLocation(GameObject o) {
+
+	}
+
+	/**
+	 * detectCollisions()
+	 * Contains the logic that determines if the bird model has collided with objects such as the ground / other GameObjects
+	 * @param objectList, a list of all the GameObjects in use during the game.
+	 * @return a boolean to indicate if a collision with the bird occurred during this update.
+	 */
 	public boolean detectCollisions(ArrayList<GameObject> objectList) {
 		int i = 0;
 		for (GameObject o : objectList) {
@@ -123,8 +145,9 @@ public abstract class Model extends Point2D {
 				i++;
 			} else {
 				if (o.GameObjectBox.intersects(osprey.birdBox)) {
-					
-					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD) && healthChangable == false) {
+
+					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD)
+							&& healthChangable == false) {
 						this.osprey.decreaseHealthCount();
 						resetGameObjectLocation(o);
 					}
@@ -161,78 +184,150 @@ public abstract class Model extends Point2D {
 				i++;
 			}
 		}
+		
 		healthChangable = false;
 		return false;
 	}
 
+	/**
+	 * getImgHeight()
+	 * @return the height of the image
+	 */
 	public int getImgHeight() {
 		return imgHeight;
 	}
 
+	/**
+	 * setImgHeight()
+	 * Sets the img height to be the parameter.
+	 * @param imgHeight
+	 */
 	public void setImgHeight(int imgHeight) {
 		this.imgHeight = imgHeight;
 	}
 
+	/**
+	 * getImgWidth
+	 * @return the width of the image
+	 */
 	public int getImgWidth() {
 		return imgWidth;
 	}
 
+	/**
+	 * setImgWidth()
+	 * Sets the img width to be the parameter.
+	 * @param imgWidth
+	 */
 	public void setImgWidth(int imgWidth) {
 		this.imgWidth = imgWidth;
 	}
 
+	/**
+	 * getDirection()
+	 * @return the direction of the object calling this method.
+	 */
 	public int getDirection() {
 		return direction;
 	}
 
+	/**
+	 * setDirection()
+	 * Sets the direction of the object calling this method.
+	 * @param direction
+	 */
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}
 
+	/**
+	 * getHealth()
+	 * @return health, the numerical representation of the bird's health
+	 */
 	public int getHealth() {
 		return health;
 	}
 
+	/**
+	 * setHealth()
+	 * Sets the health of the bird to be the parameter.
+	 * @param health
+	 */
 	public void setHealth(int health) {
 		this.health = health;
 	}
 
+	/**
+	 * getX()
+	 * Overrides the Point2D's getX() method. Returns the x-position of the bird.
+	 */
 	@Override
 	public double getX() {
 		return this.xloc;
 	}
 
+	/**
+	 * getY()
+	 * Overrides the Point 2D's getY() method. Returns the y-position of the bird.
+	 */
 	@Override
 	public double getY() {
 		return this.yloc;
 	}
 
+	/**
+	 * Overrides the Point 2D's setLocation() method. Sets the location of the bird to the specified parameters.
+	 */
 	@Override
 	public void setLocation(double x, double y) {
 		this.xloc = x;
 		this.yloc = y;
 	}
 	
+	/**
+	 * getOsprey()
+	 * @return the osprey in use.
+	 */
 	public Bird getOsprey() {
 		return osprey;
 	}
 
+	/**
+	 * getAirplane()
+	 * @return the airplane in use.
+	 */
 	public GameObject getAirplane() {
 		return airplane;
 	}
 	
+	/**
+	 * getFood()
+	 * @return the food object in use.
+	 */
 	public GameObject getFood() {
 		return food;
 	}
 
+	/**
+	 * getUpdatableGameObjects()
+	 * @return an array list containing all the game objects.
+	 */
 	public ArrayList<GameObject> getUpdatableGameObjects() {
 		return this.gameObjects;
 	}
 	
+	/**
+	 * changePauseGameFlag()
+	 * Toggles the pause game flag to be the opposite of what it currently is.
+	 */
 	public void changePauseGameFlag() {
 		this.pauseGameFlag  = !this.pauseGameFlag;
 	}
 	
+	/**
+	 * getPauseGameFlag()
+	 * @return a boolean which represents the current state of the flag.
+	 */
 	public boolean getPauseGameFlag() {
 		return this.pauseGameFlag;
 	}
