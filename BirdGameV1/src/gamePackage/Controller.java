@@ -96,6 +96,8 @@ public class Controller {
 			
 			this.state = GameState.WHACKAMOLE;
 			this.cardLayout.show(this.masterPanel, "whackAMole");
+			whackModel.randomizeSequence();
+			whackView.updateSequence(whackModel.getSequence());
 			whackView.setIsWackView(true);
 			whackView.initTimers();
 		}, false);
@@ -216,6 +218,8 @@ public class Controller {
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
+//					whackModel.randomizeSequence();
+//					whackView.updateSequence(whackModel.getSequence());
 					updateWhackKeyState();
 					break;
 				case START:

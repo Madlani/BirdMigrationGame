@@ -1,6 +1,8 @@
 package gamePackage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class WhackAMoleModel extends Model {
 	private int resourceCount;
@@ -13,11 +15,14 @@ public class WhackAMoleModel extends Model {
 	private boolean isWinning = false;
 	
 	private int keyState = 0;
+	private int[] sequence = {1,2,3,4};
 	
 	public WhackAMoleModel() {
 		super();
 		//this.randomizeGamePattern(4);
 		//this.win();
+		randomizeSequence();
+		
 	}
 
 	public int setRandomPattern() {
@@ -52,6 +57,14 @@ public class WhackAMoleModel extends Model {
 	
 	public int getKeyState() {
 		return this.keyState;
+	}
+	
+	public void randomizeSequence() {
+		Collections.shuffle(Arrays.asList(sequence));
+	}
+	
+	public int[] getSequence() {
+		return this.sequence;
 	}
 }
 

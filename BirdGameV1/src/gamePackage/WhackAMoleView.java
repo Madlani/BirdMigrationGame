@@ -53,13 +53,13 @@ public class WhackAMoleView extends View {
 	private int scaledImageWidth = Model.scaledImageWidth;
 	private int scaledImageHeight = Model.scaledImageHeight;
 
-	
+	private int index = 0;
 	//Transparent colors which is used to indicate key presses on screen
 	Color OPAQUE_GREEN = new Color(.75f, 1f, 0f, .75f);	//75% opaque
 	Color OPAQUE_RED = new Color(.75f, 0f, 0f, .75f);	//75% opaque
 	
 	//MUST FIX
-	WhackAMoleModel whackModel = new WhackAMoleModel();
+	//WhackAMoleModel whackModel = new WhackAMoleModel();
 	
 	public WhackAMoleView() {
 		super();
@@ -68,6 +68,7 @@ public class WhackAMoleView extends View {
 		
 	}
 	
+	private int[] sequence;
 
 	/**
 	 * initTimers()
@@ -76,13 +77,15 @@ public class WhackAMoleView extends View {
 	 */
 	public void initTimers() {
 		if (isWhackView) {
-		
+			
+			int i = this.index;
 			//timer and action listener for the highlighted stick images
 			highlightStickBuffer = new BufferedImage(scaledImageWidth, scaledImageHeight, BufferedImage.TYPE_INT_ARGB);
 			highlightStickListener = new ActionListener() {
+				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (whackModel.gamePattern.size() < EXPECTED_PATTERN_SIZE) {
+					if (i  < EXPECTED_PATTERN_SIZE) {
 						highlightStickMethod(highlightStickBuffer.getGraphics());
 						repaint();
 					}
@@ -148,14 +151,17 @@ public class WhackAMoleView extends View {
 	 * image is drawn onto the Buffered Image. (The buffered image is drawn onto screen by the paintComponent() method; allows the game user to see the gamePattern visually on screen).
 	 */
 	public void highlightStickMethod(Graphics g) {
-		int randomNum = (int)(Math.random()*(4) + 1);
+//		int randomNum = (int)(Math.random()*(4) + 1);
+//		
+//		while (whackModel.gamePattern.contains(randomNum)) {
+//			randomNum = (int)(Math.random()*(4) + 1);
+//		}
 		
-		while (whackModel.gamePattern.contains(randomNum)) {
-			randomNum = (int)(Math.random()*(4) + 1);
-		}
 		
-		whackModel.gamePattern.add(randomNum);
-		System.out.println(whackModel.gamePattern);
+		int randomNum = sequence[this.index];
+		
+//		whackModel.gamePattern.add(randomNum);
+//		System.out.println(whackModel.gamePattern);
 		
 		switch (randomNum) {
 			case 1:
@@ -198,6 +204,8 @@ public class WhackAMoleView extends View {
 				drawRight = true;
 				break;
 		}
+		
+		index++;
 
 	}
 	
@@ -324,6 +332,10 @@ public class WhackAMoleView extends View {
 	
 	public void updateKeyState(int i) {
 		this.keyState = i;
+	}
+	
+	public void updateSequence(int[] s) {
+		this.sequence = s;
 	}
 }
 
