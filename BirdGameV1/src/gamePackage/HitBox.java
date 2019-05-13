@@ -8,9 +8,9 @@ public class HitBox extends Rectangle {
 		super(x, y, width, height);
 	}
 
-	HitBox(Model m, int width, int height) {
-		super((int) m.getX(), (int) m.getY(), width, height);
-	}
+//	HitBox(Model m, int width, int height) {
+//		super((int) m.getX(), (int) m.getY(), width, height);
+//	}
 
 	/**
 	 * changeWidth()

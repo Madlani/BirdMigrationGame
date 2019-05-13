@@ -18,11 +18,7 @@ public abstract class View extends JPanel {
 
 	public JButton pauseButton;
 	public boolean pauseButtonFlag = false;
-	
-	private double x;
-	private double y;
-	private int dir;
-	
+		
 	public View() {
 		
 		//Allows key presses to work with JPanel

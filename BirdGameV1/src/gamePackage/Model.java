@@ -21,8 +21,8 @@ public abstract class Model extends Point2D {
 	final int thunderCloudStartX = 450;
 	final int questionBlockStartX = 700;
 	final int foodStartX = 700;
-	private final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private final double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private final double screenWidth = scaledImageWidth;
+	private final double screenHeight = scaledImageHeight;
 	public double startingX = screenWidth/3;
 	public double startingY = screenHeight - 200;
 	ArrayList<GameObject> gameObjects;
