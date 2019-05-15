@@ -114,7 +114,7 @@ public class Controller {
 		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "start");
-			
+			whackView.resetTimers();
 		}, false);
 		
 		

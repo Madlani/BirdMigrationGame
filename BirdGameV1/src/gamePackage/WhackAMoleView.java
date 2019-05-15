@@ -156,10 +156,7 @@ public class WhackAMoleView extends View {
 //		while (whackModel.gamePattern.contains(randomNum)) {
 //			randomNum = (int)(Math.random()*(4) + 1);
 //		}
-		
-		if (this.index >= 4)
-			this.index = 0;
-		
+				
 		int randomNum = sequence[this.index];
 		
 //		whackModel.gamePattern.add(randomNum);
@@ -208,6 +205,9 @@ public class WhackAMoleView extends View {
 		}
 		
 		index++;
+		
+		if (index >= 4) 
+			index = 0;
 
 	}
 	
@@ -338,6 +338,15 @@ public class WhackAMoleView extends View {
 	
 	public void updateSequence(int[] s) {
 		this.sequence = s;
+	}
+	
+	public void resetIndex() {
+		this.index = 0;
+	}
+	
+	public void resetTimers() {
+		this.highlightStickTimer.stop();
+		this.normalTimer.stop();
 	}
 }
 
