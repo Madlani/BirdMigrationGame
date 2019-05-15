@@ -4,10 +4,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
@@ -16,6 +19,8 @@ public class SideSwiperView extends View {
 	private Image map;
 	BufferedImage[] migrationMap;
 	
+	private boolean isHit = false;
+
 	public int imgVelX = 0;
 	private int scaledImageWidth = Model.scaledImageWidth;
 	private int scaledImageHeight = Model.scaledImageHeight;
@@ -25,6 +30,10 @@ public class SideSwiperView extends View {
 	private BufferedImage healthIcon;
 	private BufferedImage cloudQuestionBox;
 	private BufferedImage thunderCloud;
+	private BufferedImage hitMarker;
+	private BufferedImage beforeBuffer;
+	private BufferedImage afterBuffer;
+	private BufferedImage caution;
 			
 	double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
 	
@@ -37,6 +46,7 @@ public class SideSwiperView extends View {
 	private short picNumFish = 0;
 	private int picNumMap = 0;
 	private int tick = 0;
+	private int index = 0;
 	
 	private int health;
 	private int healthCount;
@@ -54,11 +64,18 @@ public class SideSwiperView extends View {
 	private final int NUMBER_FISH_FRAMES = 4;
 	private final int MAP_FRAME_COUNT = 30;
 	private final int HEALTH_BIRD_OFFSET = 30;
-	private final int HEALTH_IMG_X = scaledImageWidth - 350;
-	private final int HEALTH_ICON_X = scaledImageWidth - 300;
+	private final int HEALTH_IMG_X = scaledImageWidth/2 - 50;
+	private final int HEALTH_ICON_X = scaledImageWidth/2;
 	private final int HEALTH_IMG_Y = 20;
 	private final int MAP_X = 0;
 	private final int MAP_Y = 0;
+	
+	private ActionListener beforeListener;
+	private ActionListener afterListener;
+	private int beforeTimerDelay = 100;
+	private int afterTimerDelay = 300;
+	private Timer beforeTimer;
+	private Timer afterTimer;
 	
 	public SideSwiperView() {
 		super();
@@ -89,6 +106,8 @@ public class SideSwiperView extends View {
 		healthIcon = super.createImage("src/images/birdHealth.png");
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
+		hitMarker = super.createImage("src/images/hitmarker.png");
+		caution = super.createImage("src/images/caution.png");
 		
 		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		
@@ -142,6 +161,12 @@ public class SideSwiperView extends View {
 		
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
+		
+		if (this.bird.getHealthCount() <= 2) {
+			g.drawImage(caution, HEALTH_IMG_X - 40, HEALTH_IMG_Y, null);
+		}
+		
+		
 //		//-----------------------------------------------------------------------------------------------------------------------------
 //		//SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
 //		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
@@ -187,5 +212,14 @@ public class SideSwiperView extends View {
 		this.fishY = food.getY();
 
 		this.healthCount = bird.getHealthCount();
+	}
+	
+	
+	public boolean isHit() {
+		return isHit;
+	}
+
+	public void setHit(boolean isHit) {
+		this.isHit = isHit;
 	}
 }

@@ -8,7 +8,7 @@ public class GameObject extends Point2D {
 	private double xPosition;
 	private double yPosition;
 	
-	private final int SPEED = 15;
+	private final int SPEED = 10;
 	
 	public GameObject(double startingX, ObjectType t, int imgWidth, int imgHeight){
 		this.xPosition = startingX;

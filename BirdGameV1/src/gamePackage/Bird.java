@@ -7,7 +7,7 @@ public class Bird extends GameObject {
 	private double yPosition;
 	
 	//private int health = 250;
-	private int healthCount = 3;
+	private int healthCount = 5;
 	private FlyState flyState = FlyState.STILL;
 	
 	private final double screenSizeWidth = Model.scaledImageWidth;
