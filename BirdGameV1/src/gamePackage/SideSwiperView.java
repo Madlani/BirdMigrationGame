@@ -15,8 +15,7 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
 	
-	private Image g1;
-	private Image map;
+	private Image g1, g2, g3;
 	BufferedImage[] migrationMap;
 	
 	private boolean isHit = false;
@@ -30,9 +29,6 @@ public class SideSwiperView extends View {
 	private BufferedImage healthIcon;
 	private BufferedImage cloudQuestionBox;
 	private BufferedImage thunderCloud;
-	private BufferedImage hitMarker;
-	private BufferedImage beforeBuffer;
-	private BufferedImage afterBuffer;
 	private BufferedImage caution;
 			
 	double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
@@ -46,9 +42,6 @@ public class SideSwiperView extends View {
 	private short picNumFish = 0;
 	private int picNumMap = 0;
 	private int tick = 0;
-	private int index = 0;
-	
-	private int health;
 	private int healthCount;
 	
 	private Bird bird;
@@ -62,7 +55,7 @@ public class SideSwiperView extends View {
 	private final int FISH_IMG_WIDTH = 100;
 	private final int FISH_IMG_HEIGHT = 65;
 	private final int NUMBER_FISH_FRAMES = 4;
-	private final int MAP_FRAME_COUNT = 30;
+	private final int MAP_FRAME_COUNT = 450;
 	private final int HEALTH_BIRD_OFFSET = 30;
 	private final int HEALTH_IMG_X = scaledImageWidth/2 - 50;
 	private final int HEALTH_ICON_X = scaledImageWidth/2;
@@ -70,13 +63,7 @@ public class SideSwiperView extends View {
 	private final int MAP_X = 0;
 	private final int MAP_Y = 0;
 	
-	private ActionListener beforeListener;
-	private ActionListener afterListener;
-	private int beforeTimerDelay = 100;
-	private int afterTimerDelay = 300;
-	private Timer beforeTimer;
-	private Timer afterTimer;
-	
+
 	public SideSwiperView() {
 		super();
 		this.loadImage();
@@ -88,6 +75,8 @@ public class SideSwiperView extends View {
 	 */
 	private void loadImage() {
 		ImageIcon grassyBackground = new ImageIcon("src/images/grass3.png");
+		ImageIcon landToWaterBackground = new ImageIcon("src/images/landOcean.png");
+		ImageIcon oceanBackground = new ImageIcon("src/images/ocean.png");
         
         migrationMap = new BufferedImage[MIGRATION_MAP_SUBIMAGES];
         migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
@@ -106,11 +95,12 @@ public class SideSwiperView extends View {
 		healthIcon = super.createImage("src/images/birdHealth.png");
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
-		hitMarker = super.createImage("src/images/hitmarker.png");
 		caution = super.createImage("src/images/caution.png");
-		
+
 		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		
+		g2 = landToWaterBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		g3 = oceanBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
@@ -148,8 +138,20 @@ public class SideSwiperView extends View {
 		if (tick == 0) {
 			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
 		}
-		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
-		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+		
+		if (picNumMap < 5) {
+			g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+			g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+		} else if (picNumMap == 5) {
+			g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+			g.drawImage(g2, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+			
+		} else {
+			g.drawImage(g3, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+			g.drawImage(g3, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+		}
+		//g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+		//g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
 	    
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		
