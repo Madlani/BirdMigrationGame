@@ -25,6 +25,7 @@ public class Controller {
 	private MigrationModel migrationModel;
 	private MigrationView migrationView;
 	private StartView startView;
+	private WinView winView;
 	private EndView endView;
 	
 	private GameState state;
@@ -63,6 +64,9 @@ public class Controller {
 		//Code to display Start screen
 		startView = new StartView();
 		
+		//Code to display Win screen
+		winView = new WinView();
+				
 		//Code to display End screen
 		endView = new EndView();
 		
@@ -75,6 +79,7 @@ public class Controller {
 		masterPanel.add(sideSwipeView, "sideSwiper");	
 		masterPanel.add(migrationView, "migration");
 		masterPanel.add(whackView, "whackAMole");
+		masterPanel.add(winView, "win");
 		masterPanel.add(endView, "end");
 		
 		this.state = GameState.START;
@@ -87,10 +92,18 @@ public class Controller {
 		
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
 			
+			this.state = GameState.WIN;
+			this.cardLayout.show(this.masterPanel, "win");
+			
+		}, false);
+		
+		addKeyBinding(winView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
+			
 			this.state = GameState.END;
 			this.cardLayout.show(this.masterPanel, "end");
 			
 		}, false);
+
 		
 		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
 			
@@ -100,6 +113,7 @@ public class Controller {
 			whackView.updateSequence(whackModel.getSequence());
 			whackView.setIsWackView(true);
 			whackView.initTimers();
+			
 		}, false);
 		
 		
@@ -114,6 +128,9 @@ public class Controller {
 		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "start");
+			
+			whackView.resetTimers();
+			whackModel.setKeyState(0);
 			
 		}, false);
 		
@@ -224,6 +241,8 @@ public class Controller {
 					break;
 				case START:
 					break;
+				case WIN:
+					break;
 				case END:
 					
 					break;
@@ -254,6 +273,9 @@ public class Controller {
 			break;
 		case START:
 			SwingUtilities.invokeLater(() ->  this.startView.repaint());
+			break;
+		case WIN:
+			SwingUtilities.invokeLater(() ->  this.winView.repaint());
 			break;
 		case END:
 			SwingUtilities.invokeLater(() ->  this.endView.repaint());

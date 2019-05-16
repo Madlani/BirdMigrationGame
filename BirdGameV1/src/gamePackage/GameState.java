@@ -6,6 +6,7 @@ public enum GameState {
 	SIDESWIPER("sideswiper"),
 	MIGRATION("migration"),
 	WHACKAMOLE("whackamole"),
+	WIN("win"),
 	END("end");
 	
 	private String name = null;
