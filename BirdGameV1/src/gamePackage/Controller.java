@@ -39,6 +39,7 @@ public class Controller {
 	private boolean migrationGameOver = false;
 	
 	private final int FPS = 15;
+	private ArrayList<Integer> whackUserSequence = new ArrayList<Integer>();
 	
 	public Controller() {
 		
@@ -299,24 +300,30 @@ public class Controller {
 		});
 	}
 	
+	//@SuppressWarnings("unchecked")
 	public void setBindingsToWhackAMole() {
 		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			whackModel.setKeyState(3);
-			System.out.println("right pressed whack");
+			whackUserSequence.add(4);
+
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
 			whackModel.setKeyState(4);
+			whackUserSequence.add(3);
 			
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
 			whackModel.setKeyState(1);
+			whackUserSequence.add(1);
+			
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
 			whackModel.setKeyState(2);
-			
+			whackUserSequence.add(2);
+
 		}, false);
 	}
 	

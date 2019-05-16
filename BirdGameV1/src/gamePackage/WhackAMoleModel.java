@@ -16,7 +16,10 @@ public class WhackAMoleModel extends Model {
 	
 	private int keyState = 0;
 	private int[] sequence = {1,2,3,4};
+
 	
+	
+
 	public WhackAMoleModel() {
 		super();
 		//this.randomizeGamePattern(4);
@@ -66,6 +69,8 @@ public class WhackAMoleModel extends Model {
 	public int[] getSequence() {
 		return this.sequence;
 	}
+	
+	
 }
 
 
