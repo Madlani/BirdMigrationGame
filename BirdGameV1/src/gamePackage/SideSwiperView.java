@@ -15,8 +15,7 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
 	
-	private Image g1;
-	private Image map;
+	private Image g1, g2, g3, grass, ocean;
 	BufferedImage[] migrationMap;
 	
 	private boolean isHit = false;
@@ -30,9 +29,6 @@ public class SideSwiperView extends View {
 	private BufferedImage healthIcon;
 	private BufferedImage cloudQuestionBox;
 	private BufferedImage thunderCloud;
-	private BufferedImage hitMarker;
-	private BufferedImage beforeBuffer;
-	private BufferedImage afterBuffer;
 	private BufferedImage caution;
 			
 	double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
@@ -46,9 +42,6 @@ public class SideSwiperView extends View {
 	private short picNumFish = 0;
 	private int picNumMap = 0;
 	private int tick = 0;
-	private int index = 0;
-	
-	private int health;
 	private int healthCount;
 	
 	private Bird bird;
@@ -62,7 +55,7 @@ public class SideSwiperView extends View {
 	private final int FISH_IMG_WIDTH = 100;
 	private final int FISH_IMG_HEIGHT = 65;
 	private final int NUMBER_FISH_FRAMES = 4;
-	private final int MAP_FRAME_COUNT = 30;
+	private final int MAP_FRAME_COUNT = 300;
 	private final int HEALTH_BIRD_OFFSET = 30;
 	private final int HEALTH_IMG_X = scaledImageWidth/2 - 50;
 	private final int HEALTH_ICON_X = scaledImageWidth/2;
@@ -70,13 +63,24 @@ public class SideSwiperView extends View {
 	private final int MAP_X = 0;
 	private final int MAP_Y = 0;
 	
-	private ActionListener beforeListener;
-	private ActionListener afterListener;
-	private int beforeTimerDelay = 100;
-	private int afterTimerDelay = 300;
-	private Timer beforeTimer;
-	private Timer afterTimer;
+	private BackGround currentBackGroundState;
+	private BackGround prevBackGroundState;
+	private int backgroundx1 = 0;
+	private int backgroundx2 = scaledImageWidth;
+	private Image currBG;
+	private Image prevBG;
 	
+	private enum BackGround {
+		LAND("land"),
+		OCEAN("OCEAN");
+
+		private String key = null;
+		private BackGround(String s){
+			key=s;
+		}
+	}
+	
+
 	public SideSwiperView() {
 		super();
 		this.loadImage();
@@ -88,6 +92,8 @@ public class SideSwiperView extends View {
 	 */
 	private void loadImage() {
 		ImageIcon grassyBackground = new ImageIcon("src/images/grass3.png");
+		ImageIcon landToWaterBackground = new ImageIcon("src/images/landOcean.png");
+		ImageIcon oceanBackground = new ImageIcon("src/images/ocean.png");
         
         migrationMap = new BufferedImage[MIGRATION_MAP_SUBIMAGES];
         migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
@@ -106,11 +112,15 @@ public class SideSwiperView extends View {
 		healthIcon = super.createImage("src/images/birdHealth.png");
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
-		hitMarker = super.createImage("src/images/hitmarker.png");
 		caution = super.createImage("src/images/caution.png");
-		
+
 		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		g2 = landToWaterBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		g3 = oceanBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		
+		grass = grassyBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		ocean = oceanBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
@@ -121,6 +131,8 @@ public class SideSwiperView extends View {
 		
 		for (int i = 0; i < NUMBER_FISH_FRAMES; i++)
 			fishFrames[i] = fishAnimation.getSubimage(FISH_IMG_WIDTH * i, 0, FISH_IMG_WIDTH, FISH_IMG_HEIGHT);
+		currentBackGroundState = BackGround.LAND;
+		prevBackGroundState = BackGround.LAND;
 		
 		setDoubleBuffered(true);
 	}
@@ -134,23 +146,22 @@ public class SideSwiperView extends View {
 	public void paintComponent(Graphics g) {
 		g = (Graphics2D) g.create();
 		
-		
 		picNumFish = (short) ((picNumFish + 1) % NUMBER_FISH_FRAMES);
 		picNum = (picNum + 1) % birdFrameCount;
-		imgVelX-=1;
 		
-		if (imgVelX % scaledImageWidth == 0) {
-			imgVelX = 0;
-		}
+//		if (picNumMap < 5) {
+//			g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+//			g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+//		} else if (picNumMap == 5) {
+//			g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+//			g.drawImage(g2, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+//			
+//		} else {
+//			g.drawImage(g3, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+//			g.drawImage(g3, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+//		}
+		drawBackground(g);
 		
-		tick = (tick+1) % MAP_FRAME_COUNT;
-		
-		if (tick == 0) {
-			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
-		}
-		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
-		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
-	    
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		
 		g.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
@@ -161,10 +172,9 @@ public class SideSwiperView extends View {
 		
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
-		
-		if (this.bird.getHealthCount() <= 2) {
-			g.drawImage(caution, HEALTH_IMG_X - 40, HEALTH_IMG_Y, null);
-		}
+//		if (this.bird.getHealthCount() <= 2) {
+//			g.drawImage(caution, HEALTH_IMG_X - 40, HEALTH_IMG_Y, null);
+//		}
 		
 		
 //		//-----------------------------------------------------------------------------------------------------------------------------
@@ -176,10 +186,68 @@ public class SideSwiperView extends View {
 //		g.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
 //		//-----------------------------------------------------------------------------------------------------------------------------
 		
-		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		
 		for (int i = 0; i < healthCount; i++) {
 			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
 		}
+	}
+	
+	public void drawBackground(Graphics g) {
+		tick = (tick+1) % MAP_FRAME_COUNT;
+		if (tick == 0)
+			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+		
+		if (picNumMap == 2) {
+			currentBackGroundState = BackGround.OCEAN;
+		} else {
+			currentBackGroundState = BackGround.LAND;
+		}
+		
+		
+//		g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
+//		g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
+
+		if (this.prevBackGroundState == BackGround.LAND && this.currentBackGroundState == BackGround.LAND) {
+			newScrollImage1(g, grass);
+			newScrollImage2(g, grass);
+		} else if (this.prevBackGroundState == BackGround.LAND && this.currentBackGroundState == BackGround.OCEAN) {
+			newScrollImage1(g, grass);
+			newScrollImage2(g, ocean);
+		} else if (this.prevBackGroundState == BackGround.OCEAN && this.currentBackGroundState == BackGround.OCEAN) {
+			newScrollImage1(g, ocean);
+			newScrollImage2(g, ocean);
+		} else if (this.prevBackGroundState == BackGround.OCEAN && this.currentBackGroundState == BackGround.LAND) {
+			newScrollImage1(g, ocean);
+			newScrollImage2(g, grass);
+		}
+		
+		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		this.prevBackGroundState = this.currentBackGroundState;
+		
+	}
+	
+	public void newScrollImage1(Graphics g, Image next_background) {
+		this.backgroundx1 = this.backgroundx1-1;
+		Image background_image = g1;
+		
+		if(this.backgroundx1< -1*scaledImageWidth) {
+			this.backgroundx1 = scaledImageWidth;
+			this.g1 = next_background;
+		}
+		
+		g.drawImage(background_image, this.backgroundx1, 0, null);
+	}
+	
+	public void newScrollImage2(Graphics g, Image next_background) {
+		this.backgroundx2 = this.backgroundx2-1;
+		Image background_image = g3;
+		
+		if(this.backgroundx2< -1*scaledImageWidth) {
+			this.backgroundx2 = scaledImageWidth;
+			this.g3 = next_background;
+		}
+		
+		g.drawImage(background_image, this.backgroundx2, 0, null);
 	}
 
 	/**
