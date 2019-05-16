@@ -9,6 +9,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
@@ -217,6 +218,8 @@ public class Controller {
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
+//					whackModel.randomizeSequence();
+//					whackView.updateSequence(whackModel.getSequence());
 					updateWhackKeyState();
 					break;
 				case START:
