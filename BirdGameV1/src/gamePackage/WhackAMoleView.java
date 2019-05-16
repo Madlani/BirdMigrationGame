@@ -40,13 +40,13 @@ public class WhackAMoleView extends View {
 	//Timer and action listener to draw highlighted the game pattern stick pattern
 	private BufferedImage highlightStickBuffer;
 	private Timer highlightStickTimer;
-	private int highlightTimerDelay = 1000;
+	private int highlightTimerDelay = 500;
 	private ActionListener highlightStickListener;
 	
 	//Timer to draw the normal sticks over the highlighted sticks, essentially makes the game pattern blink 
 	private BufferedImage normalStickBuffer;
 	private Timer normalTimer;
-	private int normalStickTimerDelay = 1100;
+	private int normalStickTimerDelay = 600;
 	private ActionListener normalStickListener;
 	
 	//scaled image size
