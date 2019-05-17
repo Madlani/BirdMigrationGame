@@ -15,7 +15,7 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
 	
-	private Image g1, g2, g3;
+	private Image g1;
 	BufferedImage[] migrationMap;
 	
 	private boolean isHit = false;
@@ -80,8 +80,6 @@ public class SideSwiperView extends View {
 	 */
 	private void loadImage() {
 		ImageIcon grassyBackground = new ImageIcon("src/images/fullBackground.png");
-		ImageIcon landToWaterBackground = new ImageIcon("src/images/landOcean.png");
-		ImageIcon oceanBackground = new ImageIcon("src/images/ocean2.png");
         
         migrationMap = new BufferedImage[MIGRATION_MAP_SUBIMAGES];
         migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
@@ -102,12 +100,8 @@ public class SideSwiperView extends View {
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		caution = super.createImage("src/images/caution.png");
 
-		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*2+(scaledImageWidth/2), scaledImageHeight, Image.SCALE_DEFAULT*2);
-		g2 = landToWaterBackground.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-		g3 = oceanBackground.getImage().getScaledInstance(scaledImageWidth*2, scaledImageHeight, Image.SCALE_DEFAULT*2);
-		
+		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*2+(scaledImageWidth/2), scaledImageHeight, Image.SCALE_DEFAULT*2);		
 		cur = g1;
-		next = g3;
 	
 
 		BufferedImage birdFrames = super.createImage(birdImagePath);
@@ -141,7 +135,6 @@ public class SideSwiperView extends View {
 		if (imgVelX % ((scaledImageWidth*2) + (scaledImageWidth/2)) == 0) {
 			imgVelX = 0;
 			finished = true;
-			//swapOrderOfBackgrounds();
 			
 		} else {
 			finished = false;
@@ -153,12 +146,6 @@ public class SideSwiperView extends View {
 			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
 		}
 		
-//		if (picNumMap < 5) {
-//			g.drawImage(g1, (imgVelX % scaledImageWidth), 0, null); // draws image in the window
-//			g.drawImage(g1, ((imgVelX % scaledImageWidth)+scaledImageWidth), 0, null); // draws image in the window, had to make second image the same as the first for continuity
-//		} else {
-//			
-//		}
 		
 		if (picNumMap == 5) {
 			this.currentBackground = Background.BEACH;
@@ -171,7 +158,6 @@ public class SideSwiperView extends View {
 		
 		
 		g.drawImage(cur, (imgVelX % ((scaledImageWidth*2)+(scaledImageWidth/2))), 0, null);
-		//g.drawImage(next, ((imgVelX % (scaledImageWidth+(scaledImageWidth/2)))+(scaledImageWidth+(scaledImageWidth/2))), 0, null);
 
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		
