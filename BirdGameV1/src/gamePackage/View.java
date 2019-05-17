@@ -1,6 +1,7 @@
 package gamePackage;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.jws.WebParam.Mode;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -18,7 +20,20 @@ public abstract class View extends JPanel {
 
 	public JButton pauseButton;
 	public boolean pauseButtonFlag = false;
+	
+	public final int BORDER_X = 0;
+	public final int BORDER_Y = 0;
+	
+	public boolean isTimeForRectangle = false;
 		
+	public boolean isTimeForRectangle() {
+		return isTimeForRectangle;
+	}
+
+	public void setTimeForRectangle(boolean isTimeForRectangle) {
+		this.isTimeForRectangle = isTimeForRectangle;
+	}
+
 	public View() {
 		
 		//Allows key presses to work with JPanel
@@ -26,8 +41,10 @@ public abstract class View extends JPanel {
 		this.setVisible(true);
 	}
 	
-	public void drawBackground() {
-		
+	public void drawRedRectangle(Graphics g) {
+		Color OPAQUE_RED = new Color(.75f, 0f, 0f, .75f);
+		g.setColor(OPAQUE_RED);
+		g.fillRect(BORDER_X, BORDER_Y, Model.scaledImageWidth, Model.scaledImageHeight);
 	}
 	
 	protected BufferedImage createImage(String name) {

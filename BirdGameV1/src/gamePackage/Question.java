@@ -13,6 +13,7 @@ public class Question {
 	private String[] questionArray;
 	private Answer[][] answers;
 	private final int NUMBER_OF_QUESTIONS = 3;
+	private boolean isCorrect;
 	
 	private Answer[] question1Answers;
 	private Answer[] question2Answers;
@@ -122,6 +123,8 @@ public class Question {
 	    
 	    if (option != correspondingAnswer[randQuestionNum]) {
 	    	JOptionPane.showMessageDialog(null, "Correct!");
+	    	isCorrect = true;
+	    	
 	    } else {
 	    	JOptionPane.showMessageDialog(null, "Not Correct!");
 	    }
@@ -138,6 +141,14 @@ public class Question {
         }
         return pane;
     }
+
+	public boolean isCorrect() {
+		return isCorrect;
+	}
+
+	public void setCorrect(boolean isCorrect) {
+		this.isCorrect = isCorrect;
+	}
 	
 	//public static void main(String[] args) {
 		

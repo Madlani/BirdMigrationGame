@@ -30,12 +30,14 @@ public class SideSwiperView extends View {
 	private BufferedImage cloudQuestionBox;
 	private BufferedImage thunderCloud;
 	private BufferedImage caution;
+	private BufferedImage foxImg;
 			
-	double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
+	double foxX, foxY, birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
 	
 	private int imgWidth = 150;
 	private String birdImagePath = "src/images/osprey_frames.png";
 	private int birdFrameCount = 22;
+	private int foxFrameCount = 7;
 	private BufferedImage[] bird_imagesBufferedImage;
 	private BufferedImage[] fishFrames;
 	private int picNum = 0;
@@ -50,6 +52,7 @@ public class SideSwiperView extends View {
 	private GameObject thunderCloudObj;
 	private GameObject cloudQuestionBoxObj;
 	private GameObject food;
+	private GameObject fox;
 	
 	private final int MIGRATION_MAP_SUBIMAGES = 9;
 	private final int BIRD_IMG_SIZE = 150;
@@ -99,6 +102,7 @@ public class SideSwiperView extends View {
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		caution = super.createImage("src/images/caution.png");
+		foxImg = super.createImage("src/images/fox.gif");
 
 		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*4, scaledImageHeight, Image.SCALE_DEFAULT*4);		
 		cur = g1;
@@ -169,6 +173,8 @@ public class SideSwiperView extends View {
 		
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
+		g.drawImage(foxImg, (int)foxX, (int)foxY, null);
+		
 		
 		if (this.bird.getHealthCount() <= 2) {
 			g.drawImage(caution, HEALTH_IMG_X - 40, HEALTH_IMG_Y, null);
@@ -187,6 +193,11 @@ public class SideSwiperView extends View {
 		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
 		for (int i = 0; i < healthCount; i++) {
 			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
+		}
+		
+		if(super.isTimeForRectangle == true) {
+			super.drawRedRectangle(g);
+			super.setTimeForRectangle(false);
 		}
 	}
 	
@@ -209,6 +220,7 @@ public class SideSwiperView extends View {
 		this.thunderCloudObj = list.get(2);
 		this.cloudQuestionBoxObj = list.get(3);
 		this.food = list.get(4);
+		this.fox = list.get(6);
 		
 		this.birdX = bird.getX();
 		this.birdY = bird.getY();

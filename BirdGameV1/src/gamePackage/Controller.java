@@ -200,6 +200,11 @@ public class Controller {
 			gameOver();
 		}
 		
+		if(sideSwiperModel.getIsHit() == true) {
+			sideSwipeView.setTimeForRectangle(true);
+			System.out.println("It is time to draw the red rectangle");
+		}
+		
 		sideSwipeView.update(list2);
 	}
 	
@@ -243,6 +248,10 @@ public class Controller {
 			//setBindingsToQuestions(q);
 			q.displayQuestion();
 			while(sideSwiperModel.getPauseGameFlag() == true) {
+				if(q.isCorrect()) {
+					sideSwiperModel.getOsprey().increaseHealthCount(4);
+					q.setCorrect(false);
+				}
 				sideSwiperModel.changePauseGameFlag();
 				start();
 			}

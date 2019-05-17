@@ -24,12 +24,12 @@ public class MigrationView extends View {
 	
 	private Image backgroundImage;
 	
-	private BufferedImage airplaneImg, cloudQuestionBox, thunderCloud, healthImg, healthIcon;
+	private BufferedImage mouseImg, cloudQuestionBox, thunderCloud, healthImg, healthIcon;
 	private BufferedImage[] miniMap;
 	private BufferedImage[] bird_imagesBufferedImage;
 	private BufferedImage[] fishFrames;
 			
-	private double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
+	private double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, mouseX, mouseY, thunderCloudX, thunderCloudY;
 	
 	private String birdImagePath = "src/images/upOspreyFrames.png";
 	
@@ -37,7 +37,7 @@ public class MigrationView extends View {
 	private GameObject plane;
 	private GameObject thunderCloudObj;
 	private GameObject cloudQuestionBoxObj;
-	private GameObject food;
+	private GameObject mouse;
 	
 	private final int BIRD_IMG_SIZE = 150;
 	private final int FISH_IMG_WIDTH = 100;
@@ -63,9 +63,9 @@ public class MigrationView extends View {
 	 * Loads in the images for the objects used for the Migration mini-game. 
 	 */
 	private void loadImage() {
-		ImageIcon grass_1 = new ImageIcon("src/images/beach.png");
+		ImageIcon grass_1 = new ImageIcon("src/images/grassyField.png");
 		
-		airplaneImg = super.createImage("src/images/airplane.png");
+		mouseImg = super.createImage("src/images/mouse.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
@@ -152,20 +152,19 @@ public class MigrationView extends View {
 		g.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
 		g.drawImage(this.cloudQuestionBox, (int)cloudQuestionX, (int)cloudQuestionY, null);
 		
-		g.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
-		g.drawImage(fishFrames[picNumFish], (int)fishX, (int)fishY, null);
+		g.drawImage(mouseImg, (int)mouseX, (int)mouseY, null);
 
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
 
 //		-----------------------------------------------------------------------------------------------------------------------------
 //		SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
-//		g2.drawImage(map, 0, 0, null);
-//		g2.drawRect((int)this.b.getBirdBox().getX(), (int)this.b.getBirdBox().getY(), (int)this.b.getBirdBox().getWidth(), (int)this.b.getBirdBox().getHeight());
-//		g2.drawRect((int)this.plane.GameObjectBox.getX(), (int)this.plane.GameObjectBox.getY(), (int)this.plane.GameObjectBox.getWidth(), (int)this.plane.GameObjectBox.getHeight());
-//		g2.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
-//		g2.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
-//		g2.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
+//		g.drawImage(backgroundImage, 0, 0, null);
+		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
+		g.drawRect((int)this.mouse.GameObjectBox.getX(), (int)this.mouse.GameObjectBox.getY(), (int)this.mouse.GameObjectBox.getWidth(), (int)this.mouse.GameObjectBox.getHeight());
+		g.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
+		g.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
+//		g.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
 //		-----------------------------------------------------------------------------------------------------------------------------
 		
 		// Generates a new map image at a specified interval of time
@@ -193,7 +192,7 @@ public class MigrationView extends View {
 		this.plane = list.get(1);
 		this.thunderCloudObj = list.get(2);
 		this.cloudQuestionBoxObj = list.get(3);
-		this.food = list.get(4);
+		this.mouse = list.get(5);
 		
 		this.birdX = bird.getX();
 		this.birdY = bird.getY();
@@ -207,8 +206,8 @@ public class MigrationView extends View {
 		this.thunderCloudX = thunderCloudObj.getX();
 		this.thunderCloudY = thunderCloudObj.getY();
 		
-		this.fishX = food.getX();
-		this.fishY = food.getY();
+		this.mouseX = mouse.getX();
+		this.mouseY = mouse.getY();
 		this.healthCount = bird.getHealthCount();
 	}
 }

@@ -116,6 +116,20 @@ public class Bird extends GameObject {
 		if (this.healthCount < HIGHEST_HEALTH_COUNT)
 		this.healthCount = this.healthCount + 1;
 	}
+	
+	/**
+	 * increaseHealthCount()
+	 * Increments the numerical value for the bird's health by 1. This method is called when the bird
+	 * hits a fish GameObject.
+	 * @param increase
+	 */
+	public void increaseHealthCount(int increase) {
+		if (this.healthCount + increase < HIGHEST_HEALTH_COUNT) {
+			this.healthCount = this.healthCount + increase;
+		} else {
+			this.healthCount = HIGHEST_HEALTH_COUNT;
+		}
+	}
   	
 	/**
 	 * getX()

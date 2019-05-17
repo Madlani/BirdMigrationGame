@@ -18,9 +18,11 @@ public abstract class Model extends Point2D {
 	private int direction;
 	private int health;
 	final int airplaneStartX = 200;
+	final int mouseStartX = 200;
 	final int thunderCloudStartX = 450;
 	final int questionBlockStartX = 700;
 	final int foodStartX = 700;
+	final int foxStartX = 750;
 	private final int START_HEALTH_COUNT = 10;
 	private final int MAP_X = 4;
 	private final int BIRD_WIDTH = 150;
@@ -33,6 +35,10 @@ public abstract class Model extends Point2D {
 	private final int THUNDERCLOUD_HEIGHT = 150;
 	private final int QUESTIONCLOUD_WIDTH = 225;
 	private final int QUESTIONCLOUD_HEIGHT = 150;
+	private final int MOUSE_HEIGHT = 89;
+	private final int MOUSE_WIDTH = 75;
+	private final int FOX_WIDTH = 150;
+	private final int FOX_HEIGHT = 75;
 	private final double screenWidth = scaledImageWidth;
 	private final double screenHeight = scaledImageHeight;
 	public double startingX = screenWidth/3;
@@ -45,6 +51,9 @@ public abstract class Model extends Point2D {
 	private GameObject food;
 	private GameObject cloudQuestionBlock;
 	private GameObject thunderCloud;
+	private GameObject mouse;
+	private GameObject fox;
+	
 	short a = 0;
 	private boolean healthChangable = false;
 	private boolean pauseGameFlag = false;
@@ -56,7 +65,8 @@ public abstract class Model extends Point2D {
     	this.food = new GameObject(screenWidth + foodStartX, ObjectType.FOOD, FOODBOX_WIDTH, FOODBOX_HEIGHT);
     	this.thunderCloud = new GameObject(screenWidth + thunderCloudStartX, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT);
     	this.cloudQuestionBlock = new GameObject(screenWidth + questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT);
-    	
+    	this.mouse = new GameObject(screenWidth + mouseStartX, ObjectType.MOUSE, MOUSE_WIDTH, MOUSE_HEIGHT);
+    	this.fox = new GameObject(screenWidth + foxStartX, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT);
     	this.osprey.setLocation(startingX, startingY);
     	
     	// Adds all GameObjects to one collection
@@ -66,6 +76,8 @@ public abstract class Model extends Point2D {
     	gameObjects.add(thunderCloud);
     	gameObjects.add(cloudQuestionBlock);
     	gameObjects.add(food);
+    	gameObjects.add(mouse);
+    	gameObjects.add(fox);
     	
     }
 	
@@ -112,10 +124,18 @@ public abstract class Model extends Point2D {
     	this.food.setLocation(this.food.getX(), this.food.getY());
     	this.food.GameObjectBox.setLocation((int)this.food.getX(), (int)this.food.getY());
     	
+    	this.mouse.setLocation(this.mouse.getX(), this.mouse.getY());
+    	this.mouse.GameObjectBox.setLocation((int)this.mouse.getX(), (int)this.mouse.getY());
+    	
+    	this.fox.setLocation(this.fox.getX(), this.fox.getY());
+    	this.fox.GameObjectBox.setLocation((int)this.fox.getX(), (int)this.fox.getY());
+    	
     	updateGameObjectLocationAndDirection(airplane);
     	updateGameObjectLocationAndDirection(food);
     	updateGameObjectLocationAndDirection(thunderCloud);
     	updateGameObjectLocationAndDirection(cloudQuestionBlock);
+    	updateGameObjectLocationAndDirection(mouse);
+    	updateGameObjectLocationAndDirection(fox);
     	
     	return detectCollisions(gameObjects);
 	}
@@ -137,15 +157,14 @@ public abstract class Model extends Point2D {
 			} else {
 				if (o.GameObjectBox.intersects(osprey.birdBox)) {
 					
-					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD) && healthChangable == false) {
+					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD || o.getType() == ObjectType.FOX) && healthChangable == false) {
 						this.osprey.decreaseHealthCount();
 						resetGameObjectLocation(o);
 						isHit = true;
 					}
-					if (o.getType() == ObjectType.FOOD && this.osprey.getHealthCount() < START_HEALTH_COUNT && healthChangable == false) {
+					if ((o.getType() == ObjectType.FOOD || o.getType() == ObjectType.MOUSE) && this.osprey.getHealthCount() < START_HEALTH_COUNT && healthChangable == false) {
 						this.osprey.increaseHealthCount();
 						resetGameObjectLocation(o);
-						isHit = true;
 					}
 					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX) && healthChangable == false) {
 						System.out.println("hit question cloud");
