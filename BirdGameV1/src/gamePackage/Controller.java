@@ -160,6 +160,7 @@ public class Controller {
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
 			this.birdType = BirdType.NORTHERNHARRIER;
+			migrationModel.getOsprey().setBirdBox((int)migrationModel.getOsprey().getX(), (int)migrationModel.getOsprey().getY(), 220, 140);
 			
 		}, false);
 		

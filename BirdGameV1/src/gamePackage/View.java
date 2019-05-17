@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.jws.WebParam.Mode;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 

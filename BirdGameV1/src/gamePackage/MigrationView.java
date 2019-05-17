@@ -14,13 +14,13 @@ public class MigrationView extends View {
 	private int scaledImageWidth = Model.scaledImageWidth;
 	private int scaledImageHeight = Model.scaledImageHeight;
 	private int imgVelY = 0;
-	private int birdFrameCount = 22;
+	private int birdFrameCount = 8;
 	private int picNum = 0;
-	private int picNumFish = 0;
+	private int picNumBird = 0;
 	private int healthCount;
-	private int health;
 	private int picNumMap = 0;
 	private int tick = 0;
+	private int birdTick = 0;
 	
 	private Image backgroundImage;
 	
@@ -29,9 +29,9 @@ public class MigrationView extends View {
 	private BufferedImage[] bird_imagesBufferedImage;
 	private BufferedImage[] fishFrames;
 			
-	private double birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, mouseX, mouseY, thunderCloudX, thunderCloudY;
+	private double birdX, birdY, cloudQuestionX, cloudQuestionY, mouseX, mouseY, thunderCloudX, thunderCloudY;
 	
-	private String birdImagePath = "src/images/upOspreyFrames.png";
+	private String birdImagePath = "src/images/northernHarrierFrames.png";
 	
 	private Bird bird;
 	private GameObject plane;
@@ -39,7 +39,9 @@ public class MigrationView extends View {
 	private GameObject cloudQuestionBoxObj;
 	private GameObject mouse;
 	
-	private final int BIRD_IMG_SIZE = 150;
+	private final int BIRD_IMG_DELAY = 50;
+	private final int BIRD_IMG_WIDTH = 220;
+	private final int BIRD_IMG_HEIGHT = 140;
 	private final int FISH_IMG_WIDTH = 100;
 	private final int FISH_IMG_HEIGHT = 65;
 	private final int NUMBER_FISH_FRAMES = 4;
@@ -98,30 +100,13 @@ public class MigrationView extends View {
 		this.miniMap[10] = super.createImage("src/images/delawareMiniMap12.png");
 		this.miniMap[11] = super.createImage("src/images/delawareMiniMap13.png");
 		this.miniMap[12] = super.createImage("src/images/delawareMiniMap6.png");
+
+			
+		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		
-		this.bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
-		this.bird_imagesBufferedImage[0] = super.createImage("src/images/0.png");
-		this.bird_imagesBufferedImage[1] = super.createImage("src/images/1.png");
-		this.bird_imagesBufferedImage[2] = super.createImage("src/images/2.png");
-		this.bird_imagesBufferedImage[3] = super.createImage("src/images/3.png");
-		this.bird_imagesBufferedImage[4] = super.createImage("src/images/4.png");
-		this.bird_imagesBufferedImage[5] = super.createImage("src/images/5.png");
-		this.bird_imagesBufferedImage[6] = super.createImage("src/images/6.png");
-		this.bird_imagesBufferedImage[7] = super.createImage("src/images/7.png");
-		this.bird_imagesBufferedImage[8] = super.createImage("src/images/8.png");
-		this.bird_imagesBufferedImage[9] = super.createImage("src/images/9.png");
-		this.bird_imagesBufferedImage[10] = super.createImage("src/images/10.png");
-		this.bird_imagesBufferedImage[11] = super.createImage("src/images/11.png");
-		this.bird_imagesBufferedImage[12] = super.createImage("src/images/12.png");
-		this.bird_imagesBufferedImage[13] = super.createImage("src/images/13.png");
-		this.bird_imagesBufferedImage[14] = super.createImage("src/images/14.png");
-		this.bird_imagesBufferedImage[15] = super.createImage("src/images/15.png");
-		this.bird_imagesBufferedImage[16] = super.createImage("src/images/16.png");
-		this.bird_imagesBufferedImage[17] = super.createImage("src/images/17.png");
-		this.bird_imagesBufferedImage[18] = super.createImage("src/images/18.png");
-		this.bird_imagesBufferedImage[19] = super.createImage("src/images/19.png");
-		this.bird_imagesBufferedImage[20] = super.createImage("src/images/20.png");
-		this.bird_imagesBufferedImage[21] = super.createImage("src/images/21.png");
+		for (int i = 0; i < birdFrameCount; i++)
+			bird_imagesBufferedImage[i] = birdFrames.getSubimage(BIRD_IMG_WIDTH * i, 0, BIRD_IMG_WIDTH, BIRD_IMG_HEIGHT);
+		
 		setDoubleBuffered(true); // used to smooth image movement
 	}
 	
@@ -147,7 +132,7 @@ public class MigrationView extends View {
 		// draws image in the window, had to make second image the same as the first for continuity
 		g.drawImage(backgroundImage,  0,(-(imgVelY % scaledImageHeight)-scaledImageHeight), null);
 		
-		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
+		g.drawImage(bird_imagesBufferedImage[picNumBird], (int)birdX, (int)birdY, null);
 		
 		g.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
 		g.drawImage(this.cloudQuestionBox, (int)cloudQuestionX, (int)cloudQuestionY, null);
@@ -169,8 +154,12 @@ public class MigrationView extends View {
 		
 		// Generates a new map image at a specified interval of time
 		tick = (tick + 1) % MAP_FRAME_COUNT;
+		birdTick = (birdTick + 1) % 30;
 		if (tick == 0) {
 			picNumMap = (picNumMap + 1) % MINIMAP_SUBIMAGES;
+		}
+		if (birdTick == 0) {
+			picNumBird = (picNumBird + 1) % birdFrameCount;
 		}
 		
 		g.drawImage(this.miniMap[picNumMap], MAP_X, MAP_Y, null);
@@ -189,16 +178,12 @@ public class MigrationView extends View {
 	public void update(ArrayList<GameObject> list) {
 		
 		this.bird = (Bird) list.get(0);
-		this.plane = list.get(1);
 		this.thunderCloudObj = list.get(2);
 		this.cloudQuestionBoxObj = list.get(3);
 		this.mouse = list.get(5);
 		
 		this.birdX = bird.getX();
 		this.birdY = bird.getY();
-		
-		this.planeX = plane.getX();
-		this.planeY = plane.getY();
 		
 		this.cloudQuestionX = cloudQuestionBoxObj.getX();
 		this.cloudQuestionY = cloudQuestionBoxObj.getY();

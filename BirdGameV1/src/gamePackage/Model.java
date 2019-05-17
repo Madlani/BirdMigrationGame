@@ -41,8 +41,8 @@ public abstract class Model extends Point2D {
 	private final int FOX_HEIGHT = 75;
 	private final double screenWidth = scaledImageWidth;
 	private final double screenHeight = scaledImageHeight;
-	public double startingX = screenWidth/3;
-	public double startingY = screenHeight - 200;
+	public double ospreyStartingX = screenWidth/3;
+	public double ospreyStartingY = screenHeight - 200;
 	ArrayList<GameObject> gameObjects;
 	
 	// Objects in our game
@@ -67,7 +67,8 @@ public abstract class Model extends Point2D {
     	this.cloudQuestionBlock = new GameObject(screenWidth + questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT);
     	this.mouse = new GameObject(screenWidth + mouseStartX, ObjectType.MOUSE, MOUSE_WIDTH, MOUSE_HEIGHT);
     	this.fox = new GameObject(screenWidth + foxStartX, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT);
-    	this.osprey.setLocation(startingX, startingY);
+    	this.osprey.setLocation(ospreyStartingX, ospreyStartingY);
+    
     	
     	// Adds all GameObjects to one collection
     	this.gameObjects = new ArrayList<>();

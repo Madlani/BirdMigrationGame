@@ -196,6 +196,10 @@ public class Bird extends GameObject {
 		return birdBox;
 	}
 	
+	public void setBirdBox(int x, int y, int width, int height) {
+		this.birdBox = new HitBox(x, y, width, height);
+	}
+	
 	/**
 	 * getStartingX()
 	 * @return startingX, the starting x-position of the bird.

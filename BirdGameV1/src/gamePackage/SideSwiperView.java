@@ -30,7 +30,6 @@ public class SideSwiperView extends View {
 	private BufferedImage cloudQuestionBox;
 	private BufferedImage thunderCloud;
 	private BufferedImage caution;
-	private BufferedImage foxImg;
 			
 	double foxX, foxY, birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
 	
@@ -40,10 +39,13 @@ public class SideSwiperView extends View {
 	private int foxFrameCount = 7;
 	private BufferedImage[] bird_imagesBufferedImage;
 	private BufferedImage[] fishFrames;
+	private BufferedImage[] foxFrames;
 	private int picNum = 0;
 	private short picNumFish = 0;
+	private short picNumFox = 0;
 	private int picNumMap = 0;
 	private int tick = 0;
+	private int foxTick = 0;
 	private int healthCount;
 	private Background currentBackground = Background.LAND;
 	
@@ -58,6 +60,9 @@ public class SideSwiperView extends View {
 	private final int BIRD_IMG_SIZE = 150;
 	private final int FISH_IMG_WIDTH = 100;
 	private final int FISH_IMG_HEIGHT = 65;
+	private final int FOX_IMG_WIDTH = 300;
+	private final int FOX_IMG_HEIGHT = 150;
+	private final int FOX_FRAME_DELAY = 5;
 	private final int NUMBER_FISH_FRAMES = 4;
 	private final int MAP_FRAME_COUNT = 400;
 	private final int HEALTH_BIRD_OFFSET = 30;
@@ -102,7 +107,6 @@ public class SideSwiperView extends View {
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		caution = super.createImage("src/images/caution.png");
-		foxImg = super.createImage("src/images/fox.gif");
 
 		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*4, scaledImageHeight, Image.SCALE_DEFAULT*4);		
 		cur = g1;
@@ -110,14 +114,19 @@ public class SideSwiperView extends View {
 
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
+		BufferedImage foxAnimation = super.createImage("src/images/foxFrames.png");
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		fishFrames = new BufferedImage[NUMBER_FISH_FRAMES];
+		foxFrames = new BufferedImage[foxFrameCount];
 		
 		for (int i = 0; i < birdFrameCount; i++)
 			bird_imagesBufferedImage[i] = birdFrames.getSubimage(imgWidth * i, 0, imgWidth, BIRD_IMG_SIZE);
 		
 		for (int i = 0; i < NUMBER_FISH_FRAMES; i++)
 			fishFrames[i] = fishAnimation.getSubimage(FISH_IMG_WIDTH * i, 0, FISH_IMG_WIDTH, FISH_IMG_HEIGHT);
+		
+		for (int i = 0; i < foxFrameCount; i++)
+			foxFrames[i] = foxAnimation.getSubimage(FOX_IMG_WIDTH * i, 0, FOX_IMG_WIDTH, FOX_IMG_HEIGHT);
 		
 		setDoubleBuffered(true);
 	}
@@ -145,9 +154,15 @@ public class SideSwiperView extends View {
 		}
 		
 		tick = (tick+1) % MAP_FRAME_COUNT;
+		foxTick = (foxTick+1) % FOX_FRAME_DELAY;
+		
 		
 		if (tick == 0) {
 			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+		}
+		
+		if (foxTick == 0) {
+			picNumFox = (short) ((picNumFox + 1) % foxFrameCount);
 		}
 		
 		
@@ -173,7 +188,7 @@ public class SideSwiperView extends View {
 		
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
-		g.drawImage(foxImg, (int)foxX, (int)foxY, null);
+		g.drawImage(foxFrames[picNumFox], (int)foxX, (int)foxY, null);
 		
 		
 		if (this.bird.getHealthCount() <= 2) {
@@ -182,12 +197,14 @@ public class SideSwiperView extends View {
 		
 		
 //		//-----------------------------------------------------------------------------------------------------------------------------
-//		//SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
+		//SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
 //		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
 //		g.drawRect((int)this.plane.GameObjectBox.getX(), (int)this.plane.GameObjectBox.getY(), (int)this.plane.GameObjectBox.getWidth(), (int)this.plane.GameObjectBox.getHeight());
 //		g.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
 //		g.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
 //		g.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
+//		g.drawRect((int)this.fox.GameObjectBox.getX(), (int)this.fox.GameObjectBox.getY(), (int)this.fox.GameObjectBox.getWidth(), (int)this.fox.GameObjectBox.getHeight());
+
 //		//-----------------------------------------------------------------------------------------------------------------------------
 		
 		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
@@ -236,6 +253,9 @@ public class SideSwiperView extends View {
 		
 		this.fishX = food.getX();
 		this.fishY = food.getY();
+		
+		this.foxX = fox.getX();
+		this.foxY = fox.getY();
 
 		this.healthCount = bird.getHealthCount();
 	}
