@@ -29,6 +29,7 @@ public class Controller {
 	private EndView endView;
 	
 	private GameState state;
+	private BirdType birdType;
 	private JFrame frame;
 	private JPanel masterPanel;
 	private CardLayout cardLayout;
@@ -74,6 +75,7 @@ public class Controller {
 		this.cardLayout = new CardLayout();
 	
 		//-----------------------------------------------------------------------------
+		this.birdType = BirdType.OSPREY;
 		masterPanel = new JPanel(cardLayout);
 		frame.add(masterPanel);
 		masterPanel.add(startView, "start");
@@ -84,13 +86,35 @@ public class Controller {
 		masterPanel.add(endView, "end");
 		
 		this.state = GameState.START;
+
 		
+//		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
+//			
+//			this.state = GameState.MIGRATION;
+//			this.cardLayout.show(this.masterPanel, "migration");
+//		}, false);
+//		
+		//-----------------------------------------------------------------------------
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
-			
-			this.state = GameState.MIGRATION;
-			this.cardLayout.show(this.masterPanel, "migration");
+			if (this.birdType == BirdType.OSPREY) {
+				this.state = GameState.WHACKAMOLE;
+				this.cardLayout.show(this.masterPanel, "whackAMole");
+				whackModel.randomizeSequence();
+				whackView.updateSequence(whackModel.getSequence());
+				whackView.setIsWackView(true);
+				whackView.initTimers();
+				
+				
+			}
+			else if (this.birdType == BirdType.NORTHERNHARRIER) {
+				this.state = GameState.MIGRATION;
+				this.cardLayout.show(this.masterPanel, "migration");
+			}
 		}, false);
 		
+
+		//-----------------------------------------------------------------------------
+
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
 			
 			this.state = GameState.WIN;
@@ -120,9 +144,14 @@ public class Controller {
 		
 		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
 			
-			this.state = GameState.SIDESWIPER;
-			this.cardLayout.show(this.masterPanel, "sideSwiper");
-			
+			if (this.birdType == BirdType.OSPREY) {
+				this.state = GameState.SIDESWIPER;
+				this.cardLayout.show(this.masterPanel, "sideSwiper");
+			}
+			else if (this.birdType == BirdType.NORTHERNHARRIER) {
+				this.state = GameState.MIGRATION;
+				this.cardLayout.show(this.masterPanel, "migration");		
+			}
 		}, false);
 		
 		
@@ -132,6 +161,7 @@ public class Controller {
 			
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
+			this.birdType = BirdType.NORTHERNHARRIER;
 			
 		}, false);
 		
