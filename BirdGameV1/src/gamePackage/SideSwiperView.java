@@ -100,7 +100,7 @@ public class SideSwiperView extends View {
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		caution = super.createImage("src/images/caution.png");
 
-		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*2+(scaledImageWidth/2), scaledImageHeight, Image.SCALE_DEFAULT*2);		
+		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*4, scaledImageHeight, Image.SCALE_DEFAULT*4);		
 		cur = g1;
 	
 
@@ -132,7 +132,7 @@ public class SideSwiperView extends View {
 		picNum = (picNum + 1) % birdFrameCount;
 		imgVelX-=1;
 		
-		if (imgVelX % ((scaledImageWidth*2) + (scaledImageWidth/2)) == 0) {
+		if (imgVelX % (scaledImageWidth*3) == 0) {
 			imgVelX = 0;
 			finished = true;
 			
@@ -157,7 +157,7 @@ public class SideSwiperView extends View {
 		
 		
 		
-		g.drawImage(cur, (imgVelX % ((scaledImageWidth*2)+(scaledImageWidth/2))), 0, null);
+		g.drawImage(cur, (imgVelX % (scaledImageWidth*3)), 0, null);
 
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		

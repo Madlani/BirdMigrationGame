@@ -102,9 +102,7 @@ public class Controller {
 				whackModel.randomizeSequence();
 				whackView.updateSequence(whackModel.getSequence());
 				whackView.setIsWackView(true);
-				whackView.initTimers();
-				
-				
+				whackView.initTimers();	
 			}
 			else if (this.birdType == BirdType.NORTHERNHARRIER) {
 				this.state = GameState.MIGRATION;
