@@ -1,62 +1,10 @@
 package gamePackage;
 
-import java.awt.Graphics;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javax.swing.Timer;
-
-public class SideSwiperModel extends Model {
+public class SideSwiperTutorialModel extends SideSwiperModel {
 	
-	
-	protected int screenWidth = Model.scaledImageWidth;
-	protected int screenHeight = Model.scaledImageHeight;
-	protected int offset = 600;
-	
-	protected final int airplaneStartX = 200;
-	protected final int thunderCloudStartX = 450;
-	protected final int questionBlockStartX = 700;
-	protected final int fishStartX = 700;
-	protected final int foxStartX = 750;
-	
-	protected final int PLANEBOX_WIDTH = 150;
-	protected final int PLANEBOX_HEIGHT = 150;
-	protected final int FISHBOX_WIDTH = 100;
-	protected final int FISHBOX_HEIGHT = 65;
-	protected final int THUNDERCLOUD_WIDTH = 150;
-	protected final int THUNDERCLOUD_HEIGHT = 150;
-	protected final int QUESTIONCLOUD_WIDTH = 225;
-	protected final int QUESTIONCLOUD_HEIGHT = 150;
-	protected final int FOX_WIDTH = 150;
-	protected final int FOX_HEIGHT = 75;
-	
-	protected final int OSPREY_WIDTH = 150;
-	protected final int OSPREY_HEIGHT = 150;
-	
-	protected double ospreyStartingX = screenWidth/3;
-	protected double ospreyStartingY = screenHeight - 200;
-	
-	protected Bird osprey;
-	protected GameObject airplane;
-	protected GameObject fish;
-	protected GameObject cloudQuestionBlock;
-	protected GameObject thunderCloud;
-	protected GameObject fox;
-	
-	protected int thirdOfTheScreenY = (screenHeight / 3) * 2;
-	
-	protected boolean isOver = false;
-	protected boolean isFirstFrame = true;
-	protected final int MAP_FRAME_COUNT = 400;
-	protected int tick = 0;
-	
-	protected final int MIGRATION_MAP_SUBIMAGES = 9;
-	protected int picNumMap = 0;
-	
-	public SideSwiperModel() {
+	public SideSwiperTutorialModel() {
 		super();
 		this.osprey = new Bird(BirdType.OSPREY, ObjectType.OSPREY);
     	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT, (screenHeight / 3) * 2, 0);
@@ -76,12 +24,6 @@ public class SideSwiperModel extends Model {
     	this.gameObjectsForOsprey.add(fox);
 	}
 	
-	/**
-	 * updateGameObjectLocationAndDirection()
-	 * This method overrides the Model's updateGameObjectLocationAndDirection(). This will position the GameObject
-	 * on the right side of the screen once it moves too far left, otherwise continue to move the GameObject by the 
-	 * speed that was pre-determined.
-	 */
 	@Override
 	public void updateGameObjectLocationAndDirection(GameObject o) {
 		if(o.getX() <= -o.GameObjectBox.width) {
@@ -167,39 +109,5 @@ public class SideSwiperModel extends Model {
 			break;
 		}
 	}
-	
-	public Bird getOsprey() {
-		return this.osprey;
-	}
 
-	public GameObject getAirplane() {
-		return this.airplane;
-	}
-	
-	public GameObject getFish() {
-		return this.fish;
-	}
-	
-	public boolean getIsOver() {
-		return this.isOver;
-	}
-	
-	public void setIsOver(boolean b) {
-		this.isOver = b;
-	}
-	
-	public void setIsFirstFrame(boolean b) {
-		this.isFirstFrame = b;
-	}
-	
-	public boolean getIsFirstFrame() {
-		return this.isFirstFrame;
-	}
-	
-	public int getPicNumMap() {
-		return this.picNumMap;
-	}
 }
-
-
-

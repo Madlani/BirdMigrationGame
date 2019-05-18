@@ -27,6 +27,8 @@ public class Controller {
 	private StartView startView;
 	private WinView winView;
 	private EndView endView;
+	private SideSwiperTutorialView sideTutView;
+	private SideSwiperTutorialModel sideTutModel;
 	
 	private GameState state;
 	private BirdType birdType;
@@ -72,6 +74,12 @@ public class Controller {
 		//Code to display End screen
 		endView = new EndView();
 		
+		//Code to display SideSwiperTutorialView screen
+		sideTutView = new SideSwiperTutorialView();
+		
+		//Code to display SideSwiperTutorialModel screen
+		sideTutModel = new SideSwiperTutorialModel();
+		
 		this.cardLayout = new CardLayout();
 	
 		//-----------------------------------------------------------------------------
@@ -79,6 +87,7 @@ public class Controller {
 		masterPanel = new JPanel(cardLayout);
 		frame.add(masterPanel);
 		masterPanel.add(startView, "start");
+		masterPanel.add(sideTutView, "sideSwiperTutorial");
 		masterPanel.add(sideSwipeView, "sideSwiper");	
 		masterPanel.add(migrationView, "migration");
 		masterPanel.add(whackView, "whackAMole");
@@ -87,14 +96,29 @@ public class Controller {
 		
 		this.state = GameState.START;
 
-		
-//		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
-//			
-//			this.state = GameState.MIGRATION;
-//			this.cardLayout.show(this.masterPanel, "migration");
-//		}, false);
-//		
+	
 		//-----------------------------------------------------------------------------
+
+		
+		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
+			
+			if (this.birdType == BirdType.OSPREY) {
+				this.state = GameState.SIDESWIPERTUTORIAL;
+				this.cardLayout.show(this.masterPanel, "sideSwiperTutorial");
+				System.out.println("should start tuturial now");
+			}
+			else if (this.birdType == BirdType.NORTHERNHARRIER) {
+				this.state = GameState.MIGRATION;
+				this.cardLayout.show(this.masterPanel, "migration");		
+			}
+		}, false);
+		
+		addKeyBinding(sideTutView, KeyEvent.VK_SPACE, "next panel from sideswiperTutorial", (e) -> {
+			this.state = GameState.SIDESWIPER;
+			this.cardLayout.show(this.masterPanel, "sideSwiper");
+	
+		}, false);
+		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> { 
 			if (this.birdType == BirdType.OSPREY) {
 				this.state = GameState.WHACKAMOLE;
@@ -110,9 +134,7 @@ public class Controller {
 			}
 		}, false);
 		
-
-		//-----------------------------------------------------------------------------
-
+		
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
 			
 			this.state = GameState.WIN;
@@ -127,32 +149,6 @@ public class Controller {
 			
 		}, false);
 
-		
-		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
-			
-			this.state = GameState.WHACKAMOLE;
-			this.cardLayout.show(this.masterPanel, "whackAMole");
-			whackModel.randomizeSequence();
-			whackView.updateSequence(whackModel.getSequence());
-			whackView.setIsWackView(true);
-			whackView.initTimers();
-			
-		}, false);
-		
-		
-		addKeyBinding(startView, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
-			
-			if (this.birdType == BirdType.OSPREY) {
-				this.state = GameState.SIDESWIPER;
-				this.cardLayout.show(this.masterPanel, "sideSwiper");
-			}
-			else if (this.birdType == BirdType.NORTHERNHARRIER) {
-				this.state = GameState.MIGRATION;
-				this.cardLayout.show(this.masterPanel, "migration");		
-			}
-		}, false);
-		
-		
 		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "start");
@@ -164,6 +160,16 @@ public class Controller {
 			
 		}, false);
 		
+		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
+			
+			this.state = GameState.WHACKAMOLE;
+			this.cardLayout.show(this.masterPanel, "whackAMole");
+			whackModel.randomizeSequence();
+			whackView.updateSequence(whackModel.getSequence());
+			whackView.setIsWackView(true);
+			whackView.initTimers();
+			
+		}, false);
 		
 		//-----------------------------------------------------------------------------
 		
@@ -304,7 +310,8 @@ public class Controller {
 				case WIN:
 					break;
 				case END:
-					
+					break;
+				case SIDESWIPERTUTORIAL:
 					break;
 				}
 				return null;
@@ -340,6 +347,8 @@ public class Controller {
 		case END:
 			SwingUtilities.invokeLater(() ->  this.endView.repaint());
 			break;
+		case SIDESWIPERTUTORIAL:
+			SwingUtilities.invokeLater(() -> this.sideTutView.repaint());
 		}
 	}
 	

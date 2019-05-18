@@ -5,81 +5,16 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
+public class SideSwiperTutorialView extends SideSwiperView {
 
-@SuppressWarnings("serial")
-public class SideSwiperView extends View {
-	
-	protected Image g1;
-	BufferedImage[] migrationMap;
-	
-	private boolean isHit = false;
-
-	public int imgVelX = 0;
-	protected int scaledImageWidth = Model.scaledImageWidth;
-	protected int scaledImageHeight = Model.scaledImageHeight;
-	
-	protected BufferedImage airplaneImg;
-	protected BufferedImage healthImg;
-	protected BufferedImage healthIcon;
-	protected BufferedImage cloudQuestionBox;
-	protected BufferedImage thunderCloud;
-	protected BufferedImage caution;
-			
-	double foxX, foxY, birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
-	
-	protected int imgWidth = 150;
-	protected String birdImagePath = "src/images/osprey_frames.png";
-	protected int birdFrameCount = 22;
-	protected int foxFrameCount = 7;
-	protected BufferedImage[] bird_imagesBufferedImage;
-	protected BufferedImage[] fishFrames;
-	protected BufferedImage[] foxFrames;
-	protected int picNum = 0;
-	protected short picNumFish = 0;
-	protected short picNumFox = 0;
-	protected int picNumMap = 0;
-	protected int foxTick = 0;
-	protected int healthCount;
-	
-	protected Bird bird;
-	protected GameObject plane;
-	protected GameObject thunderCloudObj;
-	protected GameObject cloudQuestionBoxObj;
-	protected GameObject fish;
-	protected GameObject fox;
-	
-	protected final int MIGRATION_MAP_SUBIMAGES = 9;
-	protected final int BIRD_IMG_SIZE = 150;
-	protected final int FISH_IMG_WIDTH = 100;
-	protected final int FISH_IMG_HEIGHT = 65;
-	protected final int FOX_IMG_WIDTH = 300;
-	protected final int FOX_IMG_HEIGHT = 150;
-	protected final int FOX_FRAME_DELAY = 5;
-	protected final int NUMBER_FISH_FRAMES = 4;
-	protected final int MAP_FRAME_COUNT = 400;
-	protected final int HEALTH_BIRD_OFFSET = 30;
-	protected final int HEALTH_IMG_X = scaledImageWidth/2 - 50;
-	protected final int HEALTH_ICON_X = scaledImageWidth/2;
-	protected final int HEALTH_IMG_Y = 20;
-	protected final int MAP_X = 0;
-	protected final int MAP_Y = 0;
-	protected boolean finished = false;
-	
-	
-	protected Image cur;
-	protected Image next;
-
-	public SideSwiperView() {
+	public SideSwiperTutorialView() {
 		super();
 		this.loadImage();
 	}
 	
-	/**
-	 * loadImage()
-	 * Loads in the images for the objects used for the SideSwiper mini-game. 
-	 */
 	private void loadImage() {
 		ImageIcon grassyBackground = new ImageIcon("src/images/fullBackground.png");
         
@@ -125,11 +60,6 @@ public class SideSwiperView extends View {
 		setDoubleBuffered(true);
 	}
 	
-	/**
-	 * paintComponent()
-	 * This method overrides the View's paintComponent(). It draws all of our images on the screen and sets them
-	 * to be the appropriate starting locations that we have defined using constants.
-	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		g = (Graphics2D) g.create();
@@ -147,26 +77,13 @@ public class SideSwiperView extends View {
 			finished = false;
 		}
 		
-//		tick = (tick+1) % MAP_FRAME_COUNT;
 		foxTick = (foxTick+1) % FOX_FRAME_DELAY;
 		
-		
-//		if (tick == 0) {
-//			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
-//		}
 		
 		if (foxTick == 0) {
 			picNumFox = (short) ((picNumFox + 1) % foxFrameCount);
 		}
 		
-		
-//		if (picNumMap == 5) {
-//			this.currentBackground = Background.BEACH;
-//		} else if (picNumMap > 5) {
-//			this.currentBackground = Background.OCEAN;
-//		} else {
-//			this.currentBackground = Background.LAND;
-//		}
 		
 		g.drawImage(cur, (imgVelX % (scaledImageWidth*3)), 0, null);
 
@@ -183,9 +100,9 @@ public class SideSwiperView extends View {
 		g.drawImage(foxFrames[picNumFox], (int)foxX, (int)foxY, null);
 		
 		
-		if (this.bird.getHealthCount() <= 2) {
-			g.drawImage(caution, HEALTH_IMG_X - 40, HEALTH_IMG_Y, null);
-		}
+//		if (this.bird.getHealthCount() <= 2) {
+//			g.drawImage(caution, HEALTH_IMG_X - 40, HEALTH_IMG_Y, null);
+//		}
 		
 		
 //		//-----------------------------------------------------------------------------------------------------------------------------
@@ -210,17 +127,6 @@ public class SideSwiperView extends View {
 		}
 	}
 	
-	public void swapOrderOfBackgrounds() {
-		Image temp = next;
-		next = cur;
-		cur = temp;
-	}
-
-	/**
-	 * update()
-	 * Updates the x-position and y-position of the game objects using getters.
-	 * This is method is called from the Controller.
-	 */
 	@Override
 	public void update(ArrayList<GameObject> list) {
 		
@@ -251,16 +157,7 @@ public class SideSwiperView extends View {
 
 		this.healthCount = bird.getHealthCount();
 	}
-	
-	
-	public boolean isHit() {
-		return isHit;
-	}
-
-	public void setHit(boolean isHit) {
-		this.isHit = isHit;
-	}
-	
+		
 	public void setPicNumMap(int p) {
 		this.picNumMap = p;
 	}
