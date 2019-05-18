@@ -173,6 +173,7 @@ public class Controller {
 		
 		//-----------------------------------------------------------------------------
 		
+		setBindingsToSideSwiperTutorial();
 		setBindingsToSideSwiper();
 		setBindingsToMigration();
 		setBindingsToWhackAMole();
@@ -234,6 +235,35 @@ public class Controller {
 		}
 		
 		sideSwipeView.update(list2);
+	}
+	
+	public void updateSideSwiperTutorialModel() {
+		ssvPaused = sideTutModel.updateLocationAndDirectionForOsprey();
+		ArrayList<GameObject> list2 = sideTutModel.getUpdatableGameObjectsForOsprey();
+
+		if (sideTutModel.getOsprey().getHealthCount() <= 0) {
+			//sideSwiperGameOver = true;
+			this.state = GameState.END;
+			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
+			for (int i = 1; i < list2.size(); i++) {
+				sideTutModel.resetGameObjectLocation(list2.get(i));
+			}
+
+			gameOver();
+		}
+
+		sideTutModel.getOsprey().setFlyState(FlyState.STILL);
+		for (int i = 1; i < list2.size(); i++) {
+			sideTutModel.resetGameObjectLocation(list2.get(i));
+		}
+		sideTutModel.setIsFirstFrame(true);
+
+		if (sideTutModel.getIsHit() == true) {
+			sideTutView.setTimeForRectangle(true);
+			System.out.println("It is time to draw the red rectangle");
+		}
+
+		sideTutView.update(list2);
 	}
 	
 	public void updateMigrationModel() {
@@ -312,6 +342,8 @@ public class Controller {
 				case END:
 					break;
 				case SIDESWIPERTUTORIAL:
+					if (!ssvPaused)
+						updateSideSwiperTutorialModel();
 					break;
 				}
 				return null;
@@ -432,6 +464,24 @@ public class Controller {
 		
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
+		}, true);
+	}
+	
+	public void setBindingsToSideSwiperTutorial() {
+		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up", (evt) -> {
+			sideTutModel.getOsprey().setFlyState(FlyState.UP);
+		}, false);
+		
+		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up release", (evt) -> {
+			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
+		}, true);
+		
+		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down", (evt) -> {
+			sideTutModel.getOsprey().setFlyState(FlyState.DOWN);
+		}, false);
+		
+		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
+			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
 	}
 	

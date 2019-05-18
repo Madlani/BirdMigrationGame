@@ -17,18 +17,17 @@ public class SideSwiperTutorialView extends SideSwiperView {
 	
 	private void loadImage() {
 		ImageIcon grassyBackground = new ImageIcon("src/images/fullBackground.png");
-        
-        migrationMap = new BufferedImage[MIGRATION_MAP_SUBIMAGES];
-        migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
-        migrationMap[1] =  super.createImage("src/images/migrationMiniMap2.png");
-        migrationMap[2] =  super.createImage("src/images/migrationMiniMap3.png");
-        migrationMap[3] =  super.createImage("src/images/migrationMiniMap4.png");
-        migrationMap[4] =  super.createImage("src/images/migrationMiniMap5.png");
-        migrationMap[5] =  super.createImage("src/images/migrationMiniMap6.png");
-        migrationMap[6] = super.createImage("src/images/migrationMiniMap7.png");
-        migrationMap[7] =  super.createImage("src/images/migrationMiniMap8.png");
-        migrationMap[8] = super.createImage("src/images/migrationMiniMap9.png");
-        
+
+		migrationMap = new BufferedImage[MIGRATION_MAP_SUBIMAGES];
+		migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
+		migrationMap[1] = super.createImage("src/images/migrationMiniMap2.png");
+		migrationMap[2] = super.createImage("src/images/migrationMiniMap3.png");
+		migrationMap[3] = super.createImage("src/images/migrationMiniMap4.png");
+		migrationMap[4] = super.createImage("src/images/migrationMiniMap5.png");
+		migrationMap[5] = super.createImage("src/images/migrationMiniMap6.png");
+		migrationMap[6] = super.createImage("src/images/migrationMiniMap7.png");
+		migrationMap[7] = super.createImage("src/images/migrationMiniMap8.png");
+		migrationMap[8] = super.createImage("src/images/migrationMiniMap9.png");
         
 		airplaneImg = super.createImage("src/images/airplane.png");
 		healthImg = super.createImage("src/images/health.png");
@@ -88,16 +87,17 @@ public class SideSwiperTutorialView extends SideSwiperView {
 		g.drawImage(cur, (imgVelX % (scaledImageWidth*3)), 0, null);
 
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
+		System.out.println("birdX and birdY: " + birdX + ", " + birdY);
 		
-		g.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
-		g.drawImage(this.cloudQuestionBox, (int)cloudQuestionX, (int)cloudQuestionY, null);
+		//g.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
+		//g.drawImage(this.cloudQuestionBox, (int)cloudQuestionX, (int)cloudQuestionY, null);
 
-		g.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
-		g.drawImage(fishFrames[picNumFish], (int)fishX, (int)fishY, null);
+		//g.drawImage(airplaneImg, (int)planeX, (int)planeY, null);
+		//g.drawImage(fishFrames[picNumFish], (int)fishX, (int)fishY, null);
 		
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
-		g.drawImage(foxFrames[picNumFox], (int)foxX, (int)foxY, null);
+		//g.drawImage(foxFrames[picNumFox], (int)foxX, (int)foxY, null);
 		
 		
 //		if (this.bird.getHealthCount() <= 2) {
@@ -116,7 +116,7 @@ public class SideSwiperTutorialView extends SideSwiperView {
 
 //		//-----------------------------------------------------------------------------------------------------------------------------
 		
-		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		//g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
 		for (int i = 0; i < healthCount; i++) {
 			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
 		}
