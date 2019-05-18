@@ -1,7 +1,6 @@
 package gamePackage;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class MigrationView extends View {
 	
 	private Image backgroundImage;
 	
-	private BufferedImage northernHarrierImg, treeImg, mouseImg, bushQuestionBlockImg, owlImg, healthImg, healthIcon;
+	private BufferedImage treeImg, mouseImg, bushQuestionBlockImg, healthImg, healthIcon;
 	private BufferedImage[] miniMap;
 	private BufferedImage[] bird_imagesBufferedImage;
 	private BufferedImage[] owlBufferedImageFrames;
