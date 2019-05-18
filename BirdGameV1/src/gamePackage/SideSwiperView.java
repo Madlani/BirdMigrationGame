@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 public class SideSwiperView extends View {
 	
 	protected Image g1;
+	protected Image g2;
 	BufferedImage[] migrationMap;
 	
 	private boolean isHit = false;
@@ -79,7 +80,7 @@ public class SideSwiperView extends View {
 	 */
 	private void loadImage() {
 		ImageIcon grassyBackground = new ImageIcon("src/images/fullBackground.png");
-        
+        ImageIcon background = new ImageIcon("src/images/grass_2.png");
         migrationMap = new BufferedImage[MIGRATION_MAP_SUBIMAGES];
         migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
         migrationMap[1] =  super.createImage("src/images/migrationMiniMap2.png");
@@ -91,17 +92,16 @@ public class SideSwiperView extends View {
         migrationMap[7] =  super.createImage("src/images/migrationMiniMap8.png");
         migrationMap[8] = super.createImage("src/images/migrationMiniMap9.png");
         
-        
 		airplaneImg = super.createImage("src/images/airplane.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
 		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		caution = super.createImage("src/images/caution.png");
-
-		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*4, scaledImageHeight, Image.SCALE_DEFAULT*4);		
-	
-
+		
+		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*3, scaledImageHeight, Image.SCALE_DEFAULT*3);	
+		g2 = background.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
 		BufferedImage foxAnimation = super.createImage("src/images/foxFrames.png");
@@ -127,9 +127,7 @@ public class SideSwiperView extends View {
 	 * to be the appropriate starting locations that we have defined using constants.
 	 */
 	@Override
-	public void paintComponent(Graphics g) {
-//		g = (Graphics2D) g.create();
-		
+	public void paintComponent(Graphics g) {		
 		
 		picNumFish = (short) ((picNumFish + 1) % NUMBER_FISH_FRAMES);
 		picNum = (picNum + 1) % birdFrameCount;
@@ -142,29 +140,14 @@ public class SideSwiperView extends View {
 		} else {
 			finished = false;
 		}
-		
-//		tick = (tick+1) % MAP_FRAME_COUNT;
 		foxTick = (foxTick+1) % FOX_FRAME_DELAY;
-		
-		
-//		if (tick == 0) {
-//			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
-//		}
 		
 		if (foxTick == 0) {
 			picNumFox = (short) ((picNumFox + 1) % foxFrameCount);
 		}
 		
-		
-//		if (picNumMap == 5) {
-//			this.currentBackground = Background.BEACH;
-//		} else if (picNumMap > 5) {
-//			this.currentBackground = Background.OCEAN;
-//		} else {
-//			this.currentBackground = Background.LAND;
-//		}
-		
-		g.drawImage(g1, (imgVelX % (scaledImageWidth*3)), 0, null);
+		g.drawImage(g1, (imgVelX % (scaledImageWidth * 3)), 0, null);
+		g.drawImage(g2, (imgVelX % (scaledImageWidth * 4) + (scaledImageWidth * 3)) , 0, null);
 
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		
