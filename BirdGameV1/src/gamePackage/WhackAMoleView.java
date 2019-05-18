@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
 public class WhackAMoleView extends View {	
 	//constants
 	private final int EXPECTED_PATTERN_SIZE = 4;
-
 	private final int ARROW_IMAGES_WIDTH = 300;
 	private final int ARROW_IMAGES_HEIGHT = 300;
 	private final int STICK_IMAGE_WIDTH = 393;

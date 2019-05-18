@@ -177,7 +177,6 @@ public class Controller {
 		setBindingsToWhackAMole();
 		
 		frame.setVisible(true);
-		
 	}
 
 	/**
