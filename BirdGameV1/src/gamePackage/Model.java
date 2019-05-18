@@ -60,7 +60,6 @@ public abstract class Model extends Point2D {
 						System.out.println("Game Flag before question is displayed: " + this.getPauseGameFlag());
 						changePauseGameFlag();
 						resetGameObjectLocation(o);
-						isHit = true;
 					}
 
 					healthChangable = true;
