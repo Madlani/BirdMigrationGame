@@ -8,7 +8,9 @@ public enum GameState {
 	MIGRATION("migration"),
 	WHACKAMOLE("whackamole"),
 	WIN("win"),
-	END("end");
+	END("end"), 
+	MIGRATIONTUTORIAL("northernHarrier");
+	
 	
 	private String name = null;
 	

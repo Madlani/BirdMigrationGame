@@ -17,7 +17,9 @@ public class Bird extends GameObject {
 	private final int BIRD_SPEED = 10;
 	private static int BIRD_IMG_WIDTH = 150;
 	private static int BIRD_IMG_HEIGHT = 150;
-	private final int BIRD_BOX_SIZE = 100;
+	private final int OSPREY_BOX_SIZE = 100;
+	private final int NORTHERNHARRIER_BOX_WIDTH = 220;
+	private final int NORTHERNHARRIER_BOX_HEIGHT = 140;
 	
 	private final int LOWEST_HEALTH_COUNT = 0;
 	private final int HIGHEST_HEALTH_COUNT = 9;
@@ -26,7 +28,12 @@ public class Bird extends GameObject {
 	
 	public Bird(BirdType birdType, ObjectType objectType) {
 		super(birdType, 0.0, objectType, BIRD_IMG_WIDTH, BIRD_IMG_HEIGHT);
-		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, BIRD_BOX_SIZE, BIRD_BOX_SIZE);
+		if (birdType == BirdType.OSPREY) {
+			this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, OSPREY_BOX_SIZE, OSPREY_BOX_SIZE);
+		} 
+		else {
+			this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, NORTHERNHARRIER_BOX_WIDTH, NORTHERNHARRIER_BOX_HEIGHT);
+		}
 	}
 	
 	/**

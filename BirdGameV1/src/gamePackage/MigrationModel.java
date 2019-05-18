@@ -24,6 +24,7 @@ public class MigrationModel extends Model {
 	private final int OWL_WIDTH = 80;
 	private final int OWL_HEIGHT = 82;
 	private final int NORTHERNHARRIER_WIDTH = 220;
+	private final int NORTHERNHARRIER_HEIGHT = 140;
 	
 	private final int MAP_X = 4;
 	private final int MOUSE_HEIGHT = 89;

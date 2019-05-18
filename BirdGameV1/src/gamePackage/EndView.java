@@ -26,7 +26,7 @@ public class EndView extends View {
 	 * Loads the image for the end view
 	 */
 	private void loadImage() {
-		ImageIcon endImage = new ImageIcon("src/images/endView.png");
+		ImageIcon endImage = new ImageIcon("src/images/endBothGames.png");
 		backgroundImage = endImage.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 	}
 

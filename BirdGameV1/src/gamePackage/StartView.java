@@ -18,10 +18,15 @@ public class StartView extends View {
 
 	private boolean tutorialClicked;
 	private boolean startClicked;
+	private BirdType type;
+	
+	ImageIcon startScreenNorthernHarrier = new ImageIcon("src/images/northernHarrierStartScreen.png");
+	ImageIcon startScreenOsprey = new ImageIcon("src/images/ospreyStartScreen.png");
 	
 	
-	public StartView() {
+	public StartView(BirdType t) {
 		super();
+		this.type = t;
 		this.loadImage();
 	}
 	
@@ -55,9 +60,12 @@ public class StartView extends View {
 	 * Loads in the images for the objects used for the StartView panel 
 	 */
 	private void loadImage() {
-		ImageIcon startScreen = new ImageIcon("src/images/startView.png");
-		g1 = startScreen.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
-
+	
+		if (type == BirdType.OSPREY) {
+			g1 = startScreenOsprey.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		} else if (type == BirdType.NORTHERNHARRIER){
+			g1 = startScreenNorthernHarrier.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		}	
 	}
 	
 	/**
