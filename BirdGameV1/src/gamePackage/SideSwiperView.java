@@ -207,7 +207,7 @@ public class SideSwiperView extends View {
 
 //		//-----------------------------------------------------------------------------------------------------------------------------
 		
-		//g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
 		for (int i = 0; i < healthCount; i++) {
 			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
 		}

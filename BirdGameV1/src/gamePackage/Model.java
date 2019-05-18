@@ -18,9 +18,6 @@ public abstract class Model extends Point2D {
 	private int direction;
 	private int health;
 	private final int START_HEALTH_COUNT = 10;
-	
-	private final double screenWidth = scaledImageWidth;
-	private final double screenHeight = scaledImageHeight;
 
 	protected ArrayList<GameObject> gameObjectsForOsprey;
 	protected ArrayList<GameObject> gameObjectsForNortherHarrier;
@@ -51,7 +48,7 @@ public abstract class Model extends Point2D {
 			} else {
 				if (o.GameObjectBox.intersects(b.birdBox)) {
 					
-					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD || o.getType() == ObjectType.FOX) && healthChangable == false) {
+					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD || o.getType() == ObjectType.FOX || o.getType() == ObjectType.OWL || o.getType() == ObjectType.TREE) && healthChangable == false) {
 						b.decreaseHealthCount();
 						resetGameObjectLocation(o);
 						isHit = true;
@@ -60,7 +57,7 @@ public abstract class Model extends Point2D {
 						b.increaseHealthCount();
 						resetGameObjectLocation(o);
 					}
-					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX) && healthChangable == false) {
+					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX || o.getType() == ObjectType.BUSH_QUESTION_BOX) && healthChangable == false) {
 						System.out.println("hit question cloud");
 
 						System.out.println("Game Flag before question is displayed: " + this.getPauseGameFlag());

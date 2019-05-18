@@ -17,8 +17,8 @@ public class MigrationModel extends Model {
 	private final int bushQuestionBlockStartY = -100;
 	private final int owlStartY = -250;
 	
-	private final int TREE_WIDTH = 150;
-	private final int TREE_HEIGHT = 204;
+	private final int TREE_WIDTH = 200;
+	private final int TREE_HEIGHT = 274;
 	private final int BUSH_QUESTION_WIDTH = 150;
 	private final int BUSH_QUESTION_HEIGHT = 85;
 	private final int OWL_WIDTH = 81;
@@ -30,7 +30,7 @@ public class MigrationModel extends Model {
 	private final int MOUSE_WIDTH = 75;
 	
 	private double northernHarrierStartingX = screenWidth/2;
-	private double northernHarrierStartingY = screenHeight - 100;
+	private double northernHarrierStartingY = screenHeight - 250;
 	
 	protected Bird northernHarrier;
 	protected GameObject tree;
@@ -63,7 +63,6 @@ public class MigrationModel extends Model {
 	 */
 	@Override
 	public void updateGameObjectLocationAndDirection(GameObject o) {
-		System.out.println(o.getY());
 		if (o.getY() >= screenHeight) {
 			resetGameObjectLocation(o);
 		} else {
@@ -90,6 +89,7 @@ public class MigrationModel extends Model {
 		
 		this.northernHarrier.setLocation(this.northernHarrier.getX(), this.northernHarrier.getY());
 		this.northernHarrier.GameObjectBox.setLocation((int)this.northernHarrier.getX(), (int)this.northernHarrier.getY());
+		System.out.println("bird in model: " + this.northernHarrier.getX() + ", " + this.northernHarrier.getY());
 		
 		this.tree.setLocation(this.tree.getX(), this.tree.getY());
 		this.tree.GameObjectBox.setLocation((int)this.tree.getX(), (int)this.tree.getY());
@@ -103,7 +103,6 @@ public class MigrationModel extends Model {
 		this.owl.setLocation(this.owl.getX(), this.owl.getY());
 		this.owl.GameObjectBox.setLocation((int)this.owl.getX(), (int)this.owl.getY());
 		
-    	updateGameObjectLocationAndDirection(northernHarrier);
     	updateGameObjectLocationAndDirection(tree);
     	updateGameObjectLocationAndDirection(mouse);
     	updateGameObjectLocationAndDirection(bushQuestionBlock);
