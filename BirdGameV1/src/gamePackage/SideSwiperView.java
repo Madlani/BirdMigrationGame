@@ -153,13 +153,13 @@ public class SideSwiperView extends View {
 			finished = false;
 		}
 		
-		tick = (tick+1) % MAP_FRAME_COUNT;
+//		tick = (tick+1) % MAP_FRAME_COUNT;
 		foxTick = (foxTick+1) % FOX_FRAME_DELAY;
 		
 		
-		if (tick == 0) {
-			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
-		}
+//		if (tick == 0) {
+//			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+//		}
 		
 		if (foxTick == 0) {
 			picNumFox = (short) ((picNumFox + 1) % foxFrameCount);
@@ -173,8 +173,6 @@ public class SideSwiperView extends View {
 		} else {
 			this.currentBackground = Background.LAND;
 		}
-		
-		
 		
 		g.drawImage(cur, (imgVelX % (scaledImageWidth*3)), 0, null);
 
@@ -267,5 +265,9 @@ public class SideSwiperView extends View {
 
 	public void setHit(boolean isHit) {
 		this.isHit = isHit;
+	}
+	
+	public void setPicNumMap(int p) {
+		this.picNumMap = p;
 	}
 }

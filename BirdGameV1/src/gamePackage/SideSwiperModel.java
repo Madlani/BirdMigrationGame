@@ -11,6 +11,7 @@ import javax.swing.Timer;
 
 public class SideSwiperModel extends Model {
 	
+	
 	private int screenWidth = Model.scaledImageWidth;
 	private int screenHeight = Model.scaledImageHeight;
 	private int offset = 600;
@@ -45,14 +46,24 @@ public class SideSwiperModel extends Model {
 	protected GameObject thunderCloud;
 	protected GameObject fox;
 	
+	private int thirdOfTheScreenY = (screenHeight / 3) * 2;
+	
+	private boolean isOver = false;
+	private boolean isFirstFrame = true;
+	private final int MAP_FRAME_COUNT = 400;
+	private int tick = 0;
+	
+	private final int MIGRATION_MAP_SUBIMAGES = 9;
+	private int picNumMap = 0;
+	
 	public SideSwiperModel() {
 		super();
 		this.osprey = new Bird(BirdType.OSPREY, ObjectType.OSPREY);
-    	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT);
-    	this.fish = new GameObject(BirdType.OSPREY, screenWidth + fishStartX, ObjectType.FISH, FISHBOX_WIDTH, FISHBOX_HEIGHT);
-    	this.thunderCloud = new GameObject(BirdType.OSPREY, screenWidth + thunderCloudStartX, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT);
-    	this.cloudQuestionBlock = new GameObject(BirdType.OSPREY, screenWidth + questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT);
-    	this.fox = new GameObject(BirdType.OSPREY, screenWidth + foxStartX, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT);
+    	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT, (screenHeight / 3) * 2, 0);
+    	this.fish = new GameObject(BirdType.OSPREY, screenWidth + fishStartX, ObjectType.FISH, FISHBOX_WIDTH, FISHBOX_HEIGHT, screenHeight, (screenHeight / 3) * 2);
+    	this.thunderCloud = new GameObject(BirdType.OSPREY, screenWidth + thunderCloudStartX, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT, (screenHeight / 3) * 2, 0);
+    	this.cloudQuestionBlock = new GameObject(BirdType.OSPREY, screenWidth + questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT, (screenHeight / 3) * 2, 0);
+    	this.fox = new GameObject(BirdType.OSPREY, screenWidth + foxStartX, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT, screenHeight, (screenHeight / 3) * 2);
     	
     	this.osprey.setLocation(ospreyStartingX, ospreyStartingY);
     	
@@ -75,14 +86,17 @@ public class SideSwiperModel extends Model {
 	public void updateGameObjectLocationAndDirection(GameObject o) {
 		if(o.getX() <= -o.GameObjectBox.width) {
 			resetGameObjectLocation(o);
-		}
-		else {
+		} else {
 			o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
 		}
 	}
 	
 	
 	public boolean updateLocationAndDirectionForOsprey() {
+		tick = (tick+1) % MAP_FRAME_COUNT;
+		if (tick == 0) {
+			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+		}
 
 		switch (osprey.getFlyState()) {
 		case UP:
@@ -133,16 +147,27 @@ public class SideSwiperModel extends Model {
 	 * updateGameObjectLocationAndDirection() in this class.
 	 */
 	@Override
-		public void resetGameObjectLocation(GameObject o) {
-
-			int maxHeight = scaledImageHeight - o.GameObjectBox.height;
-			int minHeight = 0;
+	public void resetGameObjectLocation(GameObject o) {
+		int rand;
+		switch(o.getType()) {
+		case CLOUD_QUESTION_BOX:
+		case PLANE:
+		case THUNDER_CLOUD:
+			rand = (int)(Math.random() * (this.thirdOfTheScreenY - 80));
+			o.setLocation(scaledImageWidth + offset, rand);
+			break;
 			
-			int width = scaledImageWidth;
-			int rand = (int)(Math.random()*(maxHeight - minHeight + 1) + minHeight);
+		case FISH:
+		case FOX:
+			rand = (int)(Math.random() * ((this.screenHeight - 100) - this.thirdOfTheScreenY)) + this.thirdOfTheScreenY;
+			o.setLocation(scaledImageWidth + offset, rand);
+			break;		
 			
-			o.setLocation(width + offset, rand);
+		default:
+			break;
+		}
 	}
+	
 	public Bird getOsprey() {
 		return this.osprey;
 	}
@@ -153,6 +178,26 @@ public class SideSwiperModel extends Model {
 	
 	public GameObject getFish() {
 		return this.fish;
+	}
+	
+	public boolean getIsOver() {
+		return this.isOver;
+	}
+	
+	public void setIsOver(boolean b) {
+		this.isOver = b;
+	}
+	
+	public void setIsFirstFrame(boolean b) {
+		this.isFirstFrame = b;
+	}
+	
+	public boolean getIsFirstFrame() {
+		return this.isFirstFrame;
+	}
+	
+	public int getPicNumMap() {
+		return this.picNumMap;
 	}
 }
 

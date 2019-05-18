@@ -10,7 +10,24 @@ public class GameObject extends Point2D {
 	
 	private final int SPEED = 10;
 	
-	public GameObject(BirdType b, double startingCoord, ObjectType t, int imgWidth, int imgHeight){
+	public GameObject(BirdType b, double startingCoord, ObjectType t, int imgWidth, int imgHeight, int upperRange, int minRange){
+		this.type = t;
+		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), imgWidth, imgHeight);
+		
+		if (b == BirdType.OSPREY) {
+			this.xPosition = startingCoord;
+			int randY = (int)(Math.random() * (upperRange - minRange) + 1) + minRange;
+			
+			this.yPosition = randY;
+		} else {
+			this.yPosition = startingCoord;
+			int randX = (int)(Math.random() * (upperRange - minRange + 1)) + minRange;
+			
+			this.xPosition = randX;
+		}
+	}
+	
+	public GameObject(BirdType b, double startingCoord, ObjectType t, int imgWidth, int imgHeight) {
 		this.type = t;
 		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), imgWidth, imgHeight);
 		
@@ -31,10 +48,6 @@ public class GameObject extends Point2D {
 			
 			this.xPosition = randX;
 		}
-		
-		
-		
-		
 	}
 	
 	/**

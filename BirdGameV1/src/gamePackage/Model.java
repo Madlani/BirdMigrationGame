@@ -26,9 +26,6 @@ public abstract class Model extends Point2D {
 	private boolean healthChangable = false;
 	private boolean pauseGameFlag = false;
 	private boolean isHit = false;
-
-	
-	
 	
 	public void updateGameObjectLocationAndDirection(GameObject o) {
 		

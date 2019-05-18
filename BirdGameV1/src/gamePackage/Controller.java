@@ -188,6 +188,11 @@ public class Controller {
 	}
 	
 	public void updateSideSwiperModel() {
+		System.out.println(sideSwiperModel.getPicNumMap() % 9);
+		if (sideSwiperModel.getPicNumMap() > 1)
+			sideSwiperModel.setIsFirstFrame(false);
+		
+		sideSwipeView.setPicNumMap(sideSwiperModel.getPicNumMap());
 		ssvPaused = sideSwiperModel.updateLocationAndDirectionForOsprey();
 		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjectsForOsprey();
 		
@@ -198,7 +203,23 @@ public class Controller {
 			for (int i = 1; i < list2.size(); i++) {
 				sideSwiperModel.resetGameObjectLocation(list2.get(i));
 			}
+			
 			gameOver();
+		}
+		
+		if (!sideSwiperModel.getIsFirstFrame() && sideSwiperModel.getPicNumMap() % 9 == 0) {
+			this.state = GameState.WHACKAMOLE;
+			this.cardLayout.show(this.masterPanel, "whackAMole");
+			whackModel.randomizeSequence();
+			whackView.updateSequence(whackModel.getSequence());
+			whackView.setIsWackView(true);
+			whackView.initTimers();
+			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
+			for (int i = 1; i < list2.size(); i++) {
+				sideSwiperModel.resetGameObjectLocation(list2.get(i));
+			}
+			sideSwiperModel.setIsFirstFrame(true);
+			
 		}
 		
 		if(sideSwiperModel.getIsHit() == true) {
