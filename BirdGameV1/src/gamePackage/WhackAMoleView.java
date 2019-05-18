@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 public class WhackAMoleView extends View {	
 	//constants
 	private final int EXPECTED_PATTERN_SIZE = 4;
+
 	private final int ARROW_IMAGES_WIDTH = 300;
 	private final int ARROW_IMAGES_HEIGHT = 300;
 	private final int STICK_IMAGE_WIDTH = 393;
@@ -68,7 +69,7 @@ public class WhackAMoleView extends View {
 		
 	}
 	
-	private int[] sequence;
+	private ArrayList<Integer> sequence;
 
 	/**
 	 * initTimers()
@@ -158,7 +159,7 @@ public class WhackAMoleView extends View {
 //		}
 		
 	
-		int randomNum = sequence[this.index];
+		int randomNum = sequence.get(this.index);
 		
 //		whackModel.gamePattern.add(randomNum);
 //		System.out.println(whackModel.gamePattern);
@@ -337,7 +338,7 @@ public class WhackAMoleView extends View {
 		this.keyState = i;
 	}
 	
-	public void updateSequence(int[] s) {
+	public void updateSequence(ArrayList<Integer> s) {
 		this.sequence = s;
 	}
 	
@@ -350,6 +351,9 @@ public class WhackAMoleView extends View {
 		this.normalTimer.stop();
 	}
 	
+	public int getEXPECTED_PATTERN_SIZE() {
+		return EXPECTED_PATTERN_SIZE;
+	}
 
 }
 

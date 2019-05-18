@@ -12,32 +12,32 @@ import javax.swing.Timer;
 public class SideSwiperModel extends Model {
 	
 	
-	protected int screenWidth = Model.scaledImageWidth;
-	protected int screenHeight = Model.scaledImageHeight;
-	protected int offset = 600;
+	private int screenWidth = Model.scaledImageWidth;
+	private int screenHeight = Model.scaledImageHeight;
+	private int offset = 600;
 	
-	protected final int airplaneStartX = 200;
-	protected final int thunderCloudStartX = 450;
-	protected final int questionBlockStartX = 700;
-	protected final int fishStartX = 700;
-	protected final int foxStartX = 750;
+	private final int airplaneStartX = 200;
+	private final int thunderCloudStartX = 450;
+	private final int questionBlockStartX = 700;
+	private final int fishStartX = 700;
+	private final int foxStartX = 750;
 	
-	protected final int PLANEBOX_WIDTH = 150;
-	protected final int PLANEBOX_HEIGHT = 150;
-	protected final int FISHBOX_WIDTH = 100;
-	protected final int FISHBOX_HEIGHT = 65;
-	protected final int THUNDERCLOUD_WIDTH = 150;
-	protected final int THUNDERCLOUD_HEIGHT = 150;
-	protected final int QUESTIONCLOUD_WIDTH = 225;
-	protected final int QUESTIONCLOUD_HEIGHT = 150;
-	protected final int FOX_WIDTH = 150;
-	protected final int FOX_HEIGHT = 75;
+	private final int PLANEBOX_WIDTH = 150;
+	private final int PLANEBOX_HEIGHT = 150;
+	private final int FISHBOX_WIDTH = 100;
+	private final int FISHBOX_HEIGHT = 65;
+	private final int THUNDERCLOUD_WIDTH = 150;
+	private final int THUNDERCLOUD_HEIGHT = 150;
+	private final int QUESTIONCLOUD_WIDTH = 225;
+	private final int QUESTIONCLOUD_HEIGHT = 150;
+	private final int FOX_WIDTH = 150;
+	private final int FOX_HEIGHT = 75;
 	
-	protected final int OSPREY_WIDTH = 150;
-	protected final int OSPREY_HEIGHT = 150;
+	private final int OSPREY_WIDTH = 150;
+	private final int OSPREY_HEIGHT = 150;
 	
-	protected double ospreyStartingX = screenWidth/3;
-	protected double ospreyStartingY = screenHeight - 200;
+	private double ospreyStartingX = screenWidth/3;
+	private double ospreyStartingY = screenHeight - 200;
 	
 	protected Bird osprey;
 	protected GameObject airplane;
@@ -46,15 +46,15 @@ public class SideSwiperModel extends Model {
 	protected GameObject thunderCloud;
 	protected GameObject fox;
 	
-	protected int thirdOfTheScreenY = (screenHeight / 3) * 2;
+	private int thirdOfTheScreenY = (screenHeight / 3) * 2;
 	
-	protected boolean isOver = false;
-	protected boolean isFirstFrame = true;
-	protected final int MAP_FRAME_COUNT = 400;
-	protected int tick = 0;
+	private boolean isOver = false;
+	private boolean isFirstFrame = true;
+	private final int MAP_FRAME_COUNT = 400;
+	private int tick = 0;
 	
-	protected final int MIGRATION_MAP_SUBIMAGES = 9;
-	protected int picNumMap = 0;
+	private final int MIGRATION_MAP_SUBIMAGES = 9;
+	private int picNumMap = 0;
 	
 	public SideSwiperModel() {
 		super();

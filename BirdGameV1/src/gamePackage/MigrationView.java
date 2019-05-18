@@ -1,6 +1,7 @@
 package gamePackage;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class MigrationView extends View {
 	
 	private Image backgroundImage;
 	
-	private BufferedImage treeImg, mouseImg, bushQuestionBlockImg, healthImg, healthIcon;
+	private BufferedImage northernHarrierImg, treeImg, mouseImg, bushQuestionBlockImg, owlImg, healthImg, healthIcon;
 	private BufferedImage[] miniMap;
 	private BufferedImage[] bird_imagesBufferedImage;
 	private BufferedImage[] owlBufferedImageFrames;
@@ -34,7 +35,7 @@ public class MigrationView extends View {
 	private double birdX, birdY, treeX, treeY, mouseX, mouseY, bushQuestionBlockX, bushQuestionBlockY, owlX, owlY;
 	
 	private String birdImagePath = "src/images/northernHarrierFrames.png";
-	private String owlImagePath = "src/images/owlFrontFrames.png";
+	private String owlImagePath = "src/images/owlImg.png";
 	
 	private Bird bird;
 	private GameObject tree;
@@ -42,22 +43,21 @@ public class MigrationView extends View {
 	private GameObject bushQuestionBlock;
 	private GameObject owl;
 	
-	private final int OWL_IMG_DELAY = 10;
-	private final int OWL_IMG_WIDTH = 80;
-	private final int OWL_IMG_HEIGHT = 82;
-	private final int OWL_FRAME_COUNT = 8;
-	
+	private final int OWL_IMG_DELAY = 30;
+	private final int OWL_IMG_WIDTH = 100;
+	private final int OWL_IMG_HEIGHT = 80;
 	private final int BIRD_IMG_DELAY = 50;
 	private final int BIRD_IMG_WIDTH = 220;
 	private final int BIRD_IMG_HEIGHT = 140;
-
+	private final int FISH_IMG_WIDTH = 100;
+	private final int FISH_IMG_HEIGHT = 65;
+	private final int NUMBER_FISH_FRAMES = 4;
 	private final int TOP_LEFT_IMG_Y = 0;
 	private final int MINIMAP_SUBIMAGES = 13;
-	
+	private final int OWL_FRAME_COUNT = 3;
 	private final int MAP_X = 0;
 	private final int MAP_Y = 0;
 	private final int MAP_FRAME_COUNT = 30;
-	
 	private final int HEALTH_BIRD_OFFSET = 30;
 	private final int HEALTH_IMG_X = scaledImageWidth - 350;
 	private final int HEALTH_ICON_X = scaledImageWidth - 300;
@@ -78,6 +78,7 @@ public class MigrationView extends View {
 		treeImg = super.createImage("src/images/treeImg.png");
 		mouseImg = super.createImage("src/images/mouse.png");
 		bushQuestionBlockImg = super.createImage("src/images/bushQuestionBlock.png");
+		owlImg = super.createImage("src/images/owlImg.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
 		
@@ -152,7 +153,7 @@ public class MigrationView extends View {
 
 		g.drawImage(healthImg, HEALTH_IMG_X, HEALTH_IMG_Y, null);
 		
-		//g.drawImage(owlImg, (int)owlX, (int)owlY, null);
+		g.drawImage(owlImg, (int)owlX, (int)owlY, null);
 		
 
 //		-----------------------------------------------------------------------------------------------------------------------------
@@ -169,15 +170,12 @@ public class MigrationView extends View {
 		tick = (tick + 1) % MAP_FRAME_COUNT;
 		birdTick = (birdTick + 1) % BIRD_IMG_DELAY;
 		owlTick = (owlTick + 1) % OWL_IMG_DELAY;
-		
 		if (tick == 0) {
 			picNumMap = (picNumMap + 1) % MINIMAP_SUBIMAGES;
 		}
-		
 		if (birdTick == 0) {
 			picNumBird = (picNumBird + 1) % birdFrameCount;
 		}
-		
 		if (owlTick == 0) {
 			picNumOwl = (picNumOwl + 1) % OWL_FRAME_COUNT;
 		}

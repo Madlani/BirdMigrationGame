@@ -3,20 +3,15 @@ package gamePackage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class WhackAMoleModel extends Model {
 	private int resourceCount;
 	private String patternOne;
-	
-	ArrayList<Integer> gamePattern = new ArrayList<Integer>();
-	int gamePatternSize = gamePattern.size();
 
-	private boolean isPlaying = true;
-	private boolean isWinning = false;
 	
 	private int keyState = 0;
-	private int[] sequence = {1,2,3,4};
-
+	private ArrayList<Integer> sequence = new ArrayList<Integer>();
 	
 	
 
@@ -24,6 +19,11 @@ public class WhackAMoleModel extends Model {
 		super();
 		//this.randomizeGamePattern(4);
 		//this.win();
+		
+		sequence.add(1);
+		sequence.add(2);
+		sequence.add (3);
+		sequence.add(4);
 		randomizeSequence();
 		
 	}
@@ -46,13 +46,6 @@ public class WhackAMoleModel extends Model {
 		this.resourceCount = resourceCount;
 	}
 	
-	public ArrayList<Integer> getGamePattern() {
-		return gamePattern;
-	}
-
-	public void setGamePattern(ArrayList<Integer> gamePattern) {
-		this.gamePattern = gamePattern;
-	}
 	
 	public void setKeyState(int k) {
 		this.keyState = k;
@@ -63,10 +56,16 @@ public class WhackAMoleModel extends Model {
 	}
 	
 	public void randomizeSequence() {
-		Collections.shuffle(Arrays.asList(sequence));
+		Collections.shuffle(sequence);
+		
+		Iterator i = sequence.iterator();
+		while (i.hasNext()) {
+			System.out.print("Game Sequence: ");
+			System.out.println(i.next());
+		}
 	}
 	
-	public int[] getSequence() {
+	public ArrayList<Integer> getSequence() {
 		return this.sequence;
 	}
 	

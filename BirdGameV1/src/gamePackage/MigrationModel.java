@@ -21,8 +21,8 @@ public class MigrationModel extends Model {
 	private final int TREE_HEIGHT = 274;
 	private final int BUSH_QUESTION_WIDTH = 150;
 	private final int BUSH_QUESTION_HEIGHT = 85;
-	private final int OWL_WIDTH = 80;
-	private final int OWL_HEIGHT = 82;
+	private final int OWL_WIDTH = 81;
+	private final int OWL_HEIGHT = 47;
 	private final int NORTHERNHARRIER_WIDTH = 220;
 	
 	private final int MAP_X = 4;

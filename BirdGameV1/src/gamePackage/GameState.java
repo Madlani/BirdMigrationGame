@@ -3,7 +3,6 @@ package gamePackage;
 public enum GameState {
 	
 	START("start"),
-	SIDESWIPERTUTORIAL("sideswiperTutorial"),
 	SIDESWIPER("sideswiper"),
 	MIGRATION("migration"),
 	WHACKAMOLE("whackamole"),

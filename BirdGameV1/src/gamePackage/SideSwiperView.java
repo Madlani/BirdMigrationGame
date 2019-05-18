@@ -3,73 +3,79 @@ package gamePackage;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class SideSwiperView extends View {
 	
-	protected Image g1;
+	private Image g1;
 	BufferedImage[] migrationMap;
 	
 	private boolean isHit = false;
 
 	public int imgVelX = 0;
-	protected int scaledImageWidth = Model.scaledImageWidth;
-	protected int scaledImageHeight = Model.scaledImageHeight;
+	private int scaledImageWidth = Model.scaledImageWidth;
+	private int scaledImageHeight = Model.scaledImageHeight;
 	
-	protected BufferedImage airplaneImg;
-	protected BufferedImage healthImg;
-	protected BufferedImage healthIcon;
-	protected BufferedImage cloudQuestionBox;
-	protected BufferedImage thunderCloud;
-	protected BufferedImage caution;
+	private BufferedImage airplaneImg;
+	private BufferedImage healthImg;
+	private BufferedImage healthIcon;
+	private BufferedImage cloudQuestionBox;
+	private BufferedImage thunderCloud;
+	private BufferedImage caution;
 			
 	double foxX, foxY, birdX, birdY, planeX, planeY, cloudQuestionX, cloudQuestionY, fishX, fishY, thunderCloudX, thunderCloudY;
 	
-	protected int imgWidth = 150;
-	protected String birdImagePath = "src/images/osprey_frames.png";
-	protected int birdFrameCount = 22;
-	protected int foxFrameCount = 7;
-	protected BufferedImage[] bird_imagesBufferedImage;
-	protected BufferedImage[] fishFrames;
-	protected BufferedImage[] foxFrames;
-	protected int picNum = 0;
-	protected short picNumFish = 0;
-	protected short picNumFox = 0;
-	protected int picNumMap = 0;
-	protected int foxTick = 0;
-	protected int healthCount;
+	private int imgWidth = 150;
+	private String birdImagePath = "src/images/osprey_frames.png";
+	private int birdFrameCount = 22;
+	private int foxFrameCount = 7;
+	private BufferedImage[] bird_imagesBufferedImage;
+	private BufferedImage[] fishFrames;
+	private BufferedImage[] foxFrames;
+	private int picNum = 0;
+	private short picNumFish = 0;
+	private short picNumFox = 0;
+	private int picNumMap = 0;
+	private int tick = 0;
+	private int foxTick = 0;
+	private int healthCount;
+	private Background currentBackground = Background.LAND;
 	
-	protected Bird bird;
-	protected GameObject plane;
-	protected GameObject thunderCloudObj;
-	protected GameObject cloudQuestionBoxObj;
-	protected GameObject fish;
-	protected GameObject fox;
+	private Bird bird;
+	private GameObject plane;
+	private GameObject thunderCloudObj;
+	private GameObject cloudQuestionBoxObj;
+	private GameObject fish;
+	private GameObject fox;
 	
-	protected final int MIGRATION_MAP_SUBIMAGES = 9;
-	protected final int BIRD_IMG_SIZE = 150;
-	protected final int FISH_IMG_WIDTH = 100;
-	protected final int FISH_IMG_HEIGHT = 65;
-	protected final int FOX_IMG_WIDTH = 300;
-	protected final int FOX_IMG_HEIGHT = 150;
-	protected final int FOX_FRAME_DELAY = 5;
-	protected final int NUMBER_FISH_FRAMES = 4;
-	protected final int MAP_FRAME_COUNT = 400;
-	protected final int HEALTH_BIRD_OFFSET = 30;
-	protected final int HEALTH_IMG_X = scaledImageWidth/2 - 50;
-	protected final int HEALTH_ICON_X = scaledImageWidth/2;
-	protected final int HEALTH_IMG_Y = 20;
-	protected final int MAP_X = 0;
-	protected final int MAP_Y = 0;
-	protected boolean finished = false;
+	private final int MIGRATION_MAP_SUBIMAGES = 9;
+	private final int BIRD_IMG_SIZE = 150;
+	private final int FISH_IMG_WIDTH = 100;
+	private final int FISH_IMG_HEIGHT = 65;
+	private final int FOX_IMG_WIDTH = 300;
+	private final int FOX_IMG_HEIGHT = 150;
+	private final int FOX_FRAME_DELAY = 5;
+	private final int NUMBER_FISH_FRAMES = 4;
+	private final int MAP_FRAME_COUNT = 400;
+	private final int HEALTH_BIRD_OFFSET = 30;
+	private final int HEALTH_IMG_X = scaledImageWidth/2 - 50;
+	private final int HEALTH_ICON_X = scaledImageWidth/2;
+	private final int HEALTH_IMG_Y = 20;
+	private final int MAP_X = 0;
+	private final int MAP_Y = 0;
+	private boolean finished = false;
 	
 	
-	protected Image cur;
-	protected Image next;
+	private Image cur;
+	private Image next;
 
 	public SideSwiperView() {
 		super();
@@ -160,13 +166,13 @@ public class SideSwiperView extends View {
 		}
 		
 		
-//		if (picNumMap == 5) {
-//			this.currentBackground = Background.BEACH;
-//		} else if (picNumMap > 5) {
-//			this.currentBackground = Background.OCEAN;
-//		} else {
-//			this.currentBackground = Background.LAND;
-//		}
+		if (picNumMap == 5) {
+			this.currentBackground = Background.BEACH;
+		} else if (picNumMap > 5) {
+			this.currentBackground = Background.OCEAN;
+		} else {
+			this.currentBackground = Background.LAND;
+		}
 		
 		g.drawImage(cur, (imgVelX % (scaledImageWidth*3)), 0, null);
 
