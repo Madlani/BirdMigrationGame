@@ -27,7 +27,7 @@ public class MigrationView extends View {
 	private BufferedImage northernHarrierImg, treeImg, mouseImg, bushQuestionBlockImg, owlImg, healthImg, healthIcon;
 	private BufferedImage[] miniMap;
 	private BufferedImage[] bird_imagesBufferedImage;
-	//private BufferedImage[] fishFrames;
+
 			
 	private double birdX, birdY, treeX, treeY, mouseX, mouseY, bushQuestionBlockX, bushQuestionBlockY, owlX, owlY;
 	
@@ -36,7 +36,7 @@ public class MigrationView extends View {
 	private Bird bird;
 	private GameObject tree;
 	private GameObject mouse;
-	private GameObject blockQuestionBlock;
+	private GameObject bushQuestionBlock;
 	private GameObject owl;
 	
 	private final int BIRD_IMG_DELAY = 50;
@@ -67,7 +67,6 @@ public class MigrationView extends View {
 	private void loadImage() {
 		ImageIcon grass_1 = new ImageIcon("src/images/grassyField.png");
 		
-		northernHarrierImg = super.createImage("src/images/northernHarrierFrames.png");
 		treeImg = super.createImage("src/images/treeImg.png");
 		mouseImg = super.createImage("src/images/mouse.png");
 		bushQuestionBlockImg = super.createImage("src/images/bushQuestionBlock.png");
@@ -80,14 +79,11 @@ public class MigrationView extends View {
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
-		birdFrames = new BufferedImage[NUMBER_FISH_FRAMES];
 		
-//		for (int i = 0; i < birdFrameCount; i++) {
-//			bird_imagesBufferedImage[i] = birdFrames.getSubimage(BIRD_IMG_SIZE * i, TOP_LEFT_IMG_Y, BIRD_IMG_SIZE, BIRD_IMG_SIZE);
-//		}
-		for (int i = 0; i < NUMBER_FISH_FRAMES; i++)
-			fishFrames[i] = fishAnimation.getSubimage(FISH_IMG_WIDTH * i, TOP_LEFT_IMG_Y, FISH_IMG_WIDTH, FISH_IMG_HEIGHT);
-		
+		for (int i = 0; i < birdFrameCount; i++) {
+			bird_imagesBufferedImage[i] = birdFrames.getSubimage(BIRD_IMG_WIDTH * i, TOP_LEFT_IMG_Y, BIRD_IMG_WIDTH, BIRD_IMG_HEIGHT);
+		}
+	
 		this.miniMap = new BufferedImage[MINIMAP_SUBIMAGES];
 		this.miniMap[0] = super.createImage("src/images/delawareMiniMap1.png");
 		this.miniMap[1] = super.createImage("src/images/delawareMiniMap2.png");
@@ -136,8 +132,8 @@ public class MigrationView extends View {
 		
 		g.drawImage(bird_imagesBufferedImage[picNumBird], (int)birdX, (int)birdY, null);
 		
-		g.drawImage(this.thunderCloud, (int)thunderCloudX, (int)thunderCloudY, null);
-		g.drawImage(this.cloudQuestionBox, (int)cloudQuestionX, (int)cloudQuestionY, null);
+		g.drawImage(treeImg, (int)treeX, (int)treeY, null);
+		g.drawImage(bushQuestionBlockImg, (int)bushQuestionBlockX, (int)bushQuestionBlockY, null);
 		
 		g.drawImage(mouseImg, (int)mouseX, (int)mouseY, null);
 
@@ -181,19 +177,18 @@ public class MigrationView extends View {
 		
 		this.bird = (Bird) list.get(0);
 		this.tree = list.get(1);
-		this.cloudQuestionBoxObj = list.get(2);
-		this.mouse = list.get(3);
-		this.bushQuestionBlock = list.get(4);
-		this.owl = list.get(5);
+		this.mouse = list.get(2);
+		this.bushQuestionBlock = list.get(3);
+		this.owl = list.get(4);
 		
 		this.birdX = bird.getX();
 		this.birdY = bird.getY();
 		
-		this.cloudQuestionX = cloudQuestionBoxObj.getX();
-		this.cloudQuestionY = cloudQuestionBoxObj.getY();
+		this.bushQuestionBlockX = bushQuestionBlock.getX();
+		this.bushQuestionBlockY = bushQuestionBlock.getY();
 		
-		this.thunderCloudX = thunderCloudObj.getX();
-		this.thunderCloudY = thunderCloudObj.getY();
+		this.owlX = owl.getX();
+		this.owlY = owl.getY();
 		
 		this.mouseX = mouse.getX();
 		this.mouseY = mouse.getY();
