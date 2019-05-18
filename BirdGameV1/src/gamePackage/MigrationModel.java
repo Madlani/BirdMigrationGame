@@ -76,11 +76,13 @@ public class MigrationModel extends Model {
 		case RIGHT:
 			if (this.northernHarrier.getX() < screenWidth - NORTHERNHARRIER_WIDTH) {
 				this.northernHarrier.moveRight();
+				System.out.println("Migration Model - moving right");
 			}
 			break;
 		case LEFT:
 			if (this.northernHarrier.getX() > screenWidth / MAP_X) {
 				this.northernHarrier.moveLeft();
+				System.out.println("Migration Model - moving left");
 			}
 			break;
 		default:
@@ -88,8 +90,8 @@ public class MigrationModel extends Model {
 		}
 		
 		this.northernHarrier.setLocation(this.northernHarrier.getX(), this.northernHarrier.getY());
-		this.northernHarrier.GameObjectBox.setLocation((int)this.northernHarrier.getX(), (int)this.northernHarrier.getY());
-		System.out.println("bird in model: " + this.northernHarrier.getX() + ", " + this.northernHarrier.getY());
+		this.northernHarrier.birdBox.setLocation((int)this.northernHarrier.getX(), (int)this.northernHarrier.getY());
+		System.out.println("bird in migration model: " + this.northernHarrier.getX() + ", " + this.northernHarrier.getY());
 		
 		this.tree.setLocation(this.tree.getX(), this.tree.getY());
 		this.tree.GameObjectBox.setLocation((int)this.tree.getX(), (int)this.tree.getY());

@@ -11,26 +11,28 @@ public class GameObject extends Point2D {
 	private final int SPEED = 10;
 	
 	public GameObject(BirdType b, double startingCoord, ObjectType t, int imgWidth, int imgHeight){
+		this.type = t;
+		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), imgWidth, imgHeight);
+		
 		if (b == BirdType.OSPREY) {
 			this.xPosition = startingCoord;
 			
-//			int maxWidth = (int)(Model.scaledImageWidth + this.GameObjectBox.width);
-//			int minWidth = 0;
-//			int randY = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
+			int maxWidth = (int)(Model.scaledImageWidth + this.GameObjectBox.width);
+			int minWidth = 0;
+			int randY = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
 			
-			this.yPosition = 200;
+			this.yPosition = randY;
 		} else {
 			this.yPosition = startingCoord;
 			
-//			int maxHeight = 0 - this.GameObjectBox.height;
-//			int minHeight = Model.scaledImageHeight;
-//			int randX = (int)(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+			int maxHeight = 0 - this.GameObjectBox.height;
+			int minHeight = Model.scaledImageHeight;
+			int randX = (int)(Math.random() * (maxHeight - minHeight + 1) + minHeight);
 			
-			this.xPosition = 500;
+			this.xPosition = randX;
 		}
 		
-		this.type = t;
-		this.GameObjectBox = new HitBox((int)this.getX(), (int)this.getY(), imgWidth, imgHeight);
+		
 		
 		
 	}
