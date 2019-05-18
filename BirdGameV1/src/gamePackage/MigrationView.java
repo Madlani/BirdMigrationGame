@@ -24,7 +24,7 @@ public class MigrationView extends View {
 	
 	private Image backgroundImage;
 	
-	private BufferedImage northernHarrierImg, treeImg, mouseImg, bushQuestionBlockImg, owlImg;
+	private BufferedImage northernHarrierImg, treeImg, mouseImg, bushQuestionBlockImg, owlImg, healthImg, healthIcon;
 	private BufferedImage[] miniMap;
 	private BufferedImage[] bird_imagesBufferedImage;
 	//private BufferedImage[] fishFrames;
@@ -68,18 +68,19 @@ public class MigrationView extends View {
 		ImageIcon grass_1 = new ImageIcon("src/images/grassyField.png");
 		
 		northernHarrierImg = super.createImage("src/images/northernHarrierFrames.png");
+		treeImg = super.createImage("src/images/treeImg.png");
 		mouseImg = super.createImage("src/images/mouse.png");
+		bushQuestionBlockImg = super.createImage("src/images/bushQuestionBlock.png");
+		owlImg = super.createImage("src/images/owlImg.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
-		cloudQuestionBox = super.createImage("src/images/cloudQuestionMark.png");
-		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		
 		backgroundImage = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
-		fishFrames = new BufferedImage[NUMBER_FISH_FRAMES];
+		birdFrames = new BufferedImage[NUMBER_FISH_FRAMES];
 		
 //		for (int i = 0; i < birdFrameCount; i++) {
 //			bird_imagesBufferedImage[i] = birdFrames.getSubimage(BIRD_IMG_SIZE * i, TOP_LEFT_IMG_Y, BIRD_IMG_SIZE, BIRD_IMG_SIZE);
