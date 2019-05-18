@@ -12,7 +12,7 @@ public class SideSwiperTutorialView extends SideSwiperView {
 
 	public SideSwiperTutorialView() {
 		super();
-		this.loadImage();
+		//this.loadImage();
 	}
 	
 	private void loadImage() {
@@ -37,7 +37,6 @@ public class SideSwiperTutorialView extends SideSwiperView {
 		caution = super.createImage("src/images/caution.png");
 
 		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*4, scaledImageHeight, Image.SCALE_DEFAULT*4);		
-		cur = g1;
 	
 
 		BufferedImage birdFrames = super.createImage(birdImagePath);
@@ -61,7 +60,7 @@ public class SideSwiperTutorialView extends SideSwiperView {
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		g = (Graphics2D) g.create();
+		//g = (Graphics2D) g.create();
 		
 		
 		picNumFish = (short) ((picNumFish + 1) % NUMBER_FISH_FRAMES);
@@ -84,7 +83,7 @@ public class SideSwiperTutorialView extends SideSwiperView {
 		}
 		
 		
-		g.drawImage(cur, (imgVelX % (scaledImageWidth*3)), 0, null);
+		g.drawImage(g1, (imgVelX % (scaledImageWidth*3)), 0, null);
 
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		System.out.println("birdX and birdY: " + birdX + ", " + birdY);
