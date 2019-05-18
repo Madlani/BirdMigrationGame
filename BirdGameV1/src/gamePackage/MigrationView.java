@@ -85,7 +85,6 @@ public class MigrationView extends View {
 		backgroundImage = grass_1.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
-		BufferedImage fishAnimation = super.createImage("src/images/fishFrames.png");
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		owlBufferedImageFrames = new BufferedImage[OWL_FRAME_COUNT];
 		BufferedImage owlFrames = super.createImage(owlImagePath);
@@ -108,7 +107,6 @@ public class MigrationView extends View {
 		this.miniMap[10] = super.createImage("src/images/delawareMiniMap12.png");
 		this.miniMap[11] = super.createImage("src/images/delawareMiniMap13.png");
 		this.miniMap[12] = super.createImage("src/images/delawareMiniMap6.png");
-
 			
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		
