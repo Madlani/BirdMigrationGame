@@ -24,8 +24,8 @@ public class Bird extends GameObject {
 	
 	protected HitBox birdBox;
 	
-	public Bird() {
-		super(0, ObjectType.BIRD, Bird.BIRD_IMG_WIDTH, Bird.BIRD_IMG_HEIGHT);
+	public Bird(BirdType birdType, ObjectType objectType) {
+		super(birdType, 0.0, objectType, Bird.BIRD_IMG_WIDTH, Bird.BIRD_IMG_HEIGHT);
 		this.birdBox = new HitBox((int)this.xPosition,(int) this.yPosition, BIRD_BOX_SIZE, BIRD_BOX_SIZE);
 	}
 	

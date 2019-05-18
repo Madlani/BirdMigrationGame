@@ -160,7 +160,7 @@ public class Controller {
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
 			this.birdType = BirdType.NORTHERNHARRIER;
-			migrationModel.getOsprey().setBirdBox((int)migrationModel.getOsprey().getX(), (int)migrationModel.getOsprey().getY(), 220, 140);
+			migrationModel.getNorthernHarrier().setBirdBox((int)migrationModel.getNorthernHarrier().getX(), (int)migrationModel.getNorthernHarrier().getY(), 220, 140);
 			
 		}, false);
 		
@@ -188,8 +188,8 @@ public class Controller {
 	}
 	
 	public void updateSideSwiperModel() {
-		ssvPaused = sideSwiperModel.updateLocationAndDirection();
-		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjects();
+		ssvPaused = sideSwiperModel.updateLocationAndDirectionForOsprey();
+		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjectsForOsprey();
 		
 		if (sideSwiperModel.getOsprey().getHealthCount() <= 0) {
 			sideSwiperGameOver = true;
@@ -210,13 +210,13 @@ public class Controller {
 	}
 	
 	public void updateMigrationModel() {
-		mmvPaused = migrationModel.updateLocationAndDirection();
-		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjects();
+		mmvPaused = migrationModel.updateLocationAndDirectionForNorthernHarrier();
+		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjectsForNorthernHarrier();
 		
-		if (migrationModel.getOsprey().getHealthCount() <= 0) {
+		if (migrationModel.getNorthernHarrier().getHealthCount() <= 0) {
 			migrationGameOver = true;
 			this.state = GameState.END;
-			migrationModel.getOsprey().setFlyState(FlyState.STILL);
+			migrationModel.getNorthernHarrier().setFlyState(FlyState.STILL);
 			for (int i = 1; i < list3.size(); i++) {
 				migrationModel.resetGameObjectLocation(list3.get(i));
 			}
@@ -232,7 +232,7 @@ public class Controller {
 			sideSwiperGameOver = false;
 		}
 		if (migrationGameOver) {
-			migrationModel.getOsprey().setHealthCount(3);
+			migrationModel.getNorthernHarrier().setHealthCount(3);
 			this.cardLayout.show(this.masterPanel, "end");
 			migrationGameOver = false;
 		}
@@ -368,21 +368,21 @@ public class Controller {
 	public void setBindingsToMigration() {
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			System.out.println("right pressed");
-			migrationModel.getOsprey().setFlyState(FlyState.RIGHT);
+			migrationModel.getNorthernHarrier().setFlyState(FlyState.RIGHT);
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
 			System.out.println("right released");
-			migrationModel.getOsprey().setFlyState(FlyState.STILL);
+			migrationModel.getNorthernHarrier().setFlyState(FlyState.STILL);
 		}, true);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_LEFT, "go left", (evt) -> {
-			migrationModel.getOsprey().setFlyState(FlyState.LEFT);
+			migrationModel.getNorthernHarrier().setFlyState(FlyState.LEFT);
 			
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_LEFT, "go left release", (evt) -> {
-			migrationModel.getOsprey().setFlyState(FlyState.STILL);
+			migrationModel.getNorthernHarrier().setFlyState(FlyState.STILL);
 			
 		}, true);
 	}
