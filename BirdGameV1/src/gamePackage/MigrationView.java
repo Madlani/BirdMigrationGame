@@ -24,20 +24,20 @@ public class MigrationView extends View {
 	
 	private Image backgroundImage;
 	
-	private BufferedImage mouseImg, cloudQuestionBox, thunderCloud, healthImg, healthIcon;
+	private BufferedImage northernHarrierImg, treeImg, mouseImg, bushQuestionBlockImg, owlImg;
 	private BufferedImage[] miniMap;
 	private BufferedImage[] bird_imagesBufferedImage;
-	private BufferedImage[] fishFrames;
+	//private BufferedImage[] fishFrames;
 			
-	private double birdX, birdY, cloudQuestionX, cloudQuestionY, mouseX, mouseY, thunderCloudX, thunderCloudY;
+	private double birdX, birdY, treeX, treeY, mouseX, mouseY, bushQuestionBlockX, bushQuestionBlockY, owlX, owlY;
 	
 	private String birdImagePath = "src/images/northernHarrierFrames.png";
 	
 	private Bird bird;
-	private GameObject plane;
-	private GameObject thunderCloudObj;
-	private GameObject cloudQuestionBoxObj;
+	private GameObject tree;
 	private GameObject mouse;
+	private GameObject blockQuestionBlock;
+	private GameObject owl;
 	
 	private final int BIRD_IMG_DELAY = 50;
 	private final int BIRD_IMG_WIDTH = 220;
@@ -67,6 +67,7 @@ public class MigrationView extends View {
 	private void loadImage() {
 		ImageIcon grass_1 = new ImageIcon("src/images/grassyField.png");
 		
+		northernHarrierImg = super.createImage("src/images/northernHarrierFrames.png");
 		mouseImg = super.createImage("src/images/mouse.png");
 		healthImg = super.createImage("src/images/health.png");
 		healthIcon = super.createImage("src/images/birdHealth.png");
@@ -145,10 +146,10 @@ public class MigrationView extends View {
 //		-----------------------------------------------------------------------------------------------------------------------------
 //		SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
 //		g.drawImage(backgroundImage, 0, 0, null);
-		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
-		g.drawRect((int)this.mouse.GameObjectBox.getX(), (int)this.mouse.GameObjectBox.getY(), (int)this.mouse.GameObjectBox.getWidth(), (int)this.mouse.GameObjectBox.getHeight());
-		g.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
-		g.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
+//		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
+//		g.drawRect((int)this.mouse.GameObjectBox.getX(), (int)this.mouse.GameObjectBox.getY(), (int)this.mouse.GameObjectBox.getWidth(), (int)this.mouse.GameObjectBox.getHeight());
+//		g.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
+//		g.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
 //		g.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
 //		-----------------------------------------------------------------------------------------------------------------------------
 		
@@ -178,9 +179,11 @@ public class MigrationView extends View {
 	public void update(ArrayList<GameObject> list) {
 		
 		this.bird = (Bird) list.get(0);
-		this.thunderCloudObj = list.get(2);
-		this.cloudQuestionBoxObj = list.get(3);
-		this.mouse = list.get(5);
+		this.tree = list.get(1);
+		this.cloudQuestionBoxObj = list.get(2);
+		this.mouse = list.get(3);
+		this.bushQuestionBlock = list.get(4);
+		this.owl = list.get(5);
 		
 		this.birdX = bird.getX();
 		this.birdY = bird.getY();

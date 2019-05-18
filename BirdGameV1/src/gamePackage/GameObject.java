@@ -14,19 +14,19 @@ public class GameObject extends Point2D {
 		if (b == BirdType.OSPREY) {
 			this.xPosition = startingCoord;
 			
-			int maxWidth = Model.scaledImageWidth + this.GameObjectBox.width;
-			int minWidth = 0;
-			int randY = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
+//			int maxWidth = (int)(Model.scaledImageWidth + this.GameObjectBox.width);
+//			int minWidth = 0;
+//			int randY = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
 			
-			this.yPosition = randY;
+			this.yPosition = 200;
 		} else {
 			this.yPosition = startingCoord;
 			
-			int maxHeight = 0 - this.GameObjectBox.height;
-			int minHeight = Model.scaledImageHeight;
-			int randX = (int)(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+//			int maxHeight = 0 - this.GameObjectBox.height;
+//			int minHeight = Model.scaledImageHeight;
+//			int randX = (int)(Math.random() * (maxHeight - minHeight + 1) + minHeight);
 			
-			this.xPosition = randX;
+			this.xPosition = 500;
 		}
 		
 		this.type = t;

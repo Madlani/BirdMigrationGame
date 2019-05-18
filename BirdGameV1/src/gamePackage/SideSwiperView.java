@@ -53,7 +53,7 @@ public class SideSwiperView extends View {
 	private GameObject plane;
 	private GameObject thunderCloudObj;
 	private GameObject cloudQuestionBoxObj;
-	private GameObject food;
+	private GameObject fish;
 	private GameObject fox;
 	
 	private final int MIGRATION_MAP_SUBIMAGES = 9;
@@ -207,7 +207,7 @@ public class SideSwiperView extends View {
 
 //		//-----------------------------------------------------------------------------------------------------------------------------
 		
-		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		//g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
 		for (int i = 0; i < healthCount; i++) {
 			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
 		}
@@ -236,8 +236,8 @@ public class SideSwiperView extends View {
 		this.plane = list.get(1);
 		this.thunderCloudObj = list.get(2);
 		this.cloudQuestionBoxObj = list.get(3);
-		this.food = list.get(4);
-		this.fox = list.get(6);
+		this.fish = list.get(4);
+		this.fox = list.get(5);
 		
 		this.birdX = bird.getX();
 		this.birdY = bird.getY();
@@ -251,8 +251,8 @@ public class SideSwiperView extends View {
 		this.thunderCloudX = thunderCloudObj.getX();
 		this.thunderCloudY = thunderCloudObj.getY();
 		
-		this.fishX = food.getX();
-		this.fishY = food.getY();
+		this.fishX = fish.getX();
+		this.fishY = fish.getY();
 		
 		this.foxX = fox.getX();
 		this.foxY = fox.getY();
