@@ -362,24 +362,54 @@ public class Controller {
 //		}
 	}
 
+	/**
+	 * repeat()
+	 * Calls an overloaded version of repeat() which is conditional on the bird type.
+	 * @return a boolean to represent if the game should repeat
+	 */
 	public boolean repeat() {
-		if (sideSwiperModel.getPauseGameFlag() == false) {
+		
+		boolean shouldRepeat = false;;
+		
+		switch(birdType) {
+		case OSPREY:
+			shouldRepeat = repeat(birdType, this.sideSwiperModel, this.sideSwiperModel.getOsprey());
+			break;
+		case NORTHERNHARRIER:
+			shouldRepeat = repeat(birdType, this.migrationModel, this.migrationModel.getNorthernHarrier());
+			break;
+		}
+		
+		return shouldRepeat;
+	}
+	
+	/**
+	 * repeat()
+	 * Updates the current mode and view if the game is not paused.
+	 * Displays a question when the game is paused. If the question is answered correctly, health is rewarded.
+	 * If the question is answered incorrectly, health is depleted.
+	 * @param birdType, the current birdType of the game
+	 * @param currentModel, the current model the game is playing with
+	 * @param bird, the current bird the game is using
+	 * @return true if the game should repeat; false otherwise
+	 */
+	public boolean repeat(BirdType birdType, Model currentModel, Bird bird) {
+		if (currentModel.getPauseGameFlag() == false) {
 			updateMode();
 			drawView();
 			return true;
 		} else {
-			Question q = new Question(this.birdType);
-			//setBindingsToQuestions(q);
+			Question q = new Question(birdType);
 			q.displayQuestion();
-			while(sideSwiperModel.getPauseGameFlag() == true) {
+			while(currentModel.getPauseGameFlag() == true) {
 				if(q.isCorrect()) {
-					sideSwiperModel.getOsprey().increaseHealthCount(4);
+					bird.increaseHealthCount(4);
 					q.setCorrect(false);
 				} else {
-					sideSwiperModel.getOsprey().decreaseHealthCount();
+					bird.decreaseHealthCount();
 					q.setCorrect(false);
 				}
-				sideSwiperModel.changePauseGameFlag();
+				currentModel.changePauseGameFlag();
 				start();
 			}
 			return false;
