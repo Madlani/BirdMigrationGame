@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class Question {
+	private BirdType birdType;
 	private String[] ospreyQuestions;
 	private final int NUMBER_OSPREY_QUESTIONS = 6;
 	
@@ -52,6 +53,8 @@ public class Question {
 																														};												     														  
 	
 	public Question(BirdType birdType) {
+		this.birdType = birdType;
+		
 		switch(birdType) {
 		case OSPREY:
 			setOspreyQuestions();	
@@ -97,7 +100,13 @@ public class Question {
 	}
 
 	public void setQuestionArray(String[] questionArray) {
-		this.ospreyQuestions = questionArray;
+		switch(birdType) {
+		case OSPREY:
+			this.ospreyQuestions = questionArray;
+		case NORTHERNHARRIER:
+			this.northernHarrierQuestions = questionArray;
+		}
+		
 	}
 	
 	/**
