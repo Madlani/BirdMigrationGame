@@ -58,6 +58,8 @@ public class Controller {
 	private boolean whackWillWin;
 	private boolean whackWillNotWin;
 	
+	private int whackSwitch = 1;
+	
 	private boolean whackWinner = false;//change to int to handle if win from osprey or northern harrier
 	
 	private final int FPS = 15;
@@ -354,12 +356,12 @@ public class Controller {
 		//whackView.resetIndex();
 		if (sideSwiperGameOver) {
 			sideSwiperModel.getOsprey().setHealthCount(3);
-			this.cardLayout.show(this.masterPanel, "end");
+			this.cardLayout.show(this.masterPanel, "lose");
 			sideSwiperGameOver = false;
 		}
 		if (migrationGameOver) {
 			migrationModel.getNorthernHarrier().setHealthCount(3);
-			this.cardLayout.show(this.masterPanel, "end");
+			this.cardLayout.show(this.masterPanel, "lose");
 			migrationGameOver = false;
 		}
 
@@ -383,9 +385,19 @@ public class Controller {
 			whackWinner = whackWillWin && !whackWillNotWin;
 			if (whackWinner) {
 				System.out.println("Winner!!!");
+				if (this.whackSwitch % 2 != 0) {
+					this.state = GameState.OSPREYWIN;
+					this.cardLayout.show(this.masterPanel, "ospreywin");
+					this.whackSwitch++;
+				}
+				else {
+					this.state = GameState.WIN;
+					this.cardLayout.show(this.masterPanel, "win");
+					this.whackSwitch++;
+				}
 				
-				this.cardLayout.show(this.masterPanel, "ospreywin");
-				this.state = GameState.OSPREYWIN;
+//				this.cardLayout.show(this.masterPanel, "ospreywin");
+//				this.state = GameState.OSPREYWIN;
 			}
 			else if (!whackWinner) {
 				System.out.println("Loser!!!");
@@ -524,6 +536,8 @@ public class Controller {
 			break;
 		case SIDESWIPERTUTORIAL:
 			SwingUtilities.invokeLater(() -> this.sideTutView.repaint());
+		case WIN:
+			SwingUtilities.invokeLater(() -> this.winView.repaint());
 		}
 	}
 	
