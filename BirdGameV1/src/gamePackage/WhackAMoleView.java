@@ -89,6 +89,7 @@ public class WhackAMoleView extends View {
 						highlightStickMethod(highlightStickBuffer.getGraphics());
 						repaint();
 					}
+					
 				}
 			};
 			highlightStickTimer = new Timer(highlightTimerDelay, highlightStickListener);
@@ -99,8 +100,10 @@ public class WhackAMoleView extends View {
 			normalStickListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					normalStickMethod(normalStickBuffer.getGraphics());
-					repaint();
+					//if (i  < EXPECTED_PATTERN_SIZE) {
+						normalStickMethod(normalStickBuffer.getGraphics());
+						repaint();
+					//}
 				}
 			};
 			normalTimer = new Timer(normalStickTimerDelay, normalStickListener);
@@ -159,6 +162,7 @@ public class WhackAMoleView extends View {
 		
 	
 		int randomNum = sequence.get(this.index);
+		System.out.println("randomNum for highlighting " + randomNum);
 		
 //		whackModel.gamePattern.add(randomNum);
 //		System.out.println(whackModel.gamePattern);
@@ -205,9 +209,9 @@ public class WhackAMoleView extends View {
 				break;
 		}
 		
-		index++;
-		if (this.index >= 4)
-			this.index = 0;
+		
+		if (this.index < 3)
+			index++;
 		
 
 	}

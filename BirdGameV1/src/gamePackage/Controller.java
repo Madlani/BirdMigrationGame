@@ -55,8 +55,8 @@ public class Controller {
 	private boolean mmvPaused = false;
 	private boolean sideSwiperGameOver = false;
 	private boolean migrationGameOver = false;
-	private boolean whackWillWin = false;
-	private boolean whackWillNotWin = false;
+	private boolean whackWillWin;
+	private boolean whackWillNotWin;
 	
 	private boolean whackWinner = false;//change to int to handle if win from osprey or northern harrier
 	
@@ -189,6 +189,8 @@ public class Controller {
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
 			
+			whackView.resetIndex();
+			
 		}, false);
 		
 		addKeyBinding(startViewNorthernHarrier, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
@@ -225,6 +227,8 @@ public class Controller {
 			
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
+			whackView.resetIndex();
+			
 		}, false);
 		
 		addKeyBinding(winView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
@@ -347,6 +351,7 @@ public class Controller {
 	}
 	
 	public void gameOver() {
+		//whackView.resetIndex();
 		if (sideSwiperGameOver) {
 			sideSwiperModel.getOsprey().setHealthCount(3);
 			this.cardLayout.show(this.masterPanel, "end");
@@ -361,6 +366,8 @@ public class Controller {
 	}
 	
 	public void winner() {
+		whackWillNotWin = false;
+		whackWillWin = false;
 		if (whackUserSequence.size() == whackView.getEXPECTED_PATTERN_SIZE()) {
 			System.out.println("user pattern reached 4");
 			for (int i = 0; i < whackView.getEXPECTED_PATTERN_SIZE(); i++) {
@@ -385,6 +392,7 @@ public class Controller {
 				
 				this.cardLayout.show(this.masterPanel, "lose");
 				this.state = GameState.LOSE;
+				
 			}
 		}
 //		else {
@@ -472,6 +480,7 @@ public class Controller {
 					break;
 				case LOSE:
 					whackUserSequence.clear();
+//					whackView.resetIndex();
 					break;
 				case SIDESWIPERTUTORIAL:
 					if (!ssvPaused)
