@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
@@ -169,7 +170,21 @@ public class Question {
 		System.out.println("OptionA: " + ospreyAnswers[randQuestionNum][CHOICE_A] + ", OptionB: " + ospreyAnswers[randQuestionNum][CHOICE_B]);
 		
 		JPanel panel = new JPanel();
-		panel.add(new JLabel(ospreyQuestions[randQuestionNum]));
+		//panel.add(new JLabel(ospreyQuestions[randQuestionNum]));
+		
+		String questionText = ospreyQuestions[randQuestionNum];
+		
+		JLabel longLabel = new JLabel();
+		longLabel.setText("<html><body><font size=\"+2\">" + questionText + "</font><p>" +
+		                  "Press TAB to switch between the answer choices" +
+		                  "<p>Press SPACE to select your answer</body></html>");
+		
+//		JLabel instructions = new JLabel();
+//		instructions.setText("\nPress TAB to switch buttons and press SPACE to select your answer.");
+		panel.add(longLabel);
+		
+		//panel.add(new JLabel("Press TAB to switch buttons and press SPACE to select your answer."));
+		
 		System.out.println("Question: " + ospreyQuestions[randQuestionNum]);
 		
 		String choiceA = ospreyAnswers[randQuestionNum][CHOICE_A];
