@@ -123,7 +123,7 @@ public class Controller {
 		addKeyBinding(startViewOsprey, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
 			this.state = GameState.SIDESWIPERTUTORIAL;
 			this.cardLayout.show(this.masterPanel, "sideSwiperTutorial");
-			System.out.println("should start tuturial now");
+			//System.out.println("should start tuturial now");
 		
 		}, false);
 		
@@ -181,7 +181,7 @@ public class Controller {
 
 			this.state = GameState.MIGRATION;
 			this.cardLayout.show(this.masterPanel, "migration");
-			System.out.println("should start tuturial now");
+			//System.out.println("should start tuturial now");
 		}, false);
 
 		
@@ -229,7 +229,7 @@ public class Controller {
 	}
 	
 	public void updateSideSwiperModel() {
-		System.out.println(sideSwiperModel.getPicNumMap() % 9);
+		//System.out.println(sideSwiperModel.getPicNumMap() % 9);
 		if (sideSwiperModel.getPicNumMap() > 1)
 			sideSwiperModel.setIsFirstFrame(false);
 		
@@ -265,7 +265,7 @@ public class Controller {
 		
 		if(sideSwiperModel.getIsHit() == true) {
 			sideSwipeView.setTimeForRectangle(true);
-			System.out.println("It is time to draw the red rectangle");
+			//System.out.println("It is time to draw the red rectangle");
 		}
 		
 		sideSwipeView.update(list2);
@@ -294,7 +294,7 @@ public class Controller {
 
 		if (sideTutModel.getIsHit() == true) {
 			sideTutView.setTimeForRectangle(true);
-			System.out.println("It is time to draw the red rectangle");
+			//System.out.println("It is time to draw the red rectangle");
 		}
 
 		sideTutView.update(list2);
@@ -332,11 +332,11 @@ public class Controller {
 	
 	public void winner() {
 		if (whackUserSequence.size() == whackView.getEXPECTED_PATTERN_SIZE()) {
-			System.out.println("user pattern reached 4");
+			//System.out.println("user pattern reached 4");
 			for (int i = 0; i < whackView.getEXPECTED_PATTERN_SIZE(); i++) {
 				if (whackModel.getSequence().get(i) == whackUserSequence.get(i)) {
 					whackWillWin = true;
-					System.out.println("correct index");
+					//System.out.println("correct index");
 				}
 				else {
 					whackWillNotWin = true;
@@ -345,7 +345,7 @@ public class Controller {
 			}
 			whackWinner = whackWillWin && !whackWillNotWin;
 			if (whackWinner) {
-				System.out.println("Winner!!!");
+				//System.out.println("Winner!!!");
 				
 				this.cardLayout.show(this.masterPanel, "win");
 				this.state = GameState.WIN;
@@ -483,11 +483,11 @@ public class Controller {
 			Iterator i = whackUserSequence.iterator();
 			while (i.hasNext()) {
 				System.out.print("User Sequence: ");
-				System.out.println(i.next());
+				//System.out.println(i.next());
 			}
 			
-			System.out.println("User Sequence size: ");
-			System.out.println(whackUserSequence.size());
+			//System.out.println("User Sequence size: ");
+			//System.out.println(whackUserSequence.size());
 
 		}, false);
 		
@@ -501,8 +501,8 @@ public class Controller {
 				System.out.println(i.next());
 			}
 			
-			System.out.println("User Sequence size: ");
-			System.out.println(whackUserSequence.size());
+			//System.out.println("User Sequence size: ");
+			//System.out.println(whackUserSequence.size());
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
@@ -511,12 +511,12 @@ public class Controller {
 			
 			Iterator i = whackUserSequence.iterator();
 			while (i.hasNext()) {
-				System.out.print("User Sequence: ");
-				System.out.println(i.next());
+				//System.out.print("User Sequence: ");
+				//System.out.println(i.next());
 			}
 			
-			System.out.println("User Sequence size: ");
-			System.out.println(whackUserSequence.size());
+			//System.out.println("User Sequence size: ");
+			//System.out.println(whackUserSequence.size());
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
@@ -526,22 +526,22 @@ public class Controller {
 			Iterator i = whackUserSequence.iterator();
 			while (i.hasNext()) {
 				System.out.print("User Sequence: ");
-				System.out.println(i.next());
+				//System.out.println(i.next());
 			}
 			
-			System.out.println("User Sequence size: ");
-			System.out.println(whackUserSequence.size());
+			//System.out.println("User Sequence size: ");
+			//System.out.println(whackUserSequence.size());
 		}, false);
 	}
 	
 	public void setBindingsToMigration() {
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
-			System.out.println("right pressed");
+			//System.out.println("right pressed");
 			migrationModel.getNorthernHarrier().setFlyState(FlyState.RIGHT);
 		}, false);
 		
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right release", (evt) -> {
-			System.out.println("right released");
+			//System.out.println("right released");
 			migrationModel.getNorthernHarrier().setFlyState(FlyState.STILL);
 		}, true);
 		

@@ -58,7 +58,7 @@ public class Question {
 										{"North America",		"South America",		"North America"},
 									    {"Fish",				"Foxes",				"Fish"},
 									    {"High Up",			    "Down Low",				"High Up"},
-									    {"Fish",				"Fox",					"Fox"},
+									    {"Fox",					"Fish",					"Fox"},
 									    {"By themselves",		"With a flock",		"By themselves"},
 									    {"Osprey",				"Northern Harrier",		"Osprey"}
 			     														  								};
