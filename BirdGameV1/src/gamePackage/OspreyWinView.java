@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class WinView extends View {
+public class OspreyWinView extends View {
 	private Image backgroundImage;
 
 	private final int NO_SPEED = 0;
@@ -14,7 +14,7 @@ public class WinView extends View {
 	private int scaledImageHeight = Model.scaledImageHeight;
 
 	
-	public WinView() {
+	public OspreyWinView() {
 		super();
 		this.loadImage();
 	}
@@ -24,7 +24,7 @@ public class WinView extends View {
 	 * Loads the image for the end view
 	 */
 	private void loadImage() {
-		ImageIcon winImage = new ImageIcon("src/images/winView.png");
+		ImageIcon winImage = new ImageIcon("src/images/ospreyEnd.png");
 		backgroundImage = winImage.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 	}
 

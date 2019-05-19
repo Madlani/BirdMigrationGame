@@ -7,7 +7,7 @@ public enum GameState {
 	SIDESWIPER("sideswiper"),
 	MIGRATION("migration"),
 	WHACKAMOLE("whackamole"),
-	WIN("win"),
+	OSPREYWIN("ospreywin"),
 	END("end"), 
 	MIGRATIONTUTORIAL("northernHarrier");
 	
