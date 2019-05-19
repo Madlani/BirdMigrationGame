@@ -158,11 +158,11 @@ public class MigrationView extends View {
 //		-----------------------------------------------------------------------------------------------------------------------------
 //		SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
 //		g.drawImage(backgroundImage, 0, 0, null);
-		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
-		g.drawRect((int)this.mouse.GameObjectBox.getX(), (int)this.mouse.GameObjectBox.getY(), (int)this.mouse.GameObjectBox.getWidth(), (int)this.mouse.GameObjectBox.getHeight());
-		g.drawRect((int)this.tree.GameObjectBox.getX(), (int)this.tree.GameObjectBox.getY(), (int)this.tree.GameObjectBox.getWidth(), (int)this.tree.GameObjectBox.getHeight());
-		g.drawRect((int)this.owl.GameObjectBox.getX(), (int)this.owl.GameObjectBox.getY(), (int)this.owl.GameObjectBox.getWidth(), (int)this.owl.GameObjectBox.getHeight());
-		g.drawRect((int)this.bushQuestionBlock.GameObjectBox.getX(), (int)this.bushQuestionBlock.GameObjectBox.getY(), (int)this.bushQuestionBlock.GameObjectBox.getWidth(), (int)this.bushQuestionBlock.GameObjectBox.getHeight());
+//		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
+//		g.drawRect((int)this.mouse.GameObjectBox.getX(), (int)this.mouse.GameObjectBox.getY(), (int)this.mouse.GameObjectBox.getWidth(), (int)this.mouse.GameObjectBox.getHeight());
+//		g.drawRect((int)this.tree.GameObjectBox.getX(), (int)this.tree.GameObjectBox.getY(), (int)this.tree.GameObjectBox.getWidth(), (int)this.tree.GameObjectBox.getHeight());
+//		g.drawRect((int)this.owl.GameObjectBox.getX(), (int)this.owl.GameObjectBox.getY(), (int)this.owl.GameObjectBox.getWidth(), (int)this.owl.GameObjectBox.getHeight());
+//		g.drawRect((int)this.bushQuestionBlock.GameObjectBox.getX(), (int)this.bushQuestionBlock.GameObjectBox.getY(), (int)this.bushQuestionBlock.GameObjectBox.getWidth(), (int)this.bushQuestionBlock.GameObjectBox.getHeight());
 //		-----------------------------------------------------------------------------------------------------------------------------
 		
 		// Generates a new map image at a specified interval of time

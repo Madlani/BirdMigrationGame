@@ -1,22 +1,20 @@
 package gamePackage;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-@SuppressWarnings("serial")
-public class EndView extends View {
-
+public class WinView extends View {
 	private Image backgroundImage;
 
 	private final int NO_SPEED = 0;
 	private int scaledImageWidth = Model.scaledImageWidth;
 	private int scaledImageHeight = Model.scaledImageHeight;
 
-	public EndView() {
+	
+	public WinView() {
 		super();
 		this.loadImage();
 	}
@@ -26,8 +24,8 @@ public class EndView extends View {
 	 * Loads the image for the end view
 	 */
 	private void loadImage() {
-		ImageIcon endImage = new ImageIcon("src/images/endBothGames.png");
-		backgroundImage = endImage.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
+		ImageIcon winImage = new ImageIcon("src/images/endBothGames.png");
+		backgroundImage = winImage.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 	}
 
 	/**

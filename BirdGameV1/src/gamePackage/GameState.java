@@ -8,7 +8,8 @@ public enum GameState {
 	MIGRATION("migration"),
 	WHACKAMOLE("whackamole"),
 	OSPREYWIN("ospreywin"),
-	END("end"), 
+	LOSE("lose"), 
+	WIN("win"),
 	MIGRATIONTUTORIAL("northernHarrier");
 	
 	

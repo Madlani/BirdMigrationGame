@@ -38,7 +38,8 @@ public class Controller {
 	private StartView startViewNorthernHarrier;
 	
 	private OspreyWinView ospreyWinView;
-	private EndView endView;
+	private LoseView loseView;
+	private WinView winView;
 	
 
 	
@@ -56,7 +57,8 @@ public class Controller {
 	private boolean migrationGameOver = false;
 	private boolean whackWillWin = false;
 	private boolean whackWillNotWin = false;
-	private boolean whackWinner = false;
+	
+	private boolean whackWinner = false;//change to int to handle if win from osprey or northern harrier
 	
 	private final int FPS = 15;
 	private int count = 1;
@@ -76,12 +78,20 @@ public class Controller {
 		
 		// Code to run SideSwiper Game
 		sideSwipeView = new SideSwiperView();
+		sideTutView = new SideSwiperTutorialView();
+		sideTutModel = new SideSwiperTutorialModel();
+		
 		
 		// Code to run Whack a Mole Game
 		whackView = new WhackAMoleView();
+		//whackTutView = new WhackAMoleTutorialView();
+		//whackTutModel = new WhackAMoleTutorialModel();
+		
 		
 		// Code to run Migration Game
 		migrationView = new MigrationView();
+		migrationTutView = new MigrationTutorialView();
+		migrationTutModel = new MigrationTutorialModel();
 		
 		//Code to display Start screen
 		startViewOsprey = new StartView(BirdType.OSPREY);
@@ -91,19 +101,12 @@ public class Controller {
 		ospreyWinView = new OspreyWinView();
 				
 		//Code to display End screen
-		endView = new EndView();
+		loseView = new LoseView();
 		
-		//Code to display SideSwiperTutorialView screen
-		sideTutView = new SideSwiperTutorialView();
+		winView = new WinView();
 		
-		//Code to display SideSwiperTutorialModel screen
-		sideTutModel = new SideSwiperTutorialModel();
-		
-		//Code to display MigrationTutorialView screen
-		migrationTutView = new MigrationTutorialView();
-		
-		//Code to display MigrationTutorialModel screen
-		migrationTutModel = new MigrationTutorialModel();
+
+
 		
 		this.cardLayout = new CardLayout();
 	
@@ -119,7 +122,9 @@ public class Controller {
 		masterPanel.add(startViewNorthernHarrier, "startNorthernHarrier");
 		masterPanel.add(migrationTutView, "migrationTutorial");
 		masterPanel.add(migrationView, "migration");
-		masterPanel.add(endView, "end");
+		masterPanel.add(loseView, "lose");
+		masterPanel.add(winView, "win");
+
 		
 		this.state = GameState.START;
 
@@ -154,16 +159,25 @@ public class Controller {
 		
 		//Goes from whack a mole game to win screen if player wins
 		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
-			if (count % 2 != 0) {
+			if (count % 3 == 1) {
 				this.state = GameState.OSPREYWIN;
 				this.cardLayout.show(this.masterPanel, "ospreywin");
 				count++;
 			}
-			else {
-				this.state = GameState.END;
-				this.cardLayout.show(this.masterPanel, "end");
+			else if (count % 3 == 2) {
+				this.state = GameState.WIN;
+				this.cardLayout.show(this.masterPanel, "win");
 				count++;
 			}
+			else {
+				this.state = GameState.LOSE;
+				this.cardLayout.show(this.masterPanel, "lose");
+				count++;
+			}
+//			whackModel.randomizeSequence();
+//			whackView.updateSequence(whackModel.getSequence());
+//			whackView.setIsWackView(true);
+//			whackView.initTimers();
 		}, false);
 		
 		//Goes from win screen to migration tutorial
@@ -205,10 +219,18 @@ public class Controller {
 			
 		}, false);
 
-		addKeyBinding(endView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
+		addKeyBinding(loseView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "startOsprey");
 			
+			whackView.resetTimers();
+			whackModel.setKeyState(0);
+		}, false);
+		
+		addKeyBinding(winView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
+			this.state = GameState.START;
+			this.cardLayout.show(this.masterPanel, "startOsprey");
+			this.birdType = BirdType.OSPREY;
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
 		}, false);
@@ -247,7 +269,7 @@ public class Controller {
 		
 		if (sideSwiperModel.getOsprey().getHealthCount() <= 0) {
 			sideSwiperGameOver = true;
-			this.state = GameState.END;
+			this.state = GameState.LOSE;
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 			for (int i = 1; i < list2.size(); i++) {
 				sideSwiperModel.resetGameObjectLocation(list2.get(i));
@@ -314,7 +336,7 @@ public class Controller {
 		
 		if (migrationModel.getNorthernHarrier().getHealthCount() <= 0) {
 			migrationGameOver = true;
-			this.state = GameState.END;
+			this.state = GameState.LOSE;
 			migrationModel.getNorthernHarrier().setFlyState(FlyState.STILL);
 			for (int i = 1; i < list3.size(); i++) {
 				migrationModel.resetGameObjectLocation(list3.get(i));
@@ -361,8 +383,8 @@ public class Controller {
 			else if (!whackWinner) {
 				System.out.println("Loser!!!");
 				
-				this.cardLayout.show(this.masterPanel, "end");
-				this.state = GameState.END;
+				this.cardLayout.show(this.masterPanel, "lose");
+				this.state = GameState.LOSE;
 			}
 		}
 //		else {
@@ -448,7 +470,7 @@ public class Controller {
 				case OSPREYWIN:
 					whackUserSequence.clear();
 					break;
-				case END:
+				case LOSE:
 					whackUserSequence.clear();
 					break;
 				case SIDESWIPERTUTORIAL:
@@ -488,8 +510,8 @@ public class Controller {
 		case OSPREYWIN:
 			SwingUtilities.invokeLater(() ->  this.ospreyWinView.repaint());
 			break;
-		case END:
-			SwingUtilities.invokeLater(() ->  this.endView.repaint());
+		case LOSE:
+			SwingUtilities.invokeLater(() ->  this.loseView.repaint());
 			break;
 		case SIDESWIPERTUTORIAL:
 			SwingUtilities.invokeLater(() -> this.sideTutView.repaint());

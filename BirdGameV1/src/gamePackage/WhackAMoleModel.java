@@ -22,7 +22,7 @@ public class WhackAMoleModel extends Model {
 		
 		sequence.add(1);
 		sequence.add(2);
-		sequence.add (3);
+		sequence.add(3);
 		sequence.add(4);
 		randomizeSequence();
 		
