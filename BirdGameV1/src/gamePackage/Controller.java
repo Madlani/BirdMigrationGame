@@ -204,7 +204,6 @@ public class Controller {
 			whackModel.setKeyState(0);
 		}, false);
 		
-		
 		//-----------------------------------------------------------------------------
 		
 		setBindingsToSideSwiperTutorial();
@@ -277,7 +276,7 @@ public class Controller {
 
 		if (sideTutModel.getOsprey().getHealthCount() <= 0) {
 			//sideSwiperGameOver = true;
-			this.state = GameState.END;
+			//this.state = GameState.END;
 			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
 			for (int i = 1; i < list2.size(); i++) {
 				sideTutModel.resetGameObjectLocation(list2.get(i));

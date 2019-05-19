@@ -4,21 +4,41 @@ import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class Question {
-	private String[] questionArray;
-	private Answer[][] answers;
-	private final int NUMBER_OF_QUESTIONS = 3;
+	private String[] ospreyQuestions;
+	private final int NUMBER_OSPREY_QUESTIONS = 6;
+	
+	private String[] northernHarrierQuestions;
+	private final int NUMBER_NH_QUESTIONS = 6;
+	
+	private final int CORRECT_ANSWER = 2; // the index where all the correct answers are stored
+	private final int NUM_ANSWERS = 2;
+	
+	private final int CHOICE_A = 0;
+	private final int CHOICE_B = 1;
+	
 	private boolean isCorrect;
 	
-	private Answer[] question1Answers;
-	private Answer[] question2Answers;
-	
-	private int[] correspondingAnswer;
+	private String[][] ospreyAnswers = new String[][] { //  0						1						2
+													{"North America",		"South America",		"North America"},
+												    {"Fish",				"Foxes",				"Fish"},
+										    	    {"High Up",			    "Down Low",				"High Up"},
+												    {"Fish",				"Fox",					"Fox"},
+												    {"With a flock",		"By themselves",		"By themselves"},
+												    {"Osprey",				"Northern Harrier",		"Osprey"}
+														     														  };
 	
 	public Question() {
 		setQuestions();
@@ -31,105 +51,66 @@ public class Question {
 	 * choices for each question.
 	 */
 	public void setQuestions() {
-		setQuestionArray(new String[NUMBER_OF_QUESTIONS]);
-		questionArray[0] = "Does an osprey migrate?";
-		questionArray[1] = "Does the northern harrier migrate?";
-		questionArray[2] = "Question #3";
-		
-		question1Answers = new Answer[] {new Answer(true, "Yes", KeyEvent.VK_RIGHT),
-										   new Answer(false, "No", KeyEvent.VK_LEFT)};
-		
-		question2Answers = new Answer[] {new Answer(false, "answer 1", KeyEvent.VK_RIGHT),
-				 						   new Answer(true, "answer 2", KeyEvent.VK_LEFT)};
-		
-		correspondingAnswer = new int[NUMBER_OF_QUESTIONS];
-		correspondingAnswer[0] = 1;
-		correspondingAnswer[1] = 0;
-		correspondingAnswer[2] = 1;
+		setQuestionArray(new String[NUMBER_OSPREY_QUESTIONS]);
+		ospreyQuestions[0] = "Where do ospreys migrate to for breeding?";
+		ospreyQuestions[1] = "What do ospreys like to eat?";
+		ospreyQuestions[2] = "Where do ospreys like to build their nests?";
+		ospreyQuestions[3] = "Which animal is a predator to the osprey?";
+		ospreyQuestions[4] = "How do ospreys fly?";
+		ospreyQuestions[5] = "What bird are you playing as?";
 	}
 	
 	public void setAnswers() {
-		answers = new Answer[][] {question1Answers, question2Answers};
-	}
-	
-	public String getCorrectAnswer(Answer[] questionAnswers) {
-		for(Answer a : questionAnswers) {
-			if(a.getCorrectness() == true) {
-				return a.getAnswer();
-			}
-		}
 		
-		return "No correct answer";
 	}
 
 	public String[] getQuestionArray() {
-		return questionArray;
+		return ospreyQuestions;
 	}
 
 	public void setQuestionArray(String[] questionArray) {
-		this.questionArray = questionArray;
-	}
-
-	public Answer[][] getAnswers() {
-		return answers;
-	}
-
-	public void setAnswers(Answer[][] answers) {
-		this.answers = answers;
+		this.ospreyQuestions = questionArray;
 	}
 	
-	public int displayQuestion() {
-		int randQuestionNum = (int)(Math.random()*((NUMBER_OF_QUESTIONS - 1) + 1));
-//		System.out.println("RandNumber: " + randQuestionNum);
-//		JButton rightBtn = new JButton("RIGHT");
-//		JButton leftBtn = new JButton("LEFT");
-//		
-//		rightBtn.setMnemonic('R');
-//		rightBtn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JOptionPane pane = getOptionPane((JComponent)e.getSource());
-//                pane.setValue(JOptionPane.YES_OPTION);
-//            }
-//        });
-//        leftBtn.setMnemonic(KeyEvent.VK_LEFT);
-//        leftBtn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JOptionPane pane = getOptionPane((JComponent)e.getSource());
-//                pane.setValue(JOptionPane.NO_OPTION);
-//            }
-//        });
-		//int option = JOptionPane.showConfirmDialog(null, questionArray[randQuestionNum], "Question Cloud", JOptionPane.YES_NO_OPTION);
+	public void displayQuestion() {
 		
-//		JButton[] buttonsArray = new JButton[] {rightBtn, leftBtn};
-//		int option = JOptionPane.showOptionDialog(
-//                null, 
-//                questionArray[randQuestionNum], 
-//                "Question Cloud", 
-//                JOptionPane.YES_NO_OPTION, 
-//                JOptionPane.WARNING_MESSAGE, 
-//                null, buttonsArray, null);
+		// Generates a random number based on the number of possible questions
+		int randQuestionNum = (int)(Math.random()*((NUMBER_OSPREY_QUESTIONS - 1) + 1));
 		
-		JOptionPane optionPane = new JOptionPane(questionArray[randQuestionNum], JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
-	    JDialog dialog = optionPane.createDialog("Confirm Dialog");
-	    Set<AWTKeyStroke> focusTraversalKeys = new HashSet<AWTKeyStroke>(dialog.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-	    focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.VK_UNDEFINED));
-	    focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_LEFT, KeyEvent.VK_UNDEFINED));
-	    dialog.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, focusTraversalKeys);
-	    dialog.setVisible(true);
-	    dialog.dispose();
-	    int option = (Integer) optionPane.getValue();
+		// Sets up the option pane to display the questions and answer choices
+		JOptionPane optionPane = new JOptionPane(ospreyQuestions[randQuestionNum], JOptionPane.PLAIN_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Option Dialog");
+        
+        // Allows the user to use the UP and DOWN keys to navigate the button options
+        Set<AWTKeyStroke> focusTraversalKeys = new HashSet<AWTKeyStroke>(optionPane.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+        focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_UP, KeyEvent.VK_UNDEFINED));
+        focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_DOWN, KeyEvent.VK_UNDEFINED));
+        dialog.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, focusTraversalKeys);
+        
+        optionPane.removeAll(); // used to remove the default "OK" button on JOptionPanes
+        
+        // Adds the text for the question to the JOptionPane
+        optionPane.add(new JLabel(ospreyQuestions[randQuestionNum]));
+        
+        // Pulls the two answer options for this particular question and assigns to a string to be used later
+        String choiceA = ospreyAnswers[randQuestionNum][CHOICE_A];
+        String choiceB = ospreyAnswers[randQuestionNum][CHOICE_B];
+        
+        // Fills the text of the buttons to be the two answers options
+        optionPane.add(new JButton(choiceA));
+        optionPane.add(new JButton(choiceB));
+        
+        dialog.setVisible(true);
+        dialog.dispose();
 	    
-	    if (option != correspondingAnswer[randQuestionNum]) {
-	    	JOptionPane.showMessageDialog(null, "Correct!");
+        // Gets the user response based on the button they clicked
+	    String response = optionPane.getValue().toString();
+	    
+	    // Checking the correctness of the answer the user clicked
+	    if(response.contentEquals(ospreyAnswers[randQuestionNum][CORRECT_ANSWER]))
 	    	isCorrect = true;
-	    	
-	    } else {
-	    	JOptionPane.showMessageDialog(null, "Not Correct!");
-	    }
-		
-		return option;
+	    else
+	    	isCorrect = false;
 	}
 	
 	protected static JOptionPane getOptionPane(JComponent parent) {
@@ -149,21 +130,6 @@ public class Question {
 	public void setCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
-	
-	//public static void main(String[] args) {
-		
-		// The following is a proof of concept: we are able to track the user's keyboard input and then 
-		// look up the answer based on what the user clicked. We need to link the user's keyboard clicks
-		// to an integer (using KeyEvent or key bindings) and then access that point in the array. The 
-		// first array index in the 2D array is the question that was asked. The value of the first index
-		// is from 0 to the final int declared above: NUMBER_OF_QUESTIONS.
-		
-//		Question q = new Question();
-//		Scanner s = new Scanner(System.in);
-//		int userInput = s.nextInt();
-//		System.out.println(q.answers[0][userInput]);
-		
-//	}
 }
 
 
