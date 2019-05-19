@@ -16,7 +16,7 @@ public class Question {
 	private final int CHOICE_A = 0; 		// Represents the UP button on the JOptionPane
 	private final int CHOICE_B = 1; 		// Represents the DOWN button on the JOptionPane
 	private final int CORRECT_ANSWER = 2; 	// the index where all the correct answers are stored
-	private final int LEFT_BUTTON = 0;
+	private final int LEFT_BUTTON = 1;
 	private final int RIGHT_BUTTON = 0;
 	
 	private boolean isCorrect;
@@ -56,11 +56,11 @@ public class Question {
 		ospreyAnswers = new String[][] { //  0						1						2
 										//CHOICE_A				CHOICE_B				CORRECT_ANSWER
 										{"North America",		"South America",		"North America"},
-									    {"Fish",				"Foxes",				"Fish"},
+									    {"Foxes",				"Fish",					"Fish"},
 									    {"High Up",			    "Down Low",				"High Up"},
-									    {"Fox",					"Fish",					"Fox"},
-									    {"By themselves",		"With a flock",		"By themselves"},
-									    {"Osprey",				"Northern Harrier",		"Osprey"}
+									    {"Fish",				"Fox",					"Fox"},
+									    {"By themselves",		"With a flock",			"By themselves"},
+									    {"Northern Harrier",	"Osprey",				"Osprey"}
 			     														  								};
 	}
 	
@@ -84,11 +84,11 @@ public class Question {
 											// 0						1 						2
 											//CHOICE_A				CHOICE_B				CORRECT_ANSWER
 											{ "Yes", 				"No", 					"No" },
-											{ "Owls", 				"Mice", 				"Mice" },
+											{ "Mice", 				"Owls", 				"Mice" },
 											{ "High Up", 			"Down Low", 			"Down Low" },
-											{ "Owl", 				"Hawk", 				"Owl" },
+											{ "Hawk", 				"Owl", 					"Owl" },
 											{ "Mountains", 			"Estuaries", 			"Estuaries" },
-											{ "Osprey", 			"Northern Harrier", 	"Northern Harrier" }  			
+											{ "Northern Harrier", 	"Osprey", 				"Northern Harrier" }  			
 																												};	
 	}
 	
@@ -138,17 +138,31 @@ public class Question {
 		// Collects the numerical representation of the button the user clicks
 		int result = JOptionPane.showOptionDialog(null, panel, "Question", JOptionPane.DEFAULT_OPTION,
 				JOptionPane.PLAIN_MESSAGE, null, options, null);
-
+		
 		// Checks the validity of the answer
-		if (result == LEFT_BUTTON && choiceA.equals(birdAnswers[randQuestionNum][CORRECT_ANSWER])) {
-			JOptionPane.showMessageDialog(null, "Correct!");
-			isCorrect = true;
-		} else if (result == RIGHT_BUTTON && choiceB.equals(birdAnswers[randQuestionNum][CORRECT_ANSWER])) {
-			JOptionPane.showMessageDialog(null, "Correct!");
-			isCorrect = true;
-		} else {
-			JOptionPane.showMessageDialog(null, "Incorrect");
-			isCorrect = false;
+		switch(result) {
+		case RIGHT_BUTTON:
+			if(choiceA.equals(birdAnswers[randQuestionNum][CORRECT_ANSWER])){
+				JOptionPane.showMessageDialog(null, "Correct!");
+				isCorrect = true;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Incorrect");
+				isCorrect = false;
+			}
+			
+			break;
+		case LEFT_BUTTON:
+			if(choiceB.equals(birdAnswers[randQuestionNum][CORRECT_ANSWER])) {
+				JOptionPane.showMessageDialog(null, "Correct!");
+				isCorrect = true;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Incorrect");
+				isCorrect = false;
+			}
+			
+			break;
 		}
 	}
 
