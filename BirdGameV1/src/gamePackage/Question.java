@@ -51,15 +51,20 @@ public class Question {
 													{ "Osprey", 			"Northern Harrier", 	"Northern Harrier" }  			
 																														};												     														  
 	
-	public Question() {
-		setQuestions();
+	public Question(BirdType birdType) {
+		switch(birdType) {
+		case OSPREY:
+			setOspreyQuestions();	
+		case NORTHERNHARRIER:
+			setNorthernHarrierQuestions();
+		}
 	}
 	
 	/**
-	 * setQuestions()
-	 * This method initializes the question arrays for the osprey and northern harrier.
+	 * setOspreyQuestions()
+	 * This method initializes the question array for the osprey.
 	 */
-	public void setQuestions() {
+	public void setOspreyQuestions() {
 		
 		// sets up the question array for the Osprey
 		setQuestionArray(new String[NUMBER_OSPREY_QUESTIONS]);
@@ -69,6 +74,13 @@ public class Question {
 		ospreyQuestions[3] = "Which animal is a predator to the osprey?";
 		ospreyQuestions[4] = "How do ospreys fly?";
 		ospreyQuestions[5] = "What bird are you playing as?";
+	}
+	
+	/**
+	 * setNorthernHarrierQuestions()
+	 * This method initializes the question array for the northern harrier.
+	 */
+	public void setNorthernHarrierQuestions() {
 		
 		// sets up the question array for the Northern Harrier
 		setQuestionArray(new String[NUMBER_NH_QUESTIONS]);

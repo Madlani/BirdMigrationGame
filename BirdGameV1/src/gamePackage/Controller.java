@@ -361,7 +361,7 @@ public class Controller {
 			drawView();
 			return true;
 		} else {
-			Question q = new Question();
+			Question q = new Question(this.birdType);
 			//setBindingsToQuestions(q);
 			q.displayQuestion();
 			while(sideSwiperModel.getPauseGameFlag() == true) {
