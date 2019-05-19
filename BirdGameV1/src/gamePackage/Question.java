@@ -59,7 +59,7 @@ public class Question {
 									    {"Fish",				"Foxes",				"Fish"},
 									    {"High Up",			    "Down Low",				"High Up"},
 									    {"Fish",				"Fox",					"Fox"},
-									    {"With a flock",		"By themselves",		"By themselves"},
+									    {"By themselves",		"With a flock",		"By themselves"},
 									    {"Osprey",				"Northern Harrier",		"Osprey"}
 			     														  								};
 	}
