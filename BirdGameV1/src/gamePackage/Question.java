@@ -9,12 +9,19 @@ import java.util.Set;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ContainerListener;
+import java.awt.event.FocusListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 
 public class Question {
 	private BirdType birdType;
@@ -41,16 +48,16 @@ public class Question {
 												    {"Osprey",				"Northern Harrier",		"Osprey"}
 														     														  };
 														     														  
-	private String[][] northernHarrierAnswers = new String[][] { 
-														// 0						1 						2
-														//CHOICE_A				CHOICE_B				CORRECT_ANSWER
-													{ "Yes", 				"No", 					"No" },
-													{ "Owls", 				"Mice", 				"Mice" },
-													{ "High Up", 			"Down Low", 			"Down Low" },
-													{ "Owl", 				"Hawk", 				"Owl" },
-													{ "Mountains", 			"Estuaries", 			"Estuaries" },
-													{ "Osprey", 			"Northern Harrier", 	"Northern Harrier" }  			
-																														};												     														  
+//	private String[][] northernHarrierAnswers = new String[][] { 
+//														// 0						1 						2
+//														//CHOICE_A				CHOICE_B				CORRECT_ANSWER
+//													{ "Yes", 				"No", 					"No" },
+//													{ "Owls", 				"Mice", 				"Mice" },
+//													{ "High Up", 			"Down Low", 			"Down Low" },
+//													{ "Owl", 				"Hawk", 				"Owl" },
+//													{ "Mountains", 			"Estuaries", 			"Estuaries" },
+//													{ "Osprey", 			"Northern Harrier", 	"Northern Harrier" }  			
+//																														};												     														  
 	
 	public Question(BirdType birdType) {
 		this.birdType = birdType;
@@ -58,8 +65,8 @@ public class Question {
 		switch(birdType) {
 		case OSPREY:
 			setOspreyQuestions();	
-		case NORTHERNHARRIER:
-			setNorthernHarrierQuestions();
+//		case NORTHERNHARRIER:
+//			setNorthernHarrierQuestions();
 		}
 	}
 	
@@ -83,17 +90,17 @@ public class Question {
 	 * setNorthernHarrierQuestions()
 	 * This method initializes the question array for the northern harrier.
 	 */
-	public void setNorthernHarrierQuestions() {
-		
-		// sets up the question array for the Northern Harrier
-		setQuestionArray(new String[NUMBER_NH_QUESTIONS]);
-		northernHarrierQuestions[0] = "Is the Northern Harrier a migratory bird?";
-		northernHarrierQuestions[1] = "What do Northern Harriers like to eat?";
-		northernHarrierQuestions[2] = "Where do Northern Harriers like to build their nests?";
-		northernHarrierQuestions[3] = "Which animal is a predator to the Northern Harrier?";
-		northernHarrierQuestions[4] = "What environment do Northern Harriers live in?";
-		northernHarrierQuestions[5] = "What bird are you playing as?";
-	}
+//	public void setNorthernHarrierQuestions() {
+//		
+//		// sets up the question array for the Northern Harrier
+//		setQuestionArray(new String[NUMBER_NH_QUESTIONS]);
+//		northernHarrierQuestions[0] = "Is the Northern Harrier a migratory bird?";
+//		northernHarrierQuestions[1] = "What do Northern Harriers like to eat?";
+//		northernHarrierQuestions[2] = "Where do Northern Harriers like to build their nests?";
+//		northernHarrierQuestions[3] = "Which animal is a predator to the Northern Harrier?";
+//		northernHarrierQuestions[4] = "What environment do Northern Harriers live in?";
+//		northernHarrierQuestions[5] = "What bird are you playing as?";
+//	}
 
 	public String[] getQuestionArray() {
 		return ospreyQuestions;
@@ -117,8 +124,11 @@ public class Question {
 	 */
 	public void displayQuestion() {
 		// Generates a random number based on the number of possible questions
+		System.out.println("Bird Type:" + this.birdType);
 		int randQuestionNum = (int)(Math.random()*((NUMBER_OSPREY_QUESTIONS - 1) + 1));
+		System.out.println("Random Question Number: " + randQuestionNum);
 		
+		/*
 		// Sets up the option pane to display the questions and answer choices
 		JOptionPane optionPane = new JOptionPane(ospreyQuestions[randQuestionNum], JOptionPane.PLAIN_MESSAGE);
         JDialog dialog = optionPane.createDialog("Option Dialog");
@@ -140,36 +150,69 @@ public class Question {
         
         // Fills the text of the buttons to be the two answers options
         JButton A = new JButton(choiceA);
+        //UIManager.put("A", A.toString());
         JButton B = new JButton(choiceB);
-        
+        //UIManager.put("B", B.toString());       
         optionPane.add(A);
         optionPane.add(B);
+        //dialog.getDefaultCloseOperation();
         
         dialog.setVisible(true);
         dialog.dispose();
 	    
         // TODO: Fix the way the response is collected so we can check against the correct answer
-	    String response = optionPane.getValue().toString();
+	    String response = dialog.getWindowListeners().toString();
+	    System.out.println("Window Listeners toString: " + response);
+	    */
+		
+		String[] options = {ospreyAnswers[randQuestionNum][CHOICE_A], ospreyAnswers[randQuestionNum][CHOICE_B]};
+		System.out.println("OptionA: " + ospreyAnswers[randQuestionNum][CHOICE_A] + ", OptionB: " + ospreyAnswers[randQuestionNum][CHOICE_B]);
+		
+		JPanel panel = new JPanel();
+		panel.add(new JLabel(ospreyQuestions[randQuestionNum]));
+		System.out.println("Question: " + ospreyQuestions[randQuestionNum]);
+		
+		String choiceA = ospreyAnswers[randQuestionNum][CHOICE_A];
+        String choiceB = ospreyAnswers[randQuestionNum][CHOICE_B];
+		
+//		JButton A = new JButton(choiceA);
+//		JButton B = new JButton(choiceB);
+		
+		Set<AWTKeyStroke> focusTraversalKeys = new HashSet<AWTKeyStroke>(panel.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+        focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_UP, KeyEvent.VK_UNDEFINED));
+        focusTraversalKeys.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_DOWN, KeyEvent.VK_UNDEFINED));
+        panel.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, focusTraversalKeys);
+        
+		int result = JOptionPane.showOptionDialog(null, panel, "Question",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, null);
+		
+		if(result == 0 && choiceA.equals(ospreyAnswers[randQuestionNum][CORRECT_ANSWER]))
+			JOptionPane.showMessageDialog(null, "Correct!");
+		else if(result == 1 && choiceB.equals(ospreyAnswers[randQuestionNum][CORRECT_ANSWER]))
+			JOptionPane.showMessageDialog(null, "Correct!");
+		else
+			JOptionPane.showMessageDialog(null, "Incorrect");
 	    
 	    // ----------------------------------------------------------------------------------------------------
 	    // NEED TO FIX THIS SECTION
 	    
 	    // Checking the correctness of the answer the user clicked
-	    if(response.contentEquals(ospreyAnswers[randQuestionNum][CORRECT_ANSWER])) {
-	    	A.setFocusable(true);
-	    	A.doClick();
-	    	System.out.println("A clicked");
-	    	isCorrect = true;
-	    }
-	    else {
-	    	B.setFocusable(true);
-	    	B.doClick();
-	    	System.out.println("B clicked");
-	    	isCorrect = false;
-	    }
+//	    if(response.contentEquals(ospreyAnswers[randQuestionNum][CORRECT_ANSWER])) {
+//	    	A.setFocusable(true);
+//	    	A.doClick();
+//	    	System.out.println("A clicked");
+//	    	isCorrect = true;
+//	    }
+//	    else {
+//	    	B.setFocusable(true);
+//	    	B.doClick();
+//	    	System.out.println("B clicked");
+//	    	isCorrect = false;
+//	    }
 	    // ----------------------------------------------------------------------------------------------------
 	}
-	
+
 	protected static JOptionPane getOptionPane(JComponent parent) {
         JOptionPane pane = null;
         if (!(parent instanceof JOptionPane)) {
