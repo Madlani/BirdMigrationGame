@@ -68,6 +68,11 @@ public class SideSwiperView extends View {
 	protected final int MAP_Y = 0;
 	protected boolean finished = false;
 	
+	protected BufferedImage warning;
+	protected BufferedImage checkMark;
+	protected BufferedImage downKeyFlash;
+	protected BufferedImage upKeyFlash;
+	protected GameState state = GameState.TUTORIAL;
 
 	public SideSwiperView() {
 		super();
@@ -118,6 +123,11 @@ public class SideSwiperView extends View {
 		for (int i = 0; i < foxFrameCount; i++)
 			foxFrames[i] = foxAnimation.getSubimage(FOX_IMG_WIDTH * i, 0, FOX_IMG_WIDTH, FOX_IMG_HEIGHT);
 		
+		this.warning = super.createImage("src/images/warning.png");
+		this.checkMark = super.createImage("src/images/checkmark.png");
+		this.downKeyFlash = super.createImage("src/images/downKeyFlash.png");
+		this.upKeyFlash = super.createImage("src/images/upKeyFlash.png");
+		
 		setDoubleBuffered(true);
 	}
 	
@@ -126,6 +136,8 @@ public class SideSwiperView extends View {
 	 * This method overrides the View's paintComponent(). It draws all of our images on the screen and sets them
 	 * to be the appropriate starting locations that we have defined using constants.
 	 */
+	
+	int flashCount = 0;
 	@Override
 	public void paintComponent(Graphics g) {		
 		
@@ -145,9 +157,15 @@ public class SideSwiperView extends View {
 		if (foxTick == 0) {
 			picNumFox = (short) ((picNumFox + 1) % foxFrameCount);
 		}
+
+//		if (this.state == GameState.TUTORIAL) {
+//			g.drawImage(g2, (imgVelX % (scaledImageWidth)), 0, null);
+//			g.drawImage(g2, (imgVelX % (scaledImageWidth)) + scaledImageWidth, 0, null);
+//		} else {
+		g.drawImage(g2, (imgVelX & scaledImageWidth), 0, null);
+		g.drawImage(g1, (imgVelX % (scaledImageWidth * 4)), 0, null);
+		g.drawImage(g2, (imgVelX % (scaledImageWidth * 5) + (scaledImageWidth * 3)), 0, null);
 		
-		g.drawImage(g1, (imgVelX % (scaledImageWidth * 3)), 0, null);
-		g.drawImage(g2, (imgVelX % (scaledImageWidth * 4) + (scaledImageWidth * 3)) , 0, null);
 
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		
@@ -162,6 +180,23 @@ public class SideSwiperView extends View {
 		g.drawImage(foxFrames[picNumFox], (int)foxX, (int)foxY, null);
 		
 		
+		if (this.state == GameState.TUTORIAL) {
+			this.flashCount= (this.flashCount+1) % 30;
+			if (this.flashCount < 15) {
+				g.drawImage(this.warning, (int)thunderCloudX, (int)thunderCloudY, null);
+				g.drawImage(this.warning, (int)planeX, (int)planeY, null);
+				g.drawImage(this.warning, (int)foxX, (int)foxY, null);
+				g.drawImage(this.checkMark, (int)fishX, (int)fishY, null);
+				g.drawImage(this.checkMark, (int)cloudQuestionX, (int)cloudQuestionY, null);
+				g.drawImage(this.upKeyFlash, this.scaledImageWidth/2 - 175, this.scaledImageHeight - 250, null);
+			} else {
+				g.drawImage(this.downKeyFlash, this.scaledImageWidth/2 - 175, this.scaledImageHeight - 250, null);
+			}
+		} else {
+			g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		}
+		
+		
 		if (this.bird.getHealthCount() <= 2) {
 			g.drawImage(caution, HEALTH_IMG_X - 40, HEALTH_IMG_Y, null);
 		}
@@ -169,16 +204,16 @@ public class SideSwiperView extends View {
 		
 //		//-----------------------------------------------------------------------------------------------------------------------------
 		//SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
-		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
-		g.drawRect((int)this.plane.GameObjectBox.getX(), (int)this.plane.GameObjectBox.getY(), (int)this.plane.GameObjectBox.getWidth(), (int)this.plane.GameObjectBox.getHeight());
-		g.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
-		g.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
-		//g.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
-		g.drawRect((int)this.fox.GameObjectBox.getX(), (int)this.fox.GameObjectBox.getY(), (int)this.fox.GameObjectBox.getWidth(), (int)this.fox.GameObjectBox.getHeight());
+//		g.drawRect((int)this.bird.getBirdBox().getX(), (int)this.bird.getBirdBox().getY(), (int)this.bird.getBirdBox().getWidth(), (int)this.bird.getBirdBox().getHeight());
+//		g.drawRect((int)this.plane.GameObjectBox.getX(), (int)this.plane.GameObjectBox.getY(), (int)this.plane.GameObjectBox.getWidth(), (int)this.plane.GameObjectBox.getHeight());
+//		g.drawRect((int)this.thunderCloudObj.GameObjectBox.getX(), (int)this.thunderCloudObj.GameObjectBox.getY(), (int)this.thunderCloudObj.GameObjectBox.getWidth(), (int)this.thunderCloudObj.GameObjectBox.getHeight());
+//		g.drawRect((int)this.cloudQuestionBoxObj.GameObjectBox.getX(), (int)this.cloudQuestionBoxObj.GameObjectBox.getY(), (int)this.cloudQuestionBoxObj.GameObjectBox.getWidth(), (int)this.cloudQuestionBoxObj.GameObjectBox.getHeight());
+//		//g.drawRect((int)this.food.GameObjectBox.getX(), (int)this.food.GameObjectBox.getY(), (int)this.food.GameObjectBox.getWidth(), (int)this.food.GameObjectBox.getHeight());
+//		g.drawRect((int)this.fox.GameObjectBox.getX(), (int)this.fox.GameObjectBox.getY(), (int)this.fox.GameObjectBox.getWidth(), (int)this.fox.GameObjectBox.getHeight());
 
 //		//-----------------------------------------------------------------------------------------------------------------------------
 		
-		g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+		
 		for (int i = 0; i < healthCount; i++) {
 			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
 		}
@@ -236,5 +271,9 @@ public class SideSwiperView extends View {
 	
 	public void setPicNumMap(int p) {
 		this.picNumMap = p;
+	}
+	
+	public void setState(GameState s) {
+		this.state = s;
 	}
 }

@@ -267,10 +267,12 @@ public class Controller {
 	}
 	
 	public void updateSideSwiperModel() {
-		System.out.println(sideSwiperModel.getPicNumMap() % 9);
+		//System.out.println(sideSwiperModel.getPicNumMap() % 9);
 		if (sideSwiperModel.getPicNumMap() > 1)
 			sideSwiperModel.setIsFirstFrame(false);
 		
+		
+		sideSwipeView.setState(sideSwiperModel.getState());
 		sideSwipeView.setPicNumMap(sideSwiperModel.getPicNumMap());
 		ssvPaused = sideSwiperModel.updateLocationAndDirectionForOsprey();
 		ArrayList<GameObject> list2 = sideSwiperModel.getUpdatableGameObjectsForOsprey();
@@ -309,35 +311,6 @@ public class Controller {
 		sideSwipeView.update(list2);
 	}
 	
-//	public void updateSideSwiperTutorialModel() {
-//		ssvPaused = sideTutModel.updateLocationAndDirectionForOsprey();
-//		ArrayList<GameObject> list2 = sideTutModel.getUpdatableGameObjectsForOsprey();
-//
-//		if (sideTutModel.getOsprey().getHealthCount() <= 0) {
-//			//sideSwiperGameOver = true;
-//			//this.state = GameState.END;
-//			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-//			for (int i = 1; i < list2.size(); i++) {
-//				sideTutModel.resetGameObjectLocation(list2.get(i));
-//			}
-//
-//			gameOver();
-//		}
-//
-//		sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-//		for (int i = 1; i < list2.size(); i++) {
-//			sideTutModel.resetGameObjectLocation(list2.get(i));
-//		}
-//		sideTutModel.setIsFirstFrame(true);
-//
-//		if (sideTutModel.getIsHit() == true) {
-//			sideTutView.setTimeForRectangle(true);
-//			System.out.println("It is time to draw the red rectangle");
-//		}
-//
-//		sideTutView.update(list2);
-//	}
-	
 	public void updateMigrationModel() {
 		mmvPaused = migrationModel.updateLocationAndDirectionForNorthernHarrier();
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjectsForNorthernHarrier();
@@ -355,7 +328,7 @@ public class Controller {
 	}
 	
 	public void gameOver() {
-		//whackView.resetIndex();
+		
 		if (sideSwiperGameOver) {
 			sideSwiperModel.getOsprey().setHealthCount(3);
 			this.cardLayout.show(this.masterPanel, "lose");
@@ -501,10 +474,6 @@ public class Controller {
 					whackUserSequence.clear();
 					//gameOver();
 					
-//				case SIDESWIPERTUTORIAL:
-//					if (!ssvPaused)
-//						updateSideSwiperTutorialModel();
-//					break;
 				}
 				return null;
 			}
@@ -662,23 +631,4 @@ public class Controller {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
 	}
-	
-//	public void setBindingsToSideSwiperTutorial() {
-//		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up", (evt) -> {
-//			sideTutModel.getOsprey().setFlyState(FlyState.UP);
-//		}, false);
-//		
-//		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up release", (evt) -> {
-//			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-//		}, true);
-//		
-//		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down", (evt) -> {
-//			sideTutModel.getOsprey().setFlyState(FlyState.DOWN);
-//		}, false);
-//		
-//		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
-//			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-//		}, true);
-//	}
-	
 }

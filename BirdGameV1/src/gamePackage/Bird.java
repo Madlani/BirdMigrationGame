@@ -12,7 +12,7 @@ public class Bird extends GameObject {
 	
 	private final double screenSizeWidth = Model.scaledImageWidth;
 	private double startingX = screenSizeWidth/3;
-	private double startingY = 300;
+	private double startingY = Model.scaledImageHeight / 2;
 	
 	private final int BIRD_SPEED = 10;
 	private static int BIRD_IMG_WIDTH = 150;

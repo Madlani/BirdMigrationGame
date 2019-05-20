@@ -11,16 +11,11 @@ import javax.swing.Timer;
 
 public class SideSwiperModel extends Model {
 	
-	
 	protected int screenWidth = Model.scaledImageWidth;
 	protected int screenHeight = Model.scaledImageHeight;
 	protected int offset = 600;
 	
-	protected final int airplaneStartX = 200;
-	protected final int thunderCloudStartX = 450;
-	protected final int questionBlockStartX = 700;
-	protected final int fishStartX = 700;
-	protected final int foxStartX = 750;
+	
 	
 	protected final int PLANEBOX_WIDTH = 150;
 	protected final int PLANEBOX_HEIGHT = 150;
@@ -37,7 +32,7 @@ public class SideSwiperModel extends Model {
 	protected final int OSPREY_HEIGHT = 150;
 	
 	protected double ospreyStartingX = screenWidth/3;
-	protected double ospreyStartingY = screenHeight - 200;
+	protected double ospreyStartingY = screenHeight/2;
 	
 	protected Bird osprey;
 	protected GameObject airplane;
@@ -56,16 +51,33 @@ public class SideSwiperModel extends Model {
 	protected final int MIGRATION_MAP_SUBIMAGES = 9;
 	protected int picNumMap = 0;
 	
+	
+	protected final int airplaneStartX = 1000;
+	protected final int thunderCloudStartX = 1500;
+	protected final int questionBlockStartX = 2000;
+	protected final int fishStartX = 0;
+	protected final int foxStartX = 500;
+	
+	protected GameState state = GameState.TUTORIAL;
+	protected final int TUTORIAL_SPEED = 3;
+	protected final int NORMAL_SPEED = 7;
+	
 	public SideSwiperModel() {
 		super();
 		this.osprey = new Bird(BirdType.OSPREY, ObjectType.OSPREY);
-    	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT, (screenHeight / 3) * 2, 0);
-    	this.fish = new GameObject(BirdType.OSPREY, screenWidth + fishStartX, ObjectType.FISH, FISHBOX_WIDTH, FISHBOX_HEIGHT, screenHeight, (screenHeight / 3) * 2);
-    	this.thunderCloud = new GameObject(BirdType.OSPREY, screenWidth + thunderCloudStartX, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT, (screenHeight / 3) * 2, 0);
-    	this.cloudQuestionBlock = new GameObject(BirdType.OSPREY, screenWidth + questionBlockStartX, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT, (screenHeight / 3) * 2, 0);
-    	this.fox = new GameObject(BirdType.OSPREY, screenWidth + foxStartX, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT, screenHeight, (screenHeight / 3) * 2);
+    	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, this.screenHeight / 2, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT);
+    	this.fish = new GameObject(BirdType.OSPREY, screenWidth + fishStartX, this.screenHeight / 2, ObjectType.FISH, FISHBOX_WIDTH, FISHBOX_HEIGHT);
+    	this.thunderCloud = new GameObject(BirdType.OSPREY, screenWidth + thunderCloudStartX, this.screenHeight / 2, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT);
+    	this.cloudQuestionBlock = new GameObject(BirdType.OSPREY, screenWidth + questionBlockStartX, this.screenHeight / 2, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT);
+    	this.fox = new GameObject(BirdType.OSPREY, screenWidth + foxStartX, this.screenHeight / 2, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT);
     	
     	this.osprey.setLocation(ospreyStartingX, ospreyStartingY);
+    	
+    	this.airplane.setSpeed(this.TUTORIAL_SPEED);
+    	this.fish.setSpeed(this.TUTORIAL_SPEED);
+    	this.thunderCloud.setSpeed(this.TUTORIAL_SPEED);
+    	this.cloudQuestionBlock.setSpeed(this.TUTORIAL_SPEED);
+    	this.fox.setSpeed(this.TUTORIAL_SPEED);
     	
     	this.gameObjectsForOsprey = new ArrayList<>();
     	this.gameObjectsForOsprey.add(osprey);
@@ -84,18 +96,21 @@ public class SideSwiperModel extends Model {
 	 */
 	@Override
 	public void updateGameObjectLocationAndDirection(GameObject o) {
-		if(o.getX() <= -o.GameObjectBox.width) {
+		if(o.getX() <= -o.GameObjectBox.width) 
 			resetGameObjectLocation(o);
-		} else {
-			o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
-		}
+	}
+	
+	public void moveObjects(GameObject o) {
+		o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
 	}
 	
 	
 	public boolean updateLocationAndDirectionForOsprey() {
-		tick = (tick+1) % MAP_FRAME_COUNT;
-		if (tick == 0) {
-			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+		if (this.state != GameState.TUTORIAL) {
+			tick = (tick+1) % MAP_FRAME_COUNT;
+			if (tick == 0) {
+				picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+			}
 		}
 
 		switch (osprey.getFlyState()) {
@@ -111,6 +126,10 @@ public class SideSwiperModel extends Model {
 			break;
 		default:
 			break;
+		}
+		
+		if (this.cloudQuestionBlock.getX() <= 0 && this.state == GameState.TUTORIAL) {
+			this.state = GameState.SIDESWIPER;
 		}
 
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
@@ -131,13 +150,27 @@ public class SideSwiperModel extends Model {
     	this.fox.setLocation(this.fox.getX(), this.fox.getY());
     	this.fox.GameObjectBox.setLocation((int)this.fox.getX(), (int)this.fox.getY());
     	
-    	updateGameObjectLocationAndDirection(airplane);
-    	updateGameObjectLocationAndDirection(fish);
-    	updateGameObjectLocationAndDirection(thunderCloud);
-    	updateGameObjectLocationAndDirection(cloudQuestionBlock);
-    	updateGameObjectLocationAndDirection(fox);
+    	moveObjects(airplane);
+    	moveObjects(fish);
+    	moveObjects(thunderCloud);
+    	moveObjects(cloudQuestionBlock);
+    	moveObjects(fox);
     	
-    	return detectCollisions(this.gameObjectsForOsprey, this.osprey);
+    	if (this.state != GameState.TUTORIAL) {
+    		this.airplane.setSpeed(this.NORMAL_SPEED);
+        	this.fish.setSpeed(this.NORMAL_SPEED);
+        	this.thunderCloud.setSpeed(this.NORMAL_SPEED);
+        	this.cloudQuestionBlock.setSpeed(this.NORMAL_SPEED);
+        	this.fox.setSpeed(this.NORMAL_SPEED);
+    		
+			updateGameObjectLocationAndDirection(airplane);
+			updateGameObjectLocationAndDirection(fish);
+			updateGameObjectLocationAndDirection(thunderCloud);
+			updateGameObjectLocationAndDirection(cloudQuestionBlock);
+			updateGameObjectLocationAndDirection(fox);
+		}
+    	
+    	return detectCollisions(this.gameObjectsForOsprey, this.osprey, this.state);
 	}
 	
 	
@@ -198,6 +231,10 @@ public class SideSwiperModel extends Model {
 	
 	public int getPicNumMap() {
 		return this.picNumMap;
+	}
+	
+	public GameState getState() {
+		return this.state;
 	}
 }
 

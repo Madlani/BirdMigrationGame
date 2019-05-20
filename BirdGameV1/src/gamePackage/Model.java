@@ -37,7 +37,7 @@ public abstract class Model extends Point2D {
 
 	// detectCollisions() will contain the logic that determines if the bird model
 	// has collided with objects such as the ground and other GameObjects
-	public boolean detectCollisions(ArrayList<GameObject> objectList, Bird b) {
+	public boolean detectCollisions(ArrayList<GameObject> objectList, Bird b, GameState isTutorial) {
 		int i = 0;
 		for (GameObject o : objectList) {
 			if (i == 0) {
@@ -47,19 +47,22 @@ public abstract class Model extends Point2D {
 					
 					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD || o.getType() == ObjectType.FOX || o.getType() == ObjectType.OWL || o.getType() == ObjectType.TREE) && healthChangable == false) {
 						b.decreaseHealthCount();
-						resetGameObjectLocation(o);
+						if (isTutorial != GameState.TUTORIAL)
+							resetGameObjectLocation(o);
 						isHit = true;
 					}
 					if ((o.getType() == ObjectType.FISH || o.getType() == ObjectType.MOUSE) && b.getHealthCount() < START_HEALTH_COUNT && healthChangable == false) {
 						b.increaseHealthCount();
-						resetGameObjectLocation(o);
+						if (isTutorial != GameState.TUTORIAL)
+							resetGameObjectLocation(o);
 					}
 					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX || o.getType() == ObjectType.BUSH_QUESTION_BOX) && healthChangable == false) {
 						System.out.println("hit question cloud");
 
 						System.out.println("Game Flag before question is displayed: " + this.getPauseGameFlag());
 						changePauseGameFlag();
-						resetGameObjectLocation(o);
+						if (isTutorial != GameState.TUTORIAL)
+							resetGameObjectLocation(o);
 					}
 
 					healthChangable = true;

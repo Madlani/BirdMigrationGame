@@ -34,54 +34,54 @@ public class SideSwiperTutorialModel extends SideSwiperModel {
 	}
 	
 	
-	public boolean updateLocationAndDirectionForOsprey() {
-		tick = (tick+1) % MAP_FRAME_COUNT;
-		if (tick == 0) {
-			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
-		}
-
-		switch (osprey.getFlyState()) {
-		case UP:
-			if (osprey.getY() > 0) {
-				osprey.moveUp();
-			}
-			break;
-		case DOWN:
-			if (osprey.getY() < screenHeight - OSPREY_HEIGHT) {
-				osprey.moveDown();
-			}
-			break;
-		default:
-			break;
-		}
-
-		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
-		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
-		System.out.println("tutorial model X and Y: " + this.osprey.getX() + ", " + this.osprey.getY());
-		
-    	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
-    	this.airplane.GameObjectBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
-    	
-    	this.thunderCloud.setLocation(this.thunderCloud.getX(), this.thunderCloud.getY());
-    	this.thunderCloud.GameObjectBox.setLocation((int)this.thunderCloud.getX(), (int)this.thunderCloud.getY());
-    	
-    	this.cloudQuestionBlock.setLocation(this.cloudQuestionBlock.getX(), this.cloudQuestionBlock.getY());
-    	this.cloudQuestionBlock.GameObjectBox.setLocation((int)this.cloudQuestionBlock.getX(), (int)this.cloudQuestionBlock.getY());
-    	
-    	this.fish.setLocation(this.fish.getX(), this.fish.getY());
-    	this.fish.GameObjectBox.setLocation((int)this.fish.getX(), (int)this.fish.getY());
-    	
-    	this.fox.setLocation(this.fox.getX(), this.fox.getY());
-    	this.fox.GameObjectBox.setLocation((int)this.fox.getX(), (int)this.fox.getY());
-    	
-    	updateGameObjectLocationAndDirection(airplane);
-    	updateGameObjectLocationAndDirection(fish);
-    	updateGameObjectLocationAndDirection(thunderCloud);
-    	updateGameObjectLocationAndDirection(cloudQuestionBlock);
-    	updateGameObjectLocationAndDirection(fox);
-    	
-    	return detectCollisions(this.gameObjectsForOsprey, this.osprey);
-	}
+//	public boolean updateLocationAndDirectionForOsprey() {
+//		tick = (tick+1) % MAP_FRAME_COUNT;
+//		if (tick == 0) {
+//			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+//		}
+//
+//		switch (osprey.getFlyState()) {
+//		case UP:
+//			if (osprey.getY() > 0) {
+//				osprey.moveUp();
+//			}
+//			break;
+//		case DOWN:
+//			if (osprey.getY() < screenHeight - OSPREY_HEIGHT) {
+//				osprey.moveDown();
+//			}
+//			break;
+//		default:
+//			break;
+//		}
+//
+//		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
+//		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
+//		System.out.println("tutorial model X and Y: " + this.osprey.getX() + ", " + this.osprey.getY());
+//		
+//    	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
+//    	this.airplane.GameObjectBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
+//    	
+//    	this.thunderCloud.setLocation(this.thunderCloud.getX(), this.thunderCloud.getY());
+//    	this.thunderCloud.GameObjectBox.setLocation((int)this.thunderCloud.getX(), (int)this.thunderCloud.getY());
+//    	
+//    	this.cloudQuestionBlock.setLocation(this.cloudQuestionBlock.getX(), this.cloudQuestionBlock.getY());
+//    	this.cloudQuestionBlock.GameObjectBox.setLocation((int)this.cloudQuestionBlock.getX(), (int)this.cloudQuestionBlock.getY());
+//    	
+//    	this.fish.setLocation(this.fish.getX(), this.fish.getY());
+//    	this.fish.GameObjectBox.setLocation((int)this.fish.getX(), (int)this.fish.getY());
+//    	
+//    	this.fox.setLocation(this.fox.getX(), this.fox.getY());
+//    	this.fox.GameObjectBox.setLocation((int)this.fox.getX(), (int)this.fox.getY());
+//    	
+//    	updateGameObjectLocationAndDirection(airplane);
+//    	updateGameObjectLocationAndDirection(fish);
+//    	updateGameObjectLocationAndDirection(thunderCloud);
+//    	updateGameObjectLocationAndDirection(cloudQuestionBlock);
+//    	updateGameObjectLocationAndDirection(fox);
+//    	
+//    	return detectCollisions(this.gameObjectsForOsprey, this.osprey);
+//	}
 	
 	
 	/**

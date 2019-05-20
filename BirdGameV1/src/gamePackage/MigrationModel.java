@@ -39,6 +39,8 @@ public class MigrationModel extends Model {
 	protected GameObject bushQuestionBlock;
 	protected GameObject owl;
 	
+	protected GameState state = GameState.MIGRATION;
+	
 	public MigrationModel() {
 		super();
 		this.northernHarrier = new Bird(BirdType.NORTHERNHARRIER, ObjectType.NORTHERNHARRIER);
@@ -112,7 +114,7 @@ public class MigrationModel extends Model {
     	updateGameObjectLocationAndDirection(owl);
 		
 		
-		return detectCollisions(this.gameObjectsForNortherHarrier, this.northernHarrier);
+		return detectCollisions(this.gameObjectsForNortherHarrier, this.northernHarrier, this.state);
 	}
 	
 	
