@@ -4,18 +4,21 @@ import java.util.ArrayList;
 
 public class MigrationModel extends Model {
 	
+	private final int TUTORIAL_SPEED = 2;
+	private final int NORMAL_SPEED = 3;
 	private final double screenWidth = Model.scaledImageWidth;
 	private final double screenHeight = Model.scaledImageHeight;
+	protected int offset = 600;
 	
 	private int maxWidth = Model.scaledImageHeight - 150;
 	private int minWidth = 0;
 	
 	private final int MINI_MAP_WIDTH = (int)screenWidth / 4;
 	
-	private final int mouseStartY = -200;
-	private final int treeStartY = -50;
-	private final int bushQuestionBlockStartY = -100;
-	private final int owlStartY = -250;
+	private final int mouseStartY = -100;
+	private final int treeStartY = -600;
+	private final int bushQuestionBlockStartY = -1600;
+	private final int owlStartY = -1100;
 	
 	private final int TREE_WIDTH = 200;
 	private final int TREE_HEIGHT = 274;
@@ -39,21 +42,32 @@ public class MigrationModel extends Model {
 	protected GameObject bushQuestionBlock;
 	protected GameObject owl;
 	
-	protected GameState state = GameState.MIGRATION;
+	protected GameState state;
 	protected int tick = 0;
 	protected final int MINIMAP_SUBIMAGES = 13;
 	protected final int MAP_DELAY = 100;
 	protected int picNumMap = 0;
 	protected boolean isFirstFrame = true;
+	protected int thirdOfTheScreenY = (int) ((screenHeight / 3) * 2);
+	
 	public MigrationModel() {
 		super();
+		init();
+	}
+	
+	public void init() {
 		this.northernHarrier = new Bird(BirdType.NORTHERNHARRIER, ObjectType.NORTHERNHARRIER);
-    	this.tree = new GameObject(BirdType.NORTHERNHARRIER, treeStartY, ObjectType.TREE, TREE_WIDTH, TREE_HEIGHT);
-    	this.mouse = new GameObject(BirdType.NORTHERNHARRIER, mouseStartY, ObjectType.MOUSE, MOUSE_WIDTH, MOUSE_HEIGHT);
-    	this.bushQuestionBlock = new GameObject(BirdType.NORTHERNHARRIER, bushQuestionBlockStartY, ObjectType.BUSH_QUESTION_BOX, BUSH_QUESTION_WIDTH, BUSH_QUESTION_HEIGHT);
-    	this.owl = new GameObject(BirdType.NORTHERNHARRIER, owlStartY, ObjectType.OWL, OWL_WIDTH, OWL_HEIGHT);
+    	this.tree = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, treeStartY, ObjectType.TREE, TREE_WIDTH, TREE_HEIGHT);
+    	this.mouse = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, mouseStartY, ObjectType.MOUSE, MOUSE_WIDTH, MOUSE_HEIGHT);
+    	this.bushQuestionBlock = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, bushQuestionBlockStartY, ObjectType.BUSH_QUESTION_BOX, BUSH_QUESTION_WIDTH, BUSH_QUESTION_HEIGHT);
+    	this.owl = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, owlStartY, ObjectType.OWL, OWL_WIDTH, OWL_HEIGHT);
     	
     	this.northernHarrier.setLocation(northernHarrierStartingX, northernHarrierStartingY);
+    	this.state = GameState.TUTORIAL;
+    	this.tree.setSpeed(this.TUTORIAL_SPEED);
+    	this.mouse.setSpeed(this.TUTORIAL_SPEED);
+    	this.owl.setSpeed(this.TUTORIAL_SPEED);
+    	this.bushQuestionBlock.setSpeed(this.TUTORIAL_SPEED);
     	
     	this.gameObjectsForNortherHarrier = new ArrayList<>();
     	this.gameObjectsForNortherHarrier.add(northernHarrier);
@@ -77,11 +91,16 @@ public class MigrationModel extends Model {
 		}
 	}
 	
+	public void moveObjects(GameObject o) {
+		o.setLocation(o.getX(), o.getY() +  o.getGameObjectSpeed());
+	}
 	
 	public boolean updateLocationAndDirectionForNorthernHarrier() {
-		tick = (tick+1) % this.MAP_DELAY;
-		if (tick == 0) {
-			picNumMap = (picNumMap + 1) % this.MINIMAP_SUBIMAGES;
+		if (this.state != GameState.TUTORIAL) {
+			tick = (tick + 1) % this.MAP_DELAY;
+			if (tick == 0) {
+				picNumMap = (picNumMap + 1) % this.MINIMAP_SUBIMAGES;
+			}
 		}
 		
 		
@@ -89,17 +108,19 @@ public class MigrationModel extends Model {
 		case RIGHT:
 			if (this.northernHarrier.getX() < screenWidth - NORTHERNHARRIER_WIDTH) {
 				this.northernHarrier.moveRight();
-				System.out.println("Migration Model - moving right");
 			}
 			break;
 		case LEFT:
 			if (this.northernHarrier.getX() > screenWidth / MAP_X) {
 				this.northernHarrier.moveLeft();
-				System.out.println("Migration Model - moving left");
 			}
 			break;
 		default:
 			break;
+		}
+		
+		if (this.bushQuestionBlock.getY() >= screenHeight && this.state == GameState.TUTORIAL) {
+			this.state = GameState.MIGRATION;
 		}
 		
 		this.northernHarrier.setLocation(this.northernHarrier.getX(), this.northernHarrier.getY());
@@ -118,11 +139,22 @@ public class MigrationModel extends Model {
 		this.owl.setLocation(this.owl.getX(), this.owl.getY());
 		this.owl.GameObjectBox.setLocation((int)this.owl.getX(), (int)this.owl.getY());
 		
-    	updateGameObjectLocationAndDirection(tree);
-    	updateGameObjectLocationAndDirection(mouse);
-    	updateGameObjectLocationAndDirection(bushQuestionBlock);
-    	updateGameObjectLocationAndDirection(owl);
+	   	moveObjects(tree);
+    	moveObjects(mouse);
+    	moveObjects(owl);
+    	moveObjects(bushQuestionBlock);
 		
+		if (this.state != GameState.TUTORIAL) {
+			this.tree.setSpeed(3);
+			this.mouse.setSpeed(3);
+			this.owl.setSpeed(3);
+			this.bushQuestionBlock.setSpeed(3);
+
+			updateGameObjectLocationAndDirection(tree);
+			updateGameObjectLocationAndDirection(mouse);
+			updateGameObjectLocationAndDirection(bushQuestionBlock);
+			updateGameObjectLocationAndDirection(owl);
+		}
 		
 		return detectCollisions(this.gameObjectsForNortherHarrier, this.northernHarrier, this.state);
 	}
@@ -135,10 +167,24 @@ public class MigrationModel extends Model {
 	@Override
 	public void resetGameObjectLocation(GameObject o) {
 		int maxWidth = (int)screenWidth - o.GameObjectBox.width;
-		int minHeight = -150;
+		int minHeight = -250;
 
-		int rand = (int) (Math.random() * (maxWidth - minHeight + 1) - minHeight) + MINI_MAP_WIDTH;
+		int rand = (int) (Math.random() * (maxWidth - 50 + 1) - minHeight) + MINI_MAP_WIDTH;
 		o.setLocation(rand, minHeight);
+//		int rand;
+//		switch(o.getType()) {
+//		case BUSH_QUESTION_BOX:
+//		case TREE:
+//		case OWL:
+//			rand = (int)(Math.random() * (this.thirdOfTheScreenY - 80));
+//			o.setLocation(scaledImageWidth + offset, rand);
+//			break;
+//			
+//		case MOUSE:		
+//		
+//		default:
+//			break;
+//		}
 	}
 	
 	public Bird getNorthernHarrier() {
@@ -156,5 +202,14 @@ public class MigrationModel extends Model {
 	public void setFirstFrame(boolean b) {
 		this.isFirstFrame = b;
 	}
+
+	public GameState getState() {
+		return state;
+	}
+
+	public void setState(GameState state) {
+		this.state = state;
+	}
+	
 }
 

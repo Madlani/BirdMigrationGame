@@ -23,16 +23,12 @@ public class Controller {
 	
 	private SideSwiperModel sideSwiperModel;
 	private SideSwiperView sideSwipeView;
-//	private SideSwiperTutorialView sideTutView;
-//	private SideSwiperTutorialModel sideTutModel;
 	
 	private WhackAMoleView whackView;
 	private WhackAMoleModel whackModel;
 	
 	private MigrationModel migrationModel;
 	private MigrationView migrationView;
-//	private MigrationTutorialView migrationTutView;
-//	private MigrationTutorialModel migrationTutModel;
 	
 	private StartView startViewOsprey;
 	private StartView startViewNorthernHarrier;
@@ -88,18 +84,12 @@ public class Controller {
 	private void instantiateViews() {
 		// Code to run SideSwiper Game
 		sideSwipeView = new SideSwiperView();
-//		sideTutView = new SideSwiperTutorialView();
-//		sideTutModel = new SideSwiperTutorialModel();
 		
 		// Code to run Whack a Mole Game
 		whackView = new WhackAMoleView();
-		//whackTutView = new WhackAMoleTutorialView();
-		//whackTutModel = new WhackAMoleTutorialModel();
 		
 		// Code to run Migration Game
 		migrationView = new MigrationView();
-//		migrationTutView = new MigrationTutorialView();
-//		migrationTutModel = new MigrationTutorialModel();
 		
 		//Code to display Start screen
 		startViewOsprey = new StartView(BirdType.OSPREY);
@@ -127,12 +117,10 @@ public class Controller {
 		frame.add(masterPanel);
 		
 		masterPanel.add(startViewOsprey, "startOsprey");
-//		masterPanel.add(sideTutView, "sideSwiperTutorial");
 		masterPanel.add(sideSwipeView, "sideSwiper");	
 		masterPanel.add(whackView, "whackAMole");
 		masterPanel.add(ospreyWinView, "ospreywin");
 		masterPanel.add(startViewNorthernHarrier, "startNorthernHarrier");
-//		masterPanel.add(migrationTutView, "migrationTutorial");
 		masterPanel.add(migrationView, "migration");
 		masterPanel.add(loseView, "lose");
 		masterPanel.add(winView, "win");
@@ -148,15 +136,9 @@ public class Controller {
 		
 		}, false);
 		
-		//Goes from side swiper tutorial to side swiper game
-//		addKeyBinding(sideTutView, KeyEvent.VK_SPACE, "next panel from sideswiperTutorial", (e) -> {
-//			this.state = GameState.SIDESWIPER;
-//			this.cardLayout.show(this.masterPanel, "sideSwiper");
-//	
-//		}, false);
 		
 		//Goes from side swiper game to whack a mole game
-		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> {
+		addKeyBinding(sideSwipeView, KeyEvent.VK_0, "next panel from ssv", (e) -> {
 			this.state = GameState.WHACKAMOLE;
 			this.cardLayout.show(this.masterPanel, "whackAMole");
 			whackModel.randomizeSequence();
@@ -166,7 +148,7 @@ public class Controller {
 		}, false);
 		
 		//Goes from whack a mole game to win screen if player wins
-		addKeyBinding(whackView, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 
+		addKeyBinding(whackView, KeyEvent.VK_0, "next panel from wmv", (e) -> { 
 			if (count % 3 == 1) {
 				this.state = GameState.OSPREYWIN;
 				this.cardLayout.show(this.masterPanel, "ospreywin");
@@ -201,7 +183,7 @@ public class Controller {
 			
 		}, false);
 		
-		addKeyBinding(startViewNorthernHarrier, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
+		addKeyBinding(startViewNorthernHarrier, KeyEvent.VK_T, "next panel from start", (e) -> {
 
 			this.state = GameState.MIGRATION;
 			this.cardLayout.show(this.masterPanel, "migration");
@@ -209,16 +191,8 @@ public class Controller {
 
 		}, false);
 
-//		addKeyBinding(migrationTutView, KeyEvent.VK_SPACE, "next panel from winView", (e) -> {
-//
-//			this.state = GameState.MIGRATION;
-//			this.cardLayout.show(this.masterPanel, "migration");
-//			System.out.println("should start tuturial now");
-//		}, false);
-
 		
-
-		addKeyBinding(migrationView, KeyEvent.VK_SPACE, "next panel from mmv", (e) -> {
+		addKeyBinding(migrationView, KeyEvent.VK_0, "next panel from mmv", (e) -> {
 			
 			this.state = GameState.WHACKAMOLE;
 			this.cardLayout.show(this.masterPanel, "whackAMole");
@@ -315,6 +289,7 @@ public class Controller {
 			migrationModel.setFirstFrame(false);
 		}
 		
+		migrationView.setState(migrationModel.getState());
 		migrationView.setPicNumMap(migrationModel.getPicNumMap());
 		mmvPaused = migrationModel.updateLocationAndDirectionForNorthernHarrier();
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjectsForNorthernHarrier();
@@ -351,12 +326,14 @@ public class Controller {
 		
 		if (sideSwiperGameOver) {
 			sideSwiperModel.init();
+			migrationModel.init();
 			sideSwiperModel.getOsprey().setHealthCount(3);
 			this.cardLayout.show(this.masterPanel, "lose");
 			sideSwiperGameOver = false;
 		}
 		if (migrationGameOver) {
 			sideSwiperModel.init();
+			migrationModel.init();
 			migrationModel.getNorthernHarrier().setHealthCount(3);
 			this.cardLayout.show(this.masterPanel, "lose");
 			migrationGameOver = false;
@@ -392,6 +369,7 @@ public class Controller {
 					this.cardLayout.show(this.masterPanel, "win");
 					this.whackSwitch++;
 					sideSwiperModel.init();
+					migrationModel.init();
 				}
 				
 //				this.cardLayout.show(this.masterPanel, "ospreywin");
@@ -403,7 +381,7 @@ public class Controller {
 				this.cardLayout.show(this.masterPanel, "lose");
 				this.state = GameState.LOSE;
 				sideSwiperModel.init();
-				
+				migrationModel.init();
 			}
 		}
 //		else {

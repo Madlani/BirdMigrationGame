@@ -25,10 +25,10 @@ public class MigrationView extends View {
 	
 	private Image backgroundImage;
 	
-	private BufferedImage treeImg, mouseImg, bushQuestionBlockImg, healthImg, healthIcon;
+	private BufferedImage treeImg, mouseImg, bushQuestionBlockImg, healthImg, healthIcon, owlImg;
 	private BufferedImage[] miniMap;
 	private BufferedImage[] bird_imagesBufferedImage;
-	private BufferedImage[] owlBufferedImageFrames;
+//	private BufferedImage[] owlBufferedImageFrames;
 
 			
 	private double birdX, birdY, treeX, treeY, mouseX, mouseY, bushQuestionBlockX, bushQuestionBlockY, owlX, owlY;
@@ -63,6 +63,13 @@ public class MigrationView extends View {
 	private final int HEALTH_ICON_X = scaledImageWidth - 300;
 	private final int HEALTH_IMG_Y = 20;
 	
+	protected BufferedImage warning;
+	protected BufferedImage checkMark;
+	protected BufferedImage leftArrowFlash;
+	protected BufferedImage rightArrowFlash;
+	
+	private GameState state;
+	
 	public MigrationView() {
 		super();
 		this.loadImage();
@@ -85,7 +92,7 @@ public class MigrationView extends View {
 		
 		BufferedImage birdFrames = super.createImage(birdImagePath);
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
-		owlBufferedImageFrames = new BufferedImage[OWL_FRAME_COUNT];
+		owlImg = super.createImage(owlImagePath);
 		BufferedImage owlFrames = super.createImage(owlImagePath);
 		
 		for (int i = 0; i < birdFrameCount; i++) {
@@ -112,9 +119,11 @@ public class MigrationView extends View {
 		for (int i = 0; i < birdFrameCount; i++)
 			bird_imagesBufferedImage[i] = birdFrames.getSubimage(BIRD_IMG_WIDTH * i, 0, BIRD_IMG_WIDTH, BIRD_IMG_HEIGHT);
 		
-		for(int i = 0; i < OWL_FRAME_COUNT; i++) {
-			owlBufferedImageFrames[i] = owlFrames.getSubimage(OWL_IMG_WIDTH * i, 0, OWL_IMG_WIDTH, OWL_IMG_HEIGHT);
-		}
+		
+		this.warning = super.createImage("src/images/warning.png");
+		this.checkMark = super.createImage("src/images/checkmark.png");
+		this.leftArrowFlash = super.createImage("src/images/leftArrowFlash.png");
+		this.rightArrowFlash = super.createImage("src/images/rightArrowFlash.png");
 		
 		setDoubleBuffered(true); // used to smooth image movement
 	}
@@ -124,10 +133,9 @@ public class MigrationView extends View {
 	 * This method overrides the View's paintComponent(). It draws all of our images on the screen and sets them
 	 * to be the appropriate starting locations that we have defined using constants.
 	 */
+	int flashCount = 0;
 	@Override
 	public void paintComponent(Graphics g) {
-		
-		g = g.create();
 		
 		picNum = (picNum + 1) % birdFrameCount;
 		imgVelY-=1;
@@ -142,7 +150,7 @@ public class MigrationView extends View {
 		g.drawImage(backgroundImage,  0,(-(imgVelY % scaledImageHeight)-scaledImageHeight), null);
 		
 		g.drawImage(bird_imagesBufferedImage[picNumBird], (int)birdX, (int)birdY, null);
-		g.drawImage(owlBufferedImageFrames[picNumOwl], (int)owlX, (int)owlY, null);
+		g.drawImage(owlImg, (int)owlX, (int)owlY, null);
 		//System.out.println("bird view y: " + birdY);
 		
 		g.drawImage(treeImg, (int)treeX, (int)treeY, null);
@@ -154,6 +162,21 @@ public class MigrationView extends View {
 		
 		//g.drawImage(owlImg, (int)owlX, (int)owlY, null);
 		
+		if (this.state == GameState.TUTORIAL) {
+			this.flashCount= (this.flashCount+1) % 30;
+			if (this.flashCount < 15) {
+				g.drawImage(this.warning, (int)treeX, (int)treeY, null);
+				g.drawImage(this.warning, (int)owlX, (int)owlY, null);
+				g.drawImage(this.checkMark, (int)mouseX, (int)mouseY, null);
+				g.drawImage(this.checkMark, (int)bushQuestionBlockX, (int)bushQuestionBlockY, null);
+				g.drawImage(this.leftArrowFlash, 0, 0, null);
+			} else {
+				g.drawImage(this.rightArrowFlash, 0, 0, null);
+			}
+		} 
+		else {
+			g.drawImage(miniMap[picNumMap],MAP_X, MAP_Y, null);
+		}
 
 //		-----------------------------------------------------------------------------------------------------------------------------
 //		SAVE THIS CODE FOR TESTING PURPOSES - DRAWS THE HIT BOXES ON THE OBJECTS
@@ -182,7 +205,7 @@ public class MigrationView extends View {
 			picNumOwl = (picNumOwl + 1) % OWL_FRAME_COUNT;
 		}
 		
-		g.drawImage(this.miniMap[picNumMap], MAP_X, MAP_Y, null);
+		//g.drawImage(this.miniMap[picNumMap], MAP_X, MAP_Y, null);
 		
 		for (int i = 0; i < healthCount; i++) {
 			g.drawImage(healthIcon, HEALTH_ICON_X + (HEALTH_BIRD_OFFSET * i), HEALTH_IMG_Y, null);
@@ -223,6 +246,14 @@ public class MigrationView extends View {
 	
 	public void setPicNumMap(int m) {
 		this.picNumMap = m;
+	}
+	
+	public GameState getState() {
+		return state;
+	}
+
+	public void setState(GameState state) {
+		this.state = state;
 	}
 }
 	

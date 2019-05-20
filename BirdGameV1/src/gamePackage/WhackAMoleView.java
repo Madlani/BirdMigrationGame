@@ -342,15 +342,17 @@ public class WhackAMoleView extends View {
 			tick = (tick + 1) % 8;
 			
 			if (!(keyState == 1 || keyState == 2 || keyState == 3 || keyState == 4)) {
-				if(tick < 2) {
-					g.drawImage(upArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
-				} else if(tick < 4) {
-					g.drawImage(rightArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
-				} else if(tick < 6) {
-					g.drawImage(downArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
-				} else if(tick < 8) {
-					g.drawImage(leftArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
-				}
+//				if(tick < 2) {
+//					g.drawImage(upArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+//				} else if(tick < 4) {
+//					g.drawImage(rightArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+//				} else if(tick < 6) {
+//					g.drawImage(downArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+//				} else if(tick < 8) {
+//					g.drawImage(leftArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+//				}
+				g.drawImage(noArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+				
 			}
 			//Draws the bird image looking in the correct direction based on key presses
 			switch (keyState) {
