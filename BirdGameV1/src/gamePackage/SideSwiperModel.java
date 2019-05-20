@@ -45,7 +45,7 @@ public class SideSwiperModel extends Model {
 	
 	protected boolean isOver = false;
 	protected boolean isFirstFrame = true;
-	protected final int MAP_FRAME_COUNT = 400;
+	protected final int MAP_FRAME_COUNT = 250;
 	protected int tick = 0;
 	
 	protected final int MIGRATION_MAP_SUBIMAGES = 9;
@@ -58,12 +58,19 @@ public class SideSwiperModel extends Model {
 	protected final int fishStartX = 0;
 	protected final int foxStartX = 500;
 	
-	protected GameState state = GameState.TUTORIAL;
+	protected GameState state;
 	protected final int TUTORIAL_SPEED = 3;
 	protected final int NORMAL_SPEED = 7;
 	
 	public SideSwiperModel() {
 		super();
+		init();
+    	
+    	
+	}
+	
+	public void init() {
+		this.state = GameState.TUTORIAL;
 		this.osprey = new Bird(BirdType.OSPREY, ObjectType.OSPREY);
     	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, this.screenHeight / 2, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT);
     	this.fish = new GameObject(BirdType.OSPREY, screenWidth + fishStartX, this.screenHeight / 2, ObjectType.FISH, FISHBOX_WIDTH, FISHBOX_HEIGHT);

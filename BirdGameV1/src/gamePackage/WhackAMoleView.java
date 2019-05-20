@@ -16,21 +16,8 @@ public class WhackAMoleView extends View {
 	private final int EXPECTED_PATTERN_SIZE = 4;
 	private final int ARROW_IMAGES_WIDTH = 300;
 	private final int ARROW_IMAGES_HEIGHT = 300;
-//	private final int STICK_IMAGE_WIDTH = 393;
-//	private final int STICK_IMAGE_HEIGHT = 360;
-	
-	private final int TOP_IMG_WIDTH = 456;
-	private final int TOP_IMG_HEIGHT = 104;
-	
-	private final int LEFT_IMG_WIDTH = 325;
-	private final int LEFT_IMG_HEIGHT = 447;
-	
-	private final int RIGHT_IMG_WIDTH = 289;
-	private final int RIGHT_IMG_HEIGHT = 460;
-	
-	private final int BOTTOM_IMG_WIDTH = 468;
-	private final int BOTTOM_IMG_HEIGHT = 181;
-	
+	private final int STICK_IMAGE_WIDTH = 393;
+	private final int STICK_IMAGE_HEIGHT = 360;
 	private final int BORDER = 0;
 	
 	//necessary images needed for WhackAMoleView
@@ -39,21 +26,8 @@ public class WhackAMoleView extends View {
 	private Image right;
 	private Image up;
 	private Image down;
-//	private Image stick;
-//	private Image highlightedStick;
-	
-	private Image topStick;
-	private Image topStickHighlight;
-	
-	private Image leftStick;
-	private Image leftStickHighlight;
-	
-	private Image rightStick;
-	private Image rightStickHighlight;
-	
-	private Image bottomStick;
-	private Image bottomStickHighlight;
-	
+	private Image stick;
+	private Image highlightedStick;
 	
 	//flags for key presses and keyStates
 	private int keyState = 0;
@@ -145,7 +119,7 @@ public class WhackAMoleView extends View {
 	public void loadImage() {
 		
 		//background image
-		ImageIcon bg = new ImageIcon("src/images/grassForWhack.png");
+		ImageIcon bg = new ImageIcon("src/images/WhackAMoleBackground.png");
 		background = bg.getImage();
 			
 		//All bird images (bird looking up, down, left, and right)
@@ -162,36 +136,13 @@ public class WhackAMoleView extends View {
 		down = d.getImage();
 		
 		//stick image
-//		ImageIcon s = new ImageIcon("src/images/stick.png");
-//		stick = s.getImage();
-//		
-//		//highlighted stick image
-//		ImageIcon p = new ImageIcon("src/images/pressedStick.png");
-//		highlightedStick = p.getImage();
+		ImageIcon s = new ImageIcon("src/images/stick.png");
+		stick = s.getImage();
 		
-		// Top Stick Images
-		ImageIcon topS = new ImageIcon("src/images/topStick.png");
-		topStick = topS.getImage();
-		ImageIcon topSH = new ImageIcon("src/images/topStickHighlight.png");
-		topStickHighlight = topSH.getImage();
-		
-		// Left Stick Images
-		ImageIcon leftS = new ImageIcon("src/images/leftStick.png");
-		leftStick = leftS.getImage();
-		ImageIcon leftSH = new ImageIcon("src/images/leftStickHighlight.png");
-		leftStickHighlight = leftSH.getImage();
-		
-		// Right Stick Images
-		ImageIcon rightS = new ImageIcon("src/images/rightStick.png");
-		rightStick = rightS.getImage();
-		ImageIcon rightSH = new ImageIcon("src/images/rightStickHighlight.png");
-		rightStickHighlight = rightSH.getImage();
-		
-		// Bottom Stick Images
-		ImageIcon bottomS = new ImageIcon("src/images/bottomStick.png");
-		bottomStick = bottomS.getImage();
-		ImageIcon bottomSH = new ImageIcon("src/images/bottomStickHighlight.png");
-		bottomStickHighlight = bottomSH.getImage();
+		//highlighted stick image
+		ImageIcon p = new ImageIcon("src/images/pressedStick.png");
+		highlightedStick = p.getImage();
+
 	}
 	
 	/**
@@ -220,7 +171,7 @@ public class WhackAMoleView extends View {
 			case 1:
 				//up
 				System.out.println("highlight up");
-				g.drawImage(topStickHighlight, (scaledImageWidth/2) - (TOP_IMG_WIDTH/2), BORDER, null);
+				g.drawImage(highlightedStick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), BORDER, null);
 				drawUp = true;
 				drawDown = false;
 				drawLeft = false;
@@ -229,7 +180,7 @@ public class WhackAMoleView extends View {
 			case 2:
 				//down
 				System.out.println("highlight down");
-				g.drawImage(bottomStickHighlight, (scaledImageWidth/2) - (BOTTOM_IMG_WIDTH/2), scaledImageHeight - BOTTOM_IMG_HEIGHT, null);
+				g.drawImage(highlightedStick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), scaledImageHeight - STICK_IMAGE_HEIGHT, null);
 				//repaint();
 				drawUp = false;
 				drawDown = true;
@@ -239,7 +190,7 @@ public class WhackAMoleView extends View {
 			case 3:
 				//left
 				System.out.println("highlight left");
-				g.drawImage(leftStickHighlight, BORDER, (scaledImageHeight/2) - (LEFT_IMG_HEIGHT/2), null);
+				g.drawImage(highlightedStick, BORDER, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 				//repaint();
 				drawUp = false;
 				drawDown = false;
@@ -249,7 +200,7 @@ public class WhackAMoleView extends View {
 			case 4:
 				//right
 				System.out.println("highlight right");
-				g.drawImage(rightStickHighlight, scaledImageWidth - RIGHT_IMG_WIDTH, (scaledImageHeight/2) - (RIGHT_IMG_HEIGHT/2), null);
+				g.drawImage(highlightedStick, scaledImageWidth - STICK_IMAGE_WIDTH, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 				//repaint();
 				drawUp = false;
 				drawDown = false;
@@ -276,22 +227,22 @@ public class WhackAMoleView extends View {
 	public void normalStickMethod(Graphics g) {
 		//up
 		if (drawUp) {
-			g.drawImage(topStick, (scaledImageWidth/2) - (TOP_IMG_WIDTH/2), BORDER, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), BORDER, null);
 			System.out.println("drew original up");
 		}
 		//down
 		else if (drawDown) {
-			g.drawImage(bottomStick, (scaledImageWidth/2) - (BOTTOM_IMG_WIDTH/2), scaledImageHeight - BOTTOM_IMG_HEIGHT, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), scaledImageHeight - STICK_IMAGE_HEIGHT, null);
 			System.out.println("drew original down");
 		}
 		//left
 		else if (drawLeft) {
-			g.drawImage(leftStick, BORDER, (scaledImageHeight/2) - (LEFT_IMG_HEIGHT/2), null);
+			g.drawImage(stick, BORDER, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 			System.out.println("drew original left");
 		}
 		//right
 		else if (drawRight) {
-			g.drawImage(rightStick, scaledImageWidth - RIGHT_IMG_WIDTH, (scaledImageHeight/2) - (RIGHT_IMG_HEIGHT/2), null);
+			g.drawImage(stick, scaledImageWidth - STICK_IMAGE_WIDTH, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 			System.out.println("drew original right");
 		}
 		
@@ -312,13 +263,13 @@ public class WhackAMoleView extends View {
 				//background
 			g.drawImage(background, BORDER, BORDER, getWidth(), getHeight(), this);
 				//up
-			g.drawImage(topStick, (scaledImageWidth/2) - (TOP_IMG_WIDTH/2), BORDER, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), BORDER, null);
 				//down
-			g.drawImage(bottomStick, (scaledImageWidth/2) - (BOTTOM_IMG_WIDTH/2), scaledImageHeight - BOTTOM_IMG_HEIGHT, null);
+			g.drawImage(stick, (scaledImageWidth/2) - (STICK_IMAGE_WIDTH/2), scaledImageHeight - STICK_IMAGE_HEIGHT, null);
 				//left
-			g.drawImage(leftStick, BORDER, (scaledImageHeight/2) - (LEFT_IMG_HEIGHT/2), null);
+			g.drawImage(stick, BORDER, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 				//right
-			g.drawImage(rightStick, scaledImageWidth - RIGHT_IMG_WIDTH, (scaledImageHeight/2) - (RIGHT_IMG_HEIGHT/2), null);
+			g.drawImage(stick, scaledImageWidth - STICK_IMAGE_WIDTH, (scaledImageHeight/2) - (STICK_IMAGE_HEIGHT/2), null);
 			
 			
 			

@@ -66,7 +66,7 @@ public class Controller {
 		init();
 	}
 	
-	private void init() {
+	public void init() {
 		this.birdType = BirdType.OSPREY;
 		this.state = GameState.START;
 		
@@ -141,7 +141,7 @@ public class Controller {
 	private void initializeKeyBindings() {
 		
 		//Goes from startOsprey to side swiper tutorial
-		addKeyBinding(startViewOsprey, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
+		addKeyBinding(startViewOsprey, KeyEvent.VK_T, "next panel from start", (e) -> {
 			this.state = GameState.SIDESWIPER;
 			this.cardLayout.show(this.masterPanel, "sideSwiper");
 			System.out.println("should start tuturial now");
@@ -271,7 +271,6 @@ public class Controller {
 		if (sideSwiperModel.getPicNumMap() > 1)
 			sideSwiperModel.setIsFirstFrame(false);
 		
-		
 		sideSwipeView.setState(sideSwiperModel.getState());
 		sideSwipeView.setPicNumMap(sideSwiperModel.getPicNumMap());
 		ssvPaused = sideSwiperModel.updateLocationAndDirectionForOsprey();
@@ -330,11 +329,13 @@ public class Controller {
 	public void gameOver() {
 		
 		if (sideSwiperGameOver) {
+			sideSwiperModel.init();
 			sideSwiperModel.getOsprey().setHealthCount(3);
 			this.cardLayout.show(this.masterPanel, "lose");
 			sideSwiperGameOver = false;
 		}
 		if (migrationGameOver) {
+			sideSwiperModel.init();
 			migrationModel.getNorthernHarrier().setHealthCount(3);
 			this.cardLayout.show(this.masterPanel, "lose");
 			migrationGameOver = false;
@@ -369,6 +370,7 @@ public class Controller {
 					this.state = GameState.WIN;
 					this.cardLayout.show(this.masterPanel, "win");
 					this.whackSwitch++;
+					sideSwiperModel.init();
 				}
 				
 //				this.cardLayout.show(this.masterPanel, "ospreywin");
@@ -379,6 +381,7 @@ public class Controller {
 				
 				this.cardLayout.show(this.masterPanel, "lose");
 				this.state = GameState.LOSE;
+				sideSwiperModel.init();
 				
 			}
 		}
@@ -461,6 +464,7 @@ public class Controller {
 					winner();
 					break;
 				case START:
+					
 					break;
 				case OSPREYWIN:
 					whackUserSequence.clear();
