@@ -23,16 +23,16 @@ public class Controller {
 	
 	private SideSwiperModel sideSwiperModel;
 	private SideSwiperView sideSwipeView;
-	private SideSwiperTutorialView sideTutView;
-	private SideSwiperTutorialModel sideTutModel;
+//	private SideSwiperTutorialView sideTutView;
+//	private SideSwiperTutorialModel sideTutModel;
 	
 	private WhackAMoleView whackView;
 	private WhackAMoleModel whackModel;
 	
 	private MigrationModel migrationModel;
 	private MigrationView migrationView;
-	private MigrationTutorialView migrationTutView;
-	private MigrationTutorialModel migrationTutModel;
+//	private MigrationTutorialView migrationTutView;
+//	private MigrationTutorialModel migrationTutModel;
 	
 	private StartView startViewOsprey;
 	private StartView startViewNorthernHarrier;
@@ -40,10 +40,6 @@ public class Controller {
 	private OspreyWinView ospreyWinView;
 	private LoseView loseView;
 	private WinView winView;
-	
-
-	
-
 	
 	private GameState state;
 	private BirdType birdType;
@@ -67,33 +63,43 @@ public class Controller {
 	private ArrayList<Integer> whackUserSequence = new ArrayList<Integer>();
 	
 	public Controller() {
+		init();
+	}
+	
+	private void init() {
+		this.birdType = BirdType.OSPREY;
+		this.state = GameState.START;
 		
+		instantiateModels();
+		instantiateViews();
+		createJFrame();
+		addPanelsToCardLayout();
+		initializeKeyBindings();
+		
+		frame.setVisible(true);
+	}
+	
+	private void instantiateModels() {
 		sideSwiperModel = new SideSwiperModel();
 		migrationModel = new MigrationModel();
 		whackModel = new WhackAMoleModel();
-		
-		// Creates the frame and selects settings
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setUndecorated(true);
-		frame.setExtendedState(Frame.MAXIMIZED_BOTH); // sets screen to full screen
-		
+	}
+	
+	private void instantiateViews() {
 		// Code to run SideSwiper Game
 		sideSwipeView = new SideSwiperView();
-		sideTutView = new SideSwiperTutorialView();
-		sideTutModel = new SideSwiperTutorialModel();
-		
+//		sideTutView = new SideSwiperTutorialView();
+//		sideTutModel = new SideSwiperTutorialModel();
 		
 		// Code to run Whack a Mole Game
 		whackView = new WhackAMoleView();
 		//whackTutView = new WhackAMoleTutorialView();
 		//whackTutModel = new WhackAMoleTutorialModel();
 		
-		
 		// Code to run Migration Game
 		migrationView = new MigrationView();
-		migrationTutView = new MigrationTutorialView();
-		migrationTutModel = new MigrationTutorialModel();
+//		migrationTutView = new MigrationTutorialView();
+//		migrationTutModel = new MigrationTutorialModel();
 		
 		//Code to display Start screen
 		startViewOsprey = new StartView(BirdType.OSPREY);
@@ -104,50 +110,50 @@ public class Controller {
 				
 		//Code to display End screen
 		loseView = new LoseView();
-		
 		winView = new WinView();
-		
-
-
-		
-		this.cardLayout = new CardLayout();
+	}
 	
-		//-----------------------------------------------------------------------------
-		this.birdType = BirdType.OSPREY;
+	private void createJFrame() {
+		// Creates the frame and selects settings
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setUndecorated(true);
+		frame.setExtendedState(Frame.MAXIMIZED_BOTH); // sets screen to full screen
+	}
+	
+	private void addPanelsToCardLayout() {
+		this.cardLayout = new CardLayout();
 		masterPanel = new JPanel(cardLayout);
 		frame.add(masterPanel);
+		
 		masterPanel.add(startViewOsprey, "startOsprey");
-		masterPanel.add(sideTutView, "sideSwiperTutorial");
+//		masterPanel.add(sideTutView, "sideSwiperTutorial");
 		masterPanel.add(sideSwipeView, "sideSwiper");	
 		masterPanel.add(whackView, "whackAMole");
 		masterPanel.add(ospreyWinView, "ospreywin");
 		masterPanel.add(startViewNorthernHarrier, "startNorthernHarrier");
-		masterPanel.add(migrationTutView, "migrationTutorial");
+//		masterPanel.add(migrationTutView, "migrationTutorial");
 		masterPanel.add(migrationView, "migration");
 		masterPanel.add(loseView, "lose");
 		masterPanel.add(winView, "win");
-
-		
-		this.state = GameState.START;
-
+	}
 	
-		//-----------------------------------------------------------------------------
-
+	private void initializeKeyBindings() {
 		
 		//Goes from startOsprey to side swiper tutorial
 		addKeyBinding(startViewOsprey, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
-			this.state = GameState.SIDESWIPERTUTORIAL;
-			this.cardLayout.show(this.masterPanel, "sideSwiperTutorial");
+			this.state = GameState.SIDESWIPER;
+			this.cardLayout.show(this.masterPanel, "sideSwiper");
 			System.out.println("should start tuturial now");
 		
 		}, false);
 		
 		//Goes from side swiper tutorial to side swiper game
-		addKeyBinding(sideTutView, KeyEvent.VK_SPACE, "next panel from sideswiperTutorial", (e) -> {
-			this.state = GameState.SIDESWIPER;
-			this.cardLayout.show(this.masterPanel, "sideSwiper");
-	
-		}, false);
+//		addKeyBinding(sideTutView, KeyEvent.VK_SPACE, "next panel from sideswiperTutorial", (e) -> {
+//			this.state = GameState.SIDESWIPER;
+//			this.cardLayout.show(this.masterPanel, "sideSwiper");
+//	
+//		}, false);
 		
 		//Goes from side swiper game to whack a mole game
 		addKeyBinding(sideSwipeView, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> {
@@ -197,18 +203,18 @@ public class Controller {
 		
 		addKeyBinding(startViewNorthernHarrier, KeyEvent.VK_SPACE, "next panel from start", (e) -> {
 
-			this.state = GameState.MIGRATIONTUTORIAL;
-			this.cardLayout.show(this.masterPanel, "migrationTutorial");
+			this.state = GameState.MIGRATION;
+			this.cardLayout.show(this.masterPanel, "migration");
 			
 
 		}, false);
 
-		addKeyBinding(migrationTutView, KeyEvent.VK_SPACE, "next panel from winView", (e) -> {
-
-			this.state = GameState.MIGRATION;
-			this.cardLayout.show(this.masterPanel, "migration");
-			System.out.println("should start tuturial now");
-		}, false);
+//		addKeyBinding(migrationTutView, KeyEvent.VK_SPACE, "next panel from winView", (e) -> {
+//
+//			this.state = GameState.MIGRATION;
+//			this.cardLayout.show(this.masterPanel, "migration");
+//			System.out.println("should start tuturial now");
+//		}, false);
 
 		
 
@@ -241,14 +247,10 @@ public class Controller {
 			whackModel.setKeyState(0);
 		}, false);
 		
-		//-----------------------------------------------------------------------------
-		
-		setBindingsToSideSwiperTutorial();
+//		setBindingsToSideSwiperTutorial();
 		setBindingsToSideSwiper();
 		setBindingsToMigration();
 		setBindingsToWhackAMole();
-		
-		frame.setVisible(true);
 	}
 
 	/**
@@ -307,34 +309,34 @@ public class Controller {
 		sideSwipeView.update(list2);
 	}
 	
-	public void updateSideSwiperTutorialModel() {
-		ssvPaused = sideTutModel.updateLocationAndDirectionForOsprey();
-		ArrayList<GameObject> list2 = sideTutModel.getUpdatableGameObjectsForOsprey();
-
-		if (sideTutModel.getOsprey().getHealthCount() <= 0) {
-			//sideSwiperGameOver = true;
-			//this.state = GameState.END;
-			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-			for (int i = 1; i < list2.size(); i++) {
-				sideTutModel.resetGameObjectLocation(list2.get(i));
-			}
-
-			gameOver();
-		}
-
-		sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-		for (int i = 1; i < list2.size(); i++) {
-			sideTutModel.resetGameObjectLocation(list2.get(i));
-		}
-		sideTutModel.setIsFirstFrame(true);
-
-		if (sideTutModel.getIsHit() == true) {
-			sideTutView.setTimeForRectangle(true);
-			System.out.println("It is time to draw the red rectangle");
-		}
-
-		sideTutView.update(list2);
-	}
+//	public void updateSideSwiperTutorialModel() {
+//		ssvPaused = sideTutModel.updateLocationAndDirectionForOsprey();
+//		ArrayList<GameObject> list2 = sideTutModel.getUpdatableGameObjectsForOsprey();
+//
+//		if (sideTutModel.getOsprey().getHealthCount() <= 0) {
+//			//sideSwiperGameOver = true;
+//			//this.state = GameState.END;
+//			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
+//			for (int i = 1; i < list2.size(); i++) {
+//				sideTutModel.resetGameObjectLocation(list2.get(i));
+//			}
+//
+//			gameOver();
+//		}
+//
+//		sideTutModel.getOsprey().setFlyState(FlyState.STILL);
+//		for (int i = 1; i < list2.size(); i++) {
+//			sideTutModel.resetGameObjectLocation(list2.get(i));
+//		}
+//		sideTutModel.setIsFirstFrame(true);
+//
+//		if (sideTutModel.getIsHit() == true) {
+//			sideTutView.setTimeForRectangle(true);
+//			System.out.println("It is time to draw the red rectangle");
+//		}
+//
+//		sideTutView.update(list2);
+//	}
 	
 	public void updateMigrationModel() {
 		mmvPaused = migrationModel.updateLocationAndDirectionForNorthernHarrier();
@@ -492,12 +494,17 @@ public class Controller {
 					break;
 				case LOSE:
 					whackUserSequence.clear();
+					//gameOver();
 //					whackView.resetIndex();
 					break;
-				case SIDESWIPERTUTORIAL:
-					if (!ssvPaused)
-						updateSideSwiperTutorialModel();
-					break;
+				case WIN:
+					whackUserSequence.clear();
+					//gameOver();
+					
+//				case SIDESWIPERTUTORIAL:
+//					if (!ssvPaused)
+//						updateSideSwiperTutorialModel();
+//					break;
 				}
 				return null;
 			}
@@ -506,8 +513,7 @@ public class Controller {
 		updateModelWorker.execute();
 	}
 	
-	public void updateWhackKeyState()
-	{
+	public void updateWhackKeyState() {
 		whackView.setKeyState(whackModel.getKeyState());
 	}
 	
@@ -534,8 +540,8 @@ public class Controller {
 		case LOSE:
 			SwingUtilities.invokeLater(() ->  this.loseView.repaint());
 			break;
-		case SIDESWIPERTUTORIAL:
-			SwingUtilities.invokeLater(() -> this.sideTutView.repaint());
+//		case SIDESWIPERTUTORIAL:
+//			SwingUtilities.invokeLater(() -> this.sideTutView.repaint());
 		case WIN:
 			SwingUtilities.invokeLater(() -> this.winView.repaint());
 		}
@@ -657,22 +663,22 @@ public class Controller {
 		}, true);
 	}
 	
-	public void setBindingsToSideSwiperTutorial() {
-		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up", (evt) -> {
-			sideTutModel.getOsprey().setFlyState(FlyState.UP);
-		}, false);
-		
-		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up release", (evt) -> {
-			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-		}, true);
-		
-		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down", (evt) -> {
-			sideTutModel.getOsprey().setFlyState(FlyState.DOWN);
-		}, false);
-		
-		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
-			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
-		}, true);
-	}
+//	public void setBindingsToSideSwiperTutorial() {
+//		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up", (evt) -> {
+//			sideTutModel.getOsprey().setFlyState(FlyState.UP);
+//		}, false);
+//		
+//		addKeyBinding(sideTutView, KeyEvent.VK_UP, "go up release", (evt) -> {
+//			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
+//		}, true);
+//		
+//		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down", (evt) -> {
+//			sideTutModel.getOsprey().setFlyState(FlyState.DOWN);
+//		}, false);
+//		
+//		addKeyBinding(sideTutView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
+//			sideTutModel.getOsprey().setFlyState(FlyState.STILL);
+//		}, true);
+//	}
 	
 }

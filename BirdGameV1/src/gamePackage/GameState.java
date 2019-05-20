@@ -3,14 +3,15 @@ package gamePackage;
 public enum GameState {
 	
 	START("start"),
-	SIDESWIPERTUTORIAL("sideswiperTutorial"),
+	TUTORIAL("tutorial"),
+//	SIDESWIPERTUTORIAL("sideswiperTutorial"),
 	SIDESWIPER("sideswiper"),
 	MIGRATION("migration"),
 	WHACKAMOLE("whackamole"),
 	OSPREYWIN("ospreywin"),
 	LOSE("lose"), 
-	WIN("win"),
-	MIGRATIONTUTORIAL("northernHarrier");
+	WIN("win");
+//	MIGRATIONTUTORIAL("northernHarrier");
 	
 	
 	private String name = null;
