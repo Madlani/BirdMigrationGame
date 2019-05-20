@@ -15,8 +15,6 @@ public class SideSwiperModel extends Model {
 	protected int screenHeight = Model.scaledImageHeight;
 	protected int offset = 600;
 	
-	
-	
 	protected final int PLANEBOX_WIDTH = 150;
 	protected final int PLANEBOX_HEIGHT = 150;
 	protected final int FISHBOX_WIDTH = 100;
@@ -47,10 +45,8 @@ public class SideSwiperModel extends Model {
 	protected boolean isFirstFrame = true;
 	protected final int MAP_FRAME_COUNT = 250;
 	protected int tick = 0;
-	
 	protected final int MIGRATION_MAP_SUBIMAGES = 9;
 	protected int picNumMap = 0;
-	
 	
 	protected final int airplaneStartX = 1000;
 	protected final int thunderCloudStartX = 1500;

@@ -311,6 +311,11 @@ public class Controller {
 	}
 	
 	public void updateMigrationModel() {
+		if (migrationModel.getPicNumMap() > 1) {
+			migrationModel.setFirstFrame(false);
+		}
+		
+		migrationView.setPicNumMap(migrationModel.getPicNumMap());
 		mmvPaused = migrationModel.updateLocationAndDirectionForNorthernHarrier();
 		ArrayList<GameObject> list3 = migrationModel.getUpdatableGameObjectsForNorthernHarrier();
 		
@@ -323,6 +328,22 @@ public class Controller {
 			}
 			gameOver();
 		}
+		
+		if (!migrationModel.getFirstFrame() && migrationModel.getPicNumMap() % 13 == 0) {
+			this.state = GameState.WHACKAMOLE;
+			this.cardLayout.show(this.masterPanel, "whackAMole");
+			whackModel.randomizeSequence();
+			whackView.updateSequence(whackModel.getSequence());
+			whackView.setIsWackView(true);
+			whackView.initTimers();
+			migrationModel.getNorthernHarrier().setFlyState(FlyState.STILL);
+			for (int i = 1; i < list3.size(); i++) {
+				migrationModel.resetGameObjectLocation(list3.get(i));
+			}
+			migrationModel.setFirstFrame(true);
+			
+		}
+		
 		migrationView.update(list3);
 	}
 	

@@ -162,10 +162,9 @@ public class SideSwiperView extends View {
 //			g.drawImage(g2, (imgVelX % (scaledImageWidth)), 0, null);
 //			g.drawImage(g2, (imgVelX % (scaledImageWidth)) + scaledImageWidth, 0, null);
 //		} else {
-		g.drawImage(g2, (imgVelX & scaledImageWidth), 0, null);
-		g.drawImage(g1, (imgVelX % (scaledImageWidth * 4)), 0, null);
-		g.drawImage(g2, (imgVelX % (scaledImageWidth * 5) + (scaledImageWidth * 3)), 0, null);
-		
+		g.drawImage(g2, (imgVelX & scaledImageWidth), -5, null);
+		g.drawImage(g1, (imgVelX % (scaledImageWidth * 4)), -5, null);
+		g.drawImage(g2, (imgVelX % (scaledImageWidth * 5) + (scaledImageWidth * 3)), -5, null);
 
 		g.drawImage(bird_imagesBufferedImage[picNum], (int)birdX, (int)birdY, null);
 		

@@ -166,7 +166,7 @@ public class MigrationView extends View {
 //		-----------------------------------------------------------------------------------------------------------------------------
 		
 		// Generates a new map image at a specified interval of time
-		tick = (tick + 1) % MAP_FRAME_COUNT;
+		//tick = (tick + 1) % MAP_FRAME_COUNT;
 		birdTick = (birdTick + 1) % BIRD_IMG_DELAY;
 		owlTick = (owlTick + 1) % OWL_IMG_DELAY;
 		
@@ -219,6 +219,10 @@ public class MigrationView extends View {
 		this.treeY = tree.getY();
 		
 		this.healthCount = bird.getHealthCount();
+	}
+	
+	public void setPicNumMap(int m) {
+		this.picNumMap = m;
 	}
 }
 	

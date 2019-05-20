@@ -40,7 +40,11 @@ public class MigrationModel extends Model {
 	protected GameObject owl;
 	
 	protected GameState state = GameState.MIGRATION;
-	
+	protected int tick = 0;
+	protected final int MINIMAP_SUBIMAGES = 13;
+	protected final int MAP_DELAY = 100;
+	protected int picNumMap = 0;
+	protected boolean isFirstFrame = true;
 	public MigrationModel() {
 		super();
 		this.northernHarrier = new Bird(BirdType.NORTHERNHARRIER, ObjectType.NORTHERNHARRIER);
@@ -75,6 +79,12 @@ public class MigrationModel extends Model {
 	
 	
 	public boolean updateLocationAndDirectionForNorthernHarrier() {
+		tick = (tick+1) % this.MAP_DELAY;
+		if (tick == 0) {
+			picNumMap = (picNumMap + 1) % this.MINIMAP_SUBIMAGES;
+		}
+		
+		
 		switch (this.northernHarrier.getFlyState()) {	
 		case RIGHT:
 			if (this.northernHarrier.getX() < screenWidth - NORTHERNHARRIER_WIDTH) {
@@ -133,6 +143,18 @@ public class MigrationModel extends Model {
 	
 	public Bird getNorthernHarrier() {
 		return this.northernHarrier;
+	}
+	
+	public int getPicNumMap() {
+		return this.picNumMap;
+	}
+	
+	public boolean getFirstFrame() {
+		return this.isFirstFrame;
+	}
+	
+	public void setFirstFrame(boolean b) {
+		this.isFirstFrame = b;
 	}
 }
 
