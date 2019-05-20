@@ -20,6 +20,7 @@ import javax.swing.SwingWorker;
 import javax.swing.AbstractAction;
 
 public class Controller {
+	private boolean wam = true;
 	
 	private SideSwiperModel sideSwiperModel;
 	private SideSwiperView sideSwipeView;
@@ -152,22 +153,16 @@ public class Controller {
 			if (count % 3 == 1) {
 				this.state = GameState.OSPREYWIN;
 				this.cardLayout.show(this.masterPanel, "ospreywin");
-				this.whackView.resetTimers();
-				whackView.resetIndex();
 				count++;
 			}
 			else if (count % 3 == 2) {
 				this.state = GameState.WIN;
 				this.cardLayout.show(this.masterPanel, "win");
-				this.whackView.resetTimers();
-				whackView.resetIndex();
 				count++;
 			}
 			else {
 				this.state = GameState.LOSE;
 				this.cardLayout.show(this.masterPanel, "lose");
-				this.whackView.resetTimers();
-				whackView.resetIndex();
 				count++;
 			}
 //			whackModel.randomizeSequence();
@@ -182,6 +177,7 @@ public class Controller {
 			this.state = GameState.START;
 			this.birdType = BirdType.NORTHERNHARRIER;
 			this.cardLayout.show(this.masterPanel, "startNorthernHarrier");
+			setBindingsToWhackAMoleNULL();
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
 			
@@ -212,7 +208,7 @@ public class Controller {
 		addKeyBinding(loseView, KeyEvent.VK_SPACE, "next panel from end", (e) -> {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "startOsprey");
-			
+			setBindingsToWhackAMoleNULL();
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
 			whackView.resetIndex();
@@ -223,6 +219,7 @@ public class Controller {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "startOsprey");
 			this.birdType = BirdType.OSPREY;
+			setBindingsToWhackAMoleNULL();
 			whackView.resetTimers();
 			whackModel.setKeyState(0);
 		}, false);
@@ -230,7 +227,7 @@ public class Controller {
 //		setBindingsToSideSwiperTutorial();
 		setBindingsToSideSwiper();
 		setBindingsToMigration();
-		setBindingsToWhackAMole();
+		//setBindingsToWhackAMole();
 	}
 
 	/**
@@ -352,6 +349,7 @@ public class Controller {
 		whackWillWin = false;
 		if (whackUserSequence.size() == whackView.getEXPECTED_PATTERN_SIZE()) {
 			System.out.println("user pattern reached 4");
+			this.wam = true;
 			for (int i = 0; i < whackView.getEXPECTED_PATTERN_SIZE(); i++) {
 				if (whackModel.getSequence().get(i) == whackUserSequence.get(i)) {
 					whackWillWin = true;
@@ -369,8 +367,6 @@ public class Controller {
 					this.state = GameState.OSPREYWIN;
 					this.cardLayout.show(this.masterPanel, "ospreywin");
 					this.whackSwitch++;
-					sideSwiperModel.init();
-					migrationModel.init();
 				}
 				else {
 					this.state = GameState.WIN;
@@ -418,6 +414,11 @@ public class Controller {
     public boolean repeat() {
         
         boolean shouldRepeat = false;;
+        if (this.state == GameState.WHACKAMOLE && whackView.getDrawed() && this.wam) {
+			System.out.println("ASLKD;FL;ASKJD;FLKJAS;LDKJFAL;SKJDF;LAKSJD;FLKJAS;DLKJFA;LSKDF;ALSKJDF;LKJASD;LKFJA;SLDKJF;ASDJ");
+			setBindingsToWhackAMole();
+			this.wam = false;
+		}
         
         switch(birdType) {
             case OSPREY:
@@ -480,6 +481,10 @@ public class Controller {
 				case WHACKAMOLE:
 //					whackModel.randomizeSequence();
 //					whackView.updateSequence(whackModel.getSequence());
+//					if (whackView.getDrawed() && this.wam) {
+//						System.out.println("ASLKD;FL;ASKJD;FLKJAS;LDKJFAL;SKJDF;LAKSJD;FLKJAS;DLKJFA;LSKDF;ALSKJDF;LKJASD;LKFJA;SLDKJF;ASDJ");
+//						setBindingsToWhackAMole();
+//					}
 					updateWhackKeyState();
 					winner();
 					break;
@@ -613,6 +618,65 @@ public class Controller {
 			
 			System.out.println("User Sequence size: ");
 			System.out.println(whackUserSequence.size());
+		}, false);
+	}
+	
+	public void setBindingsToWhackAMoleNULL() {
+		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
+//			whackModel.setKeyState(3);
+//			whackUserSequence.add(4);
+//			
+//			Iterator i = whackUserSequence.iterator();
+//			while (i.hasNext()) {
+//				System.out.print("User Sequence: ");
+//				System.out.println(i.next());
+//			}
+//			
+//			System.out.println("User Sequence size: ");
+//			System.out.println(whackUserSequence.size());
+
+		}, false);
+		
+		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
+//			whackModel.setKeyState(4);
+//			whackUserSequence.add(3);
+//			
+//			Iterator i = whackUserSequence.iterator();
+//			while (i.hasNext()) {
+//				System.out.print("User Sequence: ");
+//				System.out.println(i.next());
+//			}
+//			
+//			System.out.println("User Sequence size: ");
+//			System.out.println(whackUserSequence.size());
+		}, false);
+		
+		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
+//			whackModel.setKeyState(1);
+//			whackUserSequence.add(1);
+//			
+//			Iterator i = whackUserSequence.iterator();
+//			while (i.hasNext()) {
+//				System.out.print("User Sequence: ");
+//				System.out.println(i.next());
+//			}
+//			
+//			System.out.println("User Sequence size: ");
+//			System.out.println(whackUserSequence.size());
+		}, false);
+		
+		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
+//			whackModel.setKeyState(2);
+//			whackUserSequence.add(2);
+//
+//			Iterator i = whackUserSequence.iterator();
+//			while (i.hasNext()) {
+//				System.out.print("User Sequence: ");
+//				System.out.println(i.next());
+//			}
+//			
+//			System.out.println("User Sequence size: ");
+//			System.out.println(whackUserSequence.size());
 		}, false);
 	}
 	

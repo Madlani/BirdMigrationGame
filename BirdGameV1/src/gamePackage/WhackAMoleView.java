@@ -61,7 +61,7 @@ public class WhackAMoleView extends View {
 	private Image noArrowFlash;
 	
 	private int tick = 0;
-	
+	private boolean drawed = false;
 	
 	//flags for key presses and keyStates
 	private int keyState = 0;
@@ -232,7 +232,8 @@ public class WhackAMoleView extends View {
 	
 		int randomNum = sequence.get(this.index);
 		System.out.println("randomNum for highlighting " + randomNum);
-		
+		System.out.println(this.drawed);
+		System.out.println(this.index);
 //		whackModel.gamePattern.add(randomNum);
 //		System.out.println(whackModel.gamePattern);
 		
@@ -279,8 +280,11 @@ public class WhackAMoleView extends View {
 		}
 		
 		
-		if (this.index < 3)
+		if (this.index < 3) { 
 			index++;
+		} else {
+			this.drawed = true;
+		}
 		
 
 	}
@@ -426,6 +430,7 @@ public class WhackAMoleView extends View {
 	
 	public void resetIndex() {
 		this.index = 0;
+		this.drawed = false;
 	}
 	
 	public void resetTimers() {
@@ -436,6 +441,9 @@ public class WhackAMoleView extends View {
 	public int getEXPECTED_PATTERN_SIZE() {
 		return EXPECTED_PATTERN_SIZE;
 	}
-
+	
+	public boolean getDrawed() {
+		return this.drawed;
+	}
 }
 

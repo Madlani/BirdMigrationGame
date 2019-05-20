@@ -8,7 +8,6 @@ import java.util.Iterator;
 public class WhackAMoleModel extends Model {
 	private int resourceCount;
 	private String patternOne;
-
 	
 	private int keyState = 0;
 	private ArrayList<Integer> sequence = new ArrayList<Integer>();
@@ -68,6 +67,7 @@ public class WhackAMoleModel extends Model {
 	public ArrayList<Integer> getSequence() {
 		return this.sequence;
 	}
+	
 	
 	
 }
