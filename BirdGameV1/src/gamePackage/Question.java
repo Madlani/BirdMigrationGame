@@ -143,7 +143,7 @@ public class Question {
 		switch(result) {
 		case RIGHT_BUTTON:
 			if(choiceA.equals(birdAnswers[randQuestionNum][CORRECT_ANSWER])){
-				JOptionPane.showMessageDialog(null, "Correct!");
+				JOptionPane.showMessageDialog(null, "Correct!, You Gained 4 Health");
 				isCorrect = true;
 			}
 			else {
@@ -154,7 +154,7 @@ public class Question {
 			break;
 		case LEFT_BUTTON:
 			if(choiceB.equals(birdAnswers[randQuestionNum][CORRECT_ANSWER])) {
-				JOptionPane.showMessageDialog(null, "Correct!");
+				JOptionPane.showMessageDialog(null, "Correct!, You Gained 4 Health");
 				isCorrect = true;
 			}
 			else {

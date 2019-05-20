@@ -152,16 +152,22 @@ public class Controller {
 			if (count % 3 == 1) {
 				this.state = GameState.OSPREYWIN;
 				this.cardLayout.show(this.masterPanel, "ospreywin");
+				this.whackView.resetTimers();
+				whackView.resetIndex();
 				count++;
 			}
 			else if (count % 3 == 2) {
 				this.state = GameState.WIN;
 				this.cardLayout.show(this.masterPanel, "win");
+				this.whackView.resetTimers();
+				whackView.resetIndex();
 				count++;
 			}
 			else {
 				this.state = GameState.LOSE;
 				this.cardLayout.show(this.masterPanel, "lose");
+				this.whackView.resetTimers();
+				whackView.resetIndex();
 				count++;
 			}
 //			whackModel.randomizeSequence();
@@ -363,6 +369,8 @@ public class Controller {
 					this.state = GameState.OSPREYWIN;
 					this.cardLayout.show(this.masterPanel, "ospreywin");
 					this.whackSwitch++;
+					sideSwiperModel.init();
+					migrationModel.init();
 				}
 				else {
 					this.state = GameState.WIN;
@@ -375,9 +383,22 @@ public class Controller {
 //				this.cardLayout.show(this.masterPanel, "ospreywin");
 //				this.state = GameState.OSPREYWIN;
 			}
-			else if (!whackWinner) {
+			if (!whackWinner && this.birdType == BirdType.OSPREY) {
 				System.out.println("Loser!!!");
 				
+				
+				//als;dfl;aksjf;lkajsd;lfkjas;dlkfja;lsdkjf;alksdf;lkajsd;flkjasd;lkja;slkdf;laksjdf;lakjsdf;lkjasd;lfkja;sdokja;lksd
+				this.whackSwitch = 1;
+				this.cardLayout.show(this.masterPanel, "lose");
+				this.state = GameState.LOSE;
+				sideSwiperModel.init();
+				migrationModel.init();
+			} else if (!whackWinner && this.birdType == BirdType.NORTHERNHARRIER) {
+				System.out.println("Loser!!!");
+				
+				
+				//als;dfl;aksjf;lkajsd;lfkjas;dlkfja;lsdkjf;alksdf;lkajsd;flkjasd;lkja;slkdf;laksjdf;lakjsdf;lkjasd;lfkja;sdokja;lksd
+				this.whackSwitch = 1;
 				this.cardLayout.show(this.masterPanel, "lose");
 				this.state = GameState.LOSE;
 				sideSwiperModel.init();
