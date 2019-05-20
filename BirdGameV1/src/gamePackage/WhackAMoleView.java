@@ -54,6 +54,14 @@ public class WhackAMoleView extends View {
 	private Image bottomStick;
 	private Image bottomStickHighlight;
 	
+	private Image upArrowFlash;
+	private Image downArrowFlash;
+	private Image rightArrowFlash;
+	private Image leftArrowFlash;
+	private Image noArrowFlash;
+	
+	private int tick = 0;
+	
 	
 	//flags for key presses and keyStates
 	private int keyState = 0;
@@ -192,6 +200,18 @@ public class WhackAMoleView extends View {
 		bottomStick = bottomS.getImage();
 		ImageIcon bottomSH = new ImageIcon("src/images/bottomStickHighlight.png");
 		bottomStickHighlight = bottomSH.getImage();
+		
+		// Arrow Images for Tutorial
+		ImageIcon upArrow = new ImageIcon("src/images/upArrowFlash.png");
+		upArrowFlash = upArrow.getImage();
+		ImageIcon downArrow = new ImageIcon("src/images/downArrowFlash.png");
+		downArrowFlash = downArrow.getImage();
+		ImageIcon leftArrow = new ImageIcon("src/images/leftArrowFlash.png");
+		leftArrowFlash = leftArrow.getImage();
+		ImageIcon rightArrow = new ImageIcon("src/images/rightArrowFlash.png");
+		rightArrowFlash = rightArrow.getImage();
+		ImageIcon noArrow = new ImageIcon("src/images/noArrowFlash.png");
+		noArrowFlash = noArrow.getImage();
 	}
 	
 	/**
@@ -304,7 +324,6 @@ public class WhackAMoleView extends View {
 	@Override
 	public void paintComponent(Graphics g) {
 		if (isWhackView) {
-		
 			super.paintComponent(g);
 			g.setColor(OPAQUE_GREEN);
 			
@@ -320,9 +339,19 @@ public class WhackAMoleView extends View {
 				//right
 			g.drawImage(rightStick, scaledImageWidth - RIGHT_IMG_WIDTH, (scaledImageHeight/2) - (RIGHT_IMG_HEIGHT/2), null);
 			
+			tick = (tick + 1) % 8;
 			
-			
-			
+			if (!(keyState == 1 || keyState == 2 || keyState == 3 || keyState == 4)) {
+				if(tick < 2) {
+					g.drawImage(upArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+				} else if(tick < 4) {
+					g.drawImage(rightArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+				} else if(tick < 6) {
+					g.drawImage(downArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+				} else if(tick < 8) {
+					g.drawImage(leftArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+				}
+			}
 			//Draws the bird image looking in the correct direction based on key presses
 			switch (keyState) {
 				case 1:
@@ -351,7 +380,6 @@ public class WhackAMoleView extends View {
 			//view game pattern
 			g.drawImage(highlightStickBuffer, BORDER, BORDER, this);
 			g.drawImage(normalStickBuffer, BORDER, BORDER, this);
-		
 		}
 
 	}
