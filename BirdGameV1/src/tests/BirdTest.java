@@ -2,44 +2,102 @@ package tests;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import org.junit.jupiter.api.Test;
 
 import gamePackage.Bird;
+import gamePackage.BirdType;
+import gamePackage.FlyState;
+import gamePackage.HitBox;
 
 class BirdTest {
 
-Bird testBird = new Bird();
+Bird testOsprey = new Bird(BirdType.OSPREY, null);
+Bird testNorthernHarrier = new Bird(BirdType.NORTHERNHARRIER, null);
 	
+	//Testing movement
+
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveLeft() {
-		testBird.setLocation(5, 5);
-		testBird.moveLeft();
-		assertEquals(4, testBird.getX());
+		testOsprey.setLocation(5, 5);
+		testOsprey.moveLeft();
+		
+		assertEquals(-5, testOsprey.getX());
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveRight() {
-		testBird.setLocation(8, 8);
-		testBird.moveRight();
-		assertEquals(9, testBird.getX());
+		testOsprey.setLocation(8, 8);
+		testOsprey.moveRight();
+		
+		assertEquals(18, testOsprey.getX());
+
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveUp() {
-		testBird.setLocation(5, 5);
-		testBird.moveUp();
-		assertEquals(4, testBird.getY());
+		testOsprey.setLocation(5, 5);
+		testOsprey.moveUp();
+		
+		assertEquals(-5, testOsprey.getY());
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveDown() {
-		testBird.setLocation(5, 5);
-		testBird.moveDown();
-		assertEquals(6, testBird.getY());
+		testOsprey.setLocation(5, 5);
+		testOsprey.moveDown();
+		
+		assertEquals(15, testOsprey.getY());
+	}
+	
+	//Testing health
+	@Test
+	public void testDecreaseHealthCount() {
+		testOsprey.decreaseHealthCount();
+		assertEquals(4, testOsprey.getHealthCount());
+	}
+	
+	@Test
+	public void testIncreaseHealthCount() {
+		testOsprey.increaseHealthCount();
+		assertEquals(6, testOsprey.getHealthCount());
+		
+		testOsprey.increaseHealthCount(5);
+		assertEquals(9, testOsprey.getHealthCount()); //Can only go up to 9 as defined in increaseHealthCount(int increase)
+		
+		testOsprey.setHealthCount(1);
+		testOsprey.increaseHealthCount(6);
+		assertEquals(7, testOsprey.getHealthCount());
+		
 	}
 
+	//Testing getters and setters
+	@Test
+	public void testGetBird() {
+		assertEquals(this.testOsprey, this.testOsprey.getBird());
+		assertEquals(this.testNorthernHarrier, this.testNorthernHarrier.getBird());
+	}
+	
+	@Test
+	public void testGetFlyState() {
+		this.testOsprey.setFlyState(FlyState.DOWN);
+		assertEquals(FlyState.DOWN, this.testOsprey.getFlyState());
+		
+		this.testNorthernHarrier.setFlyState(FlyState.UP);
+		assertEquals(FlyState.UP, this.testNorthernHarrier.getFlyState());
+	}
+	
+	@Test
+	public void testGetBirdBox() {
+		HitBox b = new HitBox(5, 5, 5, 5);
+		this.testOsprey.setBirdBox(b.x, b.y, b.width, b.height);
+		assertEquals(b, this.testOsprey.getBirdBox());
+		//assertEquals(this.testNorthernHarrier, this.testNorthernHarrier.getBird());
+	}
+	
 }

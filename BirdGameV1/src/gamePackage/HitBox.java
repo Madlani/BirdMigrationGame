@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 @SuppressWarnings("serial")
 public class HitBox extends Rectangle {
 
-	HitBox(int x, int y, int width, int height) {
+	public HitBox(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
 

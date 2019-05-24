@@ -163,7 +163,7 @@ public class Controller {
 			else {
 				this.state = GameState.LOSE;
 				this.cardLayout.show(this.masterPanel, "lose");
-				count++;
+				count++; //Just a test
 			}
 //			whackModel.randomizeSequence();
 //			whackView.updateSequence(whackModel.getSequence());
