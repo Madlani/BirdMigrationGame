@@ -106,7 +106,20 @@ public class GameObject extends Point2D {
 		return type;
 	}
 	
+	/**
+	 * setSpeed()
+	 * Sets the speed of the GameObject to specified number
+	 * @param s, the new speed of the GameObject
+	 */
 	public void setSpeed(int s) {
 		this.SPEED = s;
+	}
+	
+	/**
+	 * getSpeed()
+	 * @return the speed of the GameObject.
+	 */
+	public int getSpeed() {
+		return this.SPEED;
 	}
 }
