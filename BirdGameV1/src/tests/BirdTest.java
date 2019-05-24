@@ -2,7 +2,6 @@ package tests;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +17,6 @@ Bird testNorthernHarrier = new Bird(BirdType.NORTHERNHARRIER, null);
 	
 	//Testing movement
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveLeft() {
 		testOsprey.setLocation(5, 5);
@@ -27,7 +25,6 @@ Bird testNorthernHarrier = new Bird(BirdType.NORTHERNHARRIER, null);
 		assertEquals(-5, testOsprey.getX());
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveRight() {
 		testOsprey.setLocation(8, 8);
@@ -37,7 +34,6 @@ Bird testNorthernHarrier = new Bird(BirdType.NORTHERNHARRIER, null);
 
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveUp() {
 		testOsprey.setLocation(5, 5);
@@ -46,7 +42,6 @@ Bird testNorthernHarrier = new Bird(BirdType.NORTHERNHARRIER, null);
 		assertEquals(-5, testOsprey.getY());
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testMoveDown() {
 		testOsprey.setLocation(5, 5);
@@ -97,7 +92,20 @@ Bird testNorthernHarrier = new Bird(BirdType.NORTHERNHARRIER, null);
 		HitBox b = new HitBox(5, 5, 5, 5);
 		this.testOsprey.setBirdBox(b.x, b.y, b.width, b.height);
 		assertEquals(b, this.testOsprey.getBirdBox());
-		//assertEquals(this.testNorthernHarrier, this.testNorthernHarrier.getBird());
+		
+		HitBox c = new HitBox(5, 5, 5, 5);
+		this.testNorthernHarrier.setBirdBox(c.x, c.y, c.width, c.height);
+		assertEquals(c, this.testNorthernHarrier.getBirdBox());
 	}
+	
+	@Test
+	public void testGetStartingXandY() {
+		this.testOsprey.setStartingX(4.0);
+		this.testOsprey.setStartingY(4.0);
+		
+		assertEquals(4.0, this.testOsprey.getStartingX());
+		assertEquals(4.0, this.testOsprey.getStartingY());
+	}
+	
 	
 }
