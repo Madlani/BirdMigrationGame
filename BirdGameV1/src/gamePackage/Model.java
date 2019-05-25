@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 
 public abstract class Model extends Point2D {
 
-	protected static int scaledImageWidth = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-	protected static int scaledImageHeight = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+	public static int scaledImageWidth = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+	public static int scaledImageHeight = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 	
 	private int imgHeight;
 	private int imgWidth;
