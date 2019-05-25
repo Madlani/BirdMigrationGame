@@ -41,6 +41,8 @@ public class SideSwiperModel extends Model {
 	
 	protected int thirdOfTheScreenY = (screenHeight / 3) * 2;
 	
+	
+	
 	protected boolean isOver = false;
 	protected boolean isFirstFrame = true;
 	protected final int MAP_FRAME_COUNT = 250;
@@ -107,15 +109,16 @@ public class SideSwiperModel extends Model {
 		o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
 	}
 	
-	
-	public boolean updateLocationAndDirectionForOsprey() {
-		if (this.state != GameState.TUTORIAL) {
-			tick = (tick+1) % MAP_FRAME_COUNT;
-			if (tick == 0) {
-				picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
-			}
+	public void selectCorrectMiniMap() {
+	if (this.state != GameState.TUTORIAL) {
+		tick = (tick+1) % MAP_FRAME_COUNT;
+		if (tick == 0) {
+			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
 		}
-
+	}
+	}
+	
+	public void moveBirdAccordingToFlyState() {
 		switch (osprey.getFlyState()) {
 		case UP:
 			if (osprey.getY() > 0) {
@@ -134,24 +137,16 @@ public class SideSwiperModel extends Model {
 		if (this.cloudQuestionBlock.getX() <= 0 && this.state == GameState.TUTORIAL) {
 			this.state = GameState.SIDESWIPER;
 		}
+	}
+	
+	public boolean updateLocationAndDirectionForOsprey() {
+		selectCorrectMiniMap();
+		moveBirdAccordingToFlyState();
 
-		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
-		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
 		
-    	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
-    	this.airplane.GameObjectBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
-    	
-    	this.thunderCloud.setLocation(this.thunderCloud.getX(), this.thunderCloud.getY());
-    	this.thunderCloud.GameObjectBox.setLocation((int)this.thunderCloud.getX(), (int)this.thunderCloud.getY());
-    	
-    	this.cloudQuestionBlock.setLocation(this.cloudQuestionBlock.getX(), this.cloudQuestionBlock.getY());
-    	this.cloudQuestionBlock.GameObjectBox.setLocation((int)this.cloudQuestionBlock.getX(), (int)this.cloudQuestionBlock.getY());
-    	
-    	this.fish.setLocation(this.fish.getX(), this.fish.getY());
-    	this.fish.GameObjectBox.setLocation((int)this.fish.getX(), (int)this.fish.getY());
-    	
-    	this.fox.setLocation(this.fox.getX(), this.fox.getY());
-    	this.fox.GameObjectBox.setLocation((int)this.fox.getX(), (int)this.fox.getY());
+
+		
+    	updateHitBoxesToFollowObjects();
     	
     	moveObjects(airplane);
     	moveObjects(fish);
@@ -174,6 +169,27 @@ public class SideSwiperModel extends Model {
 		}
     	
     	return detectCollisions(this.gameObjectsForOsprey, this.osprey, this.state);
+	}
+	
+	
+	public void updateHitBoxesToFollowObjects() {
+		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
+		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());
+		
+    	this.airplane.setLocation(this.airplane.getX(), this.airplane.getY());
+    	this.airplane.GameObjectBox.setLocation((int)this.airplane.getX(), (int)this.airplane.getY());
+    	
+    	this.thunderCloud.setLocation(this.thunderCloud.getX(), this.thunderCloud.getY());
+    	this.thunderCloud.GameObjectBox.setLocation((int)this.thunderCloud.getX(), (int)this.thunderCloud.getY());
+    	
+    	this.cloudQuestionBlock.setLocation(this.cloudQuestionBlock.getX(), this.cloudQuestionBlock.getY());
+    	this.cloudQuestionBlock.GameObjectBox.setLocation((int)this.cloudQuestionBlock.getX(), (int)this.cloudQuestionBlock.getY());
+    	
+    	this.fish.setLocation(this.fish.getX(), this.fish.getY());
+    	this.fish.GameObjectBox.setLocation((int)this.fish.getX(), (int)this.fish.getY());
+    	
+    	this.fox.setLocation(this.fox.getX(), this.fox.getY());
+    	this.fox.GameObjectBox.setLocation((int)this.fox.getX(), (int)this.fox.getY());
 	}
 	
 	
@@ -238,6 +254,18 @@ public class SideSwiperModel extends Model {
 	
 	public GameState getState() {
 		return this.state;
+	}
+	
+	public void setState(GameState state) {
+		this.state = state;
+	}
+	
+	public int getTick() {
+		return this.tick;
+	}
+	
+	public void setTick(int tick) {
+		this.tick = tick;
 	}
 }
 

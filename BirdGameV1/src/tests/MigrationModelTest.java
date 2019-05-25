@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.jws.WebParam.Mode;
+//import javax.jws.WebParam.Mode;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
