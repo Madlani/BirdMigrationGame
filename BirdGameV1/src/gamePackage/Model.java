@@ -28,7 +28,6 @@ public abstract class Model extends Point2D {
 	private boolean isHit = false;
 	
 	public void updateGameObjectLocationAndDirection(GameObject o) {
-		
 	}
 	
 	// resetGameObjectLocation() will update where the GameObjects are on screen
@@ -45,25 +44,9 @@ public abstract class Model extends Point2D {
 			} else {
 				if (o.GameObjectBox.intersects(b.birdBox)) {
 					
-					if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD || o.getType() == ObjectType.FOX || o.getType() == ObjectType.OWL || o.getType() == ObjectType.TREE) && healthChangable == false) {
-						b.decreaseHealthCount();
-						if (isTutorial != GameState.TUTORIAL)
-							resetGameObjectLocation(o);
-						isHit = true;
-					}
-					if ((o.getType() == ObjectType.FISH || o.getType() == ObjectType.MOUSE) && b.getHealthCount() < START_HEALTH_COUNT && healthChangable == false) {
-						b.increaseHealthCount();
-						if (isTutorial != GameState.TUTORIAL)
-							resetGameObjectLocation(o);
-					}
-					if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX || o.getType() == ObjectType.BUSH_QUESTION_BOX) && healthChangable == false) {
-						System.out.println("hit question cloud");
-
-						System.out.println("Game Flag before question is displayed: " + this.getPauseGameFlag());
-						changePauseGameFlag();
-						if (isTutorial != GameState.TUTORIAL)
-							resetGameObjectLocation(o);
-					}
+					hitBadGameObjects(b, o, isTutorial);
+					hitGoodGameObjects(b, o, isTutorial);
+					hitQuestionObject(o, isTutorial);
 
 					healthChangable = true;
 					return false;
@@ -76,6 +59,35 @@ public abstract class Model extends Point2D {
 		return false;
 	}
 
+	public void hitBadGameObjects(Bird b, GameObject o, GameState isTutorial) {
+		if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD || o.getType() == ObjectType.FOX
+				|| o.getType() == ObjectType.OWL || o.getType() == ObjectType.TREE) && healthChangable == false) {
+			b.decreaseHealthCount();
+			if (isTutorial != GameState.TUTORIAL)
+				resetGameObjectLocation(o);
+			isHit = true;
+		}
+	}
+	
+	public void hitGoodGameObjects(Bird b, GameObject o, GameState isTutorial) {
+		if ((o.getType() == ObjectType.FISH || o.getType() == ObjectType.MOUSE) && b.getHealthCount() < START_HEALTH_COUNT && healthChangable == false) {
+			b.increaseHealthCount();
+			if (isTutorial != GameState.TUTORIAL)
+				resetGameObjectLocation(o);
+		}
+	}
+	
+	public void hitQuestionObject(GameObject o, GameState isTutorial) {
+		if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX || o.getType() == ObjectType.BUSH_QUESTION_BOX) && healthChangable == false) {
+			System.out.println("hit question cloud");
+
+			System.out.println("Game Flag before question is displayed: " + this.getPauseGameFlag());
+			changePauseGameFlag();
+			if (isTutorial != GameState.TUTORIAL)
+				resetGameObjectLocation(o);
+		}
+	}
+	
 	public int getImgHeight() {
 		return imgHeight;
 	}
