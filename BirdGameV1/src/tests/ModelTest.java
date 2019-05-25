@@ -24,65 +24,106 @@ public class ModelTest {
 	ArrayList<GameObject> gameObjectsForOsprey = new ArrayList<GameObject>(); //Comment out plane, or fish, or question cloud to show coverage for each objecttype
 	
 	@Test
-	public void TestDetectCollisions() {
-		
-		
-		Bird b1 = new Bird(BirdType.OSPREY, null);
-		Bird b2 = new Bird(BirdType.OSPREY, null);
-		Bird b3 = new Bird(BirdType.OSPREY, null);
+	public void TestDetectCollisions1() {
+		Bird b = new Bird(BirdType.OSPREY, null);
+		b.setLocation(0, 0);
+		b.setBirdBox(0, 0, 100, 100);
 		GameObject plane = new GameObject(BirdType.OSPREY, 0, 0, ObjectType.PLANE, 25, 25);
-		GameObject fish = new GameObject(BirdType.OSPREY, 0, 0, ObjectType.FISH, 25, 25);
-		GameObject questionCloud = new GameObject(BirdType.OSPREY, 0, 0, ObjectType.CLOUD_QUESTION_BOX, 25, 25);
-		GameObject mouse = new GameObject(BirdType.NORTHERNHARRIER, 0, 0, ObjectType.MOUSE, 25, 25);
-		GameObject thunderCloud = new GameObject(BirdType.OSPREY, 0, 0, ObjectType.THUNDER_CLOUD, 25, 25);
-		GameObject bush = new GameObject(BirdType.NORTHERNHARRIER, 0, 0, ObjectType.BUSH_QUESTION_BOX, 25, 25);
-		
-		b1.setLocation(0, 0);
-		b2.setLocation(0, 0);
-		b3.setLocation(0, 0);
 		plane.setLocation(0, 0);
-		fish.setLocation(0, 0);
-		questionCloud.setLocation(0, 0);
-		mouse.setLocation(0, 0);
-		thunderCloud.setLocation(0, 0);
-		bush.setLocation(0, 0);
-		
-		b1.setBirdBox(0, 0, 100, 100);
-		b2.setBirdBox(0, 0, 100, 100);
-		b3.setBirdBox(0, 0, 100, 100);
-		
 		
 		ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-		gameObjects.add(b1);
+		gameObjects.add(b);
 		gameObjects.add(plane);
-		
-		ArrayList<GameObject> gameObjects2= new ArrayList<GameObject>();
-		gameObjects2.add(b2);
-		gameObjects2.add(fish);
-		
-		ArrayList<GameObject> gameObjects3 = new ArrayList<GameObject>();
-		gameObjects3.add(b3);
-		gameObjects3.add(questionCloud);
-		
-		ArrayList<GameObject> gameObjects4 = new ArrayList<GameObject>();
-		gameObjects4.add(b1);
-		gameObjects4.add(mouse);
-		
-		ArrayList<GameObject> gameObjects5 = new ArrayList<GameObject>();
-		gameObjects5.add(b1);
-		gameObjects5.add(thunderCloud);
-		
-		ArrayList<GameObject> gameObjects6 = new ArrayList<GameObject>();
-		gameObjects6.add(b1);
-		gameObjects6.add(bush);
-		
-		assertFalse(test.detectCollisions(gameObjects, b1, GameState.SIDESWIPER));
-		assertFalse(test.detectCollisions(gameObjects2, b2, GameState.SIDESWIPER));
-		assertFalse(test.detectCollisions(gameObjects3, b3, GameState.SIDESWIPER));
-		assertFalse(test.detectCollisions(gameObjects4, b1, GameState.SIDESWIPER));
-		assertFalse(test.detectCollisions(gameObjects5, b2, GameState.SIDESWIPER));
-		assertFalse(test.detectCollisions(gameObjects6, b3, GameState.SIDESWIPER));
+
+		assertFalse(test.detectCollisions(gameObjects, b, GameState.SIDESWIPER));
+	}
 	
+	@Test
+	public void TestDetectCollisions2() {
+		Bird b = new Bird(BirdType.OSPREY, null);
+		b.setLocation(0, 0);
+		b.setBirdBox(0, 0, 100, 100);
+		GameObject fish = new GameObject(BirdType.OSPREY, 0, 0, ObjectType.FISH, 25, 25);
+		fish.setLocation(0, 0);
+		
+		ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+		gameObjects.add(b);
+		gameObjects.add(fish);
+		
+		assertFalse(test.detectCollisions(gameObjects, b, GameState.SIDESWIPER));
+	}
+	
+	@Test
+	public void TestDetectCollisions3() {
+		Bird b = new Bird(BirdType.OSPREY, null);
+		b.setLocation(0, 0);
+		b.setBirdBox(0, 0, 100, 100);
+		GameObject questionCloud = new GameObject(BirdType.OSPREY, 0, 0, ObjectType.CLOUD_QUESTION_BOX, 25, 25);
+		questionCloud.setLocation(0, 0);
+		
+		ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+		gameObjects.add(b);
+		gameObjects.add(questionCloud);
+		
+		assertFalse(test.detectCollisions(gameObjects, b, GameState.SIDESWIPER));
+	}
+	
+	@Test
+	public void TestDetectCollisions4() {
+		Bird b = new Bird(BirdType.NORTHERNHARRIER, null);
+		b.setLocation(0, 0);
+		b.setBirdBox(0, 0, 100, 100);
+		GameObject mouse = new GameObject(BirdType.NORTHERNHARRIER, 0, 0, ObjectType.MOUSE, 25, 25);
+		mouse.setLocation(0, 0);
+		
+		ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+		gameObjects.add(b);
+		gameObjects.add(mouse);
+		
+		assertFalse(test.detectCollisions(gameObjects, b, GameState.MIGRATION));
+	}
+	
+
+	@Test
+	public void TestDetectCollisions5() {
+		Bird b = new Bird(BirdType.NORTHERNHARRIER, null);
+		b.setLocation(0, 0);
+		b.setBirdBox(0, 0, 100, 100);
+		GameObject owl = new GameObject(BirdType.NORTHERNHARRIER, 0, 0, ObjectType.OWL, 25, 25);
+		owl.setLocation(0, 0);
+		
+		ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+		gameObjects.add(b);
+		gameObjects.add(owl);
+		
+		assertFalse(test.detectCollisions(gameObjects, b, GameState.MIGRATION));
+	}
+	
+	@Test
+	public void TestDetectCollisions6() {
+		Bird b = new Bird(BirdType.NORTHERNHARRIER, null);
+		b.setLocation(0, 0);
+		b.setBirdBox(0, 0, 100, 100);
+		GameObject bush = new GameObject(BirdType.NORTHERNHARRIER, 0, 0, ObjectType.BUSH_QUESTION_BOX, 25, 25);
+		bush.setLocation(0, 0);
+		
+		ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+		gameObjects.add(b);
+		gameObjects.add(bush);
+		
+		assertFalse(test.detectCollisions(gameObjects, b, GameState.MIGRATION));
+	}
+	
+	@Test
+	public void TestDetectCollisions7() {
+		Bird b = new Bird(BirdType.NORTHERNHARRIER, null);
+		b.setLocation(0, 0);
+		b.setBirdBox(0, 0, 100, 100);
+		
+		ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+		gameObjects.add(b);
+		
+		assertFalse(test.detectCollisions(gameObjects, b, GameState.SIDESWIPER));
 	}
 	
 	//Testing getters and setters
