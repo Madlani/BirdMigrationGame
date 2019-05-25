@@ -36,17 +36,17 @@ public class MigrationModel extends Model {
 	private double northernHarrierStartingX = screenWidth/2;
 	private double northernHarrierStartingY = screenHeight - 250;
 	
-	protected Bird northernHarrier;
-	protected GameObject tree;
-	protected GameObject mouse;
-	protected GameObject bushQuestionBlock;
-	protected GameObject owl;
+	private Bird northernHarrier;
+	private GameObject tree;
+	private GameObject mouse;
+	private GameObject bushQuestionBlock;
+	private GameObject owl;
 	
-	protected GameState state;
-	protected int tick = 0;
-	protected final int MINIMAP_SUBIMAGES = 13;
-	protected final int MAP_DELAY = 100;
-	protected int picNumMap = 0;
+	private GameState state;
+	private int tick = 0;
+	private final int MINIMAP_SUBIMAGES = 13;
+	private final int MAP_DELAY = 100;
+	private int picNumMap = 0;
 	protected boolean isFirstFrame = true;
 	protected int thirdOfTheScreenY = (int) ((screenHeight / 3) * 2);
 	
@@ -96,48 +96,11 @@ public class MigrationModel extends Model {
 	}
 	
 	public boolean updateLocationAndDirectionForNorthernHarrier() {
-		if (this.state != GameState.TUTORIAL) {
-			tick = (tick + 1) % this.MAP_DELAY;
-			if (tick == 0) {
-				picNumMap = (picNumMap + 1) % this.MINIMAP_SUBIMAGES;
-			}
-		}
-		
-		
-		switch (this.northernHarrier.getFlyState()) {	
-		case RIGHT:
-			if (this.northernHarrier.getX() < screenWidth - NORTHERNHARRIER_WIDTH) {
-				this.northernHarrier.moveRight();
-			}
-			break;
-		case LEFT:
-			if (this.northernHarrier.getX() > screenWidth / MAP_X) {
-				this.northernHarrier.moveLeft();
-			}
-			break;
-		default:
-			break;
-		}
-		
-		if (this.bushQuestionBlock.getY() >= screenHeight && this.state == GameState.TUTORIAL) {
-			this.state = GameState.MIGRATION;
-		}
-		
-		this.northernHarrier.setLocation(this.northernHarrier.getX(), this.northernHarrier.getY());
-		this.northernHarrier.birdBox.setLocation((int)this.northernHarrier.getX(), (int)this.northernHarrier.getY());
-		System.out.println("bird in migration model: " + this.northernHarrier.getX() + ", " + this.northernHarrier.getY());
-		
-		this.tree.setLocation(this.tree.getX(), this.tree.getY());
-		this.tree.GameObjectBox.setLocation((int)this.tree.getX(), (int)this.tree.getY());
-		
-		this.mouse.setLocation(this.mouse.getX(), this.mouse.getY());
-		this.mouse.GameObjectBox.setLocation((int)this.mouse.getX(), (int)this.mouse.getY());
-		
-		this.bushQuestionBlock.setLocation(this.bushQuestionBlock.getX(), this.bushQuestionBlock.getY());
-		this.bushQuestionBlock.GameObjectBox.setLocation((int)this.bushQuestionBlock.getX(), (int)this.bushQuestionBlock.getY());
-		
-		this.owl.setLocation(this.owl.getX(), this.owl.getY());
-		this.owl.GameObjectBox.setLocation((int)this.owl.getX(), (int)this.owl.getY());
+		selectCorrectMiniMap();
+		moveBirdAccordingToFlyState();
+		checkEndOfTutorial();
+		updateHitBoxesToFollowObjects();
+
 		
 	   	moveObjects(tree);
     	moveObjects(mouse);
@@ -159,6 +122,73 @@ public class MigrationModel extends Model {
 		return detectCollisions(this.gameObjectsForNortherHarrier, this.northernHarrier, this.state);
 	}
 	
+	/**
+	 * selectCorrectMiniMap()
+	 * Chooses the correct mini map based on the tick
+	 */
+	public void selectCorrectMiniMap() {
+		if (this.state != GameState.TUTORIAL) {
+			tick = (tick + 1) % this.MAP_DELAY;
+			if (tick == 0) {
+				picNumMap = (picNumMap + 1) % this.MINIMAP_SUBIMAGES;
+			}
+		}
+	}
+	
+	/**
+	 * checkEndOfTutorial()
+	 * Checks to see if it is time to transition to the Migration Game
+	 * Once the bush question block gets to a specific y location, the game starts as the migration game.
+	 */
+	public void checkEndOfTutorial() {
+		if (this.bushQuestionBlock.getY() >= screenHeight && this.state == GameState.TUTORIAL) {
+			this.state = GameState.MIGRATION;
+		}
+	}
+	
+	/**
+	 * moveBirdAccordingToFlyState()
+	 * Moves the bird based on the FlyState and constraints on the x-location of the bird to stay within the game area.
+	 */
+	public void moveBirdAccordingToFlyState() {
+		switch (this.northernHarrier.getFlyState()) {	
+		case RIGHT:
+			if (this.northernHarrier.getX() < screenWidth - NORTHERNHARRIER_WIDTH) {
+				this.northernHarrier.moveRight();
+			}
+			break;
+		case LEFT:
+			if (this.northernHarrier.getX() > screenWidth / MAP_X) {
+				this.northernHarrier.moveLeft();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/**
+	 * updateHitBoxesToFollowObjects()
+	 * Moves the HitBox associated with each object to be the current position of the object after it was updated in the Model
+	 */
+	public void updateHitBoxesToFollowObjects() {
+		this.northernHarrier.setLocation(this.northernHarrier.getX(), this.northernHarrier.getY());
+		this.northernHarrier.birdBox.setLocation((int)this.northernHarrier.getX(), (int)this.northernHarrier.getY());
+		System.out.println("bird in migration model: " + this.northernHarrier.getX() + ", " + this.northernHarrier.getY());
+		
+		this.tree.setLocation(this.tree.getX(), this.tree.getY());
+		this.tree.GameObjectBox.setLocation((int)this.tree.getX(), (int)this.tree.getY());
+		
+		this.mouse.setLocation(this.mouse.getX(), this.mouse.getY());
+		this.mouse.GameObjectBox.setLocation((int)this.mouse.getX(), (int)this.mouse.getY());
+		
+		this.bushQuestionBlock.setLocation(this.bushQuestionBlock.getX(), this.bushQuestionBlock.getY());
+		this.bushQuestionBlock.GameObjectBox.setLocation((int)this.bushQuestionBlock.getX(), (int)this.bushQuestionBlock.getY());
+		
+		this.owl.setLocation(this.owl.getX(), this.owl.getY());
+		this.owl.GameObjectBox.setLocation((int)this.owl.getX(), (int)this.owl.getY());
+	}
+	
 	
 	/**
 	 * resetGameObjectLocation()
@@ -171,24 +201,6 @@ public class MigrationModel extends Model {
 
 		int rand = (int) (Math.random() * (maxWidth - 50 + 1) - minHeight) + MINI_MAP_WIDTH;
 		o.setLocation(rand, minHeight);
-//		int rand;
-//		switch(o.getType()) {
-//		case BUSH_QUESTION_BOX:
-//		case TREE:
-//		case OWL:
-//			rand = (int)(Math.random() * (this.thirdOfTheScreenY - 80));
-//			o.setLocation(scaledImageWidth + offset, rand);
-//			break;
-//			
-//		case MOUSE:		
-//		
-//		default:
-//			break;
-//		}
-	}
-	
-	public Bird getNorthernHarrier() {
-		return this.northernHarrier;
 	}
 	
 	public int getPicNumMap() {
@@ -211,5 +223,52 @@ public class MigrationModel extends Model {
 		this.state = state;
 	}
 	
+	public GameObject getTree() {
+		return tree;
+	}
+
+	public void setTree(GameObject tree) {
+		this.tree = tree;
+	}
+
+	public GameObject getMouse() {
+		return mouse;
+	}
+
+	public void setMouse(GameObject mouse) {
+		this.mouse = mouse;
+	}
+
+	public GameObject getBushQuestionBlock() {
+		return bushQuestionBlock;
+	}
+
+	public void setBushQuestionBlock(GameObject bushQuestionBlock) {
+		this.bushQuestionBlock = bushQuestionBlock;
+	}
+
+	public GameObject getOwl() {
+		return owl;
+	}
+
+	public void setOwl(GameObject owl) {
+		this.owl = owl;
+	}
+	
+	public Bird getNorthernHarrier() {
+		return this.northernHarrier;
+	}
+
+	public void setNorthernHarrier(Bird northernHarrier) {
+		this.northernHarrier = northernHarrier;
+	}
+	
+	public int getTick() {
+		return this.tick;
+	}
+	
+	public void setTick(int tick) {
+		this.tick = tick;
+	}
 }
 
