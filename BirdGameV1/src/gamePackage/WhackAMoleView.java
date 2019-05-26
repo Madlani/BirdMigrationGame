@@ -58,7 +58,7 @@ public class WhackAMoleView extends View {
 	private Image downArrowFlash;
 	private Image rightArrowFlash;
 	private Image leftArrowFlash;
-	private Image noArrowFlash;
+	private Image whackTutorial;
 	
 	private int tick = 0;
 	private boolean drawed = false;
@@ -210,8 +210,8 @@ public class WhackAMoleView extends View {
 		leftArrowFlash = leftArrow.getImage();
 		ImageIcon rightArrow = new ImageIcon("src/images/rightArrowFlash.png");
 		rightArrowFlash = rightArrow.getImage();
-		ImageIcon noArrow = new ImageIcon("src/images/noArrowFlash.png");
-		noArrowFlash = noArrow.getImage();
+		ImageIcon whackTutImg = new ImageIcon("src/images/whackTutorial.png");
+		whackTutorial = whackTutImg.getImage();
 	}
 	
 	/**
@@ -355,7 +355,7 @@ public class WhackAMoleView extends View {
 //				} else if(tick < 8) {
 //					g.drawImage(leftArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
 //				}
-				g.drawImage(noArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
+				g.drawImage(whackTutorial, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
 				
 			}
 			//Draws the bird image looking in the correct direction based on key presses
