@@ -55,6 +55,10 @@ public class MigrationModel extends Model {
 		init();
 	}
 	
+	/**
+	 * init()
+	 * Instantiates all of the GameObjects and sets their speeds to be used in the Migration game
+	 */
 	public void init() {
 		this.northernHarrier = new Bird(BirdType.NORTHERNHARRIER, ObjectType.NORTHERNHARRIER);
     	this.tree = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, treeStartY, ObjectType.TREE, TREE_WIDTH, TREE_HEIGHT);
@@ -87,14 +91,27 @@ public class MigrationModel extends Model {
 		if (o.getY() >= screenHeight) {
 			resetGameObjectLocation(o);
 		} else {
-			o.setLocation(o.getX(), o.getY() + o.getGameObjectSpeed());
+			moveObjects(o);
 		}
 	}
 	
+	/**
+	 * moveObjects()
+	 * Automatically moves the GameObjects based on the set object speed. This method is called from 
+	 * updateLocationAndDirectionForNorthernHarrier(). 
+	 * @param o, the GameObject to move
+	 */
 	public void moveObjects(GameObject o) {
 		o.setLocation(o.getX(), o.getY() +  o.getGameObjectSpeed());
 	}
 	
+	/**
+	 * updateLocationAndDirectionForNorthernHarrier()
+	 * Displays the correct mini map for the bird's current position in the game
+	 * Moves the northern harrier according to user's keyboard input
+	 * Moves hitboxes to match the locations of all GameObjects and the northern harrier
+	 * @return true if a collision occured with the northern harrier, false otherwise
+	 */
 	public boolean updateLocationAndDirectionForNorthernHarrier() {
 		selectCorrectMiniMap();
 		moveBirdAccordingToFlyState();
