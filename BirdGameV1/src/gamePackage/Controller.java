@@ -171,7 +171,7 @@ public class Controller implements Serializable {
 		}, false);
 		
 		//Goes from whack a mole game to win screen if player wins
-		addKeyBinding(whackViewGame, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 	
+		addKeyBinding(whackViewGame, KeyEvent.VK_0, "next panel from wmv", (e) -> { 	
 			if (count % 3 == 1) {
 				this.state = GameState.OSPREYWIN;
 				this.cardLayout.show(this.masterPanel, "ospreywin");
@@ -229,9 +229,9 @@ public class Controller implements Serializable {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "startOsprey");
 			setBindingsToWhackAMoleNULL();
-			whackViewTut.resetTimers();
+			//whackViewTut.resetTimers();
 			whackModel.setKeyState(0);
-			whackViewTut.resetIndex();
+			//whackViewTut.resetIndex();
 			
 			whackViewGame.resetTimers();
 			whackViewGame.resetIndex();
@@ -288,6 +288,7 @@ public class Controller implements Serializable {
 		if (!sideSwiperModel.getIsFirstFrame() && sideSwiperModel.getPicNumMap() % 9 == 0) {
 			this.state = GameState.WHACKAMOLE;
 			this.cardLayout.show(this.masterPanel, "whackAMoleTut");
+			whackViewTut.setShowTutBox(true);
 			whackModel.randomizeSequence();
 			whackViewTut.updateSequence(whackModel.getSequence());
 			whackViewTut.setIsWackView(true);
@@ -331,6 +332,7 @@ public class Controller implements Serializable {
 		if (!migrationModel.getFirstFrame() && migrationModel.getPicNumMap() % 13 == 0) {
 			this.state = GameState.WHACKAMOLE;
 			this.cardLayout.show(this.masterPanel, "whackAMoleTut");
+			whackViewTut.setShowTutBox(true);
 			whackModel.randomizeSequence();
 			whackViewTut.updateSequence(whackModel.getSequence());
 			whackViewTut.setIsWackView(true);
@@ -482,17 +484,14 @@ public class Controller implements Serializable {
 			protected Void doInBackground() throws Exception {
 				switch (state) {
 				case SIDESWIPER:
-					serializeGame(sideSwiperModel, "sideSwiperModel.txt");
 					if (!ssvPaused)
 						updateSideSwiperModel();
 					break;
 				case MIGRATION:
-					serializeGame(migrationModel, "migrationModel.txt");
 					if (!mmvPaused)
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
-					serializeGame(whackModel, "whackModel.txt");
 					updateWhackKeyState();
 					winner();
 					break;
@@ -679,16 +678,6 @@ public class Controller implements Serializable {
 		}, true);
 	}
 	
-	public static void serializeGame(Model m, String currentGame) throws IOException {
-		try {
-			FileOutputStream output = new FileOutputStream(currentGame);
-			ObjectOutputStream outputStream = new ObjectOutputStream(output);
-			outputStream.writeObject(m);
-			outputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public SideSwiperModel getSideSwiperModel() {
 		return sideSwiperModel;
