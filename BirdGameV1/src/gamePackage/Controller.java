@@ -29,7 +29,8 @@ public class Controller implements Serializable {
 	private SideSwiperModel sideSwiperModel;
 	private SideSwiperView sideSwipeView;
 
-	private WhackAMoleView whackView;
+	private WhackAMoleView whackViewTut;
+	private WhackAMoleView whackViewGame;
 	private WhackAMoleModel whackModel;
 	
 	private MigrationModel migrationModel;
@@ -91,8 +92,11 @@ public class Controller implements Serializable {
 		// Code to run SideSwiper Game
 		sideSwipeView = new SideSwiperView();
 		
+		// Code to run Whack a Mole Game Tutorial
+		whackViewTut = new WhackAMoleView();
+		
 		// Code to run Whack a Mole Game
-		whackView = new WhackAMoleView();
+		whackViewGame = new WhackAMoleView();
 		
 		// Code to run Migration Game
 		migrationView = new MigrationView();
@@ -124,7 +128,8 @@ public class Controller implements Serializable {
 		
 		masterPanel.add(startViewOsprey, "startOsprey");
 		masterPanel.add(sideSwipeView, "sideSwiper");	
-		masterPanel.add(whackView, "whackAMole");
+		masterPanel.add(whackViewTut, "whackAMoleTut");
+		masterPanel.add(whackViewGame, "whackViewGame");
 		masterPanel.add(ospreyWinView, "ospreywin");
 		masterPanel.add(startViewNorthernHarrier, "startNorthernHarrier");
 		masterPanel.add(migrationView, "migration");
@@ -143,18 +148,30 @@ public class Controller implements Serializable {
 		}, false);
 		
 		
-		//Goes from side swiper game to whack a mole game
+		//Goes from side swiper game to whack a mole tutorial
 		addKeyBinding(sideSwipeView, KeyEvent.VK_0, "next panel from ssv", (e) -> {
 			this.state = GameState.WHACKAMOLE;
-			this.cardLayout.show(this.masterPanel, "whackAMole");
+			this.cardLayout.show(this.masterPanel, "whackAMoleTut");
 			whackModel.randomizeSequence();
-			whackView.updateSequence(whackModel.getSequence());
-			whackView.setIsWackView(true);
-			whackView.initTimers();
+			whackViewTut.updateSequence(whackModel.getSequence());
+			whackViewTut.setIsWackView(true);
+			whackViewTut.initTimers();
+			whackViewTut.setShowTutBox(true);
+		}, false);
+		
+		//Goes from whackViewTut to whackView game
+		addKeyBinding(whackViewTut, KeyEvent.VK_SPACE, "next panel from ssv", (e) -> {
+			this.state = GameState.WHACKAMOLE;
+			this.cardLayout.show(this.masterPanel, "whackViewGame");
+			whackModel.randomizeSequence();
+			whackViewGame.updateSequence(whackModel.getSequence());
+			whackViewGame.setIsWackView(true);
+			whackViewGame.setShowTutBox(false);
+			whackViewGame.initTimers();
 		}, false);
 		
 		//Goes from whack a mole game to win screen if player wins
-		addKeyBinding(whackView, KeyEvent.VK_0, "next panel from wmv", (e) -> { 
+		addKeyBinding(whackViewGame, KeyEvent.VK_SPACE, "next panel from wmv", (e) -> { 	
 			if (count % 3 == 1) {
 				this.state = GameState.OSPREYWIN;
 				this.cardLayout.show(this.masterPanel, "ospreywin");
@@ -179,10 +196,12 @@ public class Controller implements Serializable {
 			this.birdType = BirdType.NORTHERNHARRIER;
 			this.cardLayout.show(this.masterPanel, "startNorthernHarrier");
 			setBindingsToWhackAMoleNULL();
-			whackView.resetTimers();
+			whackViewTut.resetTimers();
 			whackModel.setKeyState(0);
+			whackViewTut.resetIndex();
 			
-			whackView.resetIndex();
+			whackViewGame.resetTimers();
+			whackViewGame.resetIndex();
 			
 		}, false);
 		
@@ -198,11 +217,11 @@ public class Controller implements Serializable {
 		addKeyBinding(migrationView, KeyEvent.VK_0, "next panel from mmv", (e) -> {
 			
 			this.state = GameState.WHACKAMOLE;
-			this.cardLayout.show(this.masterPanel, "whackAMole");
+			this.cardLayout.show(this.masterPanel, "whackViewGame");
 			whackModel.randomizeSequence();
-			whackView.updateSequence(whackModel.getSequence());
-			whackView.setIsWackView(true);
-			whackView.initTimers();
+			whackViewGame.updateSequence(whackModel.getSequence());
+			whackViewGame.setIsWackView(true);
+			whackViewGame.initTimers();
 			
 		}, false);
 
@@ -210,9 +229,12 @@ public class Controller implements Serializable {
 			this.state = GameState.START;
 			this.cardLayout.show(this.masterPanel, "startOsprey");
 			setBindingsToWhackAMoleNULL();
-			whackView.resetTimers();
+			whackViewTut.resetTimers();
 			whackModel.setKeyState(0);
-			whackView.resetIndex();
+			whackViewTut.resetIndex();
+			
+			whackViewGame.resetTimers();
+			whackViewGame.resetIndex();
 			
 		}, false);
 		
@@ -221,7 +243,8 @@ public class Controller implements Serializable {
 			this.cardLayout.show(this.masterPanel, "startOsprey");
 			this.birdType = BirdType.OSPREY;
 			setBindingsToWhackAMoleNULL();
-			whackView.resetTimers();
+			whackViewTut.resetTimers();
+			whackViewGame.resetTimers();
 			whackModel.setKeyState(0);
 		}, false);
 		
@@ -264,11 +287,11 @@ public class Controller implements Serializable {
 		
 		if (!sideSwiperModel.getIsFirstFrame() && sideSwiperModel.getPicNumMap() % 9 == 0) {
 			this.state = GameState.WHACKAMOLE;
-			this.cardLayout.show(this.masterPanel, "whackAMole");
+			this.cardLayout.show(this.masterPanel, "whackAMoleTut");
 			whackModel.randomizeSequence();
-			whackView.updateSequence(whackModel.getSequence());
-			whackView.setIsWackView(true);
-			whackView.initTimers();
+			whackViewTut.updateSequence(whackModel.getSequence());
+			whackViewTut.setIsWackView(true);
+			whackViewTut.initTimers();
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 			for (int i = 1; i < list2.size(); i++) {
 				sideSwiperModel.resetGameObjectLocation(list2.get(i));
@@ -307,11 +330,11 @@ public class Controller implements Serializable {
 		
 		if (!migrationModel.getFirstFrame() && migrationModel.getPicNumMap() % 13 == 0) {
 			this.state = GameState.WHACKAMOLE;
-			this.cardLayout.show(this.masterPanel, "whackAMole");
+			this.cardLayout.show(this.masterPanel, "whackAMoleTut");
 			whackModel.randomizeSequence();
-			whackView.updateSequence(whackModel.getSequence());
-			whackView.setIsWackView(true);
-			whackView.initTimers();
+			whackViewTut.updateSequence(whackModel.getSequence());
+			whackViewTut.setIsWackView(true);
+			whackViewTut.initTimers();
 			migrationModel.getNorthernHarrier().setFlyState(FlyState.STILL);
 			for (int i = 1; i < list3.size(); i++) {
 				migrationModel.resetGameObjectLocation(list3.get(i));
@@ -345,10 +368,10 @@ public class Controller implements Serializable {
 	public void winner() {
 		whackWillNotWin = false;
 		whackWillWin = false;
-		if (whackUserSequence.size() == whackView.getEXPECTED_PATTERN_SIZE()) {
+		if (whackUserSequence.size() == whackViewGame.getEXPECTED_PATTERN_SIZE()) {
 			System.out.println("user pattern reached 4");
 			this.wam = true;
-			for (int i = 0; i < whackView.getEXPECTED_PATTERN_SIZE(); i++) {
+			for (int i = 0; i < whackViewTut.getEXPECTED_PATTERN_SIZE(); i++) {
 				if (whackModel.getSequence().get(i) == whackUserSequence.get(i)) {
 					whackWillWin = true;
 					System.out.println("correct index");
@@ -402,7 +425,7 @@ public class Controller implements Serializable {
     public boolean repeat() {
         
         boolean shouldRepeat = false;;
-        if (this.state == GameState.WHACKAMOLE && whackView.getDrawed() && this.wam) {
+        if (this.state == GameState.WHACKAMOLE && whackViewTut.getDrawed() && this.wam) {
 			setBindingsToWhackAMole();
 			this.wam = false;
 		}
@@ -492,7 +515,7 @@ public class Controller implements Serializable {
 	}
 	
 	public void updateWhackKeyState() {
-		whackView.setKeyState(whackModel.getKeyState());
+		whackViewGame.setKeyState(whackModel.getKeyState());
 	}
 	
 	@SuppressWarnings("incomplete-switch")
@@ -506,6 +529,8 @@ public class Controller implements Serializable {
 			break;
 		case WHACKAMOLE:
 			SwingUtilities.invokeLater(() ->  this.ospreyWinView.repaint());
+//			SwingUtilities.invokeLater(() ->  this.whackViewGame.repaint());
+//			SwingUtilities.invokeLater(() ->  this.whackViewTut.repaint());
 			break;
 		case START:
 			SwingUtilities.invokeLater(() ->  this.startViewOsprey.repaint());
@@ -538,7 +563,7 @@ public class Controller implements Serializable {
 	}
 	
 	public void setBindingsToWhackAMole() {
-		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
+		addKeyBinding(whackViewGame, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			whackModel.setKeyState(3);
 			whackUserSequence.add(4);
 			
@@ -554,7 +579,7 @@ public class Controller implements Serializable {
 
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
+		addKeyBinding(whackViewGame, KeyEvent.VK_LEFT, "go left", (evt) -> {
 			whackModel.setKeyState(4);
 			whackUserSequence.add(3);
 			
@@ -569,7 +594,7 @@ public class Controller implements Serializable {
 			System.out.println(whackUserSequence.size());
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
+		addKeyBinding(whackViewGame, KeyEvent.VK_UP, "go up", (evt) -> {
 			whackModel.setKeyState(1);
 			whackUserSequence.add(1);
 			
@@ -584,7 +609,7 @@ public class Controller implements Serializable {
 			System.out.println(whackUserSequence.size());
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
+		addKeyBinding(whackViewGame, KeyEvent.VK_DOWN, "go down", (evt) -> {
 			whackModel.setKeyState(2);
 			whackUserSequence.add(2);
 
@@ -601,16 +626,16 @@ public class Controller implements Serializable {
 	}
 	
 	public void setBindingsToWhackAMoleNULL() {
-		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
+		addKeyBinding(whackViewTut, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
+		addKeyBinding(whackViewTut, KeyEvent.VK_LEFT, "go left", (evt) -> {
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
+		addKeyBinding(whackViewTut, KeyEvent.VK_UP, "go up", (evt) -> {
 		}, false);
 		
-		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
+		addKeyBinding(whackViewTut, KeyEvent.VK_DOWN, "go down", (evt) -> {
 		}, false);
 	}
 	

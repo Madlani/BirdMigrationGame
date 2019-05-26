@@ -72,6 +72,9 @@ public class WhackAMoleView extends View implements Serializable {
 	private boolean drawLeft = false;
 	private boolean drawRight = false;
 	
+	//tutorial box flag
+	private boolean showTutBox;
+
 	//Timer and action listener to draw highlighted the game pattern stick pattern
 	private BufferedImage highlightStickBuffer;
 	private Timer highlightStickTimer;
@@ -346,7 +349,7 @@ public class WhackAMoleView extends View implements Serializable {
 			
 			tick = (tick + 1) % 8;
 			
-			if (!(keyState == 1 || keyState == 2 || keyState == 3 || keyState == 4)) {
+			if (!(keyState == 1 || keyState == 2 || keyState == 3 || keyState == 4) && showTutBox) {
 //				if(tick < 2) {
 //					g.drawImage(upArrowFlash, (this.scaledImageWidth / 2) - (this.getWidth() / 8), (this.scaledImageHeight / 2) - (this.getHeight() / 6), null);
 //				} else if(tick < 4) {
@@ -446,5 +449,14 @@ public class WhackAMoleView extends View implements Serializable {
 	public boolean getDrawed() {
 		return this.drawed;
 	}
+	
+	public boolean getShowTutBox() {
+		return showTutBox;
+	}
+
+	public void setShowTutBox(boolean showTutBox) {
+		this.showTutBox = showTutBox;
+	}
+	
 }
 
