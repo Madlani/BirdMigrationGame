@@ -104,6 +104,7 @@ public class SideSwiperView extends View implements Serializable {
 		thunderCloud = super.createImage("src/images/thunderCloud.png");
 		caution = super.createImage("src/images/caution.png");
 		
+		
 		g1 = grassyBackground.getImage().getScaledInstance(scaledImageWidth*3, scaledImageHeight, Image.SCALE_DEFAULT*3);	
 		g2 = background.getImage().getScaledInstance(scaledImageWidth, scaledImageHeight, Image.SCALE_DEFAULT);
 		
@@ -192,7 +193,7 @@ public class SideSwiperView extends View implements Serializable {
 				g.drawImage(this.downKeyFlash, this.scaledImageWidth/2 - 175, this.scaledImageHeight - 250, null);
 			}
 		} else {
-			g.drawImage(migrationMap[picNumMap],MAP_X, MAP_Y, null);
+			g.drawImage(migrationMap[picNumMap], MAP_X, MAP_Y, null);
 		}
 		
 		
