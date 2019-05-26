@@ -101,19 +101,19 @@ public class MigrationView extends View implements Serializable {
 		}
 	
 		this.miniMap = new BufferedImage[MINIMAP_SUBIMAGES];
-		this.miniMap[0] = super.createImage("src/images/delawareMiniMap1.png");
-		this.miniMap[1] = super.createImage("src/images/delawareMiniMap2.png");
-		this.miniMap[2] = super.createImage("src/images/delawareMiniMap3.png");
-		this.miniMap[3] = super.createImage("src/images/delawareMiniMap4.png");
-		this.miniMap[4] = super.createImage("src/images/delawareMiniMap5.png");
-		this.miniMap[5] = super.createImage("src/images/delawareMiniMap7.png");
-		this.miniMap[6] = super.createImage("src/images/delawareMiniMap8.png");
-		this.miniMap[7] = super.createImage("src/images/delawareMiniMap9.png");
-		this.miniMap[8] = super.createImage("src/images/delawareMiniMap10.png");
-		this.miniMap[9] = super.createImage("src/images/delawareMiniMap11.png");
-		this.miniMap[10] = super.createImage("src/images/delawareMiniMap12.png");
-		this.miniMap[11] = super.createImage("src/images/delawareMiniMap13.png");
-		this.miniMap[12] = super.createImage("src/images/delawareMiniMap6.png");
+		this.miniMap[0] = super.createImage("src/images/delaware2.png");
+		this.miniMap[1] = super.createImage("src/images/delaware3.png");
+		this.miniMap[2] = super.createImage("src/images/delaware4.png");
+		this.miniMap[3] = super.createImage("src/images/delaware5.png");
+		this.miniMap[4] = super.createImage("src/images/delaware6.png");
+		this.miniMap[5] = super.createImage("src/images/delaware7.png");
+		this.miniMap[6] = super.createImage("src/images/delaware8.png");
+		this.miniMap[7] = super.createImage("src/images/delaware9.png");
+		this.miniMap[8] = super.createImage("src/images/delaware10.png");
+		this.miniMap[9] = super.createImage("src/images/delaware11.png");
+		this.miniMap[10] = super.createImage("src/images/delaware12.png");
+		this.miniMap[11] = super.createImage("src/images/delaware13.png");
+		this.miniMap[12] = super.createImage("src/images/delaware14.png");
 			
 		bird_imagesBufferedImage = new BufferedImage[birdFrameCount];
 		

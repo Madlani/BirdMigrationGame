@@ -87,15 +87,15 @@ public class SideSwiperView extends View implements Serializable {
 		ImageIcon grassyBackground = new ImageIcon("src/images/fullBackground.png");
         ImageIcon background = new ImageIcon("src/images/grass_2.png");
         migrationMap = new BufferedImage[MIGRATION_MAP_SUBIMAGES];
-        migrationMap[0] = super.createImage("src/images/migrationMiniMap1.png");
-        migrationMap[1] =  super.createImage("src/images/migrationMiniMap2.png");
-        migrationMap[2] =  super.createImage("src/images/migrationMiniMap3.png");
-        migrationMap[3] =  super.createImage("src/images/migrationMiniMap4.png");
-        migrationMap[4] =  super.createImage("src/images/migrationMiniMap5.png");
-        migrationMap[5] =  super.createImage("src/images/migrationMiniMap6.png");
-        migrationMap[6] = super.createImage("src/images/migrationMiniMap7.png");
-        migrationMap[7] =  super.createImage("src/images/migrationMiniMap8.png");
-        migrationMap[8] = super.createImage("src/images/migrationMiniMap9.png");
+        migrationMap[0] = super.createImage("src/images/migrationMap1.png");
+        migrationMap[1] =  super.createImage("src/images/migrationMap2.png");
+        migrationMap[2] =  super.createImage("src/images/migrationMap3.png");
+        migrationMap[3] =  super.createImage("src/images/migrationMap4.png");
+        migrationMap[4] =  super.createImage("src/images/migrationMap5.png");
+        migrationMap[5] =  super.createImage("src/images/migrationMap6.png");
+        migrationMap[6] = super.createImage("src/images/migrationMap7.png");
+        migrationMap[7] =  super.createImage("src/images/migrationMap8.png");
+        migrationMap[8] = super.createImage("src/images/migrationMap9.png");
         
 		airplaneImg = super.createImage("src/images/airplane.png");
 		healthImg = super.createImage("src/images/health.png");
