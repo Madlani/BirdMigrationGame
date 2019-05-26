@@ -4,6 +4,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -402,7 +403,6 @@ public class Controller implements Serializable {
         
         boolean shouldRepeat = false;;
         if (this.state == GameState.WHACKAMOLE && whackView.getDrawed() && this.wam) {
-			System.out.println("ASLKD;FL;ASKJD;FLKJAS;LDKJFAL;SKJDF;LAKSJD;FLKJAS;DLKJFA;LSKDF;ALSKJDF;LKJASD;LKFJA;SLDKJF;ASDJ");
 			setBindingsToWhackAMole();
 			this.wam = false;
 		}
@@ -459,17 +459,17 @@ public class Controller implements Serializable {
 			protected Void doInBackground() throws Exception {
 				switch (state) {
 				case SIDESWIPER:
-					serializeGame(sideSwiperModel);
+					serializeGame(sideSwiperModel, "sideSwiperModel.txt");
 					if (!ssvPaused)
 						updateSideSwiperModel();
 					break;
 				case MIGRATION:
-					serializeGame(migrationModel);
+					serializeGame(migrationModel, "migrationModel.txt");
 					if (!mmvPaused)
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
-					serializeGame(whackModel);
+					serializeGame(whackModel, "whackModel.txt");
 					updateWhackKeyState();
 					winner();
 					break;
@@ -654,11 +654,15 @@ public class Controller implements Serializable {
 		}, true);
 	}
 	
-	public static void serializeGame(Model m) throws IOException {
-		FileOutputStream output = new FileOutputStream("birdGame.txt");
-		ObjectOutputStream outputStream = new ObjectOutputStream(output);
-		outputStream.writeObject(m);
-		outputStream.close();
+	public static void serializeGame(Model m, String currentGame) throws IOException {
+		try {
+			FileOutputStream output = new FileOutputStream(currentGame);
+			ObjectOutputStream outputStream = new ObjectOutputStream(output);
+			outputStream.writeObject(m);
+			outputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public SideSwiperModel getSideSwiperModel() {
