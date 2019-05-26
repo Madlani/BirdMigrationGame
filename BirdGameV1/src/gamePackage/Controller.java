@@ -24,7 +24,7 @@ public class Controller {
 	
 	private SideSwiperModel sideSwiperModel;
 	private SideSwiperView sideSwipeView;
-	
+
 	private WhackAMoleView whackView;
 	private WhackAMoleModel whackModel;
 	
@@ -39,6 +39,8 @@ public class Controller {
 	private WinView winView;
 	
 	private GameState state;
+	
+
 	private BirdType birdType;
 	private JFrame frame;
 	private JPanel masterPanel;
@@ -479,12 +481,6 @@ public class Controller {
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
-//					whackModel.randomizeSequence();
-//					whackView.updateSequence(whackModel.getSequence());
-//					if (whackView.getDrawed() && this.wam) {
-//						System.out.println("ASLKD;FL;ASKJD;FLKJAS;LDKJFAL;SKJDF;LAKSJD;FLKJAS;DLKJFA;LSKDF;ALSKJDF;LKJASD;LKFJA;SLDKJF;ASDJ");
-//						setBindingsToWhackAMole();
-//					}
 					updateWhackKeyState();
 					winner();
 					break;
@@ -718,5 +714,25 @@ public class Controller {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
+	}
+	
+	public SideSwiperModel getSideSwiperModel() {
+		return sideSwiperModel;
+	}
+
+	public SideSwiperView getSideSwipeView() {
+		return sideSwipeView;
+	}
+
+	public MigrationModel getMigrationModel() {
+		return migrationModel;
+	}
+
+	public MigrationView getMigrationView() {
+		return migrationView;
+	}
+	
+	public GameState getState() {
+		return state;
 	}
 }

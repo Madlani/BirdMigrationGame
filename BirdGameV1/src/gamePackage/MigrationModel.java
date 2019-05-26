@@ -207,6 +207,10 @@ public class MigrationModel extends Model {
 		return this.picNumMap;
 	}
 	
+	public void setPicNumMap(int p) {
+		this.picNumMap = p;
+	}
+	
 	public boolean getFirstFrame() {
 		return this.isFirstFrame;
 	}
