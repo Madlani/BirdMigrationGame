@@ -3,12 +3,13 @@ package gamePackage;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class MigrationView extends View {
+public class MigrationView extends View implements Serializable {
 	
 	private int scaledImageWidth = Model.scaledImageWidth;
 	private int scaledImageHeight = Model.scaledImageHeight;

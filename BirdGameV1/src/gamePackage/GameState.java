@@ -1,6 +1,8 @@
 package gamePackage;
 
-public enum GameState {
+import java.io.Serializable;
+
+public enum GameState implements Serializable {
 	
 	START("start"),
 	TUTORIAL("tutorial"),

@@ -1,11 +1,11 @@
 package gamePackage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class WhackAMoleModel extends Model {
+public class WhackAMoleModel extends Model implements Serializable {
 	private int resourceCount;
 	private String patternOne;
 	

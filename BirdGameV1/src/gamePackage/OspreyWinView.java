@@ -2,11 +2,12 @@ package gamePackage;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class OspreyWinView extends View {
+public class OspreyWinView extends View implements Serializable {
 	private Image backgroundImage;
 
 	private final int NO_SPEED = 0;

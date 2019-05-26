@@ -1,8 +1,9 @@
 package gamePackage;
 
 import java.awt.Rectangle;
+import java.io.Serializable;
 
-public class Bird extends GameObject {
+public class Bird extends GameObject implements Serializable {
 	private double xPosition;
 	private double yPosition;
 	

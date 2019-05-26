@@ -5,13 +5,14 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
 
 @SuppressWarnings("serial")
-public class WhackAMoleView extends View {	
+public class WhackAMoleView extends View implements Serializable {	
 	//constants
 	private final int EXPECTED_PATTERN_SIZE = 4;
 	private final int ARROW_IMAGES_WIDTH = 300;

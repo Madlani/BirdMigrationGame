@@ -1,6 +1,8 @@
 package gamePackage;
 
-public enum BirdType {
+import java.io.Serializable;
+
+public enum BirdType implements Serializable {
 	OSPREY("osprey"), NORTHERNHARRIER("northernHarrier");
 
 	private String state = null;

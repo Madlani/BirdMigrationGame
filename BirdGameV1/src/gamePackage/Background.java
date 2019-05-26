@@ -1,6 +1,8 @@
 package gamePackage;
 
-public enum Background {
+import java.io.Serializable;
+
+public enum Background implements Serializable {
 	LAND("land"),
 	BEACH("beach"),
 	OCEAN("ocean");

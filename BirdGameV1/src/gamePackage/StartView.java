@@ -3,13 +3,13 @@ package gamePackage;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class StartView extends View {
+public class StartView extends View implements Serializable {
 	private Image g1;
 	
 	public int imgVelX = 0;

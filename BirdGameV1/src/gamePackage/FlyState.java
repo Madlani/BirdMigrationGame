@@ -1,6 +1,8 @@
 package gamePackage;
 
-public enum FlyState {
+import java.io.Serializable;
+
+public enum FlyState implements Serializable {
 	UP("up"),
 	DOWN("down"),
 	RIGHT("right"),

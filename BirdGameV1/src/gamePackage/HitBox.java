@@ -1,8 +1,9 @@
 package gamePackage;
 import java.awt.Rectangle;
+import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class HitBox extends Rectangle {
+public class HitBox extends Rectangle implements Serializable {
 
 	public HitBox(int x, int y, int width, int height) {
 		super(x, y, width, height);

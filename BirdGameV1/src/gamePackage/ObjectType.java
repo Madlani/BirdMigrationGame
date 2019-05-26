@@ -1,6 +1,8 @@
 package gamePackage;
 
-public enum ObjectType {
+import java.io.Serializable;
+
+public enum ObjectType implements Serializable {
 	//Osprey
 	PLANE("plane"),
 	FISH("fish"),

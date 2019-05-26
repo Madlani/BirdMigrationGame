@@ -1,14 +1,14 @@
 package gamePackage;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class LoseView extends View {
+public class LoseView extends View implements Serializable {
 
 	private Image backgroundImage;
 

@@ -2,12 +2,11 @@ package gamePackage;
 
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 
-
-public abstract class Model extends Point2D {
+public abstract class Model extends Point2D implements Serializable {
 
 	public static int scaledImageWidth = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth());
 	public static int scaledImageHeight = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());

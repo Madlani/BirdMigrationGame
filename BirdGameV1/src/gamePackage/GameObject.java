@@ -1,7 +1,8 @@
 package gamePackage;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public class GameObject extends Point2D {
+public class GameObject extends Point2D implements Serializable {
 	protected HitBox GameObjectBox;
 	private ObjectType type;
 	
@@ -34,7 +35,7 @@ public class GameObject extends Point2D {
 		if (b == BirdType.OSPREY) {
 			this.xPosition = startingCoord;
 			
-			int maxWidth = (int)(Model.scaledImageWidth + this.GameObjectBox.width);
+			int maxWidth = Model.scaledImageWidth + this.GameObjectBox.width;
 			int minWidth = 0;
 			int randY = (int)(Math.random() * (maxWidth - minWidth + 1) + minWidth);
 			

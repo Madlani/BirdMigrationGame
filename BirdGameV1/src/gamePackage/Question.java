@@ -1,10 +1,12 @@
 package gamePackage;
 
+import java.io.Serializable;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Question {
+public class Question implements Serializable {
 	private BirdType birdType;
 	
 	private String[] ospreyQuestions;

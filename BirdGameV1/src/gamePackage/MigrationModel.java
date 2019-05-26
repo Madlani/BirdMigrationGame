@@ -1,8 +1,9 @@
 package gamePackage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MigrationModel extends Model {
+public class MigrationModel extends Model implements Serializable {
 	
 	private final int TUTORIAL_SPEED = 2;
 	private final int NORMAL_SPEED = 3;

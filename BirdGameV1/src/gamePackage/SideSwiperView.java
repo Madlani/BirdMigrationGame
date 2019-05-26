@@ -1,15 +1,15 @@
 package gamePackage;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 
 @SuppressWarnings("serial")
-public class SideSwiperView extends View {
+public class SideSwiperView extends View implements Serializable {
 	
 	protected Image g1;
 	protected Image g2;

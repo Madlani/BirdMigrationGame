@@ -4,22 +4,25 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.AbstractAction;
 
-public class Controller {
+@SuppressWarnings("serial")
+public class Controller implements Serializable {
 	private boolean wam = true;
 	
 	private SideSwiperModel sideSwiperModel;
@@ -40,7 +43,6 @@ public class Controller {
 	
 	private GameState state;
 	
-
 	private BirdType birdType;
 	private JFrame frame;
 	private JPanel masterPanel;
@@ -55,7 +57,7 @@ public class Controller {
 	
 	private int whackSwitch = 1;
 	
-	private boolean whackWinner = false;//change to int to handle if win from osprey or northern harrier
+	private boolean whackWinner = false; //change to int to handle if win from osprey or northern harrier
 	
 	private final int FPS = 15;
 	private int count = 1;
@@ -165,12 +167,8 @@ public class Controller {
 			else {
 				this.state = GameState.LOSE;
 				this.cardLayout.show(this.masterPanel, "lose");
-				count++; //Just a test
+				count++;
 			}
-//			whackModel.randomizeSequence();
-//			whackView.updateSequence(whackModel.getSequence());
-//			whackView.setIsWackView(true);
-//			whackView.initTimers();
 		}, false);
 		
 		//Goes from win screen to migration tutorial
@@ -226,10 +224,8 @@ public class Controller {
 			whackModel.setKeyState(0);
 		}, false);
 		
-//		setBindingsToSideSwiperTutorial();
 		setBindingsToSideSwiper();
 		setBindingsToMigration();
-		//setBindingsToWhackAMole();
 	}
 
 	/**
@@ -246,7 +242,6 @@ public class Controller {
 	}
 	
 	public void updateSideSwiperModel() {
-		//System.out.println(sideSwiperModel.getPicNumMap() % 9);
 		if (sideSwiperModel.getPicNumMap() > 1)
 			sideSwiperModel.setIsFirstFrame(false);
 		
@@ -377,15 +372,10 @@ public class Controller {
 					sideSwiperModel.init();
 					migrationModel.init();
 				}
-				
-//				this.cardLayout.show(this.masterPanel, "ospreywin");
-//				this.state = GameState.OSPREYWIN;
 			}
 			if (!whackWinner && this.birdType == BirdType.OSPREY) {
 				System.out.println("Loser!!!");
 				
-				
-				//als;dfl;aksjf;lkajsd;lfkjas;dlkfja;lsdkjf;alksdf;lkajsd;flkjasd;lkja;slkdf;laksjdf;lakjsdf;lkjasd;lfkja;sdokja;lksd
 				this.whackSwitch = 1;
 				this.cardLayout.show(this.masterPanel, "lose");
 				this.state = GameState.LOSE;
@@ -394,8 +384,6 @@ public class Controller {
 			} else if (!whackWinner && this.birdType == BirdType.NORTHERNHARRIER) {
 				System.out.println("Loser!!!");
 				
-				
-				//als;dfl;aksjf;lkajsd;lfkjas;dlkfja;lsdkjf;alksdf;lkajsd;flkjasd;lkja;slkdf;laksjdf;lakjsdf;lkjasd;lfkja;sdokja;lksd
 				this.whackSwitch = 1;
 				this.cardLayout.show(this.masterPanel, "lose");
 				this.state = GameState.LOSE;
@@ -403,9 +391,6 @@ public class Controller {
 				migrationModel.init();
 			}
 		}
-//		else {
-//			gameOver();
-//		}
 	}
 
     /**
@@ -469,36 +454,35 @@ public class Controller {
 	
 	public void updateMode() {
 		SwingWorker<Void, Void> updateModelWorker = new SwingWorker<Void, Void>() {
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			protected Void doInBackground() throws Exception {
 				switch (state) {
 				case SIDESWIPER:
+					serializeGame(sideSwiperModel);
 					if (!ssvPaused)
 						updateSideSwiperModel();
 					break;
 				case MIGRATION:
+					serializeGame(migrationModel);
 					if (!mmvPaused)
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
+					serializeGame(whackModel);
 					updateWhackKeyState();
 					winner();
 					break;
 				case START:
-					
 					break;
 				case OSPREYWIN:
 					whackUserSequence.clear();
 					break;
 				case LOSE:
 					whackUserSequence.clear();
-					//gameOver();
-//					whackView.resetIndex();
 					break;
 				case WIN:
 					whackUserSequence.clear();
-					//gameOver();
-					
 				}
 				return null;
 			}
@@ -511,15 +495,14 @@ public class Controller {
 		whackView.setKeyState(whackModel.getKeyState());
 	}
 	
+	@SuppressWarnings("incomplete-switch")
 	public void drawView() {
 		switch (state) {
 		case SIDESWIPER:
 			SwingUtilities.invokeLater(() ->  this.sideSwipeView.repaint());
-			
 			break;
 		case MIGRATION:
 			SwingUtilities.invokeLater(() ->  this.migrationView.repaint());
-			
 			break;
 		case WHACKAMOLE:
 			SwingUtilities.invokeLater(() ->  this.ospreyWinView.repaint());
@@ -534,14 +517,11 @@ public class Controller {
 		case LOSE:
 			SwingUtilities.invokeLater(() ->  this.loseView.repaint());
 			break;
-//		case SIDESWIPERTUTORIAL:
-//			SwingUtilities.invokeLater(() -> this.sideTutView.repaint());
 		case WIN:
 			SwingUtilities.invokeLater(() -> this.winView.repaint());
 		}
 	}
 	
-	@SuppressWarnings("serial")
 	public static void addKeyBinding(JComponent comp, int keyCode, String id, ActionListener actionListener, boolean isReleased) {
 		InputMap inputMap = comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		ActionMap actionMap = comp.getActionMap();
@@ -557,12 +537,12 @@ public class Controller {
 		});
 	}
 	
-	//@SuppressWarnings("unchecked")
 	public void setBindingsToWhackAMole() {
 		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			whackModel.setKeyState(3);
 			whackUserSequence.add(4);
 			
+			@SuppressWarnings("rawtypes")
 			Iterator i = whackUserSequence.iterator();
 			while (i.hasNext()) {
 				System.out.print("User Sequence: ");
@@ -578,6 +558,7 @@ public class Controller {
 			whackModel.setKeyState(4);
 			whackUserSequence.add(3);
 			
+			@SuppressWarnings("rawtypes")
 			Iterator i = whackUserSequence.iterator();
 			while (i.hasNext()) {
 				System.out.print("User Sequence: ");
@@ -592,6 +573,7 @@ public class Controller {
 			whackModel.setKeyState(1);
 			whackUserSequence.add(1);
 			
+			@SuppressWarnings("rawtypes")
 			Iterator i = whackUserSequence.iterator();
 			while (i.hasNext()) {
 				System.out.print("User Sequence: ");
@@ -606,6 +588,7 @@ public class Controller {
 			whackModel.setKeyState(2);
 			whackUserSequence.add(2);
 
+			@SuppressWarnings("rawtypes")
 			Iterator i = whackUserSequence.iterator();
 			while (i.hasNext()) {
 				System.out.print("User Sequence: ");
@@ -619,60 +602,15 @@ public class Controller {
 	
 	public void setBindingsToWhackAMoleNULL() {
 		addKeyBinding(whackView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
-//			whackModel.setKeyState(3);
-//			whackUserSequence.add(4);
-//			
-//			Iterator i = whackUserSequence.iterator();
-//			while (i.hasNext()) {
-//				System.out.print("User Sequence: ");
-//				System.out.println(i.next());
-//			}
-//			
-//			System.out.println("User Sequence size: ");
-//			System.out.println(whackUserSequence.size());
-
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_LEFT, "go left", (evt) -> {
-//			whackModel.setKeyState(4);
-//			whackUserSequence.add(3);
-//			
-//			Iterator i = whackUserSequence.iterator();
-//			while (i.hasNext()) {
-//				System.out.print("User Sequence: ");
-//				System.out.println(i.next());
-//			}
-//			
-//			System.out.println("User Sequence size: ");
-//			System.out.println(whackUserSequence.size());
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_UP, "go up", (evt) -> {
-//			whackModel.setKeyState(1);
-//			whackUserSequence.add(1);
-//			
-//			Iterator i = whackUserSequence.iterator();
-//			while (i.hasNext()) {
-//				System.out.print("User Sequence: ");
-//				System.out.println(i.next());
-//			}
-//			
-//			System.out.println("User Sequence size: ");
-//			System.out.println(whackUserSequence.size());
 		}, false);
 		
 		addKeyBinding(whackView, KeyEvent.VK_DOWN, "go down", (evt) -> {
-//			whackModel.setKeyState(2);
-//			whackUserSequence.add(2);
-//
-//			Iterator i = whackUserSequence.iterator();
-//			while (i.hasNext()) {
-//				System.out.print("User Sequence: ");
-//				System.out.println(i.next());
-//			}
-//			
-//			System.out.println("User Sequence size: ");
-//			System.out.println(whackUserSequence.size());
 		}, false);
 	}
 	
@@ -714,6 +652,13 @@ public class Controller {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
+	}
+	
+	public static void serializeGame(Model m) throws IOException {
+		FileOutputStream output = new FileOutputStream("birdGame.txt");
+		ObjectOutputStream outputStream = new ObjectOutputStream(output);
+		outputStream.writeObject(m);
+		outputStream.close();
 	}
 	
 	public SideSwiperModel getSideSwiperModel() {
