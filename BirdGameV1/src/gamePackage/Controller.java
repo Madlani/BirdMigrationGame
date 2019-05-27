@@ -68,7 +68,9 @@ public class Controller implements Serializable {
 	public Controller() {
 		init();
 	}
-	
+	/**
+	 * Initiate the models, views, JFrame, cardLayout, and Keybindings for the game.
+	 */
 	public void init() {
 		this.birdType = BirdType.OSPREY;
 		this.state = GameState.START;
@@ -82,12 +84,18 @@ public class Controller implements Serializable {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Instantiate the models that the game will use.
+	 */
 	private void instantiateModels() {
 		sideSwiperModel = new SideSwiperModel();
 		migrationModel = new MigrationModel();
 		whackModel = new WhackAMoleModel();
 	}
 	
+	/**
+	 * Instantiate the views that the game will use.
+	 */
 	private void instantiateViews() {
 		// Code to run SideSwiper Game
 		sideSwipeView = new SideSwiperView();
@@ -113,6 +121,9 @@ public class Controller implements Serializable {
 		winView = new WinView();
 	}
 	
+	/**
+	 * Instantiate the main JFrame.
+	 */
 	private void createJFrame() {
 		// Creates the frame and selects settings
 		frame = new JFrame();
@@ -121,6 +132,9 @@ public class Controller implements Serializable {
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH); // sets screen to full screen
 	}
 	
+	/**
+	 * Set up the main panel for cardLayout and add add subviews to the deck for cardLayout.
+	 */
 	private void addPanelsToCardLayout() {
 		this.cardLayout = new CardLayout();
 		masterPanel = new JPanel(cardLayout);
@@ -137,6 +151,9 @@ public class Controller implements Serializable {
 		masterPanel.add(winView, "win");
 	}
 	
+	/**
+	 * Set up keyBindings for the starting/Osprey View, sideSwiperView, whackAMole, starting/Migration View, and the Win/Lose View
+	 */
 	private void initializeKeyBindings() {
 		
 		//Goes from startOsprey to side swiper tutorial
@@ -265,6 +282,9 @@ public class Controller implements Serializable {
 		}
 	}
 	
+	/**
+	 * update the sideSwiper logic for the game, if the bird's health gets to 0, gameOver, update the MiniMap
+	 */
 	public void updateSideSwiperModel() {
 		if (sideSwiperModel.getPicNumMap() > 1)
 			sideSwiperModel.setIsFirstFrame(false);
@@ -309,6 +329,9 @@ public class Controller implements Serializable {
 		sideSwipeView.update(list2);
 	}
 	
+	/**
+	 * update the MigrationModel logic for the game, if the bird's health gets to 0, gameOver, update the MiniMap
+	 */
 	public void updateMigrationModel() {
 		if (migrationModel.getPicNumMap() > 1) {
 			migrationModel.setFirstFrame(false);
@@ -348,6 +371,9 @@ public class Controller implements Serializable {
 		migrationView.update(list3);
 	}
 	
+	/**
+	 * Switch cardLayout to show gameOver/Lose view, reset the corresponding model logic and variables.
+	 */
 	public void gameOver() {
 		
 		if (sideSwiperGameOver) {
@@ -367,6 +393,9 @@ public class Controller implements Serializable {
 
 	}
 	
+	/**
+	 * determine the win screen after user wins the whackAMole game.
+	 */
 	public void winner() {
 		whackWillNotWin = false;
 		whackWillWin = false;
@@ -477,6 +506,9 @@ public class Controller implements Serializable {
         }
     }
 	
+    /**
+     * uses swingWorker to split up model updating tasks to be in the background for better performance.
+     */
 	public void updateMode() {
 		SwingWorker<Void, Void> updateModelWorker = new SwingWorker<Void, Void>() {
 			@SuppressWarnings("incomplete-switch")
@@ -513,10 +545,16 @@ public class Controller implements Serializable {
 		updateModelWorker.execute();
 	}
 	
+	/**
+	 * update the whackAMole view's keys state to be the whackModel's keyState.
+	 */
 	public void updateWhackKeyState() {
 		whackViewGame.setKeyState(whackModel.getKeyState());
 	}
 	
+	/**
+	 * repaint the respected game views based on the game state.
+	 */
 	@SuppressWarnings("incomplete-switch")
 	public void drawView() {
 		switch (state) {
@@ -528,8 +566,6 @@ public class Controller implements Serializable {
 			break;
 		case WHACKAMOLE:
 			SwingUtilities.invokeLater(() ->  this.ospreyWinView.repaint());
-//			SwingUtilities.invokeLater(() ->  this.whackViewGame.repaint());
-//			SwingUtilities.invokeLater(() ->  this.whackViewTut.repaint());
 			break;
 		case START:
 			SwingUtilities.invokeLater(() ->  this.startViewOsprey.repaint());
@@ -546,6 +582,14 @@ public class Controller implements Serializable {
 		}
 	}
 	
+	/**
+	 * add keyBindings and actionListeners to specified JComponent
+	 * @param comp
+	 * @param keyCode
+	 * @param id
+	 * @param actionListener
+	 * @param isReleased
+	 */
 	public static void addKeyBinding(JComponent comp, int keyCode, String id, ActionListener actionListener, boolean isReleased) {
 		InputMap inputMap = comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		ActionMap actionMap = comp.getActionMap();
@@ -561,6 +605,9 @@ public class Controller implements Serializable {
 		});
 	}
 	
+	/**
+	 * set keyBindings to whackAMoleView
+	 */
 	public void setBindingsToWhackAMole() {
 		addKeyBinding(whackViewGame, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			whackModel.setKeyState(3);
@@ -624,6 +671,9 @@ public class Controller implements Serializable {
 		}, false);
 	}
 	
+	/**
+	 * set NULL Key Bindings to whackAMole view to reset the keyBindings.
+	 */
 	public void setBindingsToWhackAMoleNULL() {
 		addKeyBinding(whackViewTut, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 		}, false);
@@ -638,6 +688,9 @@ public class Controller implements Serializable {
 		}, false);
 	}
 	
+	/**
+	 * set Key Bindings to Migration View
+	 */
 	public void setBindingsToMigration() {
 		addKeyBinding(migrationView, KeyEvent.VK_RIGHT, "go right", (evt) -> {
 			System.out.println("right pressed");
@@ -660,6 +713,9 @@ public class Controller implements Serializable {
 		}, true);
 	}
 	
+	/**
+	 * set Key Bindings to Side Swiper View.
+	 */
 	public void setBindingsToSideSwiper() {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_UP, "go up", (evt) -> {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.UP);
@@ -678,11 +734,10 @@ public class Controller implements Serializable {
 		}, true);
 	}
 	
-	
 	public SideSwiperModel getSideSwiperModel() {
 		return sideSwiperModel;
 	}
-
+	
 	public SideSwiperView getSideSwipeView() {
 		return sideSwipeView;
 	}
