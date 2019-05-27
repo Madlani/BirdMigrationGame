@@ -522,14 +522,17 @@ public class Controller implements Serializable {
 			protected Void doInBackground() throws Exception {
 				switch (state) {
 				case SIDESWIPER:
+					serializeGame(sideSwiperModel, "sideSwiperModel.txt");
 					if (!ssvPaused)
 						updateSideSwiperModel();
 					break;
 				case MIGRATION:
+					serializeGame(migrationModel, "migrationModel.txt");
 					if (!mmvPaused)
 						updateMigrationModel();
 					break;
 				case WHACKAMOLE:
+					serializeGame(whackModel, "whackModel.txt");
 					updateWhackKeyState();
 					winner();
 					break;
@@ -738,6 +741,25 @@ public class Controller implements Serializable {
 		addKeyBinding(sideSwipeView, KeyEvent.VK_DOWN, "go down release", (evt) -> {
 			sideSwiperModel.getOsprey().setFlyState(FlyState.STILL);
 		}, true);
+	}
+	
+	/**
+	 * serializeGame()
+	 * Automatically serializes the game by writing to text files based on the model that is currently being played.
+	 * Set up such that it creates three text files, one for SideSwiperModel, MigrationModel, and WhackAMoleModel
+	 * @param m, the model to serialize
+	 * @param currentGame, the text for the name of the file to serialize (based on the game model)
+	 * @throws IOException
+	 */
+	public static void serializeGame(Model m, String currentGame) throws IOException {
+		try {
+			FileOutputStream output = new FileOutputStream(currentGame);
+			ObjectOutputStream outputStream = new ObjectOutputStream(output);
+			outputStream.writeObject(m);
+			outputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public SideSwiperModel getSideSwiperModel() {
