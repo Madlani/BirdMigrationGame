@@ -37,6 +37,8 @@ Links for Images in Simon-Says Game:
 - Grassy Background: https://unsplash.com/photos/QSIq9ncQkzY
 - Arrows: https://www.dezov.com/item/inclined-black-arrow-png7f1-41f2-99ec-75f9720f67f6/
 
-Links for Images in End Game Screen:
+Links for Images in Titles or End Screens:
+- Osprey: https://www.allaboutbirds.org/guide/Osprey/media-browser-overview/60320581
+- Northern Harrier: https://www.allaboutbirds.org/guide/Northern_Harrier/media-browser/70774791
 - Log: https://holidaywonders.net/99-excelent-log-clip-art-2019/great-log-clipart-best-clip-art-collection-for-you/
 - Nest: http://www.clipartpanda.com/clipart_images/eggs-in-nest-clip-art-nature-4218709
