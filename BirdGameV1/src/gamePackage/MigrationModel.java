@@ -7,8 +7,11 @@ public class MigrationModel extends Model implements Serializable {
 	
 	private final int TUTORIAL_SPEED = 2;
 	private final int NORMAL_SPEED = 3;
+	private final int MEDIUM_SPEED = 4;
 	private final int FAST_SPEED = 5;
-	protected final int HEALTH_BOUNDARY = 5;
+	protected final int FAST_HEALTH_BOUNDARY = 7;
+	protected final int MEDIUM_HEALTH_BOUNDARY = 5;
+
 
 	
 	private final double screenWidth = Model.scaledImageWidth;
@@ -109,13 +112,17 @@ public class MigrationModel extends Model implements Serializable {
 	 * @param o, the GameObject to move
 	 */
 	public void moveObjects(GameObject o) {
-//		Dynamic difficulty, uncomment to test		
-//		if (this.northernHarrier.getHealthCount()>HEALTH_BOUNDARY) {
-//			o.setSpeed(FAST_SPEED);
-//		}
-//		else {
-//			o.setSpeed(NORMAL_SPEED);
-//		}
+//		Dynamic difficulty, uncomment to test	
+		
+		if (this.northernHarrier.getHealthCount()>FAST_HEALTH_BOUNDARY) {
+			o.setSpeed(FAST_SPEED);
+		}
+		else if (this.northernHarrier.getHealthCount()>MEDIUM_HEALTH_BOUNDARY){
+			o.setSpeed(MEDIUM_SPEED);
+		}
+		else {
+			o.setSpeed(NORMAL_SPEED);
+		}
 		o.setLocation(o.getX(), o.getY() +  o.getGameObjectSpeed());
 	}
 	

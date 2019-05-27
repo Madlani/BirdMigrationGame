@@ -53,8 +53,11 @@ public class SideSwiperModel extends Model implements Serializable {
 	protected GameState state;
 	protected final int TUTORIAL_SPEED = 3;
 	protected final int NORMAL_SPEED = 7;
-	protected final int QUICK_SPEED = 15;
-	protected final int HEALTH_BOUNDARY = 5;
+	protected final int MEDIUM_SPEED = 10;
+	protected final int FAST_SPEED = 15;
+	protected final int FAST_HEALTH_BOUNDARY = 7;
+	protected final int MEDIUM_HEALTH_BOUNDARY = 5;
+
 	
 	protected final int CLOUD_PORTION_SCREEN = 80;
 	protected final int GRASS_PORTION_SCREEN = 100;
@@ -114,12 +117,15 @@ public class SideSwiperModel extends Model implements Serializable {
 	 */
 	public void moveObjects(GameObject o) {
 //This code enables dynamic dificulty, if we want it
-//		if (this.osprey.getHealthCount() >HEALTH_BOUNDARY) {
-//			o.setSpeed(QUICK_SPEED);
-//		}
-//		else {
-//			o.setSpeed(NORMAL_SPEED);
-//		}
+		if (this.osprey.getHealthCount()>FAST_HEALTH_BOUNDARY) {
+			o.setSpeed(FAST_SPEED);
+		}
+		else if (this.osprey.getHealthCount()>MEDIUM_HEALTH_BOUNDARY){
+			o.setSpeed(MEDIUM_SPEED);
+		}
+		else {
+			o.setSpeed(NORMAL_SPEED);
+		}
 		o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
 	}
 	
