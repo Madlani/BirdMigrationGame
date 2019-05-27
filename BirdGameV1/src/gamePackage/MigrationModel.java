@@ -7,6 +7,10 @@ public class MigrationModel extends Model implements Serializable {
 	
 	private final int TUTORIAL_SPEED = 2;
 	private final int NORMAL_SPEED = 3;
+	private final int FAST_SPEED = 5;
+	protected final int HEALTH_BOUNDARY = 5;
+
+	
 	private final double screenWidth = Model.scaledImageWidth;
 	private final double screenHeight = Model.scaledImageHeight;
 	protected int offset = 600;
@@ -50,7 +54,9 @@ public class MigrationModel extends Model implements Serializable {
 	private int picNumMap = 0;
 	protected boolean isFirstFrame = true;
 	protected int thirdOfTheScreenY = (int) ((screenHeight / 3) * 2);
+	private final int startingCoordDivider = 2;
 	
+	private final int MAXWIDTHOFFSET = 50;
 	public MigrationModel() {
 		super();
 		init();
@@ -62,10 +68,10 @@ public class MigrationModel extends Model implements Serializable {
 	 */
 	public void init() {
 		this.northernHarrier = new Bird(BirdType.NORTHERNHARRIER, ObjectType.NORTHERNHARRIER);
-    	this.tree = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, treeStartY, ObjectType.TREE, TREE_WIDTH, TREE_HEIGHT);
-    	this.mouse = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, mouseStartY, ObjectType.MOUSE, MOUSE_WIDTH, MOUSE_HEIGHT);
-    	this.bushQuestionBlock = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, bushQuestionBlockStartY, ObjectType.BUSH_QUESTION_BOX, BUSH_QUESTION_WIDTH, BUSH_QUESTION_HEIGHT);
-    	this.owl = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / 2, owlStartY, ObjectType.OWL, OWL_WIDTH, OWL_HEIGHT);
+    	this.tree = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / startingCoordDivider, treeStartY, ObjectType.TREE, TREE_WIDTH, TREE_HEIGHT);
+    	this.mouse = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / startingCoordDivider, mouseStartY, ObjectType.MOUSE, MOUSE_WIDTH, MOUSE_HEIGHT);
+    	this.bushQuestionBlock = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / startingCoordDivider, bushQuestionBlockStartY, ObjectType.BUSH_QUESTION_BOX, BUSH_QUESTION_WIDTH, BUSH_QUESTION_HEIGHT);
+    	this.owl = new GameObject(BirdType.NORTHERNHARRIER, this.screenWidth / startingCoordDivider, owlStartY, ObjectType.OWL, OWL_WIDTH, OWL_HEIGHT);
     	
     	this.northernHarrier.setLocation(northernHarrierStartingX, northernHarrierStartingY);
     	this.state = GameState.TUTORIAL;
@@ -103,6 +109,13 @@ public class MigrationModel extends Model implements Serializable {
 	 * @param o, the GameObject to move
 	 */
 	public void moveObjects(GameObject o) {
+//		Dynamic difficulty, uncomment to test		
+//		if (this.northernHarrier.getHealthCount()>HEALTH_BOUNDARY) {
+//			o.setSpeed(FAST_SPEED);
+//		}
+//		else {
+//			o.setSpeed(NORMAL_SPEED);
+//		}
 		o.setLocation(o.getX(), o.getY() +  o.getGameObjectSpeed());
 	}
 	
@@ -126,10 +139,10 @@ public class MigrationModel extends Model implements Serializable {
     	moveObjects(bushQuestionBlock);
 		
 		if (this.state != GameState.TUTORIAL) {
-			this.tree.setSpeed(3);
-			this.mouse.setSpeed(3);
-			this.owl.setSpeed(3);
-			this.bushQuestionBlock.setSpeed(3);
+			this.tree.setSpeed(NORMAL_SPEED);
+			this.mouse.setSpeed(NORMAL_SPEED);
+			this.owl.setSpeed(NORMAL_SPEED);
+			this.bushQuestionBlock.setSpeed(NORMAL_SPEED);
 
 			updateGameObjectLocationAndDirection(tree);
 			updateGameObjectLocationAndDirection(mouse);
@@ -217,7 +230,7 @@ public class MigrationModel extends Model implements Serializable {
 		int maxWidth = (int)screenWidth - o.GameObjectBox.width;
 		int minHeight = -250;
 
-		int rand = (int) (Math.random() * (maxWidth - 50 + 1) - minHeight) + MINI_MAP_WIDTH;
+		int rand = (int) (Math.random() * (maxWidth - MAXWIDTHOFFSET + 1) - minHeight) + MINI_MAP_WIDTH;
 		o.setLocation(rand, minHeight);
 	}
 	

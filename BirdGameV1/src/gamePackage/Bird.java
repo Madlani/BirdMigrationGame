@@ -23,6 +23,9 @@ public class Bird extends GameObject implements Serializable {
 	
 	private final int LOWEST_HEALTH_COUNT = 0;
 	private final int HIGHEST_HEALTH_COUNT = 9;
+	private final int HEALTH_DECREMENT = 1;
+	private final int HEALTH_INCREMENT = 1;
+
 	
 	protected HitBox birdBox;
 	
@@ -93,7 +96,7 @@ public class Bird extends GameObject implements Serializable {
 	 */
 	public void decreaseHealthCount() {
 		if (this.healthCount > LOWEST_HEALTH_COUNT) 
-		this.healthCount = this.healthCount - 1;
+		this.healthCount = this.healthCount - HEALTH_DECREMENT;
 	}
 	
 	/**
@@ -103,7 +106,7 @@ public class Bird extends GameObject implements Serializable {
 	 */
 	public void increaseHealthCount() {
 		if (this.healthCount < HIGHEST_HEALTH_COUNT)
-		this.healthCount = this.healthCount + 1;
+		this.healthCount = this.healthCount + HEALTH_INCREMENT;
 	}
 	
 	/**

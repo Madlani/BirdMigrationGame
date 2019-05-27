@@ -69,6 +69,9 @@ public class MigrationView extends View implements Serializable {
 	protected BufferedImage leftArrowFlash;
 	protected BufferedImage rightArrowFlash;
 	
+	private final int FLASHCOUNTTHRESHHOLD = 15;
+	private final int FLASHCOUNTMOD = 30;
+	
 	private GameState state;
 	
 	public MigrationView() {
@@ -164,8 +167,8 @@ public class MigrationView extends View implements Serializable {
 		//g.drawImage(owlImg, (int)owlX, (int)owlY, null);
 		
 		if (this.state == GameState.TUTORIAL) {
-			this.flashCount= (this.flashCount+1) % 30;
-			if (this.flashCount < 15) {
+			this.flashCount = (this.flashCount+1) % FLASHCOUNTMOD;
+			if (this.flashCount < FLASHCOUNTTHRESHHOLD) {
 				g.drawImage(this.warning, (int)treeX, (int)treeY, null);
 				g.drawImage(this.warning, (int)owlX, (int)owlY, null);
 				g.drawImage(this.checkMark, (int)mouseX, (int)mouseY, null);

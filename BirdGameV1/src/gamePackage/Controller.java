@@ -32,6 +32,7 @@ public class Controller implements Serializable {
 	private WhackAMoleView whackViewTut;
 	private WhackAMoleView whackViewGame;
 	private WhackAMoleModel whackModel;
+	private final int WHACK_A_MOLE_MODSWITCH = 3;
 	
 	private MigrationModel migrationModel;
 	private MigrationView migrationView;
@@ -56,6 +57,11 @@ public class Controller implements Serializable {
 	private boolean migrationGameOver = false;
 	private boolean whackWillWin;
 	private boolean whackWillNotWin;
+	
+	private final int MIGRATIONMAPNUM = 9;
+	private final int DELAWAREMAPNUM = 13;
+
+	private final int STARTING_HEALTH = 3;
 	
 	private int whackSwitch = 1;
 	
@@ -189,12 +195,12 @@ public class Controller implements Serializable {
 		
 		//Goes from whack a mole game to win screen if player wins
 		addKeyBinding(whackViewGame, KeyEvent.VK_0, "next panel from wmv", (e) -> { 	
-			if (count % 3 == 1) {
+			if (count % WHACK_A_MOLE_MODSWITCH == 1) {
 				this.state = GameState.OSPREYWIN;
 				this.cardLayout.show(this.masterPanel, "ospreywin");
 				count++;
 			}
-			else if (count % 3 == 2) {
+			else if (count % WHACK_A_MOLE_MODSWITCH == 2) {
 				this.state = GameState.WIN;
 				this.cardLayout.show(this.masterPanel, "win");
 				count++;
@@ -305,7 +311,7 @@ public class Controller implements Serializable {
 			gameOver();
 		}
 		
-		if (!sideSwiperModel.getIsFirstFrame() && sideSwiperModel.getPicNumMap() % 9 == 0) {
+		if (!sideSwiperModel.getIsFirstFrame() && sideSwiperModel.getPicNumMap() % MIGRATIONMAPNUM == 0) {
 			this.state = GameState.WHACKAMOLE;
 			this.cardLayout.show(this.masterPanel, "whackAMoleTut");
 			whackViewTut.setShowTutBox(true);
@@ -352,7 +358,7 @@ public class Controller implements Serializable {
 			gameOver();
 		}
 		
-		if (!migrationModel.getFirstFrame() && migrationModel.getPicNumMap() % 13 == 0) {
+		if (!migrationModel.getFirstFrame() && migrationModel.getPicNumMap() % DELAWAREMAPNUM == 0) {
 			this.state = GameState.WHACKAMOLE;
 			this.cardLayout.show(this.masterPanel, "whackAMoleTut");
 			whackViewTut.setShowTutBox(true);
@@ -379,14 +385,14 @@ public class Controller implements Serializable {
 		if (sideSwiperGameOver) {
 			sideSwiperModel.init();
 			migrationModel.init();
-			sideSwiperModel.getOsprey().setHealthCount(3);
+			sideSwiperModel.getOsprey().setHealthCount(STARTING_HEALTH);
 			this.cardLayout.show(this.masterPanel, "lose");
 			sideSwiperGameOver = false;
 		}
 		if (migrationGameOver) {
 			sideSwiperModel.init();
 			migrationModel.init();
-			migrationModel.getNorthernHarrier().setHealthCount(3);
+			migrationModel.getNorthernHarrier().setHealthCount(STARTING_HEALTH);
 			this.cardLayout.show(this.masterPanel, "lose");
 			migrationGameOver = false;
 		}

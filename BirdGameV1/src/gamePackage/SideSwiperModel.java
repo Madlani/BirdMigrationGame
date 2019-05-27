@@ -53,6 +53,15 @@ public class SideSwiperModel extends Model implements Serializable {
 	protected GameState state;
 	protected final int TUTORIAL_SPEED = 3;
 	protected final int NORMAL_SPEED = 7;
+	protected final int QUICK_SPEED = 15;
+	protected final int HEALTH_BOUNDARY = 5;
+	
+	protected final int CLOUD_PORTION_SCREEN = 80;
+	protected final int GRASS_PORTION_SCREEN = 100;
+
+	
+	private final int startingCoordDivider = 2;
+
 	
 	public SideSwiperModel() {
 		super();
@@ -64,11 +73,11 @@ public class SideSwiperModel extends Model implements Serializable {
 	public void init() {
 		this.state = GameState.TUTORIAL;
 		this.osprey = new Bird(BirdType.OSPREY, ObjectType.OSPREY);
-    	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, this.screenHeight / 2, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT);
-    	this.fish = new GameObject(BirdType.OSPREY, screenWidth + fishStartX, this.screenHeight / 2, ObjectType.FISH, FISHBOX_WIDTH, FISHBOX_HEIGHT);
-    	this.thunderCloud = new GameObject(BirdType.OSPREY, screenWidth + thunderCloudStartX, this.screenHeight / 2, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT);
-    	this.cloudQuestionBlock = new GameObject(BirdType.OSPREY, screenWidth + questionBlockStartX, this.screenHeight / 2, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT);
-    	this.fox = new GameObject(BirdType.OSPREY, screenWidth + foxStartX, this.screenHeight / 2, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT);
+    	this.airplane = new GameObject(BirdType.OSPREY, screenWidth + airplaneStartX, this.screenHeight / startingCoordDivider, ObjectType.PLANE, PLANEBOX_WIDTH, PLANEBOX_HEIGHT);
+    	this.fish = new GameObject(BirdType.OSPREY, screenWidth + fishStartX, this.screenHeight / startingCoordDivider, ObjectType.FISH, FISHBOX_WIDTH, FISHBOX_HEIGHT);
+    	this.thunderCloud = new GameObject(BirdType.OSPREY, screenWidth + thunderCloudStartX, this.screenHeight / startingCoordDivider, ObjectType.THUNDER_CLOUD, THUNDERCLOUD_WIDTH, THUNDERCLOUD_HEIGHT);
+    	this.cloudQuestionBlock = new GameObject(BirdType.OSPREY, screenWidth + questionBlockStartX, this.screenHeight / startingCoordDivider, ObjectType.CLOUD_QUESTION_BOX, QUESTIONCLOUD_WIDTH, QUESTIONCLOUD_HEIGHT);
+    	this.fox = new GameObject(BirdType.OSPREY, screenWidth + foxStartX, this.screenHeight / startingCoordDivider, ObjectType.FOX, FOX_WIDTH, FOX_HEIGHT);
     	
     	this.osprey.setLocation(ospreyStartingX, ospreyStartingY);
     	
@@ -104,6 +113,13 @@ public class SideSwiperModel extends Model implements Serializable {
 	 * @param o
 	 */
 	public void moveObjects(GameObject o) {
+//This code enables dynamic dificulty, if we want it
+//		if (this.osprey.getHealthCount() >HEALTH_BOUNDARY) {
+//			o.setSpeed(QUICK_SPEED);
+//		}
+//		else {
+//			o.setSpeed(NORMAL_SPEED);
+//		}
 		o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
 	}
 	
@@ -212,13 +228,13 @@ public class SideSwiperModel extends Model implements Serializable {
 		case CLOUD_QUESTION_BOX:
 		case PLANE:
 		case THUNDER_CLOUD:
-			rand = (int)(Math.random() * (this.thirdOfTheScreenY - 80));
+			rand = (int)(Math.random() * (this.thirdOfTheScreenY - CLOUD_PORTION_SCREEN));
 			o.setLocation(scaledImageWidth + offset, rand);
 			break;
 			
 		case FISH:
 		case FOX:
-			rand = (int)(Math.random() * ((this.screenHeight - 100) - this.thirdOfTheScreenY)) + this.thirdOfTheScreenY;
+			rand = (int)(Math.random() * ((this.screenHeight - GRASS_PORTION_SCREEN) - this.thirdOfTheScreenY)) + this.thirdOfTheScreenY;
 			o.setLocation(scaledImageWidth + offset, rand);
 			break;		
 			

@@ -68,6 +68,9 @@ public class SideSwiperView extends View implements Serializable {
 	protected final int MAP_Y = 0;
 	protected boolean finished = false;
 	
+	private final int FLASHCOUNTTHRESHHOLD = 15;
+	private final int FLASHCOUNTMOD = 30;
+	
 	protected BufferedImage warning;
 	protected BufferedImage checkMark;
 	protected BufferedImage downKeyFlash;
@@ -176,8 +179,8 @@ public class SideSwiperView extends View implements Serializable {
 		
 		
 		if (this.state == GameState.TUTORIAL) {
-			this.flashCount= (this.flashCount+1) % 30;
-			if (this.flashCount < 15) {
+			this.flashCount= (this.flashCount+1) % FLASHCOUNTMOD;
+			if (this.flashCount < FLASHCOUNTTHRESHHOLD) {
 				g.drawImage(this.warning, (int)thunderCloudX, (int)thunderCloudY, null);
 				g.drawImage(this.warning, (int)planeX, (int)planeY, null);
 				g.drawImage(this.warning, (int)foxX, (int)foxY, null);
