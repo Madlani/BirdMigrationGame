@@ -6,14 +6,12 @@ public enum GameState implements Serializable {
 	
 	START("start"),
 	TUTORIAL("tutorial"),
-//	SIDESWIPERTUTORIAL("sideswiperTutorial"),
 	SIDESWIPER("sideswiper"),
 	MIGRATION("migration"),
 	WHACKAMOLE("whackamole"),
 	OSPREYWIN("ospreywin"),
 	LOSE("lose"), 
 	WIN("win");
-//	MIGRATIONTUTORIAL("northernHarrier");
 	
 	
 	private String name = null;

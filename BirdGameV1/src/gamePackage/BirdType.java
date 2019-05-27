@@ -3,7 +3,8 @@ package gamePackage;
 import java.io.Serializable;
 
 public enum BirdType implements Serializable {
-	OSPREY("osprey"), NORTHERNHARRIER("northernHarrier");
+	OSPREY("osprey"), 
+	NORTHERNHARRIER("northernHarrier");
 
 	private String state = null;
 

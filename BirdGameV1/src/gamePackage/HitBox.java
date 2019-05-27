@@ -9,10 +9,6 @@ public class HitBox extends Rectangle implements Serializable {
 		super(x, y, width, height);
 	}
 
-//	HitBox(Model m, int width, int height) {
-//		super((int) m.getX(), (int) m.getY(), width, height);
-//	}
-
 	/**
 	 * changeWidth()
 	 * Changes the width of the HitBox.

@@ -17,13 +17,9 @@ public class WhackAMoleView extends View implements Serializable {
 	private final int EXPECTED_PATTERN_SIZE = 4;
 	private final int ARROW_IMAGES_WIDTH = 300;
 	private final int ARROW_IMAGES_HEIGHT = 300;
-//	private final int STICK_IMAGE_WIDTH = 393;
-//	private final int STICK_IMAGE_HEIGHT = 360;
 	
 	private final int TOP_IMG_WIDTH = 456;
-	private final int TOP_IMG_HEIGHT = 104;
 	
-	private final int LEFT_IMG_WIDTH = 325;
 	private final int LEFT_IMG_HEIGHT = 447;
 	
 	private final int RIGHT_IMG_WIDTH = 289;
@@ -40,8 +36,6 @@ public class WhackAMoleView extends View implements Serializable {
 	private Image right;
 	private Image up;
 	private Image down;
-//	private Image stick;
-//	private Image highlightedStick;
 	
 	private Image topStick;
 	private Image topStickHighlight;
@@ -437,6 +431,9 @@ public class WhackAMoleView extends View implements Serializable {
 		this.drawed = false;
 	}
 	
+	/**
+	 * reset the timers of the whack a mole mini game
+	 */
 	public void resetTimers() {
 		this.highlightStickTimer.stop();
 		this.normalTimer.stop();

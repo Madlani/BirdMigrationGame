@@ -29,7 +29,12 @@ public abstract class View extends JPanel implements Serializable {
 	public boolean isTimeForRectangle() {
 		return isTimeForRectangle;
 	}
-
+	
+	/**
+	 * set the time for drawing the red rectangle
+	 * to indicate the bird hit a danger object
+	 * @param isTimeForRectangle
+	 */
 	public void setTimeForRectangle(boolean isTimeForRectangle) {
 		this.isTimeForRectangle = isTimeForRectangle;
 	}
@@ -41,12 +46,21 @@ public abstract class View extends JPanel implements Serializable {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * draw the red hit box rectangle
+	 * @param g
+	 */
 	public void drawRedRectangle(Graphics g) {
 		Color OPAQUE_RED = new Color(.75f, 0f, 0f, .75f);
 		g.setColor(OPAQUE_RED);
 		g.fillRect(BORDER_X, BORDER_Y, Model.scaledImageWidth, Model.scaledImageHeight);
 	}
 	
+	/**
+	 * turn a path of an image to a BufferedImage
+	 * @param name
+	 * @return
+	 */
 	protected BufferedImage createImage(String name) {
 		
 		BufferedImage bufferedImage;

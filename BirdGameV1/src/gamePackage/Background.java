@@ -6,7 +6,6 @@ public enum Background implements Serializable {
 	LAND("land"),
 	BEACH("beach"),
 	OCEAN("ocean");
-
 	
 	private String state = null;
 	

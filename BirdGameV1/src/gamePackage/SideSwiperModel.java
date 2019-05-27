@@ -99,19 +99,29 @@ public class SideSwiperModel extends Model implements Serializable {
 			resetGameObjectLocation(o);
 	}
 	
+	/**
+	 * move the Objects' X coordinate according to their speed
+	 * @param o
+	 */
 	public void moveObjects(GameObject o) {
 		o.setLocation(o.getX() - o.getGameObjectSpeed(), o.getY());
 	}
 	
+	/**
+	 * logic for updating the miniMap
+	 */
 	public void selectCorrectMiniMap() {
-	if (this.state != GameState.TUTORIAL) {
-		tick = (tick+1) % MAP_FRAME_COUNT;
-		if (tick == 0) {
-			picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
-		}
-	}
+		if (this.state != GameState.TUTORIAL) {
+			tick = (tick+1) % MAP_FRAME_COUNT;
+			if (tick == 0) {
+				picNumMap = (picNumMap + 1) % MIGRATION_MAP_SUBIMAGES;
+			}
+		}	
 	}
 	
+	/**
+	 * updating the bird's coordinate according to it's fly state
+	 */
 	public void moveBirdAccordingToFlyState() {
 		switch (osprey.getFlyState()) {
 		case UP:
@@ -133,13 +143,14 @@ public class SideSwiperModel extends Model implements Serializable {
 		}
 	}
 	
+	/**
+	 * update all of the coordinates for GameObjects on screen for the osprey game and 
+	 * detect their collisions
+	 * @return
+	 */
 	public boolean updateLocationAndDirectionForOsprey() {
 		selectCorrectMiniMap();
 		moveBirdAccordingToFlyState();
-
-		
-
-		
     	updateHitBoxesToFollowObjects();
     	
     	moveObjects(airplane);
@@ -165,7 +176,9 @@ public class SideSwiperModel extends Model implements Serializable {
     	return detectCollisions(this.gameObjectsForOsprey, this.osprey, this.state);
 	}
 	
-	
+	/**
+	 * update the GameObjects' hitboxes to follow the objects on screen
+	 */
 	public void updateHitBoxesToFollowObjects() {
 		this.osprey.setLocation(this.osprey.getX(), this.osprey.getY());
 		this.osprey.birdBox.setLocation((int)this.osprey.getX(), (int)this.osprey.getY());

@@ -7,7 +7,6 @@ public class Bird extends GameObject implements Serializable {
 	private double xPosition;
 	private double yPosition;
 	
-	//private int health = 250;
 	private int healthCount = 5;
 	private FlyState flyState = FlyState.STILL;
 	
@@ -68,24 +67,6 @@ public class Bird extends GameObject implements Serializable {
 	public void moveDown() {
 		this.setLocation(this.getX(), this.getY() + BIRD_SPEED);
 	}
-
-//	/**
-//	 * getHealth()
-//	 * @return health, the health of the bird in its current state
-//	 */
-//	public int getHealth() {
-//		return health;
-//	}
-//
-//	/**
-//	 * setHealth()
-//	 * Increases or decreases the health to a specific value based on the game state. This method is called
-//	 * whenever the bird comes in contact with other game objects
-//	 * @param health, the health of the bird in its current state
-//	 */
-//	public void setHealth(int health) {
-//		this.health = health;
-//	}
 	
 	/**
 	 * getHealthCount()

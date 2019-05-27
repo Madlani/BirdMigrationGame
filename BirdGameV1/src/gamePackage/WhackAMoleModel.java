@@ -7,17 +7,12 @@ import java.util.Iterator;
 
 public class WhackAMoleModel extends Model implements Serializable {
 	private int resourceCount;
-	private String patternOne;
 	
 	private int keyState = 0;
 	private ArrayList<Integer> sequence = new ArrayList<Integer>();
-	
-	
 
 	public WhackAMoleModel() {
 		super();
-		//this.randomizeGamePattern(4);
-		//this.win();
 		
 		sequence.add(1);
 		sequence.add(2);
@@ -28,11 +23,12 @@ public class WhackAMoleModel extends Model implements Serializable {
 	}
 
 	public int setRandomPattern() {
-		
 		return 0;
 	}
 	
-	//randomizeObjects() will randomize where objects will appear during the whack a mole mini game
+	/**
+	 * will randomize where objects will appear during the whack a mole mini game
+	 */
 	public void randomizeObjects() {
 		
 	}
@@ -54,6 +50,9 @@ public class WhackAMoleModel extends Model implements Serializable {
 		return this.keyState;
 	}
 	
+	/**
+	 * randomize the sequence of the sticks everytime the whack a mole mini game refresh
+	 */
 	public void randomizeSequence() {
 		Collections.shuffle(sequence);
 		
@@ -67,9 +66,6 @@ public class WhackAMoleModel extends Model implements Serializable {
 	public ArrayList<Integer> getSequence() {
 		return this.sequence;
 	}
-	
-	
-	
 }
 
 

@@ -26,15 +26,28 @@ public abstract class Model extends Point2D implements Serializable {
 	private boolean pauseGameFlag = false;
 	private boolean isHit = false;
 	
+	/**
+	 * will update the Directions of GameObjects on screen
+	 * @param o
+	 */
 	public void updateGameObjectLocationAndDirection(GameObject o) {
 	}
 	
-	// resetGameObjectLocation() will update where the GameObjects are on screen
+	/**
+	 * will update where the GameObjects are on screen
+	 * @param o
+	 */
 	public void resetGameObjectLocation(GameObject o) {
 	}
 
-	// detectCollisions() will contain the logic that determines if the bird model
-	// has collided with objects such as the ground and other GameObjects
+	/**
+	 * will contain the logic that determines if the bird model 
+	 * has collied with objects such as the ground and other GameObjects
+	 * @param objectList
+	 * @param b
+	 * @param isTutorial
+	 * @return
+	 */
 	public boolean detectCollisions(ArrayList<GameObject> objectList, Bird b, GameState isTutorial) {
 		int i = 0;
 		for (GameObject o : objectList) {
@@ -57,7 +70,13 @@ public abstract class Model extends Point2D implements Serializable {
 		setIsHit(false);
 		return false;
 	}
-
+	
+	/**
+	 * decrease the bird's health if it hit either a plane, thunder cloud, fox, owl, or tree
+	 * @param b
+	 * @param o
+	 * @param isTutorial
+	 */
 	public void hitBadGameObjects(Bird b, GameObject o, GameState isTutorial) {
 		if ((o.getType() == ObjectType.PLANE || o.getType() == ObjectType.THUNDER_CLOUD || o.getType() == ObjectType.FOX
 				|| o.getType() == ObjectType.OWL || o.getType() == ObjectType.TREE) && healthChangable == false) {
@@ -68,6 +87,12 @@ public abstract class Model extends Point2D implements Serializable {
 		}
 	}
 	
+	/**
+	 * increase the bird's health if it hit either a fish, or mouse
+	 * @param b
+	 * @param o
+	 * @param isTutorial
+	 */
 	public void hitGoodGameObjects(Bird b, GameObject o, GameState isTutorial) {
 		if ((o.getType() == ObjectType.FISH || o.getType() == ObjectType.MOUSE) && b.getHealthCount() < START_HEALTH_COUNT && healthChangable == false) {
 			b.increaseHealthCount();
@@ -76,6 +101,11 @@ public abstract class Model extends Point2D implements Serializable {
 		}
 	}
 	
+	/**
+	 * determines if the bird hit a question block
+	 * @param o
+	 * @param isTutorial
+	 */
 	public void hitQuestionObject(GameObject o, GameState isTutorial) {
 		if ((o.getType() == ObjectType.CLOUD_QUESTION_BOX || o.getType() == ObjectType.BUSH_QUESTION_BOX) && healthChangable == false) {
 			System.out.println("hit question cloud");
@@ -134,7 +164,6 @@ public abstract class Model extends Point2D implements Serializable {
 		this.xloc = x;
 		this.yloc = y;
 	}
-	
 
 
 	public ArrayList<GameObject> getUpdatableGameObjectsForOsprey() {

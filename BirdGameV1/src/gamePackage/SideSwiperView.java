@@ -137,7 +137,6 @@ public class SideSwiperView extends View implements Serializable {
 	 * This method overrides the View's paintComponent(). It draws all of our images on the screen and sets them
 	 * to be the appropriate starting locations that we have defined using constants.
 	 */
-	
 	int flashCount = 0;
 	@Override
 	public void paintComponent(Graphics g) {		
@@ -159,10 +158,6 @@ public class SideSwiperView extends View implements Serializable {
 			picNumFox = (short) ((picNumFox + 1) % foxFrameCount);
 		}
 
-//		if (this.state == GameState.TUTORIAL) {
-//			g.drawImage(g2, (imgVelX % (scaledImageWidth)), 0, null);
-//			g.drawImage(g2, (imgVelX % (scaledImageWidth)) + scaledImageWidth, 0, null);
-//		} else {
 		g.drawImage(g2, (imgVelX & scaledImageWidth), -5, null);
 		g.drawImage(g1, (imgVelX % (scaledImageWidth * 4)), -5, null);
 		g.drawImage(g2, (imgVelX % (scaledImageWidth * 5) + (scaledImageWidth * 3)), -5, null);
